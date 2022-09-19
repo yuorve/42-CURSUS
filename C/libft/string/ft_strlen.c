@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoropeza <yoropeza@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 10:58:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/19 10:59:58 by yoropeza         ###   ########.fr       */
+/*   Created: 2022/08/15 21:21:08 by yoropeza          #+#    #+#             */
+/*   Updated: 2022/08/19 20:38:49 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ft_isalpha(int c);
-#include ft_isdigit(int c);
+#include <unistd.h>
 
-int	ft_isalnum(int c)
+int	ft_strlen(char *str)
 {
-	return ((ft_isalpha(c) || ft_isdigit(c)) ? 1 : 0);
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
 }

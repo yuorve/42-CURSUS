@@ -1,19 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoropeza <yoropeza@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 10:58:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/19 10:59:58 by yoropeza         ###   ########.fr       */
+/*   Created: 2022/08/21 16:21:09 by yoropeza          #+#    #+#             */
+/*   Updated: 2022/08/24 19:12:38 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ft_isalpha(int c);
-#include ft_isdigit(int c);
-
-int	ft_isalnum(int c)
+unsigned int	ft_strlcpy(char *dest, char *scr, unsigned int size)
 {
-	return ((ft_isalpha(c) || ft_isdigit(c)) ? 1 : 0);
+	unsigned int	len;
+	unsigned int	i;
+
+	len = 0;
+	while (scr[len] != '\0')
+		len++;
+	i = 0;
+	while (scr[i] != '\0' && i < (size - 1))
+	{
+		dest[i] = scr[i];
+		i++;
+	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+		++i;
+	}
+	return (len);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoropeza <yoropeza@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ft_isalpha(int c);
-#include ft_isdigit(int c);
-
-int	ft_isalnum(int c)
+int	ft_isprint(int c)
 {
-	return ((ft_isalpha(c) || ft_isdigit(c)) ? 1 : 0);
+	return ((c >= 32 && c <= 126) ? 1 : 0);
 }
