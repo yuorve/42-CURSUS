@@ -10,18 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include ft_islower(int c);
+#include ft_isupper(int c);
+
 int	ft_isalpha(int c)
 {
-	int	res;
-
-	res = 0;
-	if (c >= 65 && c <= 90)
-	{
-		res = 1;
-	}
-	else if (c >= 97 && c <= 122)
-	{
-		res = 1;
-	}
-	return res;
+	return (ft_isupper(c) || ft_islower(c)) ? 1 : 0;
 }
