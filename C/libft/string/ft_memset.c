@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 18:58:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/21 17:25:44 by yoropeza         ###   ########.fr       */
+/*   Created: 2022/09/21 17:21:01 by yoropeza          #+#    #+#             */
+/*   Updated: 2022/09/21 17:26:13 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_bzero(void *s, size_t n)
+void	*memset(void *b, int c, size_t len)
 {
-	int i;
-	unsigned char *c;
-
-	i = 0;
-	c = (unsigned char *)s;
-	while (n > 0)
+	unsigned char *str;
+	
+	str = (unsigned char*)b;
+	while (len > 0)
 	{
-		c = '0';
-		c++;
-		n--;
+		*str = c;
+		str++;
+		len--;
 	}
+	return (b);
 }
