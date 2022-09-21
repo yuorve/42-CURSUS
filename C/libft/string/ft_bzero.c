@@ -6,21 +6,13 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:58:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/21 17:25:44 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:53:26 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+void	*ft_memset(void *b, int c, size_t len);
+
 void	ft_bzero(void *s, size_t n)
 {
-	int i;
-	unsigned char *c;
-
-	i = 0;
-	c = (unsigned char *)s;
-	while (n > 0)
-	{
-		c = '0';
-		c++;
-		n--;
-	}
+	ft_memset(s, '0', n);
 }
