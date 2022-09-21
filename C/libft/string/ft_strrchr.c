@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoropeza <yoropeza@student.42malaga.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 10:17:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/21 10:50:58 by yoropeza         ###   ########.fr       */
+/*   Created: 2022/09/21 11:21:08 by yoropeza          #+#    #+#             */
+/*   Updated: 2022/09/21 12:38:49 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ft_islower(int c);
-
-int	ft_tolower(int c)
+char *strrchr(const char *s, int c)
 {
-	return (ft_islower(c) ? c + 32 : c);
+	int i;
+	int res;
+	
+	i = 0;
+	res = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == c)
+			res = i;
+		s++;
+	}
+	return (s[res]);
 }
