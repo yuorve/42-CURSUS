@@ -6,13 +6,13 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 17:21:01 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/21 17:36:22 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:41:43 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 
-void	*memset(void *b, int c, size_t len)
+void	*ft_memset(void *b, int c, size_t len)
 {
 	unsigned char *str;
 	
