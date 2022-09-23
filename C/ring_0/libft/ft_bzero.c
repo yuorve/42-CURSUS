@@ -6,13 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:58:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/21 17:25:44 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/23 20:07:31 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-
-void	*ft_memset(void *b, int c, size_t len);
+#include <libft.h>
 
 void	ft_bzero(void *s, size_t n)
 {

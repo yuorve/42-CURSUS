@@ -1,38 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/22 20:08:43 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/23 20:02:54 by yoropeza         ###   ########.fr       */
+/*   Created: 2022/09/23 20:12:17 by yoropeza          #+#    #+#             */
+/*   Updated: 2022/09/23 20:13:44 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-size_t	ft_strlcat(char *dest, char *scr, size_t size)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	size_t	i;
-	size_t	j;
-	size_t	len_s;
-	size_t	len_d;
 
-	i = 0;
-	j = 0;
-	while (dest[i])
-		i++;
-	len_d = i;
-	len_s = ft_strlen(scr);
-	if (size == 0 || size <= i)
-		return (len_s + size);
-	while (scr[j] && j < size - len_d - 1)
-	{
-		dest[i] = scr[j];
-		i++;
-		j++;
-	}
-	dest[i] = '\0';
-	return (len_d + len_s);
 }

@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.c      +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:21:09 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/08/24 19:12:38 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/23 20:04:52 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-unsigned int	ft_strlcpy(char *dest, char *scr, unsigned int size)
+#include <libft.h>
+
+size_t	ft_strlcpy(char *dest, char *scr, size_t size)
 {
-	unsigned int	len;
-	unsigned int	i;
+	size_t	len;
+	size_t	i;
 
 	len = 0;
 	while (scr[len] != '\0')
