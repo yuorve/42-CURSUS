@@ -10,9 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ft_islower(int c);
-
 int	ft_tolower(int c)
 {
-	return (ft_islower(c) ? c + 32 : c);
+	if ((c >= 65 && c <= 90))
+	{
+		return (c + 32);
+	}
+	return (c);
 }

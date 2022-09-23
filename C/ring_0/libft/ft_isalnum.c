@@ -10,10 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ft_isalpha(int c);
-#include ft_isdigit(int c);
+int	ft_isalpha(int c);
+int	ft_isdigit(int c);
 
 int	ft_isalnum(int c)
 {
-	return ((ft_isalpha(c) || ft_isdigit(c)) ? 1 : 0);
+	if ((ft_isalpha(c) || ft_isdigit(c)))
+	{
+		return (1);
+	}
+	return (0);
 }

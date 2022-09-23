@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-char *strrchr(const char *s, int c)
+char	*strrchr(const char *s, int c)
 {
-	int i;
-	int res;
-	
+	int	i;
+	int	res;
+
 	i = 0;
 	res = 0;
 	while (s[i] != '\0')

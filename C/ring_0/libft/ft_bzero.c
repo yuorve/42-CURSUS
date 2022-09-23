@@ -10,17 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stddef.h>
+
+void	*ft_memset(void *b, int c, size_t len);
+
 void	ft_bzero(void *s, size_t n)
 {
-	int i;
-	unsigned char *c;
-
-	i = 0;
-	c = (unsigned char *)s;
-	while (n > 0)
-	{
-		c = '0';
-		c++;
-		n--;
-	}
+	ft_memset(s, '0', n);
 }
