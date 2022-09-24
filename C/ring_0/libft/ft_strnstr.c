@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/21 16:21:09 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/24 18:32:34 by yoropeza         ###   ########.fr       */
+/*   Created: 2022/09/24 19:31:43 by yoropeza          #+#    #+#             */
+/*   Updated: 2022/09/24 19:55:04 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dest, char *scr, size_t size)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	size_t	len;
-	size_t	i;
-
-	len = ft_strlen(scr);
-	i = 0;
-	if (size != 0)
+	if (len == 0)
+		return (0);
+	if (*needle)
 	{
-		while (scr[i] != '\0' && i < (size - 1))
+		while (*haystack && len > 0)
 		{
-			dest[i] = scr[i];
-			i++;
+			if (*haystack == *needle)
+			{
+				needle++;
+			}
+			haystack++;
+			len--;
 		}
-		dest[i] = '\0';
+		if (*needle)
+			return (0);
 	}
-	return (len);
+	return ((char *)haystack);
 }

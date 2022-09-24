@@ -1,6 +1,6 @@
-TARGET	= libft.a
+NAME	= libft.a
 
-SRCS	= $(shell find . -name "*.c")
+SRCS	= $(shell find . -type f -name "*.c" -exec basename {} \;)
 
 OBJS	= $(SRCS:.c=.o)
 
@@ -8,17 +8,17 @@ CFLAGS	= -Werror -Wall -Wextra
 
 CC	= gcc
 
-$(TARGET):	$(OBJS)
-	$(CC) -c $(CFLAGS) $(SRCS)
-	ar crs $(TARGET) $(OBJS)
+all:	$(NAME)
 
-all:	$(TARGET)
+$(NAME):	$(OBJS)
+	@$(CC) -c $(CFLAGS) $(SRCS)
+	@ar crs $(NAME) $(OBJS)
 
 clean:
 	@rm -f $(OBJS)
 
 fclean:	clean
-		@rm -f $(TARGET)
+		@rm -f $(NAME)
 
 re:	fclean all
 

@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/21 16:21:09 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/24 18:32:34 by yoropeza         ###   ########.fr       */
+/*   Created: 2022/09/24 18:51:58 by yoropeza          #+#    #+#             */
+/*   Updated: 2022/09/24 19:07:59 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dest, char *scr, size_t size)
+int	ft_memcmp(const void *str1, const void *str2, size_t n)
 {
-	size_t	len;
-	size_t	i;
+	unsigned char	*s1;
+	unsigned char	*s2;
+	size_t			i;
 
-	len = ft_strlen(scr);
+	s1 = (unsigned char *)str1;
+	s2 = (unsigned char *)str2;
 	i = 0;
-	if (size != 0)
+	while (i < n)
 	{
-		while (scr[i] != '\0' && i < (size - 1))
-		{
-			dest[i] = scr[i];
-			i++;
-		}
-		dest[i] = '\0';
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
 	}
-	return (len);
+	return (0);
 }

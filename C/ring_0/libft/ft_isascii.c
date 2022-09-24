@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.c      +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 10:58:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/19 10:59:58 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/24 18:08:31 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isascii(int c)
 {
-	if ((c >= 0 && c <= 255))
+	if ((c >= 0 && c <= 127))
 	{
 		return (1);
 	}

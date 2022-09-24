@@ -6,13 +6,13 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 21:21:08 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/24 16:26:54 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/24 19:12:54 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(char *str)
+size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 

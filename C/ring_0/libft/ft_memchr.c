@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/21 16:21:09 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/24 18:32:34 by yoropeza         ###   ########.fr       */
+/*   Created: 2022/09/24 17:33:06 by yoropeza          #+#    #+#             */
+/*   Updated: 2022/09/24 18:47:16 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dest, char *scr, size_t size)
+void	*ft_memchr(const void *str, int c, size_t n)
 {
-	size_t	len;
-	size_t	i;
+	unsigned char	*tab;
+	unsigned char	ret;
 
-	len = ft_strlen(scr);
-	i = 0;
-	if (size != 0)
+	ret = (unsigned char)c;
+	tab = (unsigned char *)str;
+	while (n > 0)
 	{
-		while (scr[i] != '\0' && i < (size - 1))
+		if (*tab == ret)
 		{
-			dest[i] = scr[i];
-			i++;
+			return (tab);
 		}
-		dest[i] = '\0';
+		tab++;
+		n--;
 	}
-	return (len);
+	return (0);
 }

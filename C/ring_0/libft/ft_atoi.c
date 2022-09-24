@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 18:17:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/24 16:26:26 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/24 19:29:52 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(char *str)
+int	ft_atoi(const char *str)
 {
 	int	i;
 	int	number;
@@ -21,7 +21,7 @@ int	ft_atoi(char *str)
 	negative = 1;
 	while (*str == 32 || (*str >= 9 && *str <= 13))
 		str++;
-	while (*str == '-' || *str == '+')
+	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')
 			negative *= -1;

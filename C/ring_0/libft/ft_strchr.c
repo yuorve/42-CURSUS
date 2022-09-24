@@ -6,18 +6,22 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 11:21:08 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/24 16:57:54 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/24 19:22:47 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 char	*ft_strchr(const char *s, int c)
 {
-	int		i;
+	unsigned char	ret;
 
-	i = 0;
-	while (s[i] != '\0' || s[i] != c)
+	ret = (unsigned char)c;
+	while (*s != ret)
 	{
+		if (*s == '\0')
+		{
+			return (0);
+		}
 		s++;
 	}
-	return (s);
+	return ((char *)s);
 }
