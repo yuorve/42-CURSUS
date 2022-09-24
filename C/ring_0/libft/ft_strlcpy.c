@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 16:21:09 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/23 20:04:52 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/24 16:26:47 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "libft.h"
 
 size_t	ft_strlcpy(char *dest, char *scr, size_t size)
 {

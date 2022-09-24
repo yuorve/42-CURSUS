@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 10:58:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/23 19:51:12 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/24 16:25:32 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "libft.h"
 
 int	ft_isalnum(int c)
 {

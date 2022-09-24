@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:46:54 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/23 20:29:11 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/24 16:56:58 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ size_t	ft_strlcpy(char *dest, char *scr, size_t size);
 size_t	ft_strlcat(char *dest, char *scr, size_t size);
 
 char	*ft_strdup(char *src);
-char	*strrchr(const char *s, int c);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strrchr(const char *s, int c);
 
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_memcpy(void *restrict dst, const void *restrict src, size_t n);

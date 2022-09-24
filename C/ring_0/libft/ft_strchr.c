@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.c      +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 11:21:08 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/21 12:38:49 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/24 16:57:54 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
-	char	*tab;
 	int		i;
 
 	i = 0;
@@ -20,5 +19,5 @@ char	*strchr(const char *s, int c)
 	{
 		s++;
 	}
-	return (s[i]);
+	return (s);
 }
