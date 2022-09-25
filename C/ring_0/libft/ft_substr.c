@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:40:44 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/25 17:37:15 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/25 19:31:42 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*tab;
-	size_t	inter;
+	size_t	i;
 
 	if (ft_strlen(s) < start)
 		return (ft_strdup(""));
@@ -24,12 +24,12 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	tab = (char *) malloc (sizeof(char) * (len + 1));
 	if (!tab)
 		return (0);
-	inter = 0;
-	while (s[start + inter] && inter < len)
+	i = 0;
+	while (s[start + i] && i < len)
 	{
-		tab[inter] = s[start + inter];
-		inter++;
+		tab[i] = s[start + i];
+		i++;
 	}
-	tab[inter] = '\0';
+	tab[i] = '\0';
 	return (tab);
 }
