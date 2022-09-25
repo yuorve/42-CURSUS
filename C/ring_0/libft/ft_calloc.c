@@ -1,16 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isupper.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.c      +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 10:58:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/19 10:59:58 by yoropeza         ###   ########.fr       */
+/*   Created: 2022/09/25 15:21:21 by yoropeza          #+#    #+#             */
+/*   Updated: 2022/09/25 15:37:28 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isupper(int c)
+#include "libft.h"
+
+void	*ft_calloc(size_t nitems, size_t size)
 {
-	return ((c >= 65 && c <= 90) ? 1 : 0);
+	char	*tab;
+
+	tab = (char *) malloc (sizeof(char) * (nitems * size));
+	if (tab)
+		ft_bzero(tab, (nitems * size));
+	return (tab);
 }

@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 19:31:43 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/24 19:55:04 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/25 15:19:25 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,24 @@
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	if (len == 0)
-		return (0);
-	if (*needle)
+	size_t	inter1;
+	size_t	inter2;
+
+	inter1 = 0;
+	if (!*needle)
+		return ((char *)&haystack[inter1]);
+	while (haystack[inter1] != '\0' && inter1 < len)
 	{
-		while (*haystack && len > 0)
+		inter2 = 0;
+		while (haystack[inter1 + inter2] != '\0'
+			&& haystack[inter1 + inter2] == needle[inter2]
+			&& inter1 + inter2 < len)
 		{
-			if (*haystack == *needle)
-			{
-				needle++;
-			}
-			haystack++;
-			len--;
+			if (needle[inter2 + 1] == '\0')
+				return ((char *)&haystack[inter1]);
+			inter2++;
 		}
-		if (*needle)
-			return (0);
+		inter1++;
 	}
-	return ((char *)haystack);
+	return (0);
 }
