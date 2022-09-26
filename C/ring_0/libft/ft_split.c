@@ -32,8 +32,29 @@ int	count_words(char const *s, char c)
 
 char	**ft_split(char const *s, char c)
 {
-	int	num_words;
+	int		i;
+	int		num_words;
+	int		start;
+	char	**matrix
 
-	num_words = count_words(s, c);
-	return (c);
+	if (!s)
+		return (0);	
+	matrix = (char *) malloc (sizeof(char *) * (count_words(s, c) + 1));
+	if (!matrix)
+		return (0);
+	i = 0;
+	num_words = 0;
+	while (s[i] && s[i] == c)
+		i++;
+	while (s[i] && num_words < count_words(s, c))
+	{
+		start = i;
+		while (s[i] && s[i] != c)
+			i++;		
+		matrix[num_words++] = ft_substr(s, start, (i - start));
+		while (s[i] && s[i] == c)
+			i++;
+	}
+	matrix[num_words] = 0;
+	return (matrix);
 }
