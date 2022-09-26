@@ -1,8 +1,12 @@
 NAME	= libft.a
 
-SRCS	= $(shell find . -type f -name "*.c" -exec basename {} \;)
+SRCS	= $(shell find . -type f \( -name "*.c" ! -name "ft_lst*.c" \) -exec basename {} \;)
+
+B_SRCS	= $(shell find . -type f -name "ft_lst*.c" -exec basename {} \;)
 
 OBJS	= $(SRCS:.c=.o)
+
+B_OBJS	= $(B_SRCS:.c=.o)
 
 CFLAGS	= -Werror -Wall -Wextra
 
@@ -14,6 +18,10 @@ $(NAME):	$(OBJS)
 	@$(CC) -c $(CFLAGS) $(SRCS)
 	@ar crs $(NAME) $(OBJS)
 
+bonus:		$(B_OBJS) $(OBJS)
+	@$(CC) -c $(CFLAGS) $(B_SRC)
+	ar cr $(NAME) $(B_OBJS) $(OBJS)
+
 clean:
 	@rm -f $(OBJS)
 
@@ -22,4 +30,4 @@ fclean:	clean
 
 re:	fclean all
 
-.PHONY:	all, clean, fclean, re
+.PHONY:	all, clean, fclean, re, bonus
