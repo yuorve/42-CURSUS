@@ -39,21 +39,19 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (0);	
-	matrix = (char *) malloc (sizeof(char *) * (count_words(s, c) + 1));
+	matrix = (char **) malloc (sizeof(char *) * (count_words(s, c) + 1));
 	if (!matrix)
 		return (0);
 	i = 0;
 	num_words = 0;
-	while (s[i] && s[i] == c)
-		i++;
 	while (s[i] && num_words < count_words(s, c))
 	{
+		while (s[i] && s[i] == c)
+			i++;
 		start = i;
 		while (s[i] && s[i] != c)
 			i++;		
-		matrix[num_words++] = ft_substr(s, start, (i - start));
-		while (s[i] && s[i] == c)
-			i++;
+		matrix[num_words++] = ft_substr(s, start, (i - start));		
 	}
 	matrix[num_words] = 0;
 	return (matrix);
