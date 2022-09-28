@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 09:57:37 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/28 16:35:48 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/28 16:40:41 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 
 	while (lst)
 	{
-		node = lst->next;	
+		node = lst->next;
 		ft_lstdelone(&lst, del);
 		lst = node->next;
 	}		

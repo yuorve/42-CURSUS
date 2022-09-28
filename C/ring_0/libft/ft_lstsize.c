@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 09:13:47 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/27 09:18:19 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/28 16:40:58 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_lstsize(t_list *lst)
 {
-	int size;
+	int	size;
 
 	size = 0;
 	while (lst)

@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 12:31:34 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/28 16:35:17 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/28 16:40:22 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_itoa(int n)
 	while (n != 0)
 	{
 		tab[len--] = n % 10 + '0';
-		n /= 10;		
+		n /= 10;
 	}
 	return (tab);
 }
