@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 19:31:21 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/26 12:31:12 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/28 16:58:34 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	size_t	i;
 	size_t	len;
 
-	len =  ft_strlen(s);
+	len = ft_strlen(s);
 	tab = (char *) malloc (sizeof(char) * (len + 1));
 	if (!tab)
 		return (0);
