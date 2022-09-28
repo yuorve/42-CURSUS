@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:24:31 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/25 19:49:30 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/28 16:34:12 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	**ft_split(char const *s, char c)
 	int		i;
 	int		num_words;
 	int		start;
-	char	**matrix
+	char	**matrix;
 
 	if (!s)
 		return (0);	
@@ -51,7 +51,7 @@ char	**ft_split(char const *s, char c)
 		start = i;
 		while (s[i] && s[i] != c)
 			i++;		
-		matrix[num_words++] = ft_substr(s, start, (i - start));		
+		matrix[num_words++] = ft_substr(s, start, (i - start));
 	}
 	matrix[num_words] = 0;
 	return (matrix);
