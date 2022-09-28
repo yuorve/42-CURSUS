@@ -6,12 +6,14 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 12:36:51 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/26 12:38:49 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/28 17:42:26 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 void	ft_putendl_fd(char *s, int fd)
 {
 	ft_putstr_fd(s, fd);
-	write(fd, '\n', 1);
+	write(fd, "\n", 1);
 }

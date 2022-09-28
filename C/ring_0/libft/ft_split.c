@@ -6,20 +6,20 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:24:31 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/28 16:41:51 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/28 18:50:37 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	count_words(char const *s, char c)
+size_t	count_words(char const *s, char c)
 {
-	int	i;
-	int	num_words;
+	size_t	i;
+	size_t	num_words;
 
 	num_words = 0;
 	i = 0;
-	while (s[i] == c)
+	while (s[i] && s[i] == c)
 		i++;
 	while (s[i])
 	{
@@ -32,10 +32,10 @@ int	count_words(char const *s, char c)
 
 char	**ft_split(char const *s, char c)
 {
-	int		i;
-	int		num_words;
-	int		start;
-	char	**matrix;
+	size_t		i;
+	size_t		num_words;
+	size_t		start;
+	char		**matrix;
 
 	if (!s)
 		return (0);
@@ -51,7 +51,8 @@ char	**ft_split(char const *s, char c)
 		start = i;
 		while (s[i] && s[i] != c)
 			i++;
-		matrix[num_words++] = ft_substr(s, start, (i - start));
+		if (start != i)
+			matrix[num_words++] = ft_substr(s, start, (i - start));
 	}
 	matrix[num_words] = 0;
 	return (matrix);

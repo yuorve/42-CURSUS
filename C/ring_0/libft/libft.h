@@ -6,13 +6,14 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:46:54 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/28 16:58:53 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/28 17:40:34 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <unistd.h>
 # include <stdlib.h>
 # include <stddef.h>
 

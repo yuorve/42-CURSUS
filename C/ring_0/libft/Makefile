@@ -18,8 +18,7 @@ $(NAME):	$(OBJS)
 	@$(CC) -c $(CFLAGS) $(SRCS)
 	@ar crs $(NAME) $(OBJS)
 
-bonus:		$(B_OBJS) $(OBJS)
-	@$(CC) -c $(CFLAGS) $(B_SRC)
+bonus:		$(B_OBJS) $(OBJS)	
 	ar cr $(NAME) $(B_OBJS) $(OBJS)
 
 clean:

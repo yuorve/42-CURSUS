@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 12:31:34 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/28 16:40:22 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/09/28 18:34:39 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_nblen(int n)
 	size_t	len;
 
 	len = 0;
-	if (n < 0)
+	if (n <= 0)
 		len++;
 	while (n != 0)
 	{
@@ -35,6 +35,10 @@ char	*ft_itoa(int n)
 
 	i = 0;
 	len = ft_nblen(n);
+	if (n == 0)
+		return (ft_strdup("0"));
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
 	tab = (char *) malloc (sizeof(char) * (len + 1));
 	if (!tab)
 		return (0);
