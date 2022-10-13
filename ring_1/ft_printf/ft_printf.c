@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 07:46:09 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/13 10:40:57 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:18:57 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_checking(char c, va_list args, int *ptr)
 		ft_putstr(va_arg(args, char *), ptr);
 	if (c == 'p')
 	{
-		ft_putstr("x0", ptr);
+		ft_putstr("0x", ptr);
 		ft_toptr(va_arg(args, long), ptr);
 	}
 	if (c == 'd')

@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 07:54:14 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/13 10:41:09 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:20:39 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,15 @@ void	ft_putstr(char *s, int *ptr)
 	int	i;
 
 	i = 0;
-	while (s[i])
+	if (s == NULL)
+		ft_putstr("(null)", ptr);
+	else
 	{
-		ft_putchar(s[i], ptr);
-		i++;
+		while (s[i])
+		{
+			ft_putchar(s[i], ptr);
+			i++;
+		}
 	}
 }
 
