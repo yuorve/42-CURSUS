@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 07:46:09 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/13 18:18:57 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/10/13 19:14:19 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ void	ft_checking(char c, va_list args, int *ptr)
 		ft_putnbr(va_arg(args, int), ptr);
 	if (c == 'u')
 		ft_putunbr(va_arg(args, unsigned int), ptr);
-	if (c == 'x')
-		ft_tohex(va_arg(args, int), c, ptr);
-	if (c == 'X')
+	if (c == 'x' || c == 'X')
 		ft_tohex(va_arg(args, int), c, ptr);
 	if (c == '%')
 		ft_putchar('%', ptr);
