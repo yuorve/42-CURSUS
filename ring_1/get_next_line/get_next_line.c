@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:58:24 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/17 10:24:27 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/10/17 11:38:59 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ char	*get_next_line(int fd)
 	if (numbytes < 0)
 		return (NULL);
 	if (!ft_strchr(buffer, '\n'))
-		line = join(line, buffer);
+		line = ft_strjoin(line, buffer);
 }
