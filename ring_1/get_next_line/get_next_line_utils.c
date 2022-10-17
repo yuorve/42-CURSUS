@@ -6,9 +6,21 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:58:18 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/17 12:06:44 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/10/17 18:22:58 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
 
 char	*ft_strdup(char *src)
 {
@@ -39,6 +51,28 @@ char	*ft_strchr(const char *s, int c)
 		s++;
 	}
 	return ((char *)s);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*tab;
+	size_t	i;
+
+	if (ft_strlen(s) < start)
+		return (ft_strdup(""));
+	if (ft_strlen(&s[start]) < len)
+		len = ft_strlen(&s[start]);
+	tab = (char *) malloc (sizeof(char) * (len + 1));
+	if (!tab)
+		return (0);
+	i = 0;
+	while (s[start + i] && i < len)
+	{
+		tab[i] = s[start + i];
+		i++;
+	}
+	tab[i] = '\0';
+	return (tab);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
