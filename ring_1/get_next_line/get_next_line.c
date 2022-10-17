@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:58:24 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/17 12:07:51 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/10/17 16:15:32 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (!buffer)
 		buffer = ft_strdup("");
-	numbytes = read_file(fd, buffer, BUFFER_SIZE);
+	numbytes = read(fd, buffer, BUFFER_SIZE);
 	if (numbytes < 0)
 		return (NULL);
 	if (!ft_strchr(buffer, '\n'))
