@@ -6,9 +6,24 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:58:18 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/17 11:40:12 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/10/17 12:06:44 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+char	*ft_strdup(char *src)
+{
+	char	*tab;
+	int		i;
+
+	i = 0;
+	tab = (char *) malloc (sizeof(char) * (ft_strlen(src) + 1));
+	if (!tab)
+		return (0);
+	while (*src)
+		tab[i++] = *src++;
+	tab[i] = '\0';
+	return (tab);
+}
 
 char	*ft_strchr(const char *s, int c)
 {

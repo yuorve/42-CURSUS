@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:58:24 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/17 11:44:05 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/10/17 12:07:51 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@ char	*get_next_line(int fd)
 	
 	if (fd < 0 || fd > 1024 || read(fd, 0, 0) || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
-		return (NULL);
+		buffer = ft_strdup("");
 	numbytes = read_file(fd, buffer, BUFFER_SIZE);
 	if (numbytes < 0)
 		return (NULL);
