@@ -75,7 +75,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || fd > 4096 || read(fd, 0, 0) || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!buffer)
-		buffer = ft_strdup("");
+		buffer = ft_strdup("");	
 	buffer = ft_read(fd, buffer);
 	if (!buffer)
 		return (NULL);
