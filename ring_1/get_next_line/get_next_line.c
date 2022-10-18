@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
+
 static char	*ft_line(char *buffer)
 {
 	char	*line;
