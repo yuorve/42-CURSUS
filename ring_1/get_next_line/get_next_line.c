@@ -21,7 +21,7 @@ static char	*ft_line(char *buffer)
 	while (buffer[i] && buffer[i] != '\n' )
 		i++;
 	line = ft_substr(buffer, 0, i + 1);
-	return (line);	
+	return (line);
 }
 
 static char	*ft_new_line(char *buffer)
@@ -73,11 +73,11 @@ char	*get_next_line(int fd)
 	char		*line;
 	int			numbytes;
 	int			i;
-	
+
 	if (fd < 0 || fd > 4096 || read(fd, 0, 0) || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!buffer)
-		buffer = ft_strdup("");	
+		buffer = ft_strdup("");
 	buffer = ft_read(fd, buffer);
 	if (!buffer)
 		return (NULL);
