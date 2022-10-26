@@ -6,9 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:58:18 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/17 18:22:58 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/10/26 17:28:10 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "get_next_line.h"
 
 size_t	ft_strlen(const char *str)
 {
@@ -75,7 +77,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (tab);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	lens1;
 	size_t	lens2;
@@ -96,10 +98,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	while (*s2)
 	{
-		tab[i] = *s2;
+		tab[i++] = *s2;
 		s2++;
-		i++;
 	}
 	tab[i] = '\0';
+	free (s2);
 	return (tab);
 }
