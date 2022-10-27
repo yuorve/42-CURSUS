@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:56:45 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/27 16:32:16 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/10/27 16:39:26 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *str);
 char	*ft_strdup(char *src);
 char	*ft_strchr(const char *s, int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char    *ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char const *s1, char const *s2);
 char	*get_next_line(int fd);
 
 #endif
