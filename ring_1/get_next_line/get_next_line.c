@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:58:24 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/27 16:05:56 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/10/27 16:23:02 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,21 @@ static char	*ft_new_line(char *buffer)
 {
 	char	*line;
 	int		i;
+	int		len;
 
 	i = 0;
+	len = 0;
 	while (buffer[i] && buffer[i] != '\n' )
 		i++;
-	line = ft_substr(buffer, i, ft_strlen(buffer));
+	if (!buffer[i])
+	{
+		free (buffer);
+		return (0);
+	}
+	i++;
+	while (buffer[i + len] && buffer[i + len] != '\n' )
+		len++;
+	line = ft_substr(buffer, i, len);
 	free (buffer);
 	return (line);
 }
