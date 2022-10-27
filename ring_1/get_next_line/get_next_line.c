@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:58:24 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/27 17:03:07 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/10/27 17:04:05 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 static char	*ft_union(char *buffer, char *tab)
 {
 	char	*buffer_temp;
-	
+
 	buffer_temp = ft_strjoin(buffer, tab);
 	free (buffer);
 	buffer = buffer_temp;

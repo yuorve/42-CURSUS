@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:58:24 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/27 16:31:43 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/10/27 17:04:44 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE
 #endif
+
+static char	*ft_union(char *buffer, char *tab)
+{
+	char	*buffer_temp;
+
+	buffer_temp = ft_strjoin(buffer, tab);
+	free (buffer);
+	buffer = buffer_temp;
+	return (buffer);
+}
 
 static char	*ft_line(char *buffer)
 {
@@ -54,7 +64,6 @@ static char	*ft_read(int fd, char *buffer)
 {
 	int		numbytes;
 	char	*tab;
-	char	*buffer_temp;
 
 	tab = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	numbytes = 1;
@@ -67,9 +76,7 @@ static char	*ft_read(int fd, char *buffer)
 			return (NULL);
 		}
 		tab[numbytes] = '\0';
-		buffer_temp = ft_strjoin(buffer, tab);
-		free (buffer);
-		buffer = buffer_temp;
+		buffer = ft_union(buffer, tab);
 		if (buffer[0] == 0)
 		{
 			free (tab);
