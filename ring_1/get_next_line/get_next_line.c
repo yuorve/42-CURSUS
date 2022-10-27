@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:58:24 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/27 15:59:49 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/10/27 16:05:56 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static char	*ft_read(int fd, char *buffer)
 {
 	int		numbytes;
 	char	*tab;
+	char	*buffer_temp;
 
 	tab = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	numbytes = 1;
@@ -56,7 +57,9 @@ static char	*ft_read(int fd, char *buffer)
 			return (NULL);
 		}
 		tab[numbytes] = '\0';
-		buffer = ft_strjoin(buffer, tab);
+		buffer_temp = ft_strjoin(buffer, tab);
+		free (buffer);
+		buffer = buffer_temp;
 		if (buffer[0] == 0)
 		{
 			free (tab);
