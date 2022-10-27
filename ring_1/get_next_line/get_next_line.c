@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:58:24 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/26 17:53:04 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/10/27 15:59:49 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	*ft_read(int fd, char *buffer)
 			return (NULL);
 		}
 		tab[numbytes] = '\0';
-		buffer = ft_strjoin(tab, buffer);
+		buffer = ft_strjoin(buffer, tab);
 		if (buffer[0] == 0)
 		{
 			free (tab);
