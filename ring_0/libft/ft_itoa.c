@@ -31,9 +31,7 @@ char	*ft_itoa(int n)
 {
 	char	*tab;
 	int		len;
-	int		i;
 
-	i = 0;
 	len = ft_nblen(n);
 	if (n == 0)
 		return (ft_strdup("0"));
