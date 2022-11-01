@@ -55,9 +55,7 @@ static char	*ft_new_line(char *buffer)
 	i++;
 	while (buffer[i + len] && buffer[i + len] != '\n' )
 		len++;
-	if (len == 0)
-		len++;
-	line = ft_substr(buffer, i, len);
+	line = ft_substr(buffer, i, len + 1);
 	free (buffer);
 	return (line);
 }
