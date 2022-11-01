@@ -31,6 +31,8 @@ static char	*ft_line(char *buffer)
 	int		i;
 
 	i = 0;
+	if (!buffer[i])
+		return (0);	
 	while (buffer[i] && buffer[i] != '\n' )
 		i++;
 	line = ft_substr(buffer, 0, i + 1);
@@ -55,7 +57,7 @@ static char	*ft_new_line(char *buffer)
 	i++;
 	while (buffer[i + len] && buffer[i + len] != '\n' )
 		len++;
-	line = ft_substr(buffer, i, len);
+	line = ft_substr(buffer, i, len + 1);
 	free (buffer);
 	return (line);
 }
@@ -73,7 +75,7 @@ static char	*ft_read(int fd, char *buffer)
 		if (numbytes == -1)
 		{
 			free (tab);
-			return (NULL);
+			return (0);
 		}
 		tab[numbytes] = '\0';
 		buffer = ft_union(buffer, tab);
@@ -81,7 +83,7 @@ static char	*ft_read(int fd, char *buffer)
 		{
 			free (tab);
 			free (buffer);
-			return (NULL);
+			return (0);
 		}	
 	}
 	free (tab);
@@ -94,12 +96,12 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || fd > 4096 || read(fd, 0, 0) || BUFFER_SIZE <= 0)
-		return (NULL);
+		return (0);
 	if (!buffer[fd])
 		buffer[fd] = ft_strdup("");
 	buffer[fd] = ft_read(fd, buffer[fd]);
 	if (!buffer[fd])
-		return (NULL);
+		return (0);
 	line = ft_line(buffer[fd]);
 	buffer[fd] = ft_new_line(buffer[fd]);
 	return (line);
