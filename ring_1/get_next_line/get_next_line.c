@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:58:24 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/27 17:04:05 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/11/01 18:27:50 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static char	*ft_line(char *buffer)
 
 	i = 0;
 	if (!buffer[i])
-		return (0);
-	while (buffer[i] && buffer[i] != '\n' )
+		return (NULL);
+	while (buffer[i] && buffer[i] != '\n')
 		i++;
 	line = ft_substr(buffer, 0, i + 1);
 	return (line);
@@ -47,15 +47,15 @@ static char	*ft_new_line(char *buffer)
 
 	i = 0;
 	len = 0;
-	while (buffer[i] && buffer[i] != '\n' )
+	while (buffer[i] && buffer[i] != '\n')
 		i++;
 	if (!buffer[i])
 	{
 		free (buffer);
-		return (0);
+		return (NULL);
 	}
 	i++;
-	while (buffer[i + len] && buffer[i + len] != '\n' )
+	while (buffer[i + len])
 		len++;
 	line = ft_substr(buffer, i, len + 1);
 	free (buffer);
@@ -75,15 +75,16 @@ static char	*ft_read(int fd, char *buffer)
 		if (numbytes == -1)
 		{
 			free (tab);
-			return (0);
+			free (buffer);
+			return (NULL);
 		}
-		tab[numbytes] = 0;
+		tab[numbytes] = '\0';
 		buffer = ft_union(buffer, tab);
-		if (buffer[0] == 0)
+		if (buffer[0] == '\0')
 		{
 			free (tab);
 			free (buffer);
-			return (0);
+			return (NULL);
 		}	
 	}
 	free (tab);
@@ -96,12 +97,20 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || fd > 4096 || read(fd, 0, 0) || BUFFER_SIZE <= 0)
-		return (0);
+	{
+		free (buffer);
+		buffer = NULL;
+		return (NULL);
+	}
 	if (!buffer)
 		buffer = ft_strdup("");
 	buffer = ft_read(fd, buffer);
 	if (!buffer)
-		return (0);
+	{
+		free (buffer);
+		buffer = NULL;
+		return (NULL);
+	}
 	line = ft_line(buffer);
 	buffer = ft_new_line(buffer);
 	return (line);

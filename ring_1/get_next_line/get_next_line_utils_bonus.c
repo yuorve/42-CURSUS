@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:58:18 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/27 16:32:37 by yoropeza         ###   ########.fr       */
+/*   Updated: 2022/11/01 18:13:10 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_strdup(char *src)
 	i = 0;
 	tab = (char *) malloc (sizeof(char) * (ft_strlen(src) + 1));
 	if (!tab)
-		return (0);
+		return (NULL);
 	while (*src)
 		tab[i++] = *src++;
 	tab[i] = '\0';
@@ -48,7 +48,7 @@ char	*ft_strchr(const char *s, int c)
 	{
 		if (*s == '\0')
 		{
-			return (0);
+			return (NULL);
 		}
 		s++;
 	}
@@ -66,7 +66,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		len = ft_strlen(&s[start]);
 	tab = (char *) malloc (sizeof(char) * (len + 1));
 	if (!tab)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (s[start + i] && i < len)
 	{
@@ -88,7 +88,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	lens2 = ft_strlen(s2);
 	tab = (char *) malloc (sizeof(char) * (lens1 + lens2 + 1));
 	if (!tab)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (*s1)
 	{
