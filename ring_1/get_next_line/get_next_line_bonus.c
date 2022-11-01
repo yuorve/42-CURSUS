@@ -32,7 +32,7 @@ static char	*ft_line(char *buffer)
 
 	i = 0;
 	if (!buffer[i])
-		return (0);	
+		return (0);
 	while (buffer[i] && buffer[i] != '\n' )
 		i++;
 	line = ft_substr(buffer, 0, i + 1);
