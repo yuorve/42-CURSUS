@@ -1,15 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/27 19:46:54 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/03/28 17:02:54 by yoropeza         ###   ########.fr       */
+/*   Created: 2022/09/25 15:40:44 by yoropeza          #+#    #+#             */
+/*   Updated: 2022/09/25 19:31:42 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include "ft_printf.h"
 #include "libft.h"
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*tab;
+	size_t	i;
+
+	if (ft_strlen(s) < start)
+		return (ft_strdup(""));
+	if (ft_strlen(&s[start]) < len)
+		len = ft_strlen(&s[start]);
+	tab = (char *) malloc (sizeof(char) * (len + 1));
+	if (!tab)
+		return (0);
+	i = 0;
+	while (s[start + i] && i < len)
+	{
+		tab[i] = s[start + i];
+		i++;
+	}
+	tab[i] = '\0';
+	return (tab);
+}
