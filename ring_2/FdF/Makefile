@@ -6,7 +6,7 @@
 #    By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 19:29:04 by yoropeza          #+#    #+#              #
-#    Updated: 2023/03/28 19:29:10 by yoropeza         ###   ########.fr        #
+#    Updated: 2023/03/28 19:39:19 by yoropeza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,4 +56,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-
