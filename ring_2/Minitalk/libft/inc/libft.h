@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:46:54 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/02 14:04:13 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/09 11:54:09 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,19 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 int		ft_lstsize(t_list *lst);
+
+/********************/
+/*		PRINTF		*/
+/********************/
+
+void	ft_putchar(char c, int *ptrlen);
+void	ft_putstr(char *s, int *ptrlen);
+void	ft_toptr(unsigned long n, int *ptr);
+void	ft_putnbr(int n, int *ptr);
+void	ft_putunbr(unsigned int n, int *ptr);
+void	ft_tohex(unsigned int n, char c, int *ptr);
+void	ft_checking(char c, va_list args, int *ptr);
+
+int		ft_printf(char const *str, ...);
 
 #endif

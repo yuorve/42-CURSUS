@@ -6,14 +6,13 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 08:25:49 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/08 10:42:09 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/09 11:55:01 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include <unistd.h>
-#include "lib/libft/libft.h"
-#include "lib/ft_printf/ft_printf.h"
+#include "libft/inc/libft.h"
 
 void	ft_handler(int sig, siginfo_t *info, void *context)
 {

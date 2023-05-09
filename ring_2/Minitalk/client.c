@@ -6,14 +6,13 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 08:38:19 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/08 11:01:02 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/09 11:55:15 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include <unistd.h>
-#include "lib/libft/libft.h"
-#include "lib/ft_printf/ft_printf.h"
+#include "libft/inc/libft.h"
 
 void ft_sendmsg(int sig, char c) {
 	int  i;
