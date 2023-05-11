@@ -6,7 +6,7 @@
 #    By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/11 08:02:41 by yoropeza          #+#    #+#              #
-#    Updated: 2023/05/11 12:06:22 by yoropeza         ###   ########.fr        #
+#    Updated: 2023/05/11 16:44:46 by yoropeza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ clean:
 fclean: clean
 	@$(RM) $(NAME) && printf "$(YELLOW)$(BOLD)$(NAME) $(GREEN)file cleaned! :)\
 	\n$(RESET)"
-	@$(RM) $(NAMESV) && printf "$(YELLOW)$(BOLD)$(NAME) $(GREEN)file cleaned! :)\
+	@$(RM) $(NAMESV) && printf "$(YELLOW)$(BOLD)$(NAMESV) $(GREEN)file cleaned! :)\
 	\n$(RESET)"
 	@$(MAKE) -C $(LIBFT) fclean
 
