@@ -6,11 +6,12 @@
 #    By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/11 08:02:41 by yoropeza          #+#    #+#              #
-#    Updated: 2023/05/11 08:13:58 by yoropeza         ###   ########.fr        #
+#    Updated: 2023/05/11 12:06:22 by yoropeza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= minitalk
+NAME	= client
+NAMESV	= server
 LIBFT	= libft
 
 INC		= -I ./ -I $(LIBFT)/inc
@@ -39,22 +40,29 @@ lib:
 
 $(NAME) : $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) $(INC) -o $(NAME) &&\
-	printf "$(GREEN)$(BOLD)Client\n$(RESET)"
+	printf "$(GREEN)$(BOLD)Client ready\n$(RESET)"
 
+%.o : %.c
+	@$(CC) $(CFLAGS) -o $@ -c $< $(INC) && printf "$(WHITE)$(BOLD)\rCompiliing: \
+	$(CYAN)$(notdir $@)$(GREEN)\r\e[35C[OK]\n$(RESET)"
+	
 $(NAMESV) : $(OBJSSV)
 	@$(CC) $(CFLAGS) $(OBJSSV) $(LFLAGS) $(INC) -o $(NAMESV) &&\
-	printf "$(GREEN)$(BOLD)Server\n$(RESET)"
+	printf "$(GREEN)$(BOLD)Server ready\n$(RESET)"
 	
 %.o : %.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(INC) && printf "$(WHITE)$(BOLD)\rCompiling: \
 	$(CYAN)$(notdir $@)$(GREEN)\r\e[35C[OK]\n$(RESET)"
 
 clean:
-	@$(RM) $(OBJS) && printf "$(GREEN)$(BOLD)Minitalk objects cleaned! :)\n$(RESET)"
+	@$(RM) $(OBJS) && printf "$(GREEN)$(BOLD)Client objects cleaned! :)\n$(RESET)"
+	@$(RM) $(OBJSSV) && printf "$(GREEN)$(BOLD)Server objects cleaned! :)\n$(RESET)"
 	@$(MAKE) -C $(LIBFT) clean
 
 fclean: clean
 	@$(RM) $(NAME) && printf "$(YELLOW)$(BOLD)$(NAME) $(GREEN)file cleaned! :)\
+	\n$(RESET)"
+	@$(RM) $(NAMESV) && printf "$(YELLOW)$(BOLD)$(NAME) $(GREEN)file cleaned! :)\
 	\n$(RESET)"
 	@$(MAKE) -C $(LIBFT) fclean
 
