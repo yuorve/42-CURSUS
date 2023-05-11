@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 08:38:19 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/11 16:14:13 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:46:07 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_handler(int sig, siginfo_t *info, void *context)
 }
 
 void ft_sendmsg(int pid, char c) {
-	int  i;
+	int	i;
 
 	i = 7;	
 	while(i >= 0)
@@ -33,7 +33,7 @@ void ft_sendmsg(int pid, char c) {
 			if (kill(pid, SIGUSR1) == -1) {
 				exit(ft_printf("Error: Fallo al enviar la señal USR1\n"));
 			}	
-		} else {			
+		} else {	
 			if (kill(pid, SIGUSR2) == -1) {
 				exit(ft_printf("Error: Fallo al enviar la señal USR2\n"));
 			}			
