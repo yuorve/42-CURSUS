@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 17:33:06 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/24 18:47:16 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:54:50 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/libft.h"
 
 void	*ft_memchr(const void *str, int c, size_t n)
 {

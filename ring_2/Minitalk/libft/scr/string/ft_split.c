@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:24:31 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/30 20:05:25 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:52:36 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/libft.h"
 
 static size_t	ft_count_words(char const *s, char c)
 {

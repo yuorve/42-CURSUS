@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 12:31:34 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/30 17:48:03 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:55:20 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/libft.h"
 
 static int	ft_nblen(int n)
 {

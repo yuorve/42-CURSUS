@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:22:28 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/02 14:05:42 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:56:34 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/libft.h"
 
 t_list	*ft_lstnew(void *content)
 {

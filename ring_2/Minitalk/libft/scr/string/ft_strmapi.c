@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 19:31:21 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/28 16:58:34 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:53:14 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/libft.h"
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {

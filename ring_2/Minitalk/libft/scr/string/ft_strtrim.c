@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 17:58:24 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/25 19:31:35 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:53:36 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/libft.h"
 
 char	*ft_strtrim(char const *s1, char const *set)
 {

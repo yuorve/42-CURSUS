@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:40:44 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/25 19:31:42 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:53:40 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {

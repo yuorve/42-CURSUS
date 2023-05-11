@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 20:12:17 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/25 16:50:56 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:55:04 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/libft.h"
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {

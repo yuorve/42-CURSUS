@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 19:31:43 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/25 19:31:21 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:53:25 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/libft.h"
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {

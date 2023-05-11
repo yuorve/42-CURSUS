@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 17:39:27 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/25 19:30:53 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:52:52 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

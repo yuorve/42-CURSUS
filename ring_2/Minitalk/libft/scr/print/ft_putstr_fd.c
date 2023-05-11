@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 12:34:14 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/28 17:41:41 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:54:35 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/libft.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {

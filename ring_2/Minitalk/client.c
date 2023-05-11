@@ -6,15 +6,13 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 08:38:19 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/09 12:09:57 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/11 08:09:59 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <unistd.h>
-#include "libft/inc/libft.h"
+#include "minitalk.h"
 
-void ft_sendmsg(int sig, char c) {
+void ft_sendmsg(int pid, char c) {
 	int  i;
 
 	i = 0;
@@ -29,7 +27,7 @@ void ft_sendmsg(int sig, char c) {
 				exit(ft_printf("Error: Fallo al enviar la señal del bit 1\n"));
 			}
 		}
-		j++;
+		i++;
 		usleep(50);
 	}
 	// Envia un byte nulo al final del mensaje
@@ -41,7 +39,6 @@ void ft_sendmsg(int sig, char c) {
 		i++;
 		usleep(50);
 	}
-	return (0);
 }
 
 int main(int argc, char **argv) {
@@ -59,10 +56,10 @@ int main(int argc, char **argv) {
 		i = 0;
 		while (str[i] != '\0')
 		{
-			ft_sendmsg(pid, str[i]);
+			ft_sendmsg(pid_server, str[i]);
 			i++;
 		}
-		ft_handler(pid, '\0');
+		ft_sendmsg(pid_server, '\0');
 		// Esperar la respuesta del servidor
 		while (1)
 			pause();

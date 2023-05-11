@@ -1,27 +1,63 @@
-NAME	= minitalk.a
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/05/11 08:02:41 by yoropeza          #+#    #+#              #
+#    Updated: 2023/05/11 08:13:58 by yoropeza         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-SRCS	= server.c client.c
+NAME	= minitalk
+LIBFT	= libft
 
-OBJS	= $(SRCS:.c=.o)
+INC		= -I ./ -I $(LIBFT)/inc
+LFLAGS	= -L$(LIBFT) -lft
+SRC		= client.c
+SRCSV	= server.c
+OBJS	= $(SRC:.c=.o)
+OBJSSV	= $(SRCSV:.c=.o)
 
-CFLAGS	= -Werror -Wall -Wextra
+CC		= gcc
+CFLAGS	= -Wall -Werror -Wextra
+RM		= rm -rf
 
-CC	= gcc
+BOLD	= \033[1m
+RED		= \033[31;1m
+GREEN	= \033[32;1m
+YELLOW	= \033[33;1m
+CYAN	= \033[36;1m
+WHITE	= \033[37;1m
+RESET	= \033[0m
 
-RM	= rm -f
+all: lib $(NAME) $(NAMESV)
 
-$(NAME) :
-	$(CC) -c $(CFLAGS) $(SRCS)
-	ar cr $(NAME) $(OBJS)
+lib:
+	@$(MAKE) -C $(LIBFT)
 
-all : $(NAME)
+$(NAME) : $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) $(INC) -o $(NAME) &&\
+	printf "$(GREEN)$(BOLD)Client\n$(RESET)"
 
-clean :
-	$(RM) $(OBJS)
+$(NAMESV) : $(OBJSSV)
+	@$(CC) $(CFLAGS) $(OBJSSV) $(LFLAGS) $(INC) -o $(NAMESV) &&\
+	printf "$(GREEN)$(BOLD)Server\n$(RESET)"
+	
+%.o : %.c
+	@$(CC) $(CFLAGS) -o $@ -c $< $(INC) && printf "$(WHITE)$(BOLD)\rCompiling: \
+	$(CYAN)$(notdir $@)$(GREEN)\r\e[35C[OK]\n$(RESET)"
 
-fclean : clean
-	$(RM) $(NAME)
+clean:
+	@$(RM) $(OBJS) && printf "$(GREEN)$(BOLD)Minitalk objects cleaned! :)\n$(RESET)"
+	@$(MAKE) -C $(LIBFT) clean
 
-re : fclean all
+fclean: clean
+	@$(RM) $(NAME) && printf "$(YELLOW)$(BOLD)$(NAME) $(GREEN)file cleaned! :)\
+	\n$(RESET)"
+	@$(MAKE) -C $(LIBFT) fclean
 
-.PHONY: all clean fclean re
+re: fclean all
+
+.PHONY: all bonus clean fclean re

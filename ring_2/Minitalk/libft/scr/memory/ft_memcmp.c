@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:51:58 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/09/24 19:07:59 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:54:55 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../inc/libft.h"
 
 int	ft_memcmp(const void *str1, const void *str2, size_t n)
 {

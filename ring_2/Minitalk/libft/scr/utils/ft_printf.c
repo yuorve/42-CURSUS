@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 07:46:09 by yoropeza          #+#    #+#             */
-/*   Updated: 2022/10/13 19:14:19 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:51:47 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../../inc/libft.h"
 
 void	ft_tohex(unsigned int n, char c, int *ptr)
 {
