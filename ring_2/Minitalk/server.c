@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 08:25:49 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/11 08:10:10 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/11 16:15:00 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,34 @@
 void	ft_handler(int sig, siginfo_t *info, void *context)
 {
 	static int 	i;
+	static int	pid_client;
 	static char c;
 
 	// void al argumento no utilizado
 	(void)context;
+	pid_client = info->si_pid;	
 	// Verificar que la señal recibida sea SIGUSR1 o SIGUSR2
 	if (sig == SIGUSR1)
-		c |= (1 << i);		
+		c = (c << 1) | 1;
 	else if (sig == SIGUSR2)
-		c |= (0 << i);
+		c <<= 1;
 	// Incrementar el índice para el siguiente bit
 	i++;
-	// Si se han recibido los 8 bits de un caracter, mostrarlo y reiniciar la estructura de datos
+	// Si se han recibido los 8 bits de un caracter, mostrarlo y reiniciar las variables
 	if (i == 8)
 	{
+		// Si es el fin del mensaje termina la comunicación
+		if (c == '\0') {
+			ft_printf("\n", c);		
+			kill(pid_client, SIGUSR1);
+		}
 		ft_printf("%c", c);
 		c = 0;
 		i = 0;
 	}
 
 	// Enviar una señal de confirmación al cliente
-	kill(info->si_pid, SIGUSR1);
+	kill(pid_client, SIGUSR2);
 }
 
 int	main(void) {
@@ -56,6 +63,7 @@ int	main(void) {
 	pid_server = getpid();
 	ft_printf("Servidor iniciado\n");
 	ft_printf("PID: %d\n", pid_server);
+	ft_printf("Esperando mensajes...\n");
 	// Esperar el mensaje del cliente
 	while (1) 
 		pause();
