@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:45:25 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 12:42:05 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 12:52:53 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 int stack_size(int *stack);
 int has_dupe(int *stack, int n);
-int	sorting(int *stack_a, int *stack_b, int *stack_tmp, int size);
 
 void push(int *stack_a, int *stack_b, char c, int size);
 void swap(int *stack, char c);
@@ -26,6 +25,7 @@ void sort_large(int *stack_a, int *stack_b, int size);
 void count_sort(int *stack_a, int n, int exp, int *output);
 void radix_sort(int *stack_a, int n);
 
+int	sorting(int *stack_a, int *stack_b, int *stack_tmp, int size);
 int is_valid_arguments(char **argv, int *stack_a);
 int is_sorted(int *stack_a, int size);
 void router(int *stack_a, int *stack_b, int size);
