@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 07:31:26 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/16 07:32:32 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 09:23:21 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int    ft_issign(int c)
+int	ft_issign(int c)
 {
 	if (c == 43 || c == 45)
 		return (1);
