@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 11:40:29 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:42:17 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	is_sorted(int *stack_a, int size)
 	while (++i < size)
 	{
 		if (i <= (size - 1))
-			if (stack_a[i] > stack_a[i+1])
+			if (stack_a[i] > stack_a[i + 1])
 				valid = 0;
 	}
 	return (valid);
@@ -62,7 +62,7 @@ int	is_sorted(int *stack_a, int size)
 // Función para realizar el enrutamiento en función del número de argumentos
 void	router(int *stack_a, int *stack_b, int size)
 {
-    if (size <= 3)
+	if (size <= 3)
 		sort_small(stack_a, size);
 	else
 		sort_large(stack_a, stack_b, size);
