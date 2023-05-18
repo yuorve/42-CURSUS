@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 10:18:46 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 11:32:06 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:33:14 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	count_sort(int *stack_a, int n, int exp, int *output)
 	}
 	i = 0;
 	while (i < n)
-		stack_a[i] = output[i++];	
+		stack_a[i] = output[i++];
 	free(count);
 }
 
@@ -59,10 +59,8 @@ void	radix_sort(int *stack_a, int n)
 	max = stack_a[0];
 	i = 0;
 	while (++i < n)
-	{
 		if (stack_a[i] > max)
 			max = stack_a[i];
-	}
 	exp = 1;
 	while (max / exp > 0)
 	{
