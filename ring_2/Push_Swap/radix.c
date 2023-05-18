@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 10:18:46 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 11:14:16 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:14:59 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	radix_sort(int *stack_a, int n)
 	int	*count;
 
 	count = malloc (10 * sizeof(int *));
-    max = stack_a[0];
+	max = stack_a[0];
 	i = 0;
 	while (++i < n)
 	{
