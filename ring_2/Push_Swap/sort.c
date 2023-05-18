@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 14:00:39 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 14:01:38 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	sorting(int *stack_a, int *stack_b, int *stack_tmp, int size)
 		}
 		ft_printf("%d %d %d\n", stack_a[0], stack_tmp[i], stack_b[0]);
 		x = 0;
-		while (i < size)
+		while (x < size)
 		{
 			ft_printf("%d ", stack_a[x]);
 			x++;
