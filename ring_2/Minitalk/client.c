@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 08:38:19 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 08:14:53 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 08:17:00 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 void	ft_handler(int sig, siginfo_t *info, void *context)
 {
-	static int 	i;
+	static int	i;
 	i = 0;
 	(void)context;
 	(void)info;
 	if (sig == SIGUSR2) i++;
-    	else if (sig == SIGUSR1) exit(0);
+    	else if (sig == SIGUSR1) 
+			exit(0);
 }
 
 void ft_sendmsg(int pid, char c) {
