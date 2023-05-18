@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 12:15:56 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 12:17:30 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	sort_large(int *stack_a, int *stack_b, int size)
 			if (sorting(stack_a, stack_tmp, i))
 			{
 				i++;
-				j++;		
+				j++;
 			}
 		}
 	}
