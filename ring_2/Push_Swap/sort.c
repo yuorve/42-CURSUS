@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 12:40:40 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 12:41:52 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	sort_small(int *stack_a, int size)
 
 // Función de apoyo para ordenar pilas de más de 3 elementos
 // Devuelve el número de elementos movidos a la pila b
-int	sorting(int *stack_a, int *stack_tmp, int size)
+int	sorting(int *stack_a, int *stack_b, int *stack_tmp, int size)
 {
 	int	i;
 	int	j;
@@ -83,7 +83,7 @@ void	sort_large(int *stack_a, int *stack_b, int size)
 	}
 	radix_sort(stack_tmp, size);
 	i = 0;
-	j = sorting(stack_a, stack_tmp, size);
+	j = sorting(stack_a, stack_b, stack_tmp, size);
 	while (i < j)
 	{
 		push(stack_a, stack_b, 'a', size);
