@@ -6,21 +6,23 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/17 20:08:30 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 09:31:48 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 // Función para ejecutar pa pb
-void push(int *stack_a, int *stack_b, char c, int size){
+void	push(int *stack_a, int *stack_b, char c, int size)
+{
 	int	i;
 	int tmp;
 	
 	i = -1;	
 	if (c == 'a') {
 		tmp = stack_b[0];
-		while (++i < (size - 1)) {
+		while (++i < (size - 1))
+		{
 			stack_b[i] = stack_b[i + 1];			
 		}
 		while (i > 0) {
@@ -28,12 +30,16 @@ void push(int *stack_a, int *stack_b, char c, int size){
 			i--;
 		}
 		stack_a[i] = tmp;
-	} else {
+	}
+	else
+	{
 		tmp = stack_a[0];
-		while (++i < (size - 1)) {
+		while (++i < (size - 1))
+		{
 			stack_a[i] = stack_a[i + 1];			
 		}
-		while (i > 0) {
+		while (i > 0)
+		{
 			stack_b[i] = stack_b[i - 1];
 			i--;
 		}
@@ -43,7 +49,8 @@ void push(int *stack_a, int *stack_b, char c, int size){
 }
 
 // Función para ejecutar sa sb
-void swap(int *stack, char c){
+void	swap(int *stack, char c)
+{
 	int tmp;
 	
 	tmp = stack[0];
@@ -53,13 +60,15 @@ void swap(int *stack, char c){
 }
 
 // Función para ejecutar ra rb
-void rotate(int *stack, int size, char c){
+void	rotate(int *stack, int size, char c)
+{
 	int i;
 	int tmp;
 
 	i = 0;
 	tmp = stack[0];
-	while (i < (size - 1)) {
+	while (i < (size - 1))
+	{
 		stack[i] = stack[i + 1];
 		i++;
 	}
@@ -68,12 +77,14 @@ void rotate(int *stack, int size, char c){
 }
 
 // Función para ordenar pilas de 3 o menos elementos
-void sort_small(int *stack_a, int size) {
+void	sort_small(int *stack_a, int size)
+{
 	if (size == 2)
 		swap(stack_a, 'a');
 	else {
 		if (stack_a[1] > stack_a[2])
-			if (stack_a[1] < stack_a[0]) {
+			if (stack_a[1] < stack_a[0])
+			{
 				rotate(stack_a, size, 'a');
 				swap(stack_a, 'a');
 			}
