@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:45:25 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 12:12:57 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 12:30:25 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int stack_size(int *stack);
 int has_dupe(int *stack, int n);
-int sorting(int *stack_a, int *stack_tmp, int i);
+int	sorting(int *stack_a, int *stack_tmp, int size);
 
 void push(int *stack_a, int *stack_b, char c, int size);
 void swap(int *stack, char c);

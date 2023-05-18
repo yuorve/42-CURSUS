@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 12:17:30 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 12:29:53 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,36 @@ void	sort_small(int *stack_a, int size)
 }
 
 // Función de apoyo para ordenar pilas de más de 3 elementos
-// Si devuelve 1 ha habido un push
-int	sorting(int *stack_a, int *stack_tmp, int i)
+// Devuelve el número de elementos movidos a la pila b
+int	sorting(int *stack_a, int *stack_tmp, int size)
 {
-	if (stack_a[1] < stack_a[0])
-		swap(stack_a, 'a');
-	if (stack_a[0] == stack_tmp[i])
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < size)
 	{
-		push(stack_a, stack_b, 'b', size);
-		return (1);
+		if ((size - i) <= 3)
+		{
+			sort_small(stack_a, size);
+			i = size;
+		}
+		else
+		{
+			if (stack_a[1] < stack_a[0])
+				swap(stack_a, 'a');
+			if (stack_a[0] == stack_tmp[i])
+			{
+				push(stack_a, stack_b, 'b', size);
+				i++;
+				j++;
+			}
+			else
+				rotate(stack_a, size, 'a');
+			}
 	}
-	else
-		rotate(stack_a, size, 'a');
-	return (0);
+	return (j);
 }
 
 // Función para ordenar pilas de más de 3 elementos
@@ -69,24 +86,7 @@ void	sort_large(int *stack_a, int *stack_b, int size)
 	}
 	radix_sort(stack_tmp, size);
 	i = 0;
-	j = 0;
-	while (i < size)
-	{
-		if ((size - i) <= 3)
-		{
-			sort_small(stack_a, size);
-			i = size;
-		}
-		else
-		{
-			if (sorting(stack_a, stack_tmp, i))
-			{
-				i++;
-				j++;
-			}
-		}
-	}
-	i = 0;
+	j = sorting(stack_a, stack_tmp, size);
 	while (i < j)
 	{
 		push(stack_a, stack_b, 'a', size);
