@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 09:36:23 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 09:38:36 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	push(int *stack_a, int *stack_b, char c, int size)
 		tmp = stack_b[0];
 		while (++i < (size - 1))
 		{
-			stack_b[i] = stack_b[i + 1];			
+			stack_b[i] = stack_b[i + 1];		
 		}
 		while (i > 0)
 		{
@@ -38,14 +38,14 @@ void	push(int *stack_a, int *stack_b, char c, int size)
 		tmp = stack_a[0];
 		while (++i < (size - 1))
 		{
-			stack_a[i] = stack_a[i + 1];			
+			stack_a[i] = stack_a[i + 1];
 		}
 		while (i > 0)
 		{
 			stack_b[i] = stack_b[i - 1];
 			i--;
 		}
-		stack_b[i] = tmp;		
+		stack_b[i] = tmp;
 	}
 	ft_printf("p%c\n", c);
 }
@@ -53,8 +53,8 @@ void	push(int *stack_a, int *stack_b, char c, int size)
 // Función para ejecutar sa sb
 void	swap(int *stack, char c)
 {
-	int tmp;
-	
+	int	tmp;
+
 	tmp = stack[0];
 	stack[0] = stack[1];
 	stack[1] = tmp;
@@ -64,8 +64,8 @@ void	swap(int *stack, char c)
 // Función para ejecutar ra rb
 void	rotate(int *stack, int size, char c)
 {
-	int i;
-	int tmp;
+	int	i;
+	int	tmp;
 
 	i = 0;
 	tmp = stack[0];
@@ -83,7 +83,8 @@ void	sort_small(int *stack_a, int size)
 {
 	if (size == 2)
 		swap(stack_a, 'a');
-	else {
+	else
+	{
 		if (stack_a[1] > stack_a[2])
 		{
 			if (stack_a[1] < stack_a[0])
@@ -105,9 +106,9 @@ void	sort_small(int *stack_a, int size)
 // Función para ordenar pilas de más de 3 elementos
 void	sort_large(int *stack_a, int *stack_b, int size)
 {
-	int i;
-	int j;
-	int *stack_tmp;
+	int	i;
+	int	j;
+	int	*stack_tmp;
 
 	stack_tmp = malloc(size * sizeof(int*));
 	i = 0;
