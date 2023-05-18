@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 13:26:51 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 13:38:27 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	sort_small(int *stack_a, int size)
 			}
 			else
 			{
-				rotate(stack_a, size, 'a');
+				swap(stack_a, 'a');
 				rotate(stack_a, size, 'a');
 			}
 		}
