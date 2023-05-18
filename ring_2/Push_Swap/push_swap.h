@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:45:25 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 10:40:46 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 10:44:46 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void swap(int *stack, char c);
 void rotate(int *stack, int size, char c);
 void sort_small(int *stack_a, int size);
 void sort_large(int *stack_a, int *stack_b, int size);
-void countSort(int *stack_a, int n, int exp, int *output, int *count);
-void radixSort(int *stack_a, int n);
+void count_sort(int *stack_a, int n, int exp, int *output, int *count);
+void radix_sort(int *stack_a, int n);
 
 int is_valid_arguments(char **argv, int *stack_a);
 int is_sorted(int *stack_a, int size);

@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 10:18:46 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 10:43:15 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 10:44:19 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // Función para ordenar por las unidades/decenas/...
 // Se utiliza para ordenar el algoritmo Radix Sort
-void	countSort(int *stack_a, int n, int exp, int *output, int *count)
+void	count_sort(int *stack_a, int n, int exp, int *output, int *count)
 {
 	int	i;
 	 
@@ -48,7 +48,7 @@ void	countSort(int *stack_a, int n, int exp, int *output, int *count)
 
 // Función para ordenar los argumentos pasados desde la línea de comandos
 // Utiliza el algoritmo Radix Sort
-void	radixSort(int *stack_a, int n)
+void	radix_sort(int *stack_a, int n)
 {
 	int	*output;
 	int	*count;
@@ -73,7 +73,7 @@ void	radixSort(int *stack_a, int n)
 		i = 0;
 		while(i < 10)
 			count[i++] = 0;
-        countSort(stack_a, n, exp, output, count);
+        count_sort(stack_a, n, exp, output, count);
 		exp *= 10;
     }
 	free(count);
