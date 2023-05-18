@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 08:38:19 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 09:10:16 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 09:12:14 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_sendmsg(int pid, char c)
 			{
 				exit(ft_printf("Error: Fallo al enviar la señal USR1\n"));
 			}	
-		} 
+		}
 		else
 		{	
 			if (kill(pid, SIGUSR2) == -1)
@@ -58,9 +58,9 @@ void	ft_sendmsg(int pid, char c)
 int	main(int argc, char **argv)
 {
 	struct sigaction	sa;	
-	int 				pid_server;
+	int					pid_server;
 	int					i;
-	char 				*str;
+	char				*str;
 
 	if (argc == 3)
 	{
@@ -75,12 +75,12 @@ int	main(int argc, char **argv)
 		ft_printf("Enviando mensaje al servidor: %d\n", pid_server);
 		str = argv[2];
 		i = 0;
-		while (str[i] != '\0') 
+		while (str[i] != '\0')
 			ft_sendmsg(pid_server, str[i++]);
 		ft_sendmsg(pid_server, '\0');
 		while (1)
 			pause();
-	} 
+	}
 	else
 		return (ft_printf("Error: Faltan argumentos\n"));
 	return (0);
