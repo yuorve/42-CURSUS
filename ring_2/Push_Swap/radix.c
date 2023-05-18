@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 10:18:46 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 11:09:02 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:10:10 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ void	count_sort(int *stack_a, int n, int exp)
 	int	*output;
 	int	*count;
 	int	i;
+	int index;
 
 	output = malloc (n * sizeof(int *));
 	count = malloc (10 * sizeof(int *));
 	i = 0;
 	while (i < n)
 	{
-		int index = stack_a[i++] / exp;
+		index = stack_a[i++] / exp;
 		count[index % 10]++;
 	}
 	i = 1;
@@ -37,7 +38,7 @@ void	count_sort(int *stack_a, int n, int exp)
 	i = n - 1;
 	while (i >= 0)
 	{
-		int index = stack_a[i] / exp;
+		index = stack_a[i] / exp;
 		output[count[index % 10] - 1] = stack_a[i];
 		count[index % 10]--;
 		i--;
