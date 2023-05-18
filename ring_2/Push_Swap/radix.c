@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 10:18:46 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 11:16:45 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:17:25 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	radix_sort(int *stack_a, int n)
 	{
 		if (stack_a[i] > max)
 			max = stack_a[i];
-    }
+	}
 	exp = 1;
 	while (max / exp > 0)
 	{
