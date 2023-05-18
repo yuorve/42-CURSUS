@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 08:38:19 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 09:12:14 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 09:14:03 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,8 @@ int	main(int argc, char **argv)
 		sa.sa_flags = SA_SIGINFO;
 		sa.sa_sigaction = ft_handler;
 		sigemptyset(&sa.sa_mask);
-		if (sigaction(SIGUSR1, &sa, NULL) == -1)
-			return (ft_printf("Error: Fallo config USR1\n"));
-		if (sigaction(SIGUSR2, &sa, NULL) == -1)
-			return (ft_printf("Error: Fallo config USR2\n"));
+		sigaction(SIGUSR1, &sa, NULL);
+		sigaction(SIGUSR2, &sa, NULL);
 		pid_server = ft_atoi(argv[1]);
 		ft_printf("Enviando mensaje al servidor: %d\n", pid_server);
 		str = argv[2];
