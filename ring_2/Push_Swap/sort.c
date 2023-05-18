@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 09:33:50 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 09:35:00 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	push(int *stack_a, int *stack_b, char c, int size)
 {
 	int	i;
-	int tmp;
+	int	tmp;
 	
 	i = -1;	
 	if (c == 'a') {
@@ -83,6 +83,7 @@ void	sort_small(int *stack_a, int size)
 		swap(stack_a, 'a');
 	else {
 		if (stack_a[1] > stack_a[2])
+		{
 			if (stack_a[1] < stack_a[0])
 			{
 				rotate(stack_a, size, 'a');
@@ -93,6 +94,7 @@ void	sort_small(int *stack_a, int size)
 				rotate(stack_a, size, 'a');
 				rotate(stack_a, size, 'a');
 			}
+		}
 		else
 			swap(stack_a, 'a');
 	}
