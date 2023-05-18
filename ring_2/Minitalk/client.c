@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 08:38:19 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 08:05:45 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 08:14:53 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,20 @@ void ft_sendmsg(int pid, char c) {
 // Enviar el mensaje y un final del mensaje
 // Esperar la respuesta del servidor
 int main(int argc, char **argv) {
-	struct sigaction    sa;	
+	struct sigaction	sa;	
 	int 				pid_server;
-	int     			i;
-	char 			   *str;
+	int					i;
+	char 				*str;
 
-	if (argc == 3) {
+	if (argc == 3)
+	{
 		sa.sa_flags = SA_SIGINFO;
 		sa.sa_sigaction = ft_handler;
 		sigemptyset(&sa.sa_mask);
 		if (sigaction(SIGUSR1, &sa, NULL) == -1)
-			return (ft_printf("Error: Fallo al configurar el controlador de señales USR1\n"));
+			return (ft_printf("Error: Fallo config USR1\n"));
 		if (sigaction(SIGUSR2, &sa, NULL) == -1)
-			return (ft_printf("Error: Fallo al configurar el controlador de señales USR2\n"));
+			return (ft_printf("Error: Fallo config USR2\n"));
 		pid_server = ft_atoi(argv[1]);
 		ft_printf("Enviando mensaje al servidor: %d\n", pid_server);
 		str = argv[2];
@@ -69,7 +70,8 @@ int main(int argc, char **argv) {
 		ft_sendmsg(pid_server, '\0');
 		while (1)
 			pause();
-	} else
+	} 
+	else
 		return (ft_printf("Error: Faltan argumentos\n"));
 	return (0);
 }
