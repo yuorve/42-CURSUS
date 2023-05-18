@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 09:38:36 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 09:40:20 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	push(int *stack_a, int *stack_b, char c, int size)
 		tmp = stack_b[0];
 		while (++i < (size - 1))
 		{
-			stack_b[i] = stack_b[i + 1];		
+			stack_b[i] = stack_b[i + 1];
 		}
 		while (i > 0)
 		{
@@ -110,7 +110,7 @@ void	sort_large(int *stack_a, int *stack_b, int size)
 	int	j;
 	int	*stack_tmp;
 
-	stack_tmp = malloc(size * sizeof(int*));
+	stack_tmp = malloc (size * sizeof(int*));
 	i = 0;
 	while (i < size)
 	{
@@ -131,12 +131,13 @@ void	sort_large(int *stack_a, int *stack_b, int size)
 		{
 			if (stack_a[1] < stack_a[0])
 				swap(stack_a, 'a');
-			if (stack_a[0] == stack_tmp[i]) {
+			if (stack_a[0] == stack_tmp[i])
+			{
 				push(stack_a, stack_b, 'b', size);
 				i++;
 				j++;
 			}
-			else 
+			else
 				rotate(stack_a, size, 'a');
 		}
 	}
