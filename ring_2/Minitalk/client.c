@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 08:38:19 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 08:19:54 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 08:21:10 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_handler(int sig, siginfo_t *info, void *context)
 {
 	static int	i;
+	
 	i = 0;
 	(void)context;
 	(void)info;
