@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 09:28:36 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:40:29 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 // Función para validar los argumentos pasados desde la línea de comandos
 // Devuelve 1 si los argumentos son válidos, en caso contrario devuelve 0
-int is_valid_arguments(char **argv, int *stack_a) {
+int	is_valid_arguments(char **argv, int *stack_a)
+{
 	int	i;
 	int	j;
 	int	valid;
@@ -42,9 +43,10 @@ int is_valid_arguments(char **argv, int *stack_a) {
 }
 
 // Función para comprobar si la pila_a está ordenada
-int is_sorted(int *stack_a, int size) {
-    int i;
-	int valid;
+int	is_sorted(int *stack_a, int size)
+{
+	int	i;
+	int	valid;
 
 	i = -1;
 	valid = 1;
@@ -58,29 +60,31 @@ int is_sorted(int *stack_a, int size) {
 }
 
 // Función para realizar el enrutamiento en función del número de argumentos
-void router(int *stack_a, int *stack_b, int size) {
+void	router(int *stack_a, int *stack_b, int size)
+{
     if (size <= 3)
 		sort_small(stack_a, size);
 	else
 		sort_large(stack_a, stack_b, size);
 }
 
-int main(int argc, char **argv) {
-    int *stack_a;
-    int *stack_b;
+// Comprobar que los argumentos son válidos
+// Comprobar que no está ordenado ya
+int	main(int argc, char **argv)
+{
+	int	*stack_a;
+	int	*stack_b;
     
-    if (argc < 2) // Comprobar si se ha pasado la cantidad correcta de variables
-        return (ft_printf("Error\n"));    
-    //stack_a = ft_calloc((argc - 1), sizeof(int*));
-    //stack_b = ft_calloc((argc - 1), sizeof(int*));
+    if (argc < 2)
+        return (ft_printf("Error\n"));
 	stack_a = malloc((argc - 1) * sizeof(int*));
 	stack_b = malloc((argc - 1) * sizeof(int*));
-    if (!is_valid_arguments(argv, stack_a)) { // Si no, liberar las pilas    
+    if (!is_valid_arguments(argv, stack_a)) {
         free(stack_a);
         free(stack_b);
         return (ft_printf("Error\n"));
     }
-    if (is_sorted(stack_a, (argc - 1))) { // Está ordenado?, si es así liberar las pilas
+    if (is_sorted(stack_a, (argc - 1))) {
         free(stack_a);
         free(stack_b);
         return 0;
@@ -88,5 +92,5 @@ int main(int argc, char **argv) {
     router(stack_a, stack_b, (argc - 1));
     free(stack_a);
     free(stack_b);
-    return 0;	
+    return 0;
 }
