@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 08:25:49 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 09:17:41 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 09:18:58 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ void	ft_handler(int sig, siginfo_t *info, void *context)
 		c = (c << 1) | 1;
 	else if (sig == SIGUSR2)
 		c <<= 1;
-	i++;	
+	i++;
 	if (i == 8)
 	{		
 		if (c == '\0')
 		{
-			ft_printf("\n", c);		
+			ft_printf("\n", c);
 			kill(pid_client, SIGUSR1);
 		}
 		ft_printf("%c", c);
@@ -53,7 +53,8 @@ void	ft_handler(int sig, siginfo_t *info, void *context)
 // Hay que configurar sigaction para manejar la señal SIGUSR1 y SIGUSR2
 // Mostrar el PID del servidor
 // Esperar el mensaje del cliente
-int	main(void) {
+int	main(void)
+{
 	struct sigaction	sa;
 	int					pid_server;
 
