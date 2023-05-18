@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 09:40:20 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 09:41:27 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	sort_large(int *stack_a, int *stack_b, int size)
 	int	j;
 	int	*stack_tmp;
 
-	stack_tmp = malloc (size * sizeof(int*));
+	stack_tmp = malloc (size * sizeof(int *));
 	i = 0;
 	while (i < size)
 	{
