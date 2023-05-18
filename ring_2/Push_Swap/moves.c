@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 12:05:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 12:06:05 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:25:43 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	push(int *stack_a, int *stack_b, char c, int size)
 	if (c == 'a')
 	{
 		tmp = stack_b[0];
-		while (++i < (size - 1))
+		while (++i < size)
 			stack_b[i] = stack_b[i + 1];
 		while (--i > 0)
 			stack_a[i] = stack_a[i - 1];
@@ -31,7 +31,7 @@ void	push(int *stack_a, int *stack_b, char c, int size)
 	else
 	{
 		tmp = stack_a[0];
-		while (++i < (size - 1))
+		while (++i < size)
 			stack_a[i] = stack_a[i + 1];
 		while (--i > 0)
 			stack_b[i] = stack_b[i - 1];
