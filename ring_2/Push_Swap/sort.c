@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 09:31:48 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 09:33:50 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,47 +88,56 @@ void	sort_small(int *stack_a, int size)
 				rotate(stack_a, size, 'a');
 				swap(stack_a, 'a');
 			}
-			else {
+			else
+			{
 				rotate(stack_a, size, 'a');
 				rotate(stack_a, size, 'a');
-			}				
+			}
 		else
 			swap(stack_a, 'a');
 	}
 }
 
 // Función para ordenar pilas de más de 3 elementos
-void sort_large(int *stack_a, int *stack_b, int size) {
+void	sort_large(int *stack_a, int *stack_b, int size)
+{
 	int i;
 	int j;
 	int *stack_tmp;
 
 	stack_tmp = malloc(size * sizeof(int*));
 	i = 0;
-	while (i < size) {
+	while (i < size)
+	{
 		stack_tmp[i] = stack_a[i];
 		i++;
 	}
 	radixSort(stack_tmp, size);
 	i = 0;
 	j = 0;
-	while (i < size) {
-		if ((size - i) <= 3) {
+	while (i < size)
+	{
+		if ((size - i) <= 3)
+		{
 			sort_small(stack_a, size);
 			i = size;
-		} else {
+		}
+		else
+		{
 			if (stack_a[1] < stack_a[0])
 				swap(stack_a, 'a');
 			if (stack_a[0] == stack_tmp[i]) {
 				push(stack_a, stack_b, 'b', size);
 				i++;
 				j++;
-			} else 
+			}
+			else 
 				rotate(stack_a, size, 'a');
 		}
 	}
 	i = 0;
-	while (i < j) {
+	while (i < j)
+	{
 		push(stack_a, stack_b, 'a', size);
 		i++;
 	}
