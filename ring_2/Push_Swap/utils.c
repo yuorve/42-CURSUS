@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:23:57 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 09:26:54 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 09:29:02 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,15 @@ int	stack_size(int *stack)
 
 // Función para buscar duplicados dentro de la pila
 // Devuelve 1 si hay duplicados 0 sino
-int	hasDupe(int *stack_a, int n)
+int	has_dupe(int *stack_a, int n)
 {
 	int i;
 	int valid;
 
 	i = 0;
 	valid = 0;
-	while (stack_a[i]) {
+	while (stack_a[i])
+	{
 		if (stack_a[i] == n)
 			valid = 1;
 		i++;

@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/17 20:06:43 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 09:28:36 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int is_valid_arguments(char **argv, int *stack_a) {
 		}
 		if (valid)
 		{	
-			if (hasDupe(stack_a, ft_atoi(argv[i])))
+			if (has_dupe(stack_a, ft_atoi(argv[i])))
 				valid = 0;
 			stack_a[i - 1] = ft_atoi(argv[i]);
 		}
