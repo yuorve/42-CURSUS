@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 08:25:49 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 09:18:58 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 09:19:41 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ int	main(void)
 	sa.sa_sigaction = ft_handler;
 	sigemptyset(&sa.sa_mask);
 	if (sigaction(SIGUSR1, &sa, NULL) == -1)
-		return (ft_printf("Error: Fallo config USR1\n"));	
+		return (ft_printf("Error: Fallo config USR1\n"));
 	if (sigaction(SIGUSR2, &sa, NULL) == -1)
-		return (ft_printf("Error: Fallo config USR2\n"));	
+		return (ft_printf("Error: Fallo config USR2\n"));
 	pid_server = getpid();
 	ft_printf("Servidor iniciado\n");
 	ft_printf("PID: %d\n", pid_server);
 	ft_printf("Esperando mensajes...\n");
-	while (1) 
+	while (1)
 		pause();
 	return (0);
 }
