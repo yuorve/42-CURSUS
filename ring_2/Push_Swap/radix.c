@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 10:18:46 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 10:56:34 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:02:58 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	count_sort(int *stack_a, int n, int exp)
 	int	*count;
 	int	i;
 
-    output = malloc(n * sizeof(int*));
-	count = malloc(10 * sizeof(int*));
+    output = malloc (n * sizeof(int *));
+	count = malloc (10 * sizeof(int *));
 	i = 0;
 	while (i < n)
 	{
@@ -61,7 +61,7 @@ void	radix_sort(int *stack_a, int n)
 	int	exp;
 	int	*count;
 
-	count = malloc(10 * sizeof(int*));
+	count = malloc (10 * sizeof(int *));
     max = stack_a[0];
 	i = 0;
 	while (++i < n)
@@ -80,5 +80,5 @@ void	radix_sort(int *stack_a, int n)
         count_sort(stack_a, n, exp);
 		exp *= 10;
     }
-	free(count);	
+	free(count);
 }
