@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 10:18:46 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 11:34:15 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:34:51 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	count_sort(int *stack_a, int n, int exp, int *output)
 	{
 		index = stack_a[i] / exp;
 		output[count[index % 10] - 1] = stack_a[i];
-		count[index % 10]--;		
+		count[index % 10]--;
 	}
 	i = 0;
 	while (i < n)
