@@ -6,12 +6,13 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:23:57 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/17 20:06:20 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 09:25:02 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // Función para saber la longitud de la pila
-int		stack_size(int *stack) {
+int	stack_size(int *stack)
+{
 	int i;
 
 	i = 0;
@@ -23,7 +24,8 @@ int		stack_size(int *stack) {
 
 // Función para buscar duplicados dentro de la pila
 // Devuelve 1 si hay duplicados 0 sino
-int		hasDupe(int *stack, int n) {
+int	hasDupe(int *stack, int n)
+{
 	int i;
 	int valid;
 
