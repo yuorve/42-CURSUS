@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 10:18:46 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 10:44:19 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 10:53:33 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 // Función para ordenar por las unidades/decenas/...
 // Se utiliza para ordenar el algoritmo Radix Sort
-void	count_sort(int *stack_a, int n, int exp, int *output, int *count)
+void	count_sort(int *stack_a, int n, int exp)
 {
+	int	*output;
+	int	*count;
 	int	i;
-	 
+
+    output = malloc(n * sizeof(int*));
+	count = malloc(10 * sizeof(int*));
 	i = 0;
 	while (i < n)
 	{
@@ -44,20 +48,18 @@ void	count_sort(int *stack_a, int n, int exp, int *output, int *count)
 		stack_a[i] = output[i];
 		i++;
 	}
+	free(count);
+	free(output);
 }
 
 // Función para ordenar los argumentos pasados desde la línea de comandos
 // Utiliza el algoritmo Radix Sort
 void	radix_sort(int *stack_a, int n)
 {
-	int	*output;
-	int	*count;
 	int	max;
 	int	i;
 	int	exp;
 
-    output = malloc(n * sizeof(int*));
-	count = malloc(10 * sizeof(int*));
     max = stack_a[0];
 	i = 0;
 	while (++i < n)
@@ -73,9 +75,7 @@ void	radix_sort(int *stack_a, int n)
 		i = 0;
 		while(i < 10)
 			count[i++] = 0;
-        count_sort(stack_a, n, exp, output, count);
+        count_sort(stack_a, n, exp);
 		exp *= 10;
     }
-	free(count);
-	free(output);
 }
