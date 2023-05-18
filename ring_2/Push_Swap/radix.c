@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 10:18:46 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 11:18:02 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:18:48 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	radix_sort(int *stack_a, int n)
 		i = 0;
 		while (i < 10)
 			count[i++] = 0;
-        count_sort(stack_a, n, exp);
+		count_sort(stack_a, n, exp);
 		exp *= 10;
     }
 	free(count);
