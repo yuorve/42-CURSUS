@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 13:08:55 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 13:13:15 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	sorting(int *stack_a, int *stack_b, int *stack_tmp, int size)
 		else
 		{
 			if (stack_a[1] < stack_a[0])
-				swap(stack_a, 'a');
+				swap(stack_a, 'a.');
 			if (stack_a[0] == stack_tmp[i])
 			{
 				push(stack_a, stack_b, 'b', size);
