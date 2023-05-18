@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 11:42:17 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:45:20 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,23 +74,25 @@ int	main(int argc, char **argv)
 {
 	int	*stack_a;
 	int	*stack_b;
-    
-    if (argc < 2)
-        return (ft_printf("Error\n"));
-	stack_a = malloc((argc - 1) * sizeof(int*));
-	stack_b = malloc((argc - 1) * sizeof(int*));
-    if (!is_valid_arguments(argv, stack_a)) {
-        free(stack_a);
-        free(stack_b);
-        return (ft_printf("Error\n"));
+
+	if (argc < 2)
+		return (ft_printf("Error\n"));
+	stack_a = malloc ((argc - 1) * sizeof(int *));
+	stack_b = malloc ((argc - 1) * sizeof(int *));
+    if (!is_valid_arguments(argv, stack_a))
+	{
+		free(stack_a);
+		free(stack_b);
+		return (ft_printf("Error\n"));
+	}
+	if (is_sorted(stack_a, (argc - 1)))
+	{
+		free(stack_a);
+		free(stack_b);
+		return (ft_printf("\n"));
     }
-    if (is_sorted(stack_a, (argc - 1))) {
-        free(stack_a);
-        free(stack_b);
-        return 0;
-    }
-    router(stack_a, stack_b, (argc - 1));
-    free(stack_a);
-    free(stack_b);
-    return 0;
+	router(stack_a, stack_b, (argc - 1));
+	free(stack_a);
+	free(stack_b);
+	return 0;
 }
