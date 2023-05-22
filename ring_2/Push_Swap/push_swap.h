@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:45:25 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 12:33:37 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 12:34:51 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "./libft/inc/libft.h"
 
 int		stack_size(int *stack);
-int		has_dupe(int *stack, int n);
+int		has_dupe(int *stack, long n);
 int		sorting(int *stack_a, int *stack_b, int *stack_tmp, int size);
 int		is_valid_arguments(char **argv, int *stack_a);
 int		is_sorted(int *stack_a, int size);
