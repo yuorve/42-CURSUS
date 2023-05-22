@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 13:59:39 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:01:03 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	sort_large(int *stack_a, int *stack_b, int size)
 		stack_tmp[i] = stack_a[i];
 		i++;
 	}
+	radix_sort(stack_tmp, size);	
 	ft_printf("TMP:");
 	i = 0;
 	while (i < size)
@@ -118,7 +119,6 @@ void	sort_large(int *stack_a, int *stack_b, int size)
 		i++;
 	}
 	ft_printf("\n");
-	radix_sort(stack_tmp, size);
 	i = 0;
 	len_b = sorting(stack_a, stack_b, stack_tmp, size);
 	while (i < len_b)
