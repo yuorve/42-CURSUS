@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 10:31:19 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 10:35:21 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ int	is_sorted(int *stack_a, int size)
 	while (i < size)
 	{
 		if (stack_a[i] > stack_a[i + 1])
+		{
+			ft_printf("Desordenado\n");
 			valid = 0;
+		}
 		i++;
 	}
 	return (valid);
