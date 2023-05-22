@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 09:00:37 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 09:03:32 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	sort_small(int *stack_a, int size)
 int	sorting(int *stack_a, int *stack_b, int *stack_tmp, int len_tmp)
 {	
 	int	i;
-	int len_a;
+	int	len_a;
 	int	len_b;
 
 	i = 0;
