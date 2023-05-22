@@ -6,11 +6,38 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 09:13:54 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 10:14:23 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+// Función para ordenar pilas de 3 - opcion 2
+void	sort_small_2(int *stack_a, int size)
+{
+	if (stack_a[2] > stack_a[0])
+	{
+		swap(stack_a, 'a');
+	}
+	else
+	{
+		rotate(stack_a, size, 'a');
+	}
+}
+
+// Función para ordenar pilas de 3 - opcion 3
+void	sort_small_3(int *stack_a, int size)
+{
+	if (stack_a[2] < stack_a[0])
+	{
+		rev_rotate(stack_a, size, 'a');
+	}
+	else
+	{
+		swap(stack_a, 'a');
+		rotate(stack_a, size, 'a');
+	}
+}
 
 // Función para ordenar pilas de 3 o menos elementos
 void	sort_small(int *stack_a, int size)
@@ -19,21 +46,19 @@ void	sort_small(int *stack_a, int size)
 		swap(stack_a, 'a');
 	else
 	{
-		if (stack_a[1] > stack_a[2])
+		if (stack_a[0] > stack_a[1] && stack_a[1] > stack_a[2])
 		{
-			if (stack_a[1] < stack_a[0])
-			{
-				rotate(stack_a, size, 'a');
-				swap(stack_a, 'a');
-			}
-			else
-			{
-				swap(stack_a, 'a');
-				rotate(stack_a, size, 'a');
-			}
-		}
-		else
 			swap(stack_a, 'a');
+			rev_rotate(stack_a, size, 'a');
+		}
+		else if (stack_a[0] > stack_a[1] && stack_a[1] < stack_a[2])
+		{
+			sort_small_2(stack_a, size);
+		}
+		else if (stack_a[0] < stack_a[1] && stack_a[1] > stack_a[2])
+		{
+			sort_small_3(stack_a, size);
+		}
 	}
 }
 

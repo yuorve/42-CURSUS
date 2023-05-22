@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 12:05:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 15:25:43 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 10:07:15 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,21 @@ void	rotate(int *stack, int size, char c)
 	}
 	stack[i] = tmp;
 	ft_printf("r%c\n", c);
+}
+
+// Función para ejecutar rra rrb
+void	rev_rotate(int *stack, int size, char c)
+{
+	int	i;
+	int	tmp;
+
+	i = size - 1;
+	tmp = stack[i];
+	while (i > 0)
+	{
+		stack[i] = stack[i - 1];
+		i--;
+	}
+	stack[0] = tmp;
+	ft_printf("rr%c\n", c);
 }
