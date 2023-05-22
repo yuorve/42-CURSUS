@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:23:57 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 12:57:30 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:28:37 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ int	has_dupe(int *stack_a, long n)
 }
 
 // Función para saber la posición en la pila
-int	find_pos(int *stack, int n)
+int	find_pos(int *stack, int n, int size)
 {
 	int	i;
 
 	i = 0;
-	while (stack[i] && stack[i] != n)
+	while (i < size && stack[i] != n)
 	{		
 		i++;
 	}
@@ -93,7 +93,7 @@ void	direction(int *stack, int n, int size)
 {
 	int	i;
 
-	i = find_pos(stack, n);
+	i = find_pos(stack, n, size);
 	if (i == 1)
 		swap(stack, 'a');
 	else if (i > (size / 2))
