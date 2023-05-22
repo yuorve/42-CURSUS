@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:23:57 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 11:17:47 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 12:26:06 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,15 @@ int	has_dupe(int *stack_a, long n)
 		i++;
 	}
 	return (valid);
+}
+
+// Función para decidir si se hacer reverse
+void	direction(int *stack, int size)
+{
+	if (stack[0] > stack[1])
+		swap(stack, 'a');
+	else if (stack[0] < stack[(size - 1)])
+		rotate(stack, size, 'a');
+	else
+		rev_rotate(stack, size, 'a');
 }
