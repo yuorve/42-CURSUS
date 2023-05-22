@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:23:57 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 12:56:09 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 12:57:30 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ int	find_pos(int *stack, int n)
 // Función para decidir si se hacer reverse
 void	direction(int *stack, int n, int size)
 {
-	int i;
+	int	i;
 
-	i = find_pos(stack, n);	
+	i = find_pos(stack, n);
 	if (i == 1)
 		swap(stack, 'a');
 	else if (i > (size / 2))
