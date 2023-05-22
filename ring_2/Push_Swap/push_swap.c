@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 10:38:27 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 10:39:20 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	is_sorted(int *stack_a, int size)
 
 	i = 0;
 	valid = 1;
-	while (i < size)
+	while (i < (size - 1))
 	{
 		ft_printf("%d %d\n", stack_a[i], stack_a[i + 1]);
 		if (stack_a[i] > stack_a[i + 1])
