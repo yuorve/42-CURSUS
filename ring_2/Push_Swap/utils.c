@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:23:57 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 13:51:55 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:52:25 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	direction(int *stack, int n, int size)
 	int	pos;
 
 	pos = find_pos(stack, n, size);
-	ft_printf("%d %d -", n, i);
+	ft_printf("%d %d -", n, pos);
 	if (pos == 1)
 		swap(stack, 'a');
 	else if (pos > (size / 2))
