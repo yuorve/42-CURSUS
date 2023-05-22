@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:45:25 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 12:30:11 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 12:33:37 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 # define PUSH_SWAP_H
 # include "./libft/inc/libft.h"
 
-int	stack_size(int *stack);
-int	has_dupe(int *stack, int n);
+int		stack_size(int *stack);
+int		has_dupe(int *stack, int n);
+int		sorting(int *stack_a, int *stack_b, int *stack_tmp, int size);
+int		is_valid_arguments(char **argv, int *stack_a);
+int		is_sorted(int *stack_a, int size);
 
 void	push(int *stack_a, int *stack_b, char c, int size);
 void	swap(int *stack, char c);
@@ -29,10 +32,6 @@ void	count_sort(int *stack_a, int n, int exp, int *output);
 void	radix_sort(int *stack_a, int n);
 void	router(int *stack_a, int *stack_b, int size);
 void	direction(int *stack, int size);
-
-int	sorting(int *stack_a, int *stack_b, int *stack_tmp, int size);
-int	is_valid_arguments(char **argv, int *stack_a);
-int	is_sorted(int *stack_a, int size);
 
 long	ft_atoil(const char *str);
 
