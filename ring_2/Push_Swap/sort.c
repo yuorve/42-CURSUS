@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 09:08:49 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 09:12:28 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ int	sorting(int *stack_a, int *stack_b, int *stack_tmp, int len_tmp)
 	len_b = 0;
 	while (i < len_tmp && !is_sorted(stack_a, len_a))
 	{		
-		if (len_a <= 3)
+		if (len_a <= 3) {
 			sort_small(stack_a, len_a);
+			i = len_tmp;
+		}
 		else
 		{
 			if (stack_a[0] == stack_tmp[i])
@@ -84,7 +86,7 @@ void	sort_large(int *stack_a, int *stack_b, int size)
 	}
 	radix_sort(stack_tmp, size);
 	i = 0;
-	len_b = 0; //sorting(stack_a, stack_b, stack_tmp, size);
+	len_b = sorting(stack_a, stack_b, stack_tmp, size);
 	while (i < len_b)
 	{
 		push(stack_a, stack_b, 'a', len_b);
