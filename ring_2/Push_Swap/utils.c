@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:23:57 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 12:31:08 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 12:37:26 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	direction(int *stack, int size)
 {
 	if (stack[0] > stack[1])
 		swap(stack, 'a');
-	else if (stack[0] < stack[(size - 1)])
-		rotate(stack, size, 'a');
-	else
+	else if (stack[0] > stack[(size - 1)])
 		rev_rotate(stack, size, 'a');
+	else
+		rotate(stack, size, 'a');
 }
