@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 15:08:01 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:14:27 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	sort_large(int *stack_a, int *stack_b, int size)
 	}
 	radix_sort(stack_tmp, size);
 	i = 0;
-	len_b = sorting(stack_a, stack_b, stack_tmp, size);	
+	len_b = sorting(stack_a, stack_b, stack_tmp, size);
 	while (i < len_b)
 	{
 		push(stack_a, stack_b, 'a', len_b);
