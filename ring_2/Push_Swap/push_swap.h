@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:45:25 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 12:53:33 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:26:53 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ int		has_dupe(int *stack, long n);
 int		sorting(int *stack_a, int *stack_b, int *stack_tmp, int size);
 int		is_valid_arguments(char **argv, int *stack_a);
 int		is_sorted(int *stack_a, int size);
+int 	find_pos(int *stack, int n, int size);
+
+long	ft_atoil(const char *str);
 
 void	push(int *stack_a, int *stack_b, char c, int size);
 void	swap(int *stack, char c);
@@ -32,7 +35,5 @@ void	count_sort(int *stack_a, int n, int exp, int *output);
 void	radix_sort(int *stack_a, int n);
 void	router(int *stack_a, int *stack_b, int size);
 void	direction(int *stack, int n, int size);
-
-long	ft_atoil(const char *str);
 
 #endif
