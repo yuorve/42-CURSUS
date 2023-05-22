@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 10:20:29 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 10:31:06 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,7 @@ int	sorting(int *stack_a, int *stack_b, int *stack_tmp, int len_tmp)
 	while (i < len_tmp && !is_sorted(stack_a, len_a))
 	{		
 		if (len_a <= 3)
-		{
 			sort_small(stack_a, len_a);
-			i = len_tmp;
-		}
 		else
 		{
 			if (stack_a[0] == stack_tmp[i])
