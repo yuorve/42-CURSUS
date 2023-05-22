@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 12:17:57 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 12:28:08 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	sorting(int *stack_a, int *stack_b, int *stack_tmp, int len_tmp)
 				len_b++;
 				i++;
 			}
-			else				
+			else
 				direction(stack_a, len_a);
 		}	
 	}
