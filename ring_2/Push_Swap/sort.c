@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 16:25:21 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 09:00:37 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,38 +39,40 @@ void	sort_small(int *stack_a, int size)
 
 // Función de apoyo para ordenar pilas de más de 3 elementos
 // Devuelve el número de elementos movidos a la pila b
-int	sorting(int *stack_a, int *stack_b, int *stack_tmp, int size)
+int	sorting(int *stack_a, int *stack_b, int *stack_tmp, int len_tmp)
 {	
 	int	i;
-	int	j;
+	int len_a;
+	int	len_b;
 
 	i = 0;
-	j = 0;
-	while (i < size && !is_sorted(stack_a, size))
+	len_a = len_tmp;
+	len_b = 0;
+	while (i < len_tmp && !is_sorted(stack_a, len_a))
 	{		
-		if (size <= 3)
-			sort_small(stack_a, size);
+		if (len_a <= 3)
+			sort_small(stack_a, len_a);
 		else
 		{
 			if (stack_a[0] == stack_tmp[i])
 			{
-				push(stack_a, stack_b, 'b', size);
-				size--;
+				push(stack_a, stack_b, 'b', len_a);
+				len_a--;
+				len_b++;
 				i++;
-				j++;
 			}
 			else
-				rotate(stack_a, size, 'a');
+				rotate(stack_a, len_a, 'a');
 		}	
 	}
-	return (j);
+	return (len_b);
 }
 
 // Función para ordenar pilas de más de 3 elementos
 void	sort_large(int *stack_a, int *stack_b, int size)
 {
 	int	i;
-	int	j;
+	int	len_b;
 	int	*stack_tmp;
 
 	stack_tmp = malloc (size * sizeof(int *));
@@ -82,10 +84,10 @@ void	sort_large(int *stack_a, int *stack_b, int size)
 	}
 	radix_sort(stack_tmp, size);
 	i = 0;
-	j = sorting(stack_a, stack_b, stack_tmp, size);
+	len_b = sorting(stack_a, stack_b, stack_tmp, size);
 	while (i < j)
 	{
-		push(stack_a, stack_b, 'a', size);
+		push(stack_a, stack_b, 'a', len_b);
 		i++;
 	}
 	free(stack_tmp);

@@ -6,13 +6,26 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:45:25 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 14:10:15 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 08:49:01 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 # include "./libft/inc/libft.h"
+
+typedef struct stacks
+{
+	int *stack_a;
+	int *stack_b;
+    int *stack_tmp;
+	int len_a;
+	int len_b;
+    int len_tmp;
+	int iter_a;
+	int iter_b;
+	int iter_tmp;
+}		t_stacks;
 
 int stack_size(int *stack);
 int has_dupe(int *stack, int n);
