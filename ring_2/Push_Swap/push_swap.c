@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/18 11:46:43 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 09:18:33 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ int	is_sorted(int *stack_a, int size)
 	int	i;
 	int	valid;
 
-	i = -1;
+	i = 0;
 	valid = 1;
-	while (++i < size)
+	while (i < size)
 	{
-		if (i <= (size - 1))
-			if (stack_a[i] > stack_a[i + 1])
-				valid = 0;
+		if (stack_a[i] > stack_a[i + 1])
+			valid = 0;
+		i++;
 	}
 	return (valid);
 }
