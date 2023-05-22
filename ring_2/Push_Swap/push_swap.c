@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 14:58:26 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:50:40 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int	main(int argc, char **argv)
 	int	*stack_a;
 	int	*stack_b;
 
+	if (argc == 0)
+		return (0);
 	if (argc < 2)
 		return (ft_printf("Error\n"));
 	stack_a = malloc ((argc - 1) * sizeof(int));
