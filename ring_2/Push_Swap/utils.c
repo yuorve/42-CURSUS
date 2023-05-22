@@ -6,9 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:23:57 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 12:26:06 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 12:31:08 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
 
 // Función para saber la longitud de la pila
 int	stack_size(int *stack)
