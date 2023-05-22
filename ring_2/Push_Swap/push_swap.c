@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 15:57:31 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:58:24 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	main(int argc, char **argv)
 	{
 		free(stack_a);
 		free(stack_b);
+		return (0);
 	}
 	router(stack_a, stack_b, (argc - 1));
 	free(stack_a);
