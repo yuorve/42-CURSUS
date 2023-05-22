@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:45:25 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 10:31:25 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/22 11:15:15 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ void sort_small_3(int *stack_a, int size);
 void sort_large(int *stack_a, int *stack_b, int size);
 void count_sort(int *stack_a, int n, int exp, int *output);
 void radix_sort(int *stack_a, int n);
+void router(int *stack_a, int *stack_b, int size);
 
 int	sorting(int *stack_a, int *stack_b, int *stack_tmp, int size);
 int is_valid_arguments(char **argv, int *stack_a);
 int is_sorted(int *stack_a, int size);
-void router(int *stack_a, int *stack_b, int size);
+
+long	ft_atoil(const char *str);
 
 #endif
