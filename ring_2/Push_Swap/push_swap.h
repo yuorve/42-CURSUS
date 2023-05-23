@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:45:25 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/23 09:22:40 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:26:23 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	sort_large(int *stack_a, int *stack_b, int size);
 void	count_sort(int *stack_a, int n, int exp, int *output);
 void	radix_sort(int *stack_a, int n);
 void	come_back(int *stack_a, int *stack_b, int size);
+void    split_stack(int *stack_a, int *stack_b, int size, int j);
 void	pre_sort(int *stack_a, int *stack_b, int size);
 void	router(int *stack_a, int *stack_b, int size);
 void	direction(int *stack, int n, int size);
