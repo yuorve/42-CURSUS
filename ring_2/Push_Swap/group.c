@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:20:42 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/23 11:28:39 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:41:49 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	split_stack(int *stack_a, int *stack_b, int size, int j)
 	i = -1;
 	while (++i < len_a)
 	{
-		if (stack_a[i] >= ((size / 3) * (j - 1))
+		if (stack_a[i] > ((size / 3) * (j - 1))
 			&& stack_a[i] <= ((size / 3) * j))
 		{
 			push(stack_a, stack_b, 'b', len_a);
