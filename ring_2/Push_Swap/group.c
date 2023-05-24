@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:20:42 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/24 10:02:00 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/24 10:06:58 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,5 @@ void	pre_sort(int *stack_a, int *stack_b, int size)
 		max = ((size / 3) * j);
 		split_stack(stack_a, stack_b, min, max);
 	}	
-	come_back(stack_a, stack_b);	
+	come_back(stack_a, stack_b);
 }
