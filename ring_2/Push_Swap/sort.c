@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 15:14:27 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:47:24 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	sorting(int *stack_a, int *stack_b, int *stack_tmp, int len_tmp)
 		{
 			if (stack_a[0] == stack_tmp[i])
 			{
-				push(stack_a, stack_b, 'b', len_a);
+				push(stack_a, stack_b, 'b', stack_size(stack_b) + 1);
 				len_a--;
 				len_b++;
 				i++;
@@ -112,7 +112,7 @@ void	sort_large(int *stack_a, int *stack_b, int size)
 	len_b = sorting(stack_a, stack_b, stack_tmp, size);
 	while (i < len_b)
 	{
-		push(stack_a, stack_b, 'a', len_b);
+		push(stack_a, stack_b, 'a', stack_size(stack_a) + 1);
 		i++;
 	}
 	free(stack_tmp);

@@ -6,13 +6,13 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 12:05:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/23 10:25:28 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:50:12 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// Función para ejecutar pa pb
+// Función para ejecutar pa y pb
 void	push(int *stack_a, int *stack_b, char c, int size)
 {
 	int	i;
@@ -22,20 +22,20 @@ void	push(int *stack_a, int *stack_b, char c, int size)
 	if (c == 'a')
 	{
 		tmp = stack_b[0];
-		while (++i < size)
+		while (++i < stack_size(stack_b))
 			stack_b[i] = stack_b[i + 1];
-		while (--i > 0)
-			stack_a[i] = stack_a[i - 1];
-		stack_a[i] = tmp;
+		while (--size > 0)
+			stack_a[size] = stack_a[size - 1];
+		stack_a[size] = tmp;
 	}
 	else
 	{
 		tmp = stack_a[0];
-		while (++i < size)
+		while (++i < stack_size(stack_a))
 			stack_a[i] = stack_a[i + 1];
-		while (--i > 0)
-			stack_b[i] = stack_b[i - 1];
-		stack_b[i] = tmp;
+		while (--size > 0)
+			stack_b[size] = stack_b[size - 1];
+		stack_b[0] = tmp;
 	}
 	ft_printf("p%c\n", c);
 }

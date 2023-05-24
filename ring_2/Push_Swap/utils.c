@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:23:57 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/22 15:13:59 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/23 15:38:53 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	stack_size(int *stack)
 	int	i;
 
 	i = 0;
-	while (stack[i])
+	while (stack[i] != '\0')
 	{
 		i++;
 	}
