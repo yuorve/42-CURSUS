@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:20:42 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/24 06:59:26 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/24 07:10:32 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	split_stack(int *stack_a, int *stack_b, int min, int max)
 		if (stack_a[0] > min && stack_a[0] <= max)
 		{
 			push(stack_a, stack_b, 'b', stack_size(stack_b) + 1);
+			if (stack_b[1] > stack_b[0])
+				swap(stack_b, 'b');
 			size--;
 			i--;
 		}
