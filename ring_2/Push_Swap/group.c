@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:20:42 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/24 08:01:36 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/24 08:03:21 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 void	back_sorting(int *stack)
 {
 	int	size;
-	
-	size = stack_size(stack_a);
+
+	size = stack_size(stack);
 	while (!is_sorted(stack, size))
 	{
 		if (stack[0] > stack[1])
