@@ -6,26 +6,26 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:20:42 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/24 08:03:21 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/24 08:54:20 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 // Función para ordenar los elementos al volver a la pila 
-void	back_sorting(int *stack)
+void	back_sorting(int *stack_a, int *stack_b)
 {
 	int	size;
-
-	size = stack_size(stack);
-	while (!is_sorted(stack, size))
+	
+	while (!is_sorted(stack_a, stack_size(stack_a)))
 	{
-		if (stack[0] > stack[1])
-			swap(stack, 'a');
-		else if (stack[0] > stack[size - 1])
-			rev_rotate(stack, size, 'a');
+		size = stack_size(stack_a);
+		if (stack_a[0] > stack_a[size - 1])
+			rev_rotate(stack_a, size, 'a');
+		if (stack_a[0] > stack_a[1])
+			swap(stack_a, 'a');
 		else
-			rotate(stack, size, 'a');
+			push(stack_a, stack_b, 'b', stack_size(stack_b) + 1);		
 	}
 }
 
@@ -38,7 +38,10 @@ void	come_back(int *stack_a, int *stack_b, int size)
 	while (i < size)
 	{		
 		push(stack_a, stack_b, 'a', stack_size(stack_a) + 1);
-		back_sorting(stack_a);
+		if (stack_size(stack_a) <= 3)
+			sort_small(stack_a, stack_size(stack_a));
+		else
+			back_sorting(stack_a, stack_b);
 		i++;
 	}
 }

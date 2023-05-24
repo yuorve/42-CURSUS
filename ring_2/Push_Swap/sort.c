@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 09:49:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/23 20:47:24 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/24 08:10:59 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	sort_small(int *stack_a, int size)
 {
 	if (size == 2)
 		swap(stack_a, 'a');
-	else
+	else if (size > 2)
 	{
 		if (stack_a[0] > stack_a[1] && stack_a[1] > stack_a[2])
 		{
