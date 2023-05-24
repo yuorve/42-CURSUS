@@ -6,11 +6,28 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:20:42 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/24 07:10:32 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/24 08:01:36 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+// Función para ordenar los elementos al volver a la pila 
+void	back_sorting(int *stack)
+{
+	int	size;
+	
+	size = stack_size(stack_a);
+	while (!is_sorted(stack, size))
+	{
+		if (stack[0] > stack[1])
+			swap(stack, 'a');
+		else if (stack[0] > stack[size - 1])
+			rev_rotate(stack, size, 'a');
+		else
+			rotate(stack, size, 'a');
+	}
+}
 
 // Función para devolver el tercio a la pila original
 void	come_back(int *stack_a, int *stack_b, int size)
@@ -21,8 +38,7 @@ void	come_back(int *stack_a, int *stack_b, int size)
 	while (i < size)
 	{		
 		push(stack_a, stack_b, 'a', stack_size(stack_a) + 1);
-		if (stack_a[1] < stack_a[0])
-			swap(stack_a, 'a');
+		back_sorting(stack_a);
 		i++;
 	}
 }
@@ -40,8 +56,6 @@ void	split_stack(int *stack_a, int *stack_b, int min, int max)
 		if (stack_a[0] > min && stack_a[0] <= max)
 		{
 			push(stack_a, stack_b, 'b', stack_size(stack_b) + 1);
-			if (stack_b[1] > stack_b[0])
-				swap(stack_b, 'b');
 			size--;
 			i--;
 		}
