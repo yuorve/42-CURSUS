@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/24 09:12:25 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/24 11:02:18 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,24 @@ int	is_valid_arguments(char **argv, int *stack_a)
 }
 
 // Función para comprobar si la pila_a está ordenada
-int	is_sorted(int *stack_a, int size)
+int	is_sorted(int *stack_a, int size, int direction)
 {
 	int	i;
 	int	valid;
 
-	i = 0;
+	i = -1;
 	valid = 1;
-	while (i < (size - 1))
+	if (direction == 0)
 	{
-		if (stack_a[i] > stack_a[i + 1])
-		{
-			valid = 0;
-		}
-		i++;
+		while (++i < (size - 1))
+			if (stack_a[i] > stack_a[i + 1])
+				valid = 0;
+	}
+	else
+	{
+		while (++i < (size - 1))
+			if (stack_a[i] < stack_a[i + 1])
+				valid = 0;
 	}
 	return (valid);
 }
@@ -94,7 +98,7 @@ int	main(int argc, char **argv)
 		free(stack_b);
 		return (ft_printf("Error\n"));
 	}
-	if (is_sorted(stack_a, (argc - 1)))
+	if (is_sorted(stack_a, (argc - 1), 0))
 	{
 		free(stack_a);
 		free(stack_b);

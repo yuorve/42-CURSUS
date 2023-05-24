@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:20:42 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/24 10:06:58 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/24 11:20:28 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	back_sorting(int *stack_a, int *stack_b)
 {
 	int	size;
 
-	while (!is_sorted(stack_a, stack_size(stack_a)))
+	while (!is_sorted(stack_a, stack_size(stack_a), 0))
 	{
 		size = stack_size(stack_a);
 		if (stack_a[0] > stack_a[size - 1])
 			rev_rotate(stack_a, size, 'a');
-		if (stack_a[0] > stack_a[1])
+		else if (stack_a[0] > stack_a[1])
 			swap(stack_a, 'a');
 		else
 			push(stack_a, stack_b, 'b', stack_size(stack_b) + 1);
@@ -47,15 +47,18 @@ void	forward_sorting(int *stack_a, int *stack_b)
 {
 	int	size;
 
-	while (!is_sorted(stack_b, stack_size(stack_b)))
+	while (!is_sorted(stack_b, stack_size(stack_b), 1))
 	{
 		size = stack_size(stack_b);
-		if (stack_b[0] > stack_b[size - 1])
-			rev_rotate(stack_b, size, 'b');
-		if (stack_b[0] > stack_b[1])
-			swap(stack_b, 'b');
-		else
-			push(stack_a, stack_b, 'a', stack_size(stack_b) + 1);
+		if (size > 1)
+		{	
+			if (stack_b[0] < stack_b[size - 1])
+				rotate(stack_b, size, 'b');
+			else if (stack_b[0] < stack_b[1])
+				swap(stack_b, 'b');
+			else
+				push(stack_a, stack_b, 'a', stack_size(stack_b) + 1);
+		}
 	}
 }
 
@@ -68,10 +71,10 @@ void	split_stack(int *stack_a, int *stack_b, int min, int max)
 	while (++i < stack_size(stack_a))
 	{
 		if (stack_a[0] > min && stack_a[0] <= max)
-		{
+		{			
 			push(stack_a, stack_b, 'b', stack_size(stack_b) + 1);
-			forward_sorting(stack_a, stack_b);
 			i--;
+			forward_sorting(stack_a, stack_b);
 		}
 		else
 			rotate(stack_a, stack_size(stack_a), 'a');

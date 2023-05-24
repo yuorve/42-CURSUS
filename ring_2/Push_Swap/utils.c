@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 11:23:57 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/23 15:38:53 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/24 10:56:08 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	stack_size(int *stack)
 	return (i);
 }
 
-// ATOI para un valor superior al int
+// ATOI para un valor int long
 long	ft_atoil(const char *str)
 {
 	int		i;
