@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:20:42 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/24 11:36:01 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/24 11:39:01 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	split_stack(int *stack_a, int *stack_b, int min, int max)
 		{			
 			push(stack_a, stack_b, 'b', stack_size(stack_b) + 1);
 			i--;
+			forward_sorting(stack_a, stack_b)
 		}
 		else
 			rotate(stack_a, stack_size(stack_a), 'a');
