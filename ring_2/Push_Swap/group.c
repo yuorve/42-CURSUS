@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:20:42 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/24 08:55:41 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/05/24 10:02:00 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,32 @@ void	back_sorting(int *stack_a, int *stack_b)
 }
 
 // Función para devolver el tercio a la pila original
-void	come_back(int *stack_a, int *stack_b, int size)
+void	come_back(int *stack_a, int *stack_b)
 {
-	int	i;
-
-	i = 0;
-	while (i < size)
+	while (stack_size(stack_b) > 0)
 	{		
 		push(stack_a, stack_b, 'a', stack_size(stack_a) + 1);
 		if (stack_size(stack_a) <= 3)
 			sort_small(stack_a, stack_size(stack_a));
 		else
 			back_sorting(stack_a, stack_b);
-		i++;
+	}
+}
+
+// Función para ordenar los elementos enviados a la pila b
+void	forward_sorting(int *stack_a, int *stack_b)
+{
+	int	size;
+
+	while (!is_sorted(stack_b, stack_size(stack_b)))
+	{
+		size = stack_size(stack_b);
+		if (stack_b[0] > stack_b[size - 1])
+			rev_rotate(stack_b, size, 'b');
+		if (stack_b[0] > stack_b[1])
+			swap(stack_b, 'b');
+		else
+			push(stack_a, stack_b, 'a', stack_size(stack_b) + 1);
 	}
 }
 
@@ -50,20 +63,18 @@ void	come_back(int *stack_a, int *stack_b, int size)
 void	split_stack(int *stack_a, int *stack_b, int min, int max)
 {
 	int	i;
-	int	size;
 
-	size = stack_size(stack_a);
 	i = -1;
-	while (++i < size)
+	while (++i < stack_size(stack_a))
 	{
 		if (stack_a[0] > min && stack_a[0] <= max)
 		{
 			push(stack_a, stack_b, 'b', stack_size(stack_b) + 1);
-			size--;
+			forward_sorting(stack_a, stack_b);
 			i--;
 		}
 		else
-			rotate(stack_a, size, 'a');
+			rotate(stack_a, stack_size(stack_a), 'a');
 	}
 }
 
@@ -80,6 +91,6 @@ void	pre_sort(int *stack_a, int *stack_b, int size)
 		min = ((size / 3) * (j - 1));
 		max = ((size / 3) * j);
 		split_stack(stack_a, stack_b, min, max);
-	}
-	come_back(stack_a, stack_b, stack_size(stack_b));
+	}	
+	come_back(stack_a, stack_b);	
 }
