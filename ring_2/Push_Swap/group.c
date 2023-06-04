@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:20:42 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/24 11:40:46 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/06/04 16:43:22 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,6 @@ void	come_back(int *stack_a, int *stack_b)
 	while (stack_size(stack_b) > 0)
 	{		
 		push(stack_a, stack_b, 'a', stack_size(stack_a) + 1);
-		if (stack_size(stack_a) <= 3)
-			sort_small(stack_a, stack_size(stack_a));
-		else
-			back_sorting(stack_a, stack_b);
 	}
 }
 
@@ -74,7 +70,6 @@ void	split_stack(int *stack_a, int *stack_b, int min, int max)
 		{			
 			push(stack_a, stack_b, 'b', stack_size(stack_b) + 1);
 			i--;
-			forward_sorting(stack_a, stack_b);
 		}
 		else
 			rotate(stack_a, stack_size(stack_a), 'a');
@@ -89,11 +84,13 @@ void	pre_sort(int *stack_a, int *stack_b, int size)
 	int	min;
 
 	j = 0;
-	while (++j < 4)
+	while (++j < 5)
 	{
-		min = ((size / 3) * (j - 1));
-		max = ((size / 3) * j);
+		min = ((size / 4) * (j - 1));
+		max = ((size / 4) * j);
 		split_stack(stack_a, stack_b, min, max);
-		come_back(stack_a, stack_b);
-	}		
+		ft_printf("CUARTOS\n");
+	}
+	ft_printf("AQUI\n");
+	come_back(stack_a, stack_b);
 }
