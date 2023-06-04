@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 08:20:42 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/06/04 18:02:36 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/06/04 18:34:07 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,14 @@ void	pre_sort(int *stack_a, int *stack_b, int size)
 	int	j;
 	int	max;
 	int	min;
+	int	block;
 
+	block = 4 * ((size / 100) + 1);
 	j = 0;
-	while (++j < 5)
+	while (++j < (block + 1))
 	{
-		min = ((size / 4) * (j - 1));
-		max = ((size / 4) * j);
+		min = ((size / block) * (j - 1));
+		max = ((size / block) * j);
 		split_stack(stack_a, stack_b, min, max);
 	}
 	come_back(stack_a, stack_b);
