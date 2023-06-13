@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 19:28:49 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/06/13 10:19:58 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:09:41 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 // Función si el argumento viene entre comillas
 int pharse_arguments(char *str, int *stack_a, int *len)
 {
-    int	    i;
-	int 	j;
-	int	    valid;
-    char    **number;	
+	int		i;
+	int		j;
+	int		valid;
+	char	**number;
 
 	valid = 1;
-	number = ft_split(str, ' ');			
+	number = ft_split(str, ' ');
 	if (!number[0])
 		return (0);
 	i = -1;
@@ -37,7 +37,7 @@ int pharse_arguments(char *str, int *stack_a, int *len)
 		*len += 1;
 	}
 	free(number);
-    return (valid);
+	return (valid);
 }
 
 // Función para validar los argumentos pasados desde la línea de comandos
