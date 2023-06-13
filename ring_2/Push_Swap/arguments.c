@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 19:28:49 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/06/13 11:34:33 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:40:21 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ int	pharse_arguments(char *str, int *stack_a, int *len)
 	valid = 1;
 	number = ft_split(str, ' ');
 	if (!number[0])
-	{
-		free(number);
-		return (0);
-	}
+		return (free(number), 0);
 	i = -1;
 	while (number[++i])
 	{		
@@ -38,9 +35,8 @@ int	pharse_arguments(char *str, int *stack_a, int *len)
 				valid = 0;
 		stack_a[*len] = ft_atoi(number[i]);
 		*len += 1;
-	}
-	free(number);
-	return (valid);
+	}	
+	return (free(number), valid);
 }
 
 // Función para validar los argumentos pasados desde la línea de comandos
