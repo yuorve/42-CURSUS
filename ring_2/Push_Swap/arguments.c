@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 19:28:49 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/06/13 11:40:21 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:47:47 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	pharse_arguments(char *str, int *stack_a, int *len)
 			if (!ft_isdigit(number[i][j]))
 				valid = 0;
 		stack_a[*len] = ft_atoi(number[i]);
+		free(number[i]);
 		*len += 1;
 	}	
 	return (free(number), valid);
