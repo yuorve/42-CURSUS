@@ -6,14 +6,14 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 19:28:49 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/06/13 11:09:41 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:10:30 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 // Función si el argumento viene entre comillas
-int pharse_arguments(char *str, int *stack_a, int *len)
+int	pharse_arguments(char *str, int *stack_a, int *len)
 {
 	int		i;
 	int		j;
