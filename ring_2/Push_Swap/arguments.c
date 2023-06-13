@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 19:28:49 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/06/13 11:47:47 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:18:54 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,36 +40,46 @@ int	pharse_arguments(char *str, int *stack_a, int *len)
 	return (free(number), valid);
 }
 
+// Funcion de checking (para adelgazar is_valid_arguments)
+int	checking_arguments(char *str, int n)
+{
+	int	i;
+	int	valid;
+
+	i = -1;
+	valid = n;
+	while (str[++i])
+	{
+		if (str[i] == ' ')
+			valid = -1;
+		else if (!ft_isdigit(str[i]))
+			valid = 0;
+	}
+	return (valid);
+}
+
 // Función para validar los argumentos pasados desde la línea de comandos
 // Devuelve 1 si los argumentos son válidos, en caso contrario devuelve 0
 int	is_valid_arguments(char **argv, int *stack_a, int *len)
 {
 	int	i;
-	int	j;
 	int	valid;
 
 	i = 0;
 	valid = 1;
 	while (argv[++i])
 	{
-		j = -1;
-		while (argv[i][++j])
-		{			
-			if (argv[i][j] == ' ')
-				valid = -1;
-			else if (!ft_isdigit(argv[i][j]))
-				valid = 0;
-		}
+		valid = checking_arguments(argv[i], valid);
 		if (valid == -1)
 			valid = pharse_arguments(argv[i], stack_a, len);
 		else if (valid)
-		{	
+		{
 			if (has_dupe(stack_a, ft_atoil(argv[i])))
 				valid = 0;
 			stack_a[*len] = ft_atoi(argv[i]);
 			*len += 1;
 		}
-	}	
+	}
 	stack_a[*len] = '\0';
 	return (valid);
 }
