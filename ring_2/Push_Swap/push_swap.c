@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/06/04 16:42:12 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:10:49 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // Función para validar los argumentos pasados desde la línea de comandos
 // Devuelve 1 si los argumentos son válidos, en caso contrario devuelve 0
-int	is_valid_arguments(char **argv, int *stack_a)
+int	is_valid_arguments_old(char **argv, int *stack_a)
 {
 	int	i;
 	int	j;
@@ -83,6 +83,7 @@ void	router(int *stack_a, int *stack_b, int size)
 // Comprobar que no está ordenado ya
 int	main(int argc, char **argv)
 {
+	int	len;
 	int	*stack_a;
 	int	*stack_b;
 
@@ -92,19 +93,20 @@ int	main(int argc, char **argv)
 		return (ft_printf("Error\n"));
 	stack_a = malloc (argc * sizeof(int));
 	stack_b = malloc (argc * sizeof(int));
-	if (!is_valid_arguments(argv, stack_a))
+	len = 0;
+	if (!is_valid_arguments(argv, stack_a, &len))
 	{
 		free(stack_a);
 		free(stack_b);
 		return (ft_printf("Error\n"));
 	}
-	if (is_sorted(stack_a, (argc - 1), 0))
+	if (is_sorted(stack_a, len, 0))
 	{
 		free(stack_a);
 		free(stack_b);
 		return (0);
 	}
-	router(stack_a, stack_b, (argc - 1));
+	router(stack_a, stack_b, len);
 	free(stack_a);
 	free(stack_b);
 	return (0);

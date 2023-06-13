@@ -6,7 +6,7 @@
 #    By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/17 12:20:01 by yoropeza          #+#    #+#              #
-#    Updated: 2023/05/23 09:21:39 by yoropeza         ###   ########.fr        #
+#    Updated: 2023/06/05 20:11:04 by yoropeza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ LIBFT	= libft
 
 INC		= -I ./ -I $(LIBFT)/inc
 LFLAGS	= -L$(LIBFT) -lft
-SRC		= push_swap.c radix.c sort.c utils.c moves.c group.c
+SRC		= push_swap.c radix.c sort.c utils.c moves.c group.c arguments.c
 OBJS	= $(SRC:.c=.o)
 
 CC		= gcc
