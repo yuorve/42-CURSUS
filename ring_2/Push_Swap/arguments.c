@@ -6,11 +6,37 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 19:28:49 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/06/13 12:18:54 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:58:14 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+// Función para saber cuantos argumentos son y si viene entre comillas
+int	count_arguments(char *str)
+{
+	int		i;
+	int 	len;
+	char	**number;
+
+	len = 0;
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == ' ')
+		{
+			number = ft_split(str, ' ');
+			if (!number[0])
+				return (free(number), 0);
+			len = -1;
+			while (number[++len])
+				free(number[len]);		
+			free(number);
+			break ;
+		}
+	}
+	return (len);
+}
 
 // Función si el argumento viene entre comillas
 int	pharse_arguments(char *str, int *stack_a, int *len)
@@ -36,7 +62,7 @@ int	pharse_arguments(char *str, int *stack_a, int *len)
 		stack_a[*len] = ft_atoi(number[i]);
 		free(number[i]);
 		*len += 1;
-	}	
+	}
 	return (free(number), valid);
 }
 

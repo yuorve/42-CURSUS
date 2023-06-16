@@ -6,42 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/06/13 10:50:41 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:02:04 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-// Función para validar los argumentos pasados desde la línea de comandos
-// Devuelve 1 si los argumentos son válidos, en caso contrario devuelve 0
-int	is_valid_arguments_old(char **argv, int *stack_a)
-{
-	int	i;
-	int	j;
-	int	valid;
-
-	i = 0;
-	valid = 1;
-	while (argv[++i])
-	{
-		j = -1;
-		while (argv[i][++j])
-		{
-			if (argv[i][j] == ' ')
-				valid = 0;
-			if (!ft_isdigit(argv[i][j]))
-				valid = 0;
-		}
-		if (valid)
-		{	
-			if (has_dupe(stack_a, ft_atoil(argv[i])))
-				valid = 0;
-			stack_a[i - 1] = ft_atoi(argv[i]);
-		}
-	}
-	stack_a[i - 1] = '\0';
-	return (valid);
-}
 
 // Función para comprobar si la pila_a está ordenada
 int	is_sorted(int *stack_a, int size, int direction)
@@ -87,25 +56,20 @@ int	main(int argc, char **argv)
 	int	*stack_a;
 	int	*stack_b;
 
+	len = argc - 1;
 	if (argc == 1)
-		return (0);
-	stack_a = malloc (argc * sizeof(int));
-	stack_b = malloc (argc * sizeof(int));
+		return (0);	
+	if (argc == 2)
+		len = count_arguments(argv[1]);	
+	stack_a = malloc (len * sizeof(int));
 	len = 0;
 	if (!is_valid_arguments(argv, stack_a, &len))
-	{
-		free(stack_a);
-		free(stack_b);
-		return (ft_printf("Error\n"));
-	}
+		return (free(stack_a), ft_printf("Error\n"));
 	if (is_sorted(stack_a, len, 0))
-	{
-		free(stack_a);
-		free(stack_b);
-		return (0);
-	}
+		return (free(stack_a), 0);
+	stack_b = malloc (len * sizeof(int));
 	router(stack_a, stack_b, len);
-	free(stack_a);
 	free(stack_b);
+	free(stack_a);	
 	return (0);
 }

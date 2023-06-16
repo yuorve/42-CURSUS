@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:45:25 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/06/12 14:56:57 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/06/16 10:38:37 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 int		stack_size(int *stack);
 int		has_dupe(int *stack, long n);
 int		sorting(int *stack_a, int *stack_b, int *stack_tmp, int size);
+int	    count_arguments(char *str);
 int		is_valid_arguments(char **argv, int *stack_a, int *size);
 int		is_sorted(int *stack_a, int size, int direction);
 int 	find_pos(int *stack, int n, int size);
