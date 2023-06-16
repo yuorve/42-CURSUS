@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/06/16 15:58:05 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:02:30 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	main(int argc, char **argv)
 	if (is_sorted(stack_a, len, 0))
 		return (free(stack_a), 0);
 	stack_b = malloc (len * sizeof(int));
+	stack_b[0] = '\0';
 	router(stack_a, stack_b, len);
 	free(stack_b);
 	free(stack_a);

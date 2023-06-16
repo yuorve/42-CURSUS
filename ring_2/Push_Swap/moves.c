@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 12:05:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/23 20:50:12 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:00:13 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	push(int *stack_a, int *stack_b, char c, int size)
 		tmp = stack_b[0];
 		while (++i < stack_size(stack_b))
 			stack_b[i] = stack_b[i + 1];
+		stack_a[size] = '\0';
 		while (--size > 0)
 			stack_a[size] = stack_a[size - 1];
 		stack_a[size] = tmp;
@@ -33,9 +34,10 @@ void	push(int *stack_a, int *stack_b, char c, int size)
 		tmp = stack_a[0];
 		while (++i < stack_size(stack_a))
 			stack_a[i] = stack_a[i + 1];
+		stack_b[size] = '\0';
 		while (--size > 0)
 			stack_b[size] = stack_b[size - 1];
-		stack_b[0] = tmp;
+		stack_b[size] = tmp;
 	}
 	ft_printf("p%c\n", c);
 }
