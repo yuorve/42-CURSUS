@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/06/16 15:48:35 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:58:05 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	router(int *stack_a, int *stack_b, int size)
 	}
 }
 
-void	ft_void()
+void	ft_void(void)
 {
 	system("leaks -q 'push_swap'");
 }
@@ -61,7 +61,6 @@ int	main(int argc, char **argv)
 	int	*stack_a;
 	int	*stack_b;
 
-	atexit(ft_void);
 	len = argc - 1;
 	if (argc == 1)
 		return (0);
