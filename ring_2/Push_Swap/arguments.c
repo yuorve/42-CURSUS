@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 19:28:49 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/06/16 10:58:14 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:39:48 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	count_arguments(char *str)
 {
 	int		i;
-	int 	len;
+	int		len;
 	char	**number;
 
 	len = 0;
@@ -30,7 +30,7 @@ int	count_arguments(char *str)
 				return (free(number), 0);
 			len = -1;
 			while (number[++len])
-				free(number[len]);		
+				free(number[len]);
 			free(number);
 			break ;
 		}

@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/06/16 11:02:04 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:40:25 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	main(int argc, char **argv)
 
 	len = argc - 1;
 	if (argc == 1)
-		return (0);	
+		return (0);
 	if (argc == 2)
-		len = count_arguments(argv[1]);	
+		len = count_arguments(argv[1]);
 	stack_a = malloc (len * sizeof(int));
 	len = 0;
 	if (!is_valid_arguments(argv, stack_a, &len))
@@ -70,6 +70,6 @@ int	main(int argc, char **argv)
 	stack_b = malloc (len * sizeof(int));
 	router(stack_a, stack_b, len);
 	free(stack_b);
-	free(stack_a);	
+	free(stack_a);
 	return (0);
 }
