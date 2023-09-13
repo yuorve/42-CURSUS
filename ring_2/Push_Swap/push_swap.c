@@ -6,46 +6,60 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/06/16 18:02:30 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:01:08 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// Función para comprobar si la pila_a está ordenada
-int	is_sorted(int *stack_a, int size, int direction)
+// ATOI para un valor int long
+long	ft_atoil(const char *str)
 {
-	int	i;
-	int	valid;
+	int		i;
+	long	number;
+	long	negative;
 
-	i = -1;
-	valid = 1;
-	if (direction == 0)
+	i = 0;
+	number = 0;
+	negative = 1;
+	while (*str == 32 || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-' || *str == '+')
 	{
-		while (++i < (size - 1))
-			if (stack_a[i] > stack_a[i + 1])
-				valid = 0;
+		if (*str == '-')
+			negative *= -1;
+		str++;
 	}
-	else
+	while (*str >= '0' && *str <= '9')
 	{
-		while (++i < (size - 1))
-			if (stack_a[i] < stack_a[i + 1])
-				valid = 0;
+		number = number * 10 + (str[i] - '0');
+		str++;
 	}
-	return (valid);
+	return (number * negative);
 }
 
-// Función para realizar el enrutamiento en función del número de argumentos
-void	router(int *stack_a, int *stack_b, int size)
-{	
-	if (size <= 3)
-		sort_small(stack_a, size);
-	else
-	{
-		if (size > 25)
-			pre_sort(stack_a, stack_b, size);
-		sort_large(stack_a, stack_b, size);
-	}
+// Función para ordenar la pila en orden ascendente utilizando el algoritmo de selección
+void sortStack(t_Data *data) {
+    t_Stack *sortedStack;
+    t_Stack *tempStack;
+	t_Node *current;
+    
+	sortedStack = createStack();
+	tempStack = createStack();
+    current = data->stack_a->top;
+    while (current != NULL) {
+        push(tempStack, current->data);
+        current = current->next;
+    }
+    while (!isEmpty(tempStack)) {
+        int min = pop(tempStack);
+        while (!isEmpty(sortedStack) && peek(sortedStack) < min) {
+            push(tempStack, pop(sortedStack));
+        }
+        push(sortedStack, min);
+    }
+	data->tmp = sortedStack;
+    freeStack(tempStack);
 }
 
 void	ft_void(void)
@@ -53,29 +67,23 @@ void	ft_void(void)
 	system("leaks -q 'push_swap'");
 }
 
-// Comprobar que los argumentos son válidos
-// Comprobar que no está ordenado ya
+// Push_Swap 42
 int	main(int argc, char **argv)
 {
-	int	len;
-	int	*stack_a;
-	int	*stack_b;
+	t_Data	data;
 
-	len = argc - 1;
+	atexit(ft_void);
 	if (argc == 1)
 		return (0);
-	if (argc == 2)
-		len = count_arguments(argv[1]);
-	stack_a = malloc (len * sizeof(int));
-	len = 0;
-	if (!is_valid_arguments(argv, stack_a, &len))
-		return (free(stack_a), ft_printf("Error\n"));
-	if (is_sorted(stack_a, len, 0))
-		return (free(stack_a), 0);
-	stack_b = malloc (len * sizeof(int));
-	stack_b[0] = '\0';
-	router(stack_a, stack_b, len);
-	free(stack_b);
-	free(stack_a);
+	else if (argc > 1)
+	{
+		ft_bzero(&data, sizeof(data));
+		check_arguments(&data, argv, argc);
+		sortStack(&data);
+		if (!isSortedStack(&data) && data.stack_a->size <= 3)
+			sort_small(&data);
+		else if (!isSortedStack(&data))
+			sort(&data);
+	}
 	return (0);
 }

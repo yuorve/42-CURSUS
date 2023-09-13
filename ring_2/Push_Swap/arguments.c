@@ -6,106 +6,79 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 19:28:49 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/06/16 15:39:48 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/09/10 20:30:25 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// Función para saber cuantos argumentos son y si viene entre comillas
-int	count_arguments(char *str)
+// Función para validar y devolver el argumento, devuelve -1 si no es válido
+int	is_valid_arguments(t_Stack *stack, char *argv)
 {
-	int		i;
-	int		len;
-	char	**number;
-
-	len = 0;
+	int	i;
+	
 	i = -1;
-	while (str[++i])
+	while (argv[++i])
 	{
-		if (str[i] == ' ')
-		{
-			number = ft_split(str, ' ');
-			if (!number[0])
-				return (free(number), 0);
-			len = -1;
-			while (number[++len])
-				free(number[len]);
-			free(number);
-			break ;
-		}
+		if (ft_issign(argv[i]) && !ft_isdigit(argv[i + 1]))
+			return (-1);
+		else if (!ft_issign(argv[i]) && (ft_isalpha(argv[i])
+			|| !ft_isdigit(argv[i])))
+			return (-1);
 	}
-	return (len);
+	if (INT_MAX < ft_atoil(argv))
+		return (-1);
+	else if (INT_MIN > ft_atoil(argv))
+		return (-1);
+	else if (findPos(stack->top, ft_atoi(argv)) != -1)
+		return (-1);
+	return (0);
 }
 
 // Función si el argumento viene entre comillas
-int	pharse_arguments(char *str, int *stack_a, int *len)
+void	pharse_arguments(t_Stack *stack, char *argv)
 {
 	int		i;
-	int		j;
-	int		valid;
-	char	**number;
+	char	**values;
 
-	valid = 1;
-	number = ft_split(str, ' ');
-	if (!number[0])
-		return (free(number), 0);
-	i = -1;
-	while (number[++i])
-	{		
-		if (has_dupe(stack_a, ft_atoil(number[i])))
-			valid = 0;
-		j = -1;
-		while (number[i][++j])
-			if (!ft_isdigit(number[i][j]))
-				valid = 0;
-		stack_a[*len] = ft_atoi(number[i]);
-		free(number[i]);
-		*len += 1;
-	}
-	return (free(number), valid);
-}
-
-// Funcion de checking (para adelgazar is_valid_arguments)
-int	checking_arguments(char *str, int n)
-{
-	int	i;
-	int	valid;
-
-	i = -1;
-	valid = n;
-	while (str[++i])
-	{
-		if (str[i] == ' ')
-			valid = -1;
-		else if (!ft_isdigit(str[i]))
-			valid = 0;
-	}
-	return (valid);
-}
-
-// Función para validar los argumentos pasados desde la línea de comandos
-// Devuelve 1 si los argumentos son válidos, en caso contrario devuelve 0
-int	is_valid_arguments(char **argv, int *stack_a, int *len)
-{
-	int	i;
-	int	valid;
-
+	values = ft_split(argv, ' ');
+	if (!values[0])
+		return (free(values));
 	i = 0;
-	valid = 1;
-	while (argv[++i])
+	while (values[i])
+		i++;
+	while (values[--i] && i > -1)
 	{
-		valid = checking_arguments(argv[i], valid);
-		if (valid == -1)
-			valid = pharse_arguments(argv[i], stack_a, len);
-		else if (valid)
+		if (!is_valid_arguments(stack, values[i]))
+			push(stack, ft_atoi(values[i]));
+		else
 		{
-			if (has_dupe(stack_a, ft_atoil(argv[i])))
-				valid = 0;
-			stack_a[*len] = ft_atoi(argv[i]);
-			*len += 1;
+			freeStack(stack);
+			exit(1);
 		}
 	}
-	stack_a[*len] = '\0';
-	return (valid);
+}
+
+//Función para comprobar los argumentos
+void check_arguments(t_Data *data, char **argv, int argc)
+{
+	t_Stack *stack;
+	int		i;
+
+	stack = createStack();
+	
+	i = argc;
+	while (argv[--i] && i > 0)
+	{
+		if (ft_strchr(argv[i],' '))
+			pharse_arguments(stack, argv[i]);
+		else if (!is_valid_arguments(stack, argv[i]))
+			push(stack, ft_atoi(argv[i]));
+		else
+		{
+			freeStack(stack);
+			exit(1);
+		}
+	}
+	data->stack_a = stack;
 }
