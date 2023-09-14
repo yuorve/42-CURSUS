@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:45:25 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/09/12 16:44:08 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/09/14 08:27:50 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void 		push(t_Stack* stack, int data);
 void 		check_arguments(t_Data *data, char **argv, int argc);
 void 		sortStack(t_Data *data);
 void 		printStack(t_Data *data);
-void		printStackB(t_Data *data);
 void		calcutateMoves(t_Data *data);
 void		sort_small(t_Data *data);
 void 		sort(t_Data *data);

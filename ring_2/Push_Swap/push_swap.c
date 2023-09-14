@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/09/13 16:01:08 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/09/14 08:27:09 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,21 @@ void sortStack(t_Data *data) {
     freeStack(tempStack);
 }
 
+// Función para imprimir los elementos de la pila
+void	printStack(t_Stack * stack)
+{
+	t_Node *current;
+	
+	current = stack->top;
+	printf("\n---- stack ----\n\n");
+	printf("\n Pos: Idx: Value\n");
+	while (current != NULL) {
+		printf("%i: %i: %i\n", findPos(data->stack_a->top, current->data), findPos(data->tmp->top, current->data), current->data);
+		current = current->next;
+	}
+	printf("\n--------------\n\n");
+}
+
 void	ft_void(void)
 {
 	system("leaks -q 'push_swap'");
@@ -85,5 +100,7 @@ int	main(int argc, char **argv)
 		else if (!isSortedStack(&data))
 			sort(&data);
 	}
+	freeStack(data.tmp);
+	freeStack(data.stack_a);
 	return (0);
 }

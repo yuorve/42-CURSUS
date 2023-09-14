@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:16:08 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/09/14 07:01:07 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/09/14 08:24:08 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,4 @@ void	freeStack(t_Stack *stack)
 	while (!isEmpty(stack))
 		pop(stack);
 	free(stack);
-}
-
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// Función para imprimir los elementos de la pila A
-// *******************************************
-// QUITAR ANTES DE ENTREGAR - ROMPE LA NORMA
-// *******************************************
-void	printStack(t_Data *data)
-{
-	t_Node *current;
-	
-	current = data->stack_a->top;
-	printf("\n---- stack A ----\n\n");
-	while (current != NULL) {
-		printf("%i: %i: %i\n", findPos(data->stack_a->top, current->data), findPos(data->tmp->top, current->data), current->data);
-		current = current->next;
-	}
-	printf("\n--------------\n\n");
 }
