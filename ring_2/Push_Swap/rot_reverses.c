@@ -13,11 +13,10 @@
 #include "push_swap.h"
 
 // Función para desplazar la pila A hacia abajo
-void rra(t_Data *data)
+void	rra(t_Data *data)
 {
-	t_Node *current;
-	t_Node *prev;
-
+	t_Node	*current;
+	t_Node	*prev;
 
 	current = data->stack_a->top;
 	prev = NULL;
@@ -35,16 +34,16 @@ void rra(t_Data *data)
 }
 
 // Función para desplazar la pila B hacia abajo
-void rrb(t_Data *data)
+void	rrb(t_Data *data)
 {
-	t_Node *current;
-	t_Node *prev;
+	t_Node	*current;
+	t_Node	*prev;
 
 	current = data->stack_b->top;
 	prev = NULL;
 	if (data->stack_b->size < 2)
 		return ;
-	while (current->next != NULL) 
+	while (current->next != NULL)
 	{
 		prev = current;
 		current = current->next;
@@ -56,16 +55,16 @@ void rrb(t_Data *data)
 }
 
 // Función para desplazar ambas pilas hacia abajo
-void rrr(t_Data *data)
+void	rrr(t_Data *data)
 {
-	t_Node *current;
-	t_Node *prev;
+	t_Node	*current;
+	t_Node	*prev;
 
 	current = data->stack_a->top;
 	prev = NULL;
 	if (data->stack_b->size < 2 || data->stack_a->size < 2)
 		return ;
-	while (current->next != NULL) 
+	while (current->next != NULL)
 	{
 		prev = current;
 		current = current->next;
@@ -74,7 +73,7 @@ void rrr(t_Data *data)
 	data->stack_a->top = current;
 	prev->next = NULL;
 	current = data->stack_b->top;
-	while (current->next != NULL) 
+	while (current->next != NULL)
 	{
 		prev = current;
 		current = current->next;

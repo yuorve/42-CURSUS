@@ -13,49 +13,50 @@
 #include "push_swap.h"
 
 // Función para empujar un elemento en la pila
-void push(t_Stack *stack, int data)
+void	push(t_Stack *stack, int data)
 {
-	t_Node	*newNode;
+	t_Node	*new_node;
 
-	newNode = (t_Node *)malloc(sizeof(t_Node));
-	newNode->data = data;
-	newNode->next = stack->top;
-	stack->top = newNode;
+	new_node = (t_Node *)malloc(sizeof(t_Node));
+	new_node->data = data;
+	new_node->next = stack->top;
+	stack->top = new_node;
 	stack->size++;
 }
 
 // Función para sacar un elemento de la pila
-int pop(t_Stack * stack)
+int	pop(t_Stack *stack)
 {
 	t_Node	*temp;
+	int		data;
 
-	if (isEmpty(stack))
+	if (is_empty(stack))
 	{
 		printf("La pila está vacía.\n");
 		exit(1);
 	}
 	temp = stack->top;
-	int data = temp->data;
+	data = temp->data;
 	stack->top = temp->next;
 	free(temp);
 	stack->size--;
-	return data;
+	return (data);
 }
 
 // Función para mover un elemento de la pila B a la A
-void pa(t_Data *data)
+void	pa(t_Data *data)
 {
-	if (isEmpty(data->stack_b))
-		return;
+	if (is_empty(data->stack_b))
+		return ;
 	push(data->stack_a, pop(data->stack_b));
 	ft_printf("pa\n");
 }
 
 // Función para mover un elemento de la pila A a la B
-void pb(t_Data *data)
+void	pb(t_Data *data)
 {
-	if (isEmpty(data->stack_a))
-		return;
+	if (is_empty(data->stack_a))
+		return ;
 	push(data->stack_b, pop(data->stack_a));
 	ft_printf("pb\n");
 }

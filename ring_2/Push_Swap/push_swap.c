@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 15:50:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/09/14 08:27:09 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:01:08 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,43 +38,34 @@ long	ft_atoil(const char *str)
 	return (number * negative);
 }
 
-// Función para ordenar la pila en orden ascendente utilizando el algoritmo de selección
-void sortStack(t_Data *data) {
-    t_Stack *sortedStack;
-    t_Stack *tempStack;
-	t_Node *current;
-    
-	sortedStack = createStack();
-	tempStack = createStack();
-    current = data->stack_a->top;
-    while (current != NULL) {
-        push(tempStack, current->data);
-        current = current->next;
-    }
-    while (!isEmpty(tempStack)) {
-        int min = pop(tempStack);
-        while (!isEmpty(sortedStack) && peek(sortedStack) < min) {
-            push(tempStack, pop(sortedStack));
-        }
-        push(sortedStack, min);
-    }
-	data->tmp = sortedStack;
-    freeStack(tempStack);
-}
-
-// Función para imprimir los elementos de la pila
-void	printStack(t_Stack * stack)
+// Función para ordenar la pila en orden ascendente 
+// Utilizando el algoritmo de selección
+void	sort_stack(t_Data *data)
 {
-	t_Node *current;
-	
-	current = stack->top;
-	printf("\n---- stack ----\n\n");
-	printf("\n Pos: Idx: Value\n");
-	while (current != NULL) {
-		printf("%i: %i: %i\n", findPos(data->stack_a->top, current->data), findPos(data->tmp->top, current->data), current->data);
+	t_Stack	*sorted_stack;
+	t_Stack	*temp_stack;
+	t_Node	*current;
+	int		min;
+
+	sorted_stack = create_stack();
+	temp_stack = create_stack();
+	current = data->stack_a->top;
+	while (current != NULL)
+	{
+		push(temp_stack, current->data);
 		current = current->next;
 	}
-	printf("\n--------------\n\n");
+	while (!is_empty(temp_stack))
+	{
+		min = pop(temp_stack);
+		while (!is_empty(sorted_stack) && peek(sorted_stack) < min)
+		{
+			push(temp_stack, pop(sorted_stack));
+		}
+		push(sorted_stack, min);
+	}
+	data->tmp = sorted_stack;
+	free_stack(temp_stack);
 }
 
 void	ft_void(void)
@@ -94,13 +85,13 @@ int	main(int argc, char **argv)
 	{
 		ft_bzero(&data, sizeof(data));
 		check_arguments(&data, argv, argc);
-		sortStack(&data);
-		if (!isSortedStack(&data) && data.stack_a->size <= 3)
+		sort_stack(&data);
+		if (!is_sorted_stack(&data) && data.stack_a->size <= 3)
 			sort_small(&data);
-		else if (!isSortedStack(&data))
+		else if (!is_sorted_stack(&data))
 			sort(&data);
-	}
-	freeStack(data.tmp);
-	freeStack(data.stack_a);
+	}	
+	free_stack(data.tmp);
+	free_stack(data.stack_a);
 	return (0);
 }

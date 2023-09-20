@@ -13,19 +13,19 @@
 #include "push_swap.h"
 
 // Función para terminar de ordenar la pila
-void	stackingFinal(t_Data *data)
+void	stacking_final(t_Data *data)
 {
-	t_Node *current;
+	t_Node	*current;
 
 	current = data->stack_a->top;
-	while (findPos(data->tmp->top, current->data) != 0)
+	while (find_pos(data->tmp->top, current->data) != 0)
 		current = current->next;
-	if (findPos(data->stack_a->top, current->data) <= data->average)
+	if (find_pos(data->stack_a->top, current->data) <= data->average)
 		ra(data);
-	else if (findPos(data->stack_a->top, current->data) > data->average)
+	else if (find_pos(data->stack_a->top, current->data) > data->average)
 		rra(data);
-	if (findPos(data->tmp->top, data->stack_a->top->data) != 0)
-		stackingFinal(data);
+	if (find_pos(data->tmp->top, data->stack_a->top->data) != 0)
+		stacking_final(data);
 }
 
 // Función para mover los elementos una pila
@@ -54,7 +54,7 @@ void	stacking(t_Data *data)
 }
 
 // Función para mover los elementos de ambas pilas
-void	stackingBoth(t_Data *data)
+void	stacking_both(t_Data *data)
 {
 	while (data->count_a != 0 || data->count_b != 0)
 	{
@@ -75,57 +75,42 @@ void	stackingBoth(t_Data *data)
 	pa(data);
 }
 
-// Función para ordenar pilas de 3 o menos
-void	sort_small(t_Data *data)
+// Función para ordenar pilas de más de 3 elementos
+void	sort_2(t_Data *data)
 {
-	if (data->stack_a->size == 1)
-		freeStack(data->stack_a);
-	else if (data->stack_a->size == 2 && !isSortedStack(data))
-		sa(data);
-	else if (data->stack_a->size == 3)
+	if (!is_sorted_stack(data))
+		sort_small(data);
+	while (data->stack_b->size > 0)
 	{
-		while (!isSortedStack(data))
-		{
-			if (findPos(data->stack_a->top, maxStack(data->stack_a->top)) == 0)
-				ra(data);
-			else if (findPos(data->stack_a->top, maxStack(data->stack_a->top)) == 1)
-				rra(data);
-			else if (findPos(data->stack_a->top, maxStack(data->stack_a->top)) == 2)
-				sa(data);
-		}
+		calcutate_moves(data);
+		stacking_both(data);
 	}
+	if (!is_sorted_stack(data))
+		stacking_final(data);
 }
 
 // Función para ordenar pilas de más de 3 elementos
 void	sort(t_Data *data)
 {
-	t_Stack *stack;
-	int	i;
-	
-	stack = createStack();
+	t_Stack	*stack;
+	int		i;
+
+	stack = create_stack();
 	data->stack_b = stack;
 	data->average = data->stack_a->size / 2;
 	i = 0;
 	while (i < data->stack_a->size && data->stack_a->size > 3)
 	{
-		if (findPos(data->tmp->top, data->stack_a->top->data) < data->average)
+		if (find_pos(data->tmp->top, data->stack_a->top->data) < data->average)
 			pb(data);
 		else
 		{
 			ra(data);
 			i++;
 		}
-    }
+	}
 	while (data->stack_a->size > 3)
 		pb(data);
-	if (!isSortedStack(data))
-		sort_small(data);
-	while (data->stack_b->size > 0)
-	{
-		calcutateMoves(data);
-		stackingBoth(data);
-	}
-	if (!isSortedStack(data))
-		stackingFinal(data);
-	freeStack(stack);
+	sort_2(data);
+	free_stack(stack);
 }

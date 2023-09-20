@@ -13,9 +13,9 @@
 #include "push_swap.h"
 
 // Función para intercambiar el primer elemento de la pila A con el segundo
-void sa(t_Data *data)
+void	sa(t_Data *data)
 {
-	t_Node *aux;
+	t_Node	*aux;
 
 	if (data->stack_a->size < 2)
 		return ;
@@ -27,9 +27,9 @@ void sa(t_Data *data)
 }
 
 // Función para intercambiar el primer elemento de la pila B con el segundo
-void sb(t_Data *data)
+void	sb(t_Data *data)
 {
-	t_Node *aux;
+	t_Node	*aux;
 
 	if (data->stack_b->size < 2)
 		return ;
@@ -41,9 +41,9 @@ void sb(t_Data *data)
 }
 
 // Función para intercambiar los primeros y segundos elementos de la pila A y B
-void ss(t_Data *data)
+void	ss(t_Data *data)
 {
-	t_Node *aux;
+	t_Node	*aux;
 
 	if (data->stack_a->size < 2
 		&& data->stack_b->size < 2)

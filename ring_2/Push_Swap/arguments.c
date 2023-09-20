@@ -16,21 +16,21 @@
 int	is_valid_arguments(t_Stack *stack, char *argv)
 {
 	int	i;
-	
+
 	i = -1;
 	while (argv[++i])
 	{
 		if (ft_issign(argv[i]) && !ft_isdigit(argv[i + 1]))
 			return (-1);
 		else if (!ft_issign(argv[i]) && (ft_isalpha(argv[i])
-			|| !ft_isdigit(argv[i])))
+				|| !ft_isdigit(argv[i])))
 			return (-1);
 	}
 	if (INT_MAX < ft_atoil(argv))
 		return (-1);
 	else if (INT_MIN > ft_atoil(argv))
 		return (-1);
-	else if (findPos(stack->top, ft_atoi(argv)) != -1)
+	else if (find_pos(stack->top, ft_atoi(argv)) != -1)
 		return (-1);
 	return (0);
 }
@@ -53,30 +53,29 @@ void	pharse_arguments(t_Stack *stack, char *argv)
 			push(stack, ft_atoi(values[i]));
 		else
 		{
-			freeStack(stack);
+			free_stack(stack);
 			exit(1);
 		}
 	}
 }
 
 //Función para comprobar los argumentos
-void check_arguments(t_Data *data, char **argv, int argc)
+void	check_arguments(t_Data *data, char **argv, int argc)
 {
-	t_Stack *stack;
+	t_Stack	*stack;
 	int		i;
 
-	stack = createStack();
-	
+	stack = create_stack();
 	i = argc;
 	while (argv[--i] && i > 0)
 	{
-		if (ft_strchr(argv[i],' '))
+		if (ft_strchr(argv[i], ' '))
 			pharse_arguments(stack, argv[i]);
 		else if (!is_valid_arguments(stack, argv[i]))
 			push(stack, ft_atoi(argv[i]));
 		else
 		{
-			freeStack(stack);
+			free_stack(stack);
 			exit(1);
 		}
 	}
