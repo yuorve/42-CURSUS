@@ -6,7 +6,7 @@
 #    By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 19:29:04 by yoropeza          #+#    #+#              #
-#    Updated: 2023/09/26 11:52:08 by yoropeza         ###   ########.fr        #
+#    Updated: 2023/09/27 16:13:20 by yoropeza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ obj/%.o : src/%.c
 	$(CYAN)$(notdir $@)$(GREEN)\r\e[35C[OK]\n$(RESET)"
 
 clean:
-	@$(RM) $(OBJ) && printf "$(GREEN)$(BOLD)All objects cleaned! :)\n$(RESET)"
+	@$(RM) $(OBJDIR) && printf "$(GREEN)$(BOLD)All objects cleaned! :)\n$(RESET)"
 	@make -C $(LIBFT) clean
 	@make -C $(LIBMLX) clean
 

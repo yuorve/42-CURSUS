@@ -6,32 +6,61 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:30:41 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/09/26 11:44:15 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:01:56 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
+// Función para crear un punto
+t_Point2D	*createPoint()
+{
+	t_Point2D *point;
+
+	point = (t_Point2D *)malloc(sizeof(t_Point2D));
+    if (point == NULL)
+		exit(EXIT_FAILURE);
+	point->x = 0;
+	point->y = 0;
+	return point;
+}
+
+// Función para crear un punto 3D
+t_Point3D	*createPoint3D()
+{
+	t_Point3D *point;
+
+	point = (t_Point3D *)malloc(sizeof(t_Point3D));
+    if (point == NULL)
+		exit(EXIT_FAILURE);
+	point->x = 0;
+	point->y = 0;
+	point->z = 0;
+	return point;
+}
+
 // Ajustar la proyección según la profundidad que da el ángulo de visión
-t_Point2D	transformTo2D(t_Point3D point, int depth) {
-    t_Point2D 	transformTo2D;
+t_Point2D	*transformTo2D(t_Point3D point, int depth) {
+    t_Point2D 	*transformTo2D;
 	double		angle;
-	//Proyección Lineal
-    //transformTo2D.x = point.x;
-    //transformTo2D.y = point.y - (point.z / depth);
-	//Proyección Isometrica
+	
+	transformTo2D = createPoint();
 	angle = depth *(M_PI / 180.0);
-	transformTo2D.x = point.x + cos(angle) * point.z - cos(angle) * point.y;
-	transformTo2D.y = -point.y * sin(angle) - point.z * sin(angle);
+	//Proyección Isometrica
+    //transformTo2D->x = (point.x - point.y) * cos(angle);
+    //transformTo2D->y = (point.x + point.y) * sin(angle) - point.z * sin(angle);
+	//transformTo2D->x = point.x + cos(angle) * point.z;
+	//transformTo2D->y = point.y + sin(angle) * point.z;	
+	transformTo2D->x = point.x + cos(angle) * point.z - cos(angle) * point.y;
+	transformTo2D->y = -point.y * sin(angle) - point.z * sin(angle);
+	printf("Point2D x: %f y: %f \n",transformTo2D->x, transformTo2D->y);
     return transformTo2D;
 }
 
-void	 	isometricView(t_Point2D point, t_Point2D *projected, int offset, int scale)
+void	 	isometricView(t_Point2D *point, t_Point2D *projected, int offset, int scale)
 {
-	//projected->x = point.x - point.y;
-	//projected->y = (point.x + point.y) / 2;
-	projected->x = (point.x * scale) + offset;
-	projected->y = (point.y * scale) + offset;
+	projected->x = (point->x * scale) + offset;
+	projected->y = (point->y * scale) + offset;
 }
 
 // Función para dibujar la línea utilizando el algoritmo de Bresenham
@@ -44,17 +73,11 @@ void		draw_line(t_Line *line, int width)
 	int			tracker;
 	int			i;
 
-    point = (t_Point2D *)malloc(sizeof(t_Point2D));
-    if (point == NULL)
-		exit(EXIT_FAILURE);
-    direction = (t_Point2D *)malloc(sizeof(t_Point2D));
-    if (direction == NULL)
-		exit(EXIT_FAILURE);	
-    distance = (t_Point2D *)malloc(sizeof(t_Point2D));
-    if (distance == NULL)
-		exit(EXIT_FAILURE);
-	distance->x = abs(line->end->x - line->start->x);
-	distance->y = abs(line->end->y - line->start->y);
+    point = createPoint();
+    direction = createPoint();
+    distance = createPoint();
+	distance->x = fabs(line->end->x - line->start->x);
+	distance->y = fabs(line->end->y - line->start->y);
 	if (line->start->x < line->end->x)
 		direction->x = 1;
 	else
@@ -71,10 +94,10 @@ void		draw_line(t_Line *line, int width)
 		{
 			i = -(width/2);
 			while (i < (width/2))
-				ft_printf("Point x: %i y: %i \n",point->x, point->y + i++);
+				printf("Point x: %f y: %f \n",point->x, point->y + i++);
 		}
 		else
-			ft_printf("Point x: %i y: %i \n",point->x, point->y);
+			printf("Point x: %f y: %f \n",point->x, point->y);
 		if (point->x == line->end->x && point->y == line->end->y)
 			break ;		
 		tracker =  2 * correction;
@@ -124,35 +147,29 @@ int32_t		main(int argc, char **argv)
     if (line == NULL)
         exit(EXIT_FAILURE);
     // Inicializar la estructura point3D
-    point = (t_Point3D *)malloc(sizeof(t_Point3D));
-    if (point == NULL)
-        exit(EXIT_FAILURE);
+    point = createPoint3D();
     // Inicializar la estructura projected
-    projected = (t_Point2D *)malloc(sizeof(t_Point2D));
-    if (projected == NULL)
-        exit(EXIT_FAILURE);	
-    point->x = 1;
-    point->y = 1;
+    projected = createPoint();
+    point->x = 0;
+    point->y = 0;
 	point->z = 0;
-	isometricView(transformTo2D(*point, 10), projected, 100, 10);	
+	isometricView(transformTo2D(*point, 45), projected, 100, 10);	
     line->start = projected;
 	//line->start = point;
 	// Crear otro punto y asignarlo como el final de la línea
-    point = (t_Point3D *)malloc(sizeof(t_Point3D));
-    if (point == NULL)
-        exit(EXIT_FAILURE);
+    point = createPoint3D();
     // Inicializar la estructura projected para el final de la línea
-    projected = (t_Point2D *)malloc(sizeof(t_Point2D));
-    if (projected == NULL)
-        exit(EXIT_FAILURE);	
-    point->x = 2;
-    point->y = 2;
-	point->z = 5;
-	isometricView(transformTo2D(*point, 10), projected, 100, 10);	
+    projected = createPoint();
+    point->x = 1;
+    point->y = 0;
+	point->z = 0;
+	isometricView(transformTo2D(*point, 45), projected, 100, 10);	
     line->end = projected;
 	//line->end = point;
 	// Dibujar la línea proyectada entre los dos puntos	
-	draw_line(line, 1);
+	printf("Start x: %f y: %f \n",line->start->x, line->start->y);
+	printf("End   x: %f y: %f \n",line->end->x, line->end->y);
+	//draw_line(line, 1);
     // Liberar la memoria
     free(line);
     free(point);

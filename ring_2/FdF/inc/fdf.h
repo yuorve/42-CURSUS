@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:38:34 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/09/21 09:16:51 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:19:07 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ typedef struct s_Point3D
 // Estructura de un punto en el mapa
 typedef struct s_Point2D
 {
-	int		x;
-	int 	y;
+	double	x;
+	double	y;
 	struct	s_Point2D	*next;
 }			t_Point2D;
 
