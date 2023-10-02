@@ -6,26 +6,32 @@
 #    By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/28 19:29:04 by yoropeza          #+#    #+#              #
-#    Updated: 2023/03/29 16:34:18 by yoropeza         ###   ########.fr        #
+#    Updated: 2023/09/27 16:13:20 by yoropeza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
+SRCDIR	= src
+OBJDIR	= obj
+LIBFT	= lib/libft
+LIBMLX	= lib/MLX42
 
-SRC = fdf.c \
-	init_fdf.c \
-	key_hooks.c \
-	read_file.c \
-	transformations.c \
-	utils.c \
-	fdf_utils.c
+HEADER	= -I ./inc -I $(LIBMLX)/include -I $(LIBFT)/inc
+LFLAGS	= -L$(LIBFT) -lft -L$(LIBMLX) -lmlx42 
+LIBS	= -lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ -lm
+SRC		:= $(wildcard $(SRCDIR)/*.c)
+OBJS	:= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
 
-OBJ = $(SRC:.c=.o)
+CC 		= gcc
+CFLAGS	= -Wall -Werror -Wextra
+RM 		= rm -rf
 
-CC 			= gcc
-CFLAGS 		= -Wall -Wextra -Werror
-MLX_FLAGS 	= -lmlx -framework OpenGL -framework AppKit
-RM 			= rm -rf
+UNAME	= $(shell uname -s)
+
+ifeq ($(UNAME), Linux)
+LIBS	= -ldl -lglfw -lm
+$(warning Linux detected! Changing libs flags...)
+endif
 
 BOLD	= \033[1m
 BLACK	= \033[30;1m
@@ -38,39 +44,33 @@ CYAN	= \033[36;1m
 WHITE	= \033[37;1m
 RESET	= \033[0m
 
-LIBFT_PATH = lib/libft
-LIBFT = $(LIBFT_PATH)/libft.a
-LIBFT_INC = $(LIBFT_PATH)/includes
-
-MLX_PATH = lib/minilibx
-MLX = $(MLX_PATH)/libmlx.a
-MLX_INC = $(MLX_PATH)
-
-all: mlx libft $(NAME)
+all: libmlx libft $(NAME)
 
 libft:
 	@$(MAKE) -C $(LIBFT)
 
-mlx:
-	@$(MAKE) -C $(MLX)
+libmlx:
+	@$(MAKE) -C $(LIBMLX)
 
-$(NAME): $(OBJ)
-	@make -C $(LIBFT_PATH)
-	@make -C $(MLX_PATH)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L $(LIBFT_PATH) -lft -L $(MLX_PATH) $(MLX_FLAGS) && printf "$(GREEN)$(BOLD)FdF ready to render!\n$(RESET)"
+$(NAME) : $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) $(LIBS) $(HEADER) -o $(NAME) &&\
+	printf "$(GREEN)$(BOLD)FdF ready to render!\n$(RESET)"
 
-%.o: %.c
-	@$(CC) $(CFLAGS) -I $(LIBFT_INC) -I $(MLX_INC) -c $< -o $@ && printf "$(WHITE)$(BOLD)\rCompiling: $(CYAN)$(notdir $@)$(GREEN)\r\e[35C[OK]\n$(RESET)"
+obj/%.o : src/%.c
+	@mkdir -p $(OBJDIR)
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADER) && printf "$(WHITE)$(BOLD)\rCompiling: \
+	$(CYAN)$(notdir $@)$(GREEN)\r\e[35C[OK]\n$(RESET)"
 
 clean:
-	@$(RM) $(OBJ) && printf "$(GREEN)$(BOLD)All objects cleaned! :)\n$(RESET)"
-	@make -C $(LIBFT_PATH) clean
-	@make -C $(MLX_PATH) clean
+	@$(RM) $(OBJDIR) && printf "$(GREEN)$(BOLD)All objects cleaned! :)\n$(RESET)"
+	@make -C $(LIBFT) clean
+	@make -C $(LIBMLX) clean
 
 fclean: clean
 	@$(RM) $(NAME) && printf "$(YELLOW)$(BOLD)$(NAME) $(GREEN)file cleaned! :)\n$(RESET)"
-	@make -C $(LIBFT_PATH) fclean
-	@make -C $(MLX_PATH) fclean
+	@make -C $(LIBFT) fclean
+	@make -C $(LIBMLX) fclean
 
 re: fclean all
 
