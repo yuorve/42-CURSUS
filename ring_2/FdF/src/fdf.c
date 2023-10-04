@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:30:41 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/09/27 16:01:56 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/10/04 15:35:43 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ t_Point2D	*transformTo2D(t_Point3D point, int depth) {
 	transformTo2D = createPoint();
 	angle = depth *(M_PI / 180.0);
 	//Proyección Isometrica
-    //transformTo2D->x = (point.x - point.y) * cos(angle);
-    //transformTo2D->y = (point.x + point.y) * sin(angle) - point.z * sin(angle);
-	//transformTo2D->x = point.x + cos(angle) * point.z;
-	//transformTo2D->y = point.y + sin(angle) * point.z;	
+    //transformTo2D->x = point.x + point.z * cos(angle) * cos(angle);
+    //transformTo2D->y = point.y + point.z * sin(angle) * cos(angle);
 	transformTo2D->x = point.x + cos(angle) * point.z - cos(angle) * point.y;
 	transformTo2D->y = -point.y * sin(angle) - point.z * sin(angle);
 	printf("Point2D x: %f y: %f \n",transformTo2D->x, transformTo2D->y);
@@ -153,7 +151,7 @@ int32_t		main(int argc, char **argv)
     point->x = 0;
     point->y = 0;
 	point->z = 0;
-	isometricView(transformTo2D(*point, 45), projected, 100, 10);	
+	isometricView(transformTo2D(*point, 315), projected, 100, 10);	
     line->start = projected;
 	//line->start = point;
 	// Crear otro punto y asignarlo como el final de la línea
@@ -163,7 +161,7 @@ int32_t		main(int argc, char **argv)
     point->x = 1;
     point->y = 0;
 	point->z = 0;
-	isometricView(transformTo2D(*point, 45), projected, 100, 10);	
+	isometricView(transformTo2D(*point, 315), projected, 100, 10);	
     line->end = projected;
 	//line->end = point;
 	// Dibujar la línea proyectada entre los dos puntos	
