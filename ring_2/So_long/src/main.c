@@ -37,7 +37,7 @@ int32_t	main(int argc, char **argv)
 	{
 		ft_bzero(&data, sizeof(t_data));
 		reading(&data, argv[1]);
-		data.isize = 64;
+		data.isize = 32;
 		drawing(&data);
 		mlx_key_hook(data.mlx, &my_keyhook, &data);
 		mlx_loop(data.mlx);
