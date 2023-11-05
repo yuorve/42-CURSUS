@@ -6,11 +6,31 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:21:41 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/05 15:49:42 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/05 20:47:47 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../../inc/so_long.h"
+
+void	my_keyhook(mlx_key_data_t keydata, void *param)
+{
+	t_data	*data;
+
+	data = param;
+	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
+		moves(data, -1, 0);
+	else if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
+		moves(data, 1, 0);
+	else if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
+		moves(data, 0, -1);
+	else if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
+		moves(data, 0, 1);
+	else if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+	{
+		mlx_terminate(data->mlx);
+		exit(0);
+	}
+}
 
 int	painted(char **matrix, int x, int y)
 {

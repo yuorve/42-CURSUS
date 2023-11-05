@@ -6,31 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:16:04 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/05 16:35:45 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/05 20:47:42 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
-
-void	my_keyhook(mlx_key_data_t keydata, void *param)
-{
-	t_data	*data;
-
-	data = param;
-	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-		moves(data, -1, 0);
-	else if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-		moves(data, 1, 0);
-	else if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-		moves(data, 0, -1);
-	else if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-		moves(data, 0, 1);
-	else if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-	{
-		mlx_terminate(data->mlx);
-		exit(0);
-	}
-}
+#include "../../inc/so_long.h"
 
 void	load_images(t_data *data)
 {
@@ -102,7 +82,7 @@ void	draw_player(t_data *data)
 void	drawing(t_data *data)
 {
 	data->mlx = mlx_init(data->map_width * data->isize,
-			data->map_height * data->isize, "So long", true);
+			data->map_height * data->isize, "So long - Enjoy it!", true);
 	load_images(data);
 	mapping(data);
 	draw_player(data);

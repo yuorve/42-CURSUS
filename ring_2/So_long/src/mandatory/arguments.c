@@ -6,11 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:43:37 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/05 15:52:36 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/05 20:47:36 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../../inc/so_long.h"
 
 void	content_checks(t_data *data)
 {
@@ -51,22 +51,22 @@ void	map_checks(t_data *data)
 	while (data->map[j][i] != '\n')
 	{
 		if (data->map[j][i++] != '1')
-			quit(data, "Error file structure 5");
+			quit(data, "Error file structure missing walls");
 	}
 	while (data->map[data->map_height - 1][--i])
 	{
 		if (data->map[data->map_height - 1][i] != '1')
-			quit(data, "Error file structure 4");
+			quit(data, "Error file structure missing walls");
 	}
 	while (data->map[++j] != NULL)
 	{
 		if (data->map[j][ft_strlen(data->map[j]) - 1] == '\n')
 		{
 			if (data->map_width != ft_strlen(data->map[j]) - 1)
-				quit(data, "Error file structure 3");
+				quit(data, "Error file structure sizes");
 		}
 		if (data->map[j][0] != '1' && data->map[j][data->map_width - 1] != '1')
-			quit(data, "Error file structure 2");
+			quit(data, "Error file structure missing walls");
 	}
 }
 
@@ -85,12 +85,12 @@ void	map_sizes(t_data *data)
 		if (str[ft_strlen(str) - 1] == '\n')
 		{
 			if (data->map_width != ft_strlen(str) - 1)
-				quit(data, "Error file structure 1");
+				quit(data, "Error file structure sizes");
 		}
 		else
 		{
 			if (data->map_width != ft_strlen(str))
-				quit(data, "Error file structure 1");
+				quit(data, "Error file structure sizes");
 		}
 		data->map_height++;
 		free(str);
@@ -107,7 +107,7 @@ void	reading(t_data *data)
 
 	fd = open(data->file, O_RDONLY);
 	if (fd < 0)
-		quit(data, "Error opening file");
+		quit(data, "Error opening file 1");
 	i = 0;
 	map_sizes(data);
 	data->map = ft_calloc(data->map_height, data->map_width);

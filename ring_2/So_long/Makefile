@@ -6,7 +6,7 @@
 #    By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:16:03 by yoropeza          #+#    #+#              #
-#    Updated: 2023/10/25 11:17:16 by yoropeza         ###   ########.fr        #
+#    Updated: 2023/11/05 20:52:04 by yoropeza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,10 @@ LIBMLX	= lib/MLX42
 HEADER	= -I ./inc -I $(LIBMLX)/include -I $(LIBFT)/inc
 LFLAGS	= -L$(LIBFT) -lft -L$(LIBMLX) -lmlx42 
 LIBS	= -lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ -lm
-SRC		:= $(wildcard $(SRCDIR)/*.c)
+SRC		:= $(wildcard $(SRCDIR)/mandatory/*.c)
+SRC_B	:= $(wildcard $(SRCDIR)/bonus/*.c)
 OBJS	:= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
+OBJS_B	:= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC_B))
 
 CC 		= gcc
 CFLAGS	= -Wall -Werror -Wextra
@@ -54,6 +56,10 @@ libmlx:
 
 $(NAME) : $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) $(LIBS) $(HEADER) -o $(NAME) &&\
+	printf "$(GREEN)$(BOLD)So_long ready to play!\n$(RESET)"
+
+bonus : libmlx libft $(OBJS_B)
+	@$(CC) $(CFLAGS) $(OBJS_B) $(LFLAGS) $(LIBS) $(HEADER) -o $(NAME) &&\
 	printf "$(GREEN)$(BOLD)So_long ready to play!\n$(RESET)"
 
 obj/%.o : src/%.c

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:27:14 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/05 15:54:16 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:25:11 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../../inc/so_long_bonus.h"
 
 void	quit(t_data *data, char *err)
 {
@@ -62,15 +62,20 @@ int32_t	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		ft_bzero(&data, sizeof(t_data));
-		data.file = ft_strjoin("resources/", argv[1]);
+		data.file = ft_strjoin("resources/bonus/", argv[1]);
 		if (ft_strncmp(ft_strrchr(argv[1], '.'), ".ber", 4))
 			quit(&data, "Error file name");
 		data.isize = 64;
 		reading(&data);
 		drawing(&data);
 		mlx_key_hook(data.mlx, &my_keyhook, &data);
+		mlx_loop_hook(data.mlx, &timer, &data);
+		mlx_loop_hook(data.mlx, &enemies, &data);
+		mlx_loop_hook(data.mlx, &player_animation, &data);
 		mlx_loop(data.mlx);
 		mlx_terminate(data.mlx);
+		free(data.file);
+		ft_freeplus(data.map, data.map_height);
 	}
 	else if (argc < 2)
 		ft_printf("\e[31mError\nMissing arguments\e[0m\n");

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   moves.c                                            :+:      :+:    :+:   */
+/*   moves_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:37:36 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/05 16:19:53 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/05 21:18:58 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../../inc/so_long_bonus.h"
 
 void	exiting(t_data *data)
 {
@@ -42,7 +42,8 @@ void	keys(t_data *data)
 			if (data->ikeys->instances[i].x == data->player_pos.x * size
 				&& data->ikeys->instances[i].y == data->player_pos.y * size)
 			{
-				data->ikeys->instances[i].enabled = false;
+				data->ikeys->instances[i].x = (data->points * data->isize) + 64;
+				data->ikeys->instances[i].y = data->map_height * data->isize;
 			}
 			i++;
 		}
@@ -61,9 +62,10 @@ void	moves(t_data *data, int x, int y)
 		data->player_pos.x = data->player_pos.x + x;
 		data->iplayer->instances[0].x = data->player_pos.x * data->isize;
 		data->iplayer->instances[0].y = data->player_pos.y * data->isize;
-		ft_printf("X: %d Y:%d\n", data->player_pos.x, data->player_pos.y);
+		move_animation(data, data->player_pos.x, data->player_pos.y);		
 		ft_printf("Steps: %d\n", data->steps);
 		keys(data);
 		exiting(data);
+		print_score(data);
 	}
 }
