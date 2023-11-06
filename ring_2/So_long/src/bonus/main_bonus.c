@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:27:14 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/05 21:25:11 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/06 20:25:12 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	quit(t_data *data, char *err)
 {
 	(void) data;
-	ft_printf("%s\n", err);
+	ft_printf("\e[31m%s\e[0m\n", err);
 	exit(EXIT_FAILURE);
 }
 
@@ -49,16 +49,15 @@ char	**ft_copy(char **matrix, int size)
 	return (new);
 }
 
-void	ft_void(void)
+/*void	ft_void(void)
 {
-	system("leaks -q 'so_long'");
-}
+	system("leaks -q 'so_long'"); atexit(ft_void);
+}*/
 
 int32_t	main(int argc, char **argv)
 {
 	t_data	data;
 
-	atexit(ft_void);
 	if (argc == 2)
 	{
 		ft_bzero(&data, sizeof(t_data));

@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 20:16:18 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/06 20:11:48 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/06 20:22:49 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	move_enemy(t_data *data, int x, int y)
 	{
 		mlx_terminate(data->mlx);
 		ft_freeplus(data->map, data->map_height);
+		ft_printf("\e[31m You died! - GAME OVER\e[0m\n");
 		exit(0);
 	}
 	data->enemyf1->instances[0].x = x * data->isize;

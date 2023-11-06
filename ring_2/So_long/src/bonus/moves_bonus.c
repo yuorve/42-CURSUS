@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:37:36 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/06 19:54:07 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/06 20:23:30 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	exiting(t_data *data)
 		if (data->points == data->keys)
 		{
 			mlx_terminate(data->mlx);
-			ft_freeplus(data->map, data->map_height);
+			ft_freeplus(data->map, data->map_height);			
+			ft_printf("\e[32m You Win! - GAME OVER\e[0m\n");
 			exit(0);
 		}
 	}
