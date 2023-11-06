@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   drawing.c                                          :+:      :+:    :+:   */
+/*   drawing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:16:04 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/05 20:48:44 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:54:26 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ void	draw_player(t_data *data)
 		data->player_pos.x * data->isize, data->player_pos.y * data->isize);
 	mlx_image_to_window(data->mlx, data->iplayer,
 		data->player_pos.x * data->isize, data->player_pos.y * data->isize);
-	drawing_player_frames(data);
 	drawing_enemy_frames(data);
+	drawing_player_frames(data);
 }
 
 void	drawing(t_data *data)

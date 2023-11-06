@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 20:16:18 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/05 21:24:58 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/06 20:11:48 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,25 @@ void	enemies(void *param)
 	t_data	*data;
 	int		x;
 	int		y;
+	int		num;
 
 	data = param;
-	x = 0;
-	y = 0;
-	if (data->timer % 2 == 0)
-		x = -1;
-	if (data->timer % 3 == 0)
-		y = -1;
-	if (data->timer % 4 == 0)
-		x = 1;
-	if (data->timer % 5 == 0)
-		y = 1;
-	x = data->enemy_pos.x + x;
-	y = data->enemy_pos.y + y;
-	if (data->player_pos.y == y && data->player_pos.x == x)
+	if (data->timer > 60)
 	{
-		mlx_terminate(data->mlx);
-		ft_freeplus(data->map, data->map_height);
-		exit(0);
+		x = 0;
+		y = 0;
+		num = rand() % 99;
+		if (data->player_pos.y < data->enemy_pos.y && (num % 2) == 0)
+			y = -1;
+		else if (data->player_pos.x < data->enemy_pos.x && (num % 2) == 0)
+			x = -1;
+		else if (data->player_pos.y > data->enemy_pos.y && (num % 2) == 0)
+			y = 1;
+		else if (data->player_pos.x > data->enemy_pos.x && (num % 2) == 0)
+			x = 1;
+		if (data->map[data->enemy_pos.y + y][data->enemy_pos.x + x] != '1')
+			move_enemy(data, data->enemy_pos.x + x, data->enemy_pos.y + y);
 	}
-	if (data->map[data->enemy_pos.y + y][data->enemy_pos.x + x] != '1')
-		move_enemy(data, x, y);
 }
 
 void	load_enemy_frames(t_data *data)
@@ -70,12 +67,20 @@ void	drawing_enemy_frames(t_data *data)
 
 void	move_enemy(t_data *data, int x, int y)
 {
+	if (data->player_pos.y == y && data->player_pos.x == x)
+	{
+		mlx_terminate(data->mlx);
+		ft_freeplus(data->map, data->map_height);
+		exit(0);
+	}
 	data->enemyf1->instances[0].x = x * data->isize;
 	data->enemyf1->instances[0].y = y * data->isize;
 	data->enemyf2->instances[0].x = x * data->isize;
 	data->enemyf2->instances[0].y = y * data->isize;
 	data->enemyf3->instances[0].x = x * data->isize;
 	data->enemyf3->instances[0].y = y * data->isize;
+	data->enemy_pos.x = x;
+	data->enemy_pos.y = y;
 }
 
 void	enemy_animation(void *param)

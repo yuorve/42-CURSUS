@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:43:37 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/05 20:58:44 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/06 19:50:09 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	load_content(t_data *data, int j, int i)
 		data->enemy++;
 		data->enemy_pos.y = j;
 		data->enemy_pos.x = i;
+		data->map[j][i] = '0';
 	}
 	else if (data->map[j][i] == 'E')
 	{
@@ -50,6 +51,10 @@ void	content_checks(t_data *data)
 			load_content(data, j, i);
 		}
 	}
+	if (data->player != 1)
+		quit(data, "Error file structure one player is needed");
+	if (data->enemy != 1)
+		quit(data, "Error file structure one enemy is needed");
 }
 
 void	map_checks(t_data *data)
@@ -62,22 +67,22 @@ void	map_checks(t_data *data)
 	while (data->map[j][i] != '\n')
 	{
 		if (data->map[j][i++] != '1')
-			quit(data, "Error file structure missing walls");
+			quit(data, "Error file structure missing walls.");
 	}
 	while (data->map[data->map_height - 1][--i])
 	{
 		if (data->map[data->map_height - 1][i] != '1')
-			quit(data, "Error file structure missing walls");
+			quit(data, "Error file structure missing walls..");
 	}
 	while (data->map[++j] != NULL)
 	{
 		if (data->map[j][ft_strlen(data->map[j]) - 1] == '\n')
 		{
 			if (data->map_width != ft_strlen(data->map[j]) - 1)
-				quit(data, "Error file structure sizes");
+				quit(data, "Error file structure sizes.");
 		}
 		if (data->map[j][0] != '1' && data->map[j][data->map_width - 1] != '1')
-			quit(data, "Error file structure missing walls");
+			quit(data, "Error file structure missing walls...");
 	}
 }
 
@@ -88,7 +93,7 @@ void	map_sizes(t_data *data)
 
 	fd = open(data->file, O_RDONLY);
 	if (fd < 0)
-		quit(data, "Error opening file");
+		quit(data, "Error opening file.");
 	str = get_next_line(fd);
 	data->map_width = ft_strlen(str) - 1;
 	while (str != NULL)
@@ -96,12 +101,12 @@ void	map_sizes(t_data *data)
 		if (str[ft_strlen(str) - 1] == '\n')
 		{
 			if (data->map_width != ft_strlen(str) - 1)
-				quit(data, "Error file structure sizes");
+				quit(data, "Error file structure sizes..");
 		}
 		else
 		{
 			if (data->map_width != ft_strlen(str))
-				quit(data, "Error file structure sizes");
+				quit(data, "Error file structure sizes...");
 		}
 		data->map_height++;
 		free(str);
@@ -118,7 +123,7 @@ void	reading(t_data *data)
 
 	fd = open(data->file, O_RDONLY);
 	if (fd < 0)
-		quit(data, "Error opening file 1");
+		quit(data, "Error opening file");
 	i = 0;
 	map_sizes(data);
 	data->map = ft_calloc(data->map_height, data->map_width);
