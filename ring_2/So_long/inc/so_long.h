@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:19:05 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/05 20:25:14 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/07 19:43:50 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_data
 	t_point		exit_pos;
 }	t_data;
 
-void	quit(t_data *data, char *err);
+void	quit(char *err);
 void	reading(t_data *data);
 void	flood_fill(char **matrix, t_point start);
 void	ft_freeplus(char **matrix, int size);

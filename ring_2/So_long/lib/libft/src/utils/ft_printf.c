@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 07:46:09 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/11 09:51:47 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/07 19:27:11 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_printf(char const *str, ...)
 		{
 			i++;
 			ft_checking(str[i], args, ptr);
-		}			
+		}
 		i++;
 	}
 	va_end(args);

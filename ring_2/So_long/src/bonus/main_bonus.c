@@ -6,15 +6,14 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:27:14 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/06 20:25:12 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/07 19:50:10 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/so_long_bonus.h"
 
-void	quit(t_data *data, char *err)
+void	quit(char *err)
 {
-	(void) data;
 	ft_printf("\e[31m%s\e[0m\n", err);
 	exit(EXIT_FAILURE);
 }
@@ -63,7 +62,7 @@ int32_t	main(int argc, char **argv)
 		ft_bzero(&data, sizeof(t_data));
 		data.file = ft_strjoin("resources/bonus/", argv[1]);
 		if (ft_strncmp(ft_strrchr(argv[1], '.'), ".ber", 4))
-			quit(&data, "Error file name");
+			quit("Error\nFile name");
 		data.isize = 64;
 		reading(&data);
 		drawing(&data);

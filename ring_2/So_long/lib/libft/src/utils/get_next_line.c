@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 18:58:24 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/09/16 11:37:08 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/07 19:27:25 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static char	*ft_read(int fd, char *buffer)
 			free (tab);
 			free (buffer);
 			return (NULL);
-		}	
+		}
 	}
 	free (tab);
 	return (buffer);
