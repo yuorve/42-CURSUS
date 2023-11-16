@@ -6,11 +6,18 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/15 21:01:04 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/16 13:11:22 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	ft_checks(char c1, char c2)
+{
+	if (c1 == c2)
+		return (1);
+	return (0);
+}
 
 void	ft_free_split(char **str)
 {
@@ -81,9 +88,20 @@ t_list	*ft_add_to_list(t_list *list, char *content)
 	return (list);
 }
 
+int	ft_findpos(char *str, char c)
+{
+	int	i;
+
+	i = 1;
+	while (str[i] && !ft_checks(str[i], c))
+		i++;
+	return (i);
+}
+
 void	parser(t_data *data, char *str)
 {
 	int		i;
+	char	*tmp;
 	char	**values;
 
 	if (ft_strchr(str, '|'))
@@ -101,40 +119,28 @@ void	parser(t_data *data, char *str)
 	else
 	{
 		values = ft_split(str, ' ');
-		if (!values[0])
-			return (free(values));
 		data->command = ft_add_to_list(data->command, values[0]);
 		i = 1;
 		while (values[i])
 		{
-			data->parameter = ft_add_to_list(data->parameter, values[i]);
+			if (ft_strchr(values[i], '\"') || ft_strchr(values[i], '\''))
+			{
+				tmp = values[i++];
+				data->parameter = ft_add_to_list(data->parameter, ft_strjoin(tmp, ft_strjoin(" ",values[i])));				
+				free(tmp);
+			}
+			else
+				data->parameter = ft_add_to_list(data->parameter, values[i]);
 			i++;
 		}
-		if (ft_strchr(str, '>') || ft_strchr(str, '<'))
-			ft_printf("Ojo que hay redirecciones %s\n", str);
-		/*if (ft_strchr(str, '='))
-			ft_printf("Hay iguales %s\n", str);
-		if (ft_strchr(str, '\''))
-		{
-			ft_printf("Hay comillas simples %s\n", str);
-			//ft_printf("Hay comillas simples %s\n", ft_strchr(ft_substr(ft_strchr(str, '\''), 0, 1 + ft_strlen(ft_strchr(str, '\'')) - ft_strlen(ft_strrchr(str, '\''))), ' ')  );
-		}
-		if (ft_strchr(str, '\"'))
-			ft_printf("Hay comillas dobles detectadas %s\n", str); */
 		free(values);
 	}
-}
-
-int	ft_checks(char c1, char c2)
-{
-	if (c1 == c2)
-		return (1);
-	return (0);
 }
 
 void	ft_input_checks(char *str)
 {
 	int	i;
+	int	start;
 	int	flag;
 
 	flag = 0;
@@ -155,15 +161,20 @@ void	ft_input_checks(char *str)
 			else
 				flag = 2;
 		}
-		else if (ft_checks(str[i], '$') && flag == 1)
+		else if (ft_checks(str[i], '$') && flag != 2)
 		{
-			ft_printf("Cambiar por Valor");
+			start = i++;
+			while (ft_isalpha(str[i]))
+				i++;
+			ft_printf("Get value from: %s\n", ft_substr(str, start, i - start));
+			i--;
 		}
 		else if (flag == 0)
 		{
 			if (ft_checks(str[i], ';') || ft_checks(str[i], '\\'))
 			{
 				flag = 3;
+				break ;
 			}
 		}
 		i++;
