@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/16 20:17:52 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/16 20:27:06 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ void	ft_input_checks(char *str)
 	flag = 0;
 	i = 0;
 	while (str[i])
-	{		
+	{
 		if (ft_checks(str[i], '\"') && flag != 2)
 		{
 			if (flag == 1)
@@ -197,8 +197,6 @@ void	ft_input_checks(char *str)
 				flag = 3;
 				break ;
 			}
-			else if (ft_checks(str[i], ' '))
-				ft_printf("Found pipe\n");
 		}
 		i++;
 	}
@@ -238,8 +236,8 @@ int	main(int argc, char **argv)
 		{
 			add_history(input);
 			ft_input_checks(input);
-			//parser(&data, input);
-			//debug(&data);
+			parser(&data, input);
+			debug(&data);
 		}
 		ft_lstclear(&data.command, ft_free);
 		ft_lstclear(&data.parameter, ft_free);
