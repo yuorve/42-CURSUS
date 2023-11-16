@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/16 13:11:22 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/16 20:17:52 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	parser(t_data *data, char *str)
 	char	*tmp;
 	char	**values;
 
-	if (ft_strchr(str, '|'))
+	if (ft_strchr(str, '|') && ft_findpos(str, '|') < ft_findpos(str, '\"'))
 	{
 		values = ft_split(str, '|');
 		i = 0;
@@ -123,14 +123,30 @@ void	parser(t_data *data, char *str)
 		i = 1;
 		while (values[i])
 		{
-			if (ft_strchr(values[i], '\"') || ft_strchr(values[i], '\''))
+			if (values[i][0] == '\"' && values[i][ft_strlen(values[i]) - 1] != '\"')
 			{
 				tmp = values[i++];
-				data->parameter = ft_add_to_list(data->parameter, ft_strjoin(tmp, ft_strjoin(" ",values[i])));				
+				while (!ft_strchr(values[i], '\"'))
+				{
+					tmp = ft_strjoin(tmp, " ");
+					tmp = ft_strjoin(tmp, values[i]);
+					i++;
+				}
+				tmp = ft_strjoin(tmp, " ");
+				tmp = ft_strjoin(tmp, values[i]);
+				data->parameter = ft_add_to_list(data->parameter, tmp);
 				free(tmp);
 			}
 			else
-				data->parameter = ft_add_to_list(data->parameter, values[i]);
+			{
+				if (values[i][0] == '|')
+				{
+					i++;
+					data->command = ft_add_to_list(data->command, values[i]);
+				}
+				else
+					data->parameter = ft_add_to_list(data->parameter, values[i]);
+			}
 			i++;
 		}
 		free(values);
@@ -143,10 +159,11 @@ void	ft_input_checks(char *str)
 	int	start;
 	int	flag;
 
+	start = 0;
 	flag = 0;
 	i = 0;
 	while (str[i])
-	{
+	{		
 		if (ft_checks(str[i], '\"') && flag != 2)
 		{
 			if (flag == 1)
@@ -160,6 +177,10 @@ void	ft_input_checks(char *str)
 				flag = 0;
 			else
 				flag = 2;
+		}
+		else if (ft_checks(str[i], '|') && flag == 0)
+		{
+			ft_printf("Found pipe\n");
 		}
 		else if (ft_checks(str[i], '$') && flag != 2)
 		{
@@ -176,6 +197,8 @@ void	ft_input_checks(char *str)
 				flag = 3;
 				break ;
 			}
+			else if (ft_checks(str[i], ' '))
+				ft_printf("Found pipe\n");
 		}
 		i++;
 	}
@@ -215,8 +238,8 @@ int	main(int argc, char **argv)
 		{
 			add_history(input);
 			ft_input_checks(input);
-			parser(&data, input);
-			debug(&data);
+			//parser(&data, input);
+			//debug(&data);
 		}
 		ft_lstclear(&data.command, ft_free);
 		ft_lstclear(&data.parameter, ft_free);
