@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/23 17:54:34 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/23 20:56:40 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,7 @@ void	ft_void(void)
 	system("leaks -q 'minishell'");
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 	char	*input;
@@ -250,13 +250,18 @@ int	main(int argc, char **argv)
 	(void) argc;
 	(void) argv;
 	using_history();
+	set_signal(); //signals set to start
 	ft_bzero(&data, sizeof(t_data));
+	ft_init(&data, env);
+	
 	while (1)
 	{
 		input = readline("\033[32;1mMinishell> \033[0m");
-		if (input && (ft_strncmp(input, "exit", 4) == 0))
+		//if (input && (ft_strncmp(input, "exit", 4) == 0))
+		if (!input)
 		{
 			free(input);
+			ft_free_matrix(data.cmd->env_copy);
 			break ;
 		}
 		if (input && *input)
@@ -265,11 +270,18 @@ int	main(int argc, char **argv)
 			ft_input_checks(&data, input);
 			ft_pipes(&data, input);
 			debug(&data);
+			if(ft_not_redirected_builtins(&data) == 1)
+				ft_execute_not_rebuiltins(&data);
+            	printf("tiene que ejecutar el buitin\n");
+            // else
+            //     ft_execute(&data);
 		}
 		ft_lstclear(&data.command, ft_free);
 		ft_lstclear(&data.parameter, ft_free);
 		free(input);
+		ft_free_matrix(data.cmd->env_copy);
 	}
+	
 	clear_history();
 	return (0);
 }
