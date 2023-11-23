@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:23:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/15 20:05:23 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:53:31 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 typedef struct	s_data
 {
 	char	*input;
+	int		npipes;
 	t_list	*command;
 	t_list	*parameter;
 }	t_data;
