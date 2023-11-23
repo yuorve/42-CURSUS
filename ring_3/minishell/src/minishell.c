@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/23 17:54:34 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/23 19:24:57 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,20 @@ int	ft_quoted(char *str)
 {
 	int i;
 	int numQuotes;
+	int numSingleQuotes;
 
 	numQuotes = 0;
+	numSingleQuotes = 0;
 	i = 0;
 	while (str[i])
 	{
-		if (ft_checks(str[i], '\"'))
+		if (ft_checks(str[i], '\"') && !(numSingleQuotes % 2))
 			numQuotes++;
+		else if (ft_checks(str[i], '\'') && !(numQuotes % 2))
+			numSingleQuotes++;
 		i++;
 	}
-	return (numQuotes % 2);
+	return ((numQuotes % 2) || (numSingleQuotes % 2));
 }
 
 void	ft_spaces(t_data *data, char *str)
@@ -127,13 +131,10 @@ void	ft_spaces(t_data *data, char *str)
 	{
 		if (ft_quoted(values[i]))
 		{
-			tmp = values[i++];
-			while (values[i] && !ft_quoted(values[i]))
-			{
+			tmp = values[i];
+			while (values[++i] && ft_quoted(tmp))
 				tmp = ft_strjoin(tmp, ft_strjoin(" ", values[i]));
-				i++;
-			}
-			tmp = ft_strjoin(tmp, ft_strjoin(" ", values[i]));
+			i--;
 			data->parameter = ft_add_to_list(data->parameter, tmp);
 		}
 		else
@@ -157,13 +158,10 @@ void	ft_pipes(t_data *data, char *str)
 	{
 		if (ft_quoted(values[i]))
 		{
-			tmp = values[i++];
-			while (values[i] && !ft_quoted(values[i]))
-			{
+			tmp = values[i];
+			while (values[++i] && ft_quoted(tmp))
 				tmp = ft_strjoin(tmp, ft_strjoin("|", values[i]));
-				i++;
-			}
-			tmp = ft_strjoin(tmp, ft_strjoin("|", values[i]));
+			i--;
 			ft_spaces(data, tmp);
 		}
 		else
@@ -209,13 +207,18 @@ void	ft_input_checks(t_data *data, char *str)
 			data->npipes++;
 			start = i;
 		}
-		else if (ft_checks(str[i], '$') && flag != 2)
+		else if (ft_checks(str[i], '$') && flag == 1)
 		{
 			start = i++;
-			while (ft_isalpha(str[i]))
-				i++;
-			ft_printf("Obtain value from: %s\n", ft_substr(str, start, i - start));
-			i--;
+			if (ft_isalpha(str[i]))
+			{
+				while (ft_isalpha(str[i]))
+					i++;
+				ft_printf("Obtain value from: %s\n", ft_substr(str, start, i - start));
+				i--;
+			}
+			else
+				flag = 3;
 		}
 		else if (flag == 0)
 		{
