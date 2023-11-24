@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:59:00 by angalsty          #+#    #+#             */
-/*   Updated: 2023/11/23 20:13:17 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/11/24 21:04:17 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,16 @@ void    ft_init_command(t_data *data)
     data->command = NULL;
     data->parameter = NULL;
     data->npipes = 0;
-    data->num_command = 0;
+}
+
+void    ft_init_cmd(t_data *data)
+{
+    data->cmd->env_copy = NULL;
+    data->cmd->var_name = NULL;
+    data->cmd->var_value = NULL;
+    data->cmd->cmd_splited = NULL;
+    data->cmd->cmd_complete = NULL;
+    //data->cmd->path = NULL;
 }
 
 void    ft_init_env(t_data *data, char **env)
@@ -41,7 +50,8 @@ void    ft_init_env(t_data *data, char **env)
 
 void    ft_init(t_data *data, char **env)
 {
-    data->cmd = (t_cmd *)malloc(sizeof(t_cmd));
-    ft_init_env(data, env);
     ft_init_command(data);
+    data->cmd = (t_cmd *)malloc(sizeof(t_cmd));
+    ft_init_cmd(data);
+    ft_init_env(data, env);
 }

@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2023/11/23 20:55:59 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/11/24 20:40:49 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int ft_pwd(void)
     free(pwd);
     return (0);
 }
+
+
 // int ft_chdir(const char *path) 
 // {
 //     if (chdir(path) != 0) 
@@ -137,10 +139,7 @@ int ft_env(t_data *data)
     i = 0;
     while (data->cmd->env_copy[i])
     {
-        if (data->cmd->env_copy[i][0] != '\0') 
-        {
-            printf("%s\n", data->cmd->env_copy[i]);
-        }
+        printf("%s\n", data->cmd->env_copy[i]);
         i++;
     }
     return (0);

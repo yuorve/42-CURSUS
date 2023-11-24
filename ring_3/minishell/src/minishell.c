@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/23 20:56:40 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/11/24 21:42:14 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ void	ft_spaces(t_data *data, char *str)
 	char	**values;
 
 	values = ft_split(str, ' ');
+	
+	//printf("values_spaces[0]: %s\n", values[0]);
 	data->command = ft_add_to_list(data->command, values[0]);
 	i = 1;
 	while (values[i])
@@ -145,6 +147,7 @@ void	ft_spaces(t_data *data, char *str)
 	free(values);
 }
 
+
 void	ft_pipes(t_data *data, char *str)
 {
 	int		i;
@@ -152,6 +155,17 @@ void	ft_pipes(t_data *data, char *str)
 	char	**values;
 
 	values = ft_split(str, '|');
+
+	//to keep the complete command in my struct
+	data->cmd->cmd_complete = (char **)calloc(sizeof(char **), data->npipes + 1);
+	i = 0;
+	while (values[i])
+	{
+		data->cmd->cmd_complete[i] = values[i];
+		i++;
+	}
+	data->cmd->cmd_complete[i] = NULL;
+	
 	i = 0;
 	while (values[i])
 	{
@@ -164,6 +178,7 @@ void	ft_pipes(t_data *data, char *str)
 				i++;
 			}
 			tmp = ft_strjoin(tmp, ft_strjoin("|", values[i]));
+			printf("tmp: %s\n", tmp);
 			ft_spaces(data, tmp);
 		}
 		else
@@ -236,10 +251,44 @@ void	ft_free(void *data)
 	free(data);
 }
 
+
+//this function is to find the full comands between pipes
+// void    ft_devide_command(t_data *data)
+// {
+//     int i;
+//     char **cmd_copy;
+
+//     i = 0;
+//     cmd_copy = ft_split(data->input, '|');
+   
+//     while (cmd_copy[data->num_command])
+//     {
+//         printf("cmd_copy[%d]: %s\n", data->num_command, cmd_copy[data->num_command]);
+// 		data->num_command++;
+//     }
+//     data->cmd->cmd_complete = (char **)calloc(sizeof(char **), data->num_command + 1);
+//     i = 0;
+//     while (cmd_copy[i])
+//     {
+//         data->cmd->cmd_complete[i] = cmd_copy[i];
+//         i++;
+//     }
+//     data->cmd->cmd_complete[i] = NULL;
+    
+//     int j = 0;
+//     while(data->cmd->cmd_complete[j])
+//     {
+//         printf("command->cmd[%d] = %s\n", j, data->cmd->cmd_complete[j]);
+//         j++;
+//     }
+//     free(cmd_copy);
+// }
+
 void	ft_void(void)
 {
 	system("leaks -q 'minishell'");
 }
+
 
 int	main(int argc, char **argv, char **env)
 {
@@ -261,7 +310,7 @@ int	main(int argc, char **argv, char **env)
 		if (!input)
 		{
 			free(input);
-			ft_free_matrix(data.cmd->env_copy);
+			//ft_free_matrix(data.cmd->env_copy);
 			break ;
 		}
 		if (input && *input)
@@ -272,16 +321,16 @@ int	main(int argc, char **argv, char **env)
 			debug(&data);
 			if(ft_not_redirected_builtins(&data) == 1)
 				ft_execute_not_rebuiltins(&data);
-            	printf("tiene que ejecutar el buitin\n");
-            // else
-            //     ft_execute(&data);
+            	//printf("tiene que ejecutar el buitin\n");
+            else
+            	ft_execute(&data);
 		}
 		ft_lstclear(&data.command, ft_free);
 		ft_lstclear(&data.parameter, ft_free);
 		free(input);
-		ft_free_matrix(data.cmd->env_copy);
+		
 	}
-	
+	ft_free_matrix(data.cmd->env_copy);
 	clear_history();
 	return (0);
 }

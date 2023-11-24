@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:23:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/23 20:39:10 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/11/24 21:02:56 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ typedef struct	s_cmd
 	char	**env_copy;
 	char	*var_name;
 	char	*var_value;
+	//char	*path;
+	char	**cmd_splited;
+	char	**cmd_complete;
 }	t_cmd;
 
 typedef struct	s_data
@@ -64,6 +67,12 @@ int ft_env(t_data *data);
 // int ft_unset(t_data *data);
 // int ft_echo(t_data *data);
 // int ft_cd(t_data *data);
+
+
+//executer.c
+char    *ft_get_path(char **cmd, t_data *data);
+void    ft_devide_command(t_data *data);
+void    ft_execute(t_data *data);
 
 
 //free.c

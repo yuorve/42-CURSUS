@@ -9,7 +9,7 @@ SRC		:= $(wildcard $(SRCDIR)/*.c)
 OBJS	:= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
 
 CC 		= gcc
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra -g
 RM 		= rm -rf
 
 UNAME	= $(shell uname -s)
@@ -43,6 +43,9 @@ obj/%.o : src/%.c
 clean:
 	@$(RM) $(OBJDIR) && printf "$(GREEN)$(BOLD)All objects cleaned! :)\n$(RESET)"
 	@make -C $(LIBFT) clean
+
+valgrind:
+    valgrind --leak-check=full ./$(NAME)
 
 fclean: clean
 	@$(RM) $(NAME) && printf "$(YELLOW)$(BOLD)$(NAME) $(GREEN)file cleaned! :)\n$(RESET)"
