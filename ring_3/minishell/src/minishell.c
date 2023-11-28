@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/23 19:24:57 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/28 18:58:07 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,51 +32,20 @@ void	ft_free_split(char **str)
 	free(str);
 }
 
-void debug(t_data *data)
+t_list	*ft_previously(t_list *list, char *content)
 {
-	t_list	*nodo;
-	char	**str;
+	t_list	*curr;
 
-	if (ft_lstsize(data->command) == 1)
+	if (!list)
+		return (0);
+	curr = list;
+	while (curr->next)
 	{
-		ft_printf("Comando: %s\n", data->command->content);
+		if (curr->next->content == content)
+			return (curr);
+		curr = curr->next;
 	}
-	else
-	{
-		nodo = data->command;
-		while (nodo)
-		{
-			ft_printf("Comandos: %s\n", nodo->content);
-			nodo = nodo->next;
-		}
-	}
-	if (ft_lstsize(data->parameter) == 1)
-	{
-		ft_printf("parametro: %s\n", data->parameter->content);		
-		if (ft_strchr(data->parameter->content, '='))
-		{
-			str = ft_split(data->parameter->content, '=');
-			ft_printf("Variable: %s\n", str[0]);
-			ft_printf("Valor: %s\n", str[1]);
-			ft_free_split(str);
-		}
-	}
-	else
-	{
-		nodo = data->parameter;
-		while (nodo)
-		{
-			ft_printf("parametros: %s\n", nodo->content);
-			if (ft_strchr(nodo->content, '='))
-			{
-				str = ft_split(nodo->content, '=');
-				ft_printf("Variable: %s\n", str[0]);
-				ft_printf("Valor: %s\n", str[1]);
-				ft_free_split(str);
-			}
-			nodo = nodo->next;
-		}
-	}
+	return (0);
 }
 
 t_list	*ft_add_to_list(t_list *list, char *content)
@@ -118,10 +87,11 @@ int	ft_quoted(char *str)
 	return ((numQuotes % 2) || (numSingleQuotes % 2));
 }
 
-void	ft_spaces(t_data *data, char *str)
+void	ft_params(t_data *data, char *str)
 {
 	int		i;
 	char	*tmp;
+	char	*leak_prevent;
 	char	**values;
 
 	values = ft_split(str, ' ');
@@ -133,23 +103,142 @@ void	ft_spaces(t_data *data, char *str)
 		{
 			tmp = values[i];
 			while (values[++i] && ft_quoted(tmp))
-				tmp = ft_strjoin(tmp, ft_strjoin(" ", values[i]));
+			{
+				leak_prevent = ft_strjoin(tmp, " ");
+				free(tmp);
+				tmp = ft_strjoin(leak_prevent, values[i]);
+				free(leak_prevent);
+			}
 			i--;
 			data->parameter = ft_add_to_list(data->parameter, tmp);
+			//free(tmp);
 		}
 		else
 		{
 			data->parameter = ft_add_to_list(data->parameter, values[i]);
 		}
+		free (values[i]);
 		i++;
 	}
-	free(values);
+	//ft_free_split(values);
+}
+
+void debug(t_data *data)
+{
+	t_list	*nodo;
+	t_list	*prev;
+	char	**str;
+
+	if (ft_lstsize(data->command) == 1)
+	{
+		ft_printf("Comando: %s\n", data->command->content);
+		if (ft_strchr(data->command->content, ' '))
+		{
+			ft_params(data, data->command->content);
+			ft_printf("parametro: %s\n", data->parameter->content);
+			if (ft_strchr(data->parameter->content, '='))
+			{
+				str = ft_split(data->parameter->content, '=');
+				ft_printf("Variable: %s\n", str[0]);
+				ft_printf("Valor: %s\n", str[1]);
+				ft_free_split(str);
+			}
+		}
+	}
+	else
+	{
+		nodo = data->command;
+		while (nodo)
+		{
+			ft_printf("Comandos: %s\n", nodo->content);
+			if (ft_strchr(nodo->content, ' '))
+			{
+				ft_params(data, nodo->content);
+				ft_printf("parametro: %s\n", nodo->content);
+				if (ft_strchr(data->parameter->content, '='))
+				{
+					str = ft_split(data->parameter->content, '=');
+					ft_printf("Variable: %s\n", str[0]);
+					ft_printf("Valor: %s\n", str[1]);
+					ft_free_split(str);
+				}
+			}
+			prev = ft_previously(data->command, nodo->content);
+			if (prev)
+				ft_printf("Comando anterior: %s\n", prev->content);
+			nodo = nodo->next;
+		}
+	}
+	if (ft_lstsize(data->parameter) == 100)
+	{
+		ft_printf("parametro: %s\n", data->parameter->content);		
+		if (ft_strchr(data->parameter->content, '='))
+		{
+			str = ft_split(data->parameter->content, '=');
+			ft_printf("Variable: %s\n", str[0]);
+			ft_printf("Valor: %s\n", str[1]);
+			ft_free_split(str);
+		}
+	}
+	else
+	{
+		nodo = data->parameter;
+		while (nodo)
+		{
+			ft_printf("parametros: %s\n", nodo->content);
+			if (ft_strchr(nodo->content, '='))
+			{
+				str = ft_split(nodo->content, '=');
+				ft_printf("Variable: %s\n", str[0]);
+				ft_printf("Valor: %s\n", str[1]);
+				ft_free_split(str);
+			}
+			nodo = nodo->next;
+		}
+	}
+}
+
+void	ft_spaces(t_data *data, char *str)
+{
+	int		i;
+	char	*tmp;
+	char	*leak_prevent;
+	char	**values;
+
+	values = ft_split(str, ' ');
+	data->command = ft_add_to_list(data->command, values[0]);
+	i = 1;
+	while (values[i])
+	{
+		if (ft_quoted(values[i]))
+		{
+			tmp = values[i];
+			while (values[++i] && ft_quoted(tmp))
+			{
+				leak_prevent = ft_strjoin(tmp, " ");
+				free(tmp);
+				tmp = ft_strjoin(leak_prevent, values[i]);
+				free(leak_prevent);
+			}
+			i--;
+			data->parameter = ft_add_to_list(data->parameter, tmp);
+			//free(tmp);
+		}
+		else
+		{
+			data->parameter = ft_add_to_list(data->parameter, values[i]);
+		}
+		free (values[i]);
+		i++;
+	}
+	//ft_free_split(values);
 }
 
 void	ft_pipes(t_data *data, char *str)
 {
 	int		i;
 	char	*tmp;
+	char	*leak_prevent;
 	char	**values;
 
 	values = ft_split(str, '|');
@@ -160,16 +249,25 @@ void	ft_pipes(t_data *data, char *str)
 		{
 			tmp = values[i];
 			while (values[++i] && ft_quoted(tmp))
-				tmp = ft_strjoin(tmp, ft_strjoin("|", values[i]));
+			{
+				leak_prevent = ft_strjoin(tmp, "|");
+				free(tmp);
+				tmp = ft_strjoin(leak_prevent, values[i]);
+				free(leak_prevent);
+			}
 			i--;
-			ft_spaces(data, tmp);
+			//ft_spaces(data, tmp);
+			data->command = ft_add_to_list(data->command, tmp);
+			//free(tmp);
+			free (values[i]);
 		}
 		else
 		{
-			if (ft_strchr(values[i], ' '))
+			data->command = ft_add_to_list(data->command, values[i]);
+			/*if (ft_strchr(values[i], ' '))
 				ft_spaces(data, values[i]);
 			else
-				data->command = ft_add_to_list(data->command, values[i]);
+				data->command = ft_add_to_list(data->command, values[i]);*/
 		}
 		i++;
 	}

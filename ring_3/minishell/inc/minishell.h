@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:23:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/22 19:53:31 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:46:58 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 
-typedef struct	s_data
+typedef struct s_data
 {
 	char	*input;
 	int		npipes;
