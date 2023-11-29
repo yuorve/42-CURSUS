@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:59:00 by angalsty          #+#    #+#             */
-/*   Updated: 2023/11/24 21:04:17 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/11/28 18:19:50 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,29 @@ void    ft_init_cmd(t_data *data)
     //data->cmd->path = NULL;
 }
 
+void    ft_shell_level(t_data *data)
+{
+    int i;
+    char *level;
+    char *new_level;
+
+    i = 0;
+    while (data->cmd->env_copy[i])
+    {
+        if (ft_strncmp(data->cmd->env_copy[i], "SHLVL=", 6) == 0)
+        {
+            level = ft_strdup(data->cmd->env_copy[i] + 6);
+            new_level = ft_itoa(ft_atoi(level) + 1);
+            free(data->cmd->env_copy[i]);
+            data->cmd->env_copy[i] = ft_strjoin("SHLVL=", new_level);
+            free(level);
+            free(new_level);
+            break;
+        }
+        i++;
+    }
+}
+
 void    ft_init_env(t_data *data, char **env)
 {
     int i;
@@ -46,6 +69,7 @@ void    ft_init_env(t_data *data, char **env)
         i++;
     }
     data->cmd->env_copy[i] = NULL;
+    ft_shell_level(data);
 }
 
 void    ft_init(t_data *data, char **env)

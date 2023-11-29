@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2023/11/24 20:40:49 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/11/27 21:33:00 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,15 @@ int ft_pwd(void)
 
 int ft_exit(void) 
 {
+    // while(&data->parameter->content)
+    // {
+    //     if (ft_isdigit(ft_atoi(&data->parameter->content)) == 0)
+    //     {
+    //         printf("minishell: exit: %s: numeric argument required\n", &data->parameter->content);
+    //         exit(255);
+    //     }
+    //     *data->parameter->content++;
+    // }
     exit(0); // Salir del shell con código de éxito
 }
 
@@ -168,21 +177,27 @@ int ft_execute_not_rebuiltins(t_data *data)
 //             return (1);
 //         }
     if (ft_strncmp(data->command->content, "pwd", 3) == 0)
-        {
+    {
         return (ft_pwd());
         // printf("pwd\n");
         // return (1);
-        }
+    }
     else if (ft_strncmp(data->command->content, "exit", 4) == 0)
-       {
-        return (ft_exit());
-        // printf("exit\n");
-        // return (1);
-       }
-        else if (ft_strncmp(data->command->content, "env", 3) == 0)
-        {
-            return (ft_env(data));
-        }
+    {
+        
+            return (ft_exit());
+        // else 
+        // {
+        //     printf("minishell: exit: too many arguments\n");
+        //     return (ft_exit());
+        // }
+    // printf("exit\n");
+    // return (1);
+    }
+    else if (ft_strncmp(data->command->content, "env", 3) == 0)
+    {
+        return (ft_env(data));
+    }
     else
         return (0);
 }
@@ -216,12 +231,12 @@ int ft_not_redirected_builtins(t_data *data)
     // }
     // else if (ft_strncmp(data->command, "unset", 5) == 0)
     //     return (1);
-    if (ft_strncmp(data->command->content, "exit", 4) == 0)
+    if (ft_strncmp(data->command->content, "exit", 4) == 0 && data->parameter != NULL)   
         return (1);
         //tengo que cambiar env y pwd a redirected builtins
-    else if (ft_strncmp(data->command->content, "env", 3) == 0)
+    else if (ft_strncmp(data->command->content, "env", 3) == 0 && data->parameter == NULL && data->command == NULL)
         return (1);
-    else if (ft_strncmp(data->command->content, "pwd", 3) == 0)
+    else if (ft_strncmp(data->command->content, "pwd", 3) == 0 && (data->command + 1 == NULL || data->parameter != NULL))
         return (1);
     return (0);
     

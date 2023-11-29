@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:24:31 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/11 09:52:36 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/24 21:26:11 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:23:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/24 21:02:56 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/11/28 16:52:36 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,20 @@ typedef struct	s_data
 
 
 //minishell.c
+void	ft_minishell(t_data *data);
+int		ft_checks(char c1, char c2);
+void	ft_free_split(char **str);
+void 	debug(t_data *data);
+t_list	*ft_add_to_list(t_list *list, char *content);
+int		ft_findpos(char *str, char c);
+int		ft_quoted(char *str);
+void	ft_spaces(t_data *data, char *str);
+void	ft_pipes(t_data *data, char *str);
+void	ft_input_checks(t_data *data, char *str);
+void	ft_free(void *data);
+
+
+//signals.c
 void    set_signal(void);
 void    handle_process_on(int sig);
 void    handle_ctrl_c(int sig);
@@ -54,6 +68,7 @@ void    handle_ctrl_c(int sig);
 void    ft_init(t_data *data, char **env);
 void    ft_init(t_data *data, char **env);
 void    ft_init_command(t_data *data);
+void    ft_shell_level(t_data *data);
 
 //builtins.c
 int ft_not_redirected_builtins(t_data *data);

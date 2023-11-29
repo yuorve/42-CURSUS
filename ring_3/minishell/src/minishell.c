@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/24 21:42:14 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/11/28 18:20:08 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,25 +284,10 @@ void	ft_free(void *data)
 //     free(cmd_copy);
 // }
 
-void	ft_void(void)
+void	ft_minishell(t_data *data)
 {
-	system("leaks -q 'minishell'");
-}
-
-
-int	main(int argc, char **argv, char **env)
-{
-	t_data	data;
 	char	*input;
 
-	atexit(ft_void);
-	(void) argc;
-	(void) argv;
-	using_history();
-	set_signal(); //signals set to start
-	ft_bzero(&data, sizeof(t_data));
-	ft_init(&data, env);
-	
 	while (1)
 	{
 		input = readline("\033[32;1mMinishell> \033[0m");
@@ -316,21 +301,18 @@ int	main(int argc, char **argv, char **env)
 		if (input && *input)
 		{
 			add_history(input);
-			ft_input_checks(&data, input);
-			ft_pipes(&data, input);
-			debug(&data);
-			if(ft_not_redirected_builtins(&data) == 1)
-				ft_execute_not_rebuiltins(&data);
+			ft_input_checks(data, input);
+			ft_pipes(data, input);
+			debug(data);
+			if(ft_not_redirected_builtins(data) == 1)
+				ft_execute_not_rebuiltins(data);
             	//printf("tiene que ejecutar el buitin\n");
             else
-            	ft_execute(&data);
+            	ft_execute(data);
 		}
-		ft_lstclear(&data.command, ft_free);
-		ft_lstclear(&data.parameter, ft_free);
+		ft_lstclear(&data->command, ft_free);
+		ft_lstclear(&data->parameter, ft_free);
 		free(input);
 		
 	}
-	ft_free_matrix(data.cmd->env_copy);
-	clear_history();
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2023/11/24 21:19:13 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/11/28 16:52:41 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char *ft_get_path(char **cmd, t_data *data)
 {
     char **path;
     char *found_path;
+    char *tmp;
     int i;
     
     i = 0;
@@ -63,7 +64,9 @@ char *ft_get_path(char **cmd, t_data *data)
                 while (path[j]) 
                 {
                     path[j] = ft_strjoin(path[j], "/");
+                    tmp = path[j];
                     path[j] = ft_strjoin(path[j], cmd[0]);
+                    free(tmp);
                     if (access(path[j], F_OK) == 0) 
                     {
                         found_path = ft_strdup(path[j]);
@@ -82,7 +85,8 @@ char *ft_get_path(char **cmd, t_data *data)
         }
         i++;
     }
-    //ft_free_matrix(path); // Free path after usage
+    if (path)
+        ft_free_matrix(path); // Free path after usage
     return (0);
 }
 
@@ -109,6 +113,7 @@ void    ft_devide_command(t_data *data)
         i++;
     }
     data->cmd->cmd_splited[i] = NULL;
+    printf("data->cmd->cmd_splited[0]: %s\n", data->cmd->cmd_splited[0]);
     
     // int j = 0;
     // while(data->cmd->cmd_complete[j])
@@ -116,8 +121,8 @@ void    ft_devide_command(t_data *data)
     //     printf("command->cmd[%d] = %s\n", j, data->cmd->cmd_splited[j]);
     //     j++;
     // }
-    //free(cmd_splited);
-    ft_free_matrix(data->cmd->cmd_complete);
+    //ft_free_matrix(cmd_splited);
+    // ft_free_matrix(data->cmd->cmd_complete);
 }
 
 void    ft_execute(t_data *data)
