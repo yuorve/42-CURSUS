@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:23:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/28 16:52:36 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/11/29 19:03:55 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,17 @@ typedef struct	s_cmd
 	char	**cmd_complete;
 }	t_cmd;
 
-typedef struct	s_data
+typedef struct	s_cmd
+{
+	char	**env_copy;
+	char	*var_name;
+	char	*var_value;
+	//char	*path;
+	char	**cmd_splited;
+	char	**cmd_complete;
+}	t_cmd;
+
+typedef struct s_data
 {
 	char	*input;
 	int		npipes;
