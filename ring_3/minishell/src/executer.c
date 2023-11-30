@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2023/11/28 16:52:41 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:07:27 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 //     return (NULL);
 // }
 
-char *ft_get_path(char **cmd, t_data *data) 
+char *ft_get_path(char *cmd, t_data *data) 
 {
     char **path;
     char *found_path;
@@ -91,39 +91,39 @@ char *ft_get_path(char **cmd, t_data *data)
 }
 
 
-void    ft_devide_command(t_data *data)
-{
-    int i;
-    char **cmd_splited;
+// void    ft_devide_command(t_data *data)
+// {
+//     int i;
+//     char **cmd_splited;
 
-    i = 0;
-    cmd_splited = ft_split(*data->cmd->cmd_complete, ' ');
+//     i = 0;
+//     cmd_splited = ft_split(*data->cmd->cmd_complete, ' ');
    
-    while (cmd_splited[i])
-    {
-        //printf("cmd_splited[%d]: %s\n", i, cmd_splited[i]);
-        i++;
-    }
+//     while (cmd_splited[i])
+//     {
+//         //printf("cmd_splited[%d]: %s\n", i, cmd_splited[i]);
+//         i++;
+//     }
     
-    data->cmd->cmd_splited = (char **)calloc(sizeof(char **), i + 1);
-    i = 0;
-    while (cmd_splited[i])
-    {
-        data->cmd->cmd_splited[i] = cmd_splited[i];
-        i++;
-    }
-    data->cmd->cmd_splited[i] = NULL;
-    printf("data->cmd->cmd_splited[0]: %s\n", data->cmd->cmd_splited[0]);
+//     data->cmd->cmd_splited = (char **)calloc(sizeof(char **), i + 1);
+//     i = 0;
+//     while (cmd_splited[i])
+//     {
+//         data->cmd->cmd_splited[i] = cmd_splited[i];
+//         i++;
+//     }
+//     data->cmd->cmd_splited[i] = NULL;
+//     printf("data->cmd->cmd_splited[0]: %s\n", data->cmd->cmd_splited[0]);
     
-    // int j = 0;
-    // while(data->cmd->cmd_complete[j])
-    // {
-    //     printf("command->cmd[%d] = %s\n", j, data->cmd->cmd_splited[j]);
-    //     j++;
-    // }
-    //ft_free_matrix(cmd_splited);
-    // ft_free_matrix(data->cmd->cmd_complete);
-}
+//     // int j = 0;
+//     // while(data->cmd->cmd_complete[j])
+//     // {
+//     //     printf("command->cmd[%d] = %s\n", j, data->cmd->cmd_splited[j]);
+//     //     j++;
+//     // }
+//     //ft_free_matrix(cmd_splited);
+//     // ft_free_matrix(data->cmd->cmd_complete);
+// }
 
 void    ft_execute(t_data *data)
 {
@@ -131,8 +131,8 @@ void    ft_execute(t_data *data)
     int status;
     char *path;
 
-    ft_devide_command(data);
-    path = ft_get_path(data->cmd->cmd_splited, data);
+    //ft_devide_command(data);
+    path = ft_get_path(ft_command(data->command), data);
     printf("path: %s\n", path);
     
     if (path == NULL)

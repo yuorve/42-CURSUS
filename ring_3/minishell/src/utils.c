@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/16 18:17:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/29 20:26:28 by angalsty         ###   ########.fr       */
+/*   Created: 2023/11/29 21:11:27 by angalsty          #+#    #+#             */
+/*   Updated: 2023/11/29 21:11:58 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/libft.h"
+#include "../inc/minishell.h"
 
-char	*ft_strdup(char *src)
+int ft_strcmp(const char *str1, const char *str2) 
 {
-	char	*tab;
-	int		i;
-
-	i = 0;
-	tab = (char *) malloc (sizeof(char) * (ft_strlen(src) + 1));
-	if (!tab)
-		return (0);
-	while (*src)
-		tab[i++] = *src++;
-	tab[i] = '\0';
-	return (tab);
+    while (*str1 == *str2) 
+    {
+        if (*str1 == '\0') 
+        {
+            return 0;  
+            // Ambas cadenas son iguales
+        }
+        str1++;
+        str2++;
+    }
+    // Las cadenas son diferentes, devuelve la diferencia entre los caracteres
+    return (*str1 - *str2);
 }

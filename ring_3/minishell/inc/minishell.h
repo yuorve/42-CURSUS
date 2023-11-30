@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:23:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/29 19:03:55 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:47:25 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,22 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 
-typedef struct	s_cmd
+typedef struct s_env_node 
 {
-	char	**env_copy;
-	char	*var_name;
-	char	*var_value;
-	//char	*path;
-	char	**cmd_splited;
-	char	**cmd_complete;
-}	t_cmd;
+    char *name;
+    char *value;
+	int	 equal;
+    struct s_env_node *next;
+} t_env_node;
 
 typedef struct	s_cmd
 {
-	char	**env_copy;
+	//char	**env_copy;
 	char	*var_name;
 	char	*var_value;
 	//char	*path;
-	char	**cmd_splited;
-	char	**cmd_complete;
+	//char	**cmd_splited;
+	//char	**cmd_complete;
 }	t_cmd;
 
 typedef struct s_data
@@ -52,6 +50,7 @@ typedef struct s_data
 	t_list	*command;
 	t_list	*parameter;
 	t_cmd	*cmd;
+	t_env_node  *env_list;
 }	t_data;
 
 
@@ -76,9 +75,15 @@ void    handle_ctrl_c(int sig);
 
 //init.c
 void    ft_init(t_data *data, char **env);
-void    ft_init(t_data *data, char **env);
 void    ft_init_command(t_data *data);
-void    ft_shell_level(t_data *data);
+//void    ft_shell_level(t_data *data);
+void 	ft_init_env(t_env_node **head, char **env);
+void	ft_push_env_node(t_env_node **head, char *name, char *value);
+t_env_node *ft_create_env_node(char *name, char *value);
+t_env_node	*ft_listlast(t_env_node *lst);
+void ft_shell_level(t_env_node **head, int i);
+t_env_node *ft_find_node(t_env_node *head, const char *name);
+
 
 //builtins.c
 int ft_not_redirected_builtins(t_data *data);
@@ -88,7 +93,9 @@ int ft_execute_not_rebuiltins(t_data *data);
 int ft_pwd(void);
 int ft_exit(void);
 int ft_env(t_data *data);
-// int ft_export(t_data *data);
+void ft_sort_env_list(t_env_node **head);
+void ft_print_sorted_env(t_env_node *head);
+int ft_export(t_data *data);
 // int ft_unset(t_data *data);
 // int ft_echo(t_data *data);
 // int ft_cd(t_data *data);
@@ -99,6 +106,8 @@ char    *ft_get_path(char **cmd, t_data *data);
 void    ft_devide_command(t_data *data);
 void    ft_execute(t_data *data);
 
+//utils.c
+int ft_strcmp(const char *str1, const char *str2);
 
 //free.c
 void ft_free_matrix(char **array);

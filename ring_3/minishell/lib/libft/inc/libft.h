@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:46:54 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/09/16 11:38:10 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/29 20:26:22 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

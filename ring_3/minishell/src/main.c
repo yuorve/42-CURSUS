@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **env)
     ft_minishell(&data);
 	
 	
-	ft_free_matrix(data.cmd->env_copy);
+	//ft_free_matrix(data.cmd->env_copy);
 	clear_history();
 	return (0);
 }

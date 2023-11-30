@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/29 19:02:36 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:30:29 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	ft_checks(char c1, char c2)
 	return (0);
 }
 
+//no entiendo si esta funcion es necesaria y esta correcta
 void	ft_free(void *data)
 {
 	free(data);
@@ -131,6 +132,7 @@ char	*ft_name(char *str)
 	char	*name;
 	char	**values;
 	
+	name = NULL;
 	if (ft_strchr(str, '='))
 	{
 		values = ft_split(str, '=');
@@ -145,6 +147,7 @@ char	*ft_value(char *str)
 	char	*value;
 	char	**values;
 	
+	value = NULL;
 	if (ft_strchr(str, '='))
 	{
 		values = ft_split(str, '=');
@@ -179,12 +182,13 @@ void	ft_params(t_data *data, char *str)
 			}
 			i--;
 			data->parameter = ft_add_to_list(data->parameter, tmp);
+			free(tmp);
 		}
 		else
 			data->parameter = ft_add_to_list(data->parameter, values[i]);
 		i++;
 	}
-	free (values);
+	ft_free_split(values);
 }
 
 void debug(t_data *data)
@@ -233,44 +237,6 @@ void debug(t_data *data)
 	}
 }
 
-void	ft_spaces(t_data *data, char *str)
-{
-	int		i;
-	char	*tmp;
-	char	*leak_prevent;
-	char	**values;
-
-	values = ft_split(str, ' ');
-	
-	//printf("values_spaces[0]: %s\n", values[0]);
-	data->command = ft_add_to_list(data->command, values[0]);
-	i = 1;
-	while (values[i])
-	{
-		if (ft_quoted(values[i]))
-		{
-			tmp = values[i];
-			while (values[++i] && ft_quoted(tmp))
-			{
-				leak_prevent = ft_strjoin(tmp, " ");
-				free(tmp);
-				tmp = ft_strjoin(leak_prevent, values[i]);
-				free(leak_prevent);
-			}
-			i--;
-			data->parameter = ft_add_to_list(data->parameter, tmp);
-			//free(tmp);
-		}
-		else
-		{
-			data->parameter = ft_add_to_list(data->parameter, values[i]);
-		}
-		free (values[i]);
-		i++;
-	}
-	//ft_free_split(values);
-}
-
 
 void	ft_pipes(t_data *data, char *str)
 {
@@ -280,17 +246,6 @@ void	ft_pipes(t_data *data, char *str)
 	char	**values;
 
 	values = ft_split(str, '|');
-
-	//to keep the complete command in my struct
-	data->cmd->cmd_complete = (char **)calloc(sizeof(char **), data->npipes + 1);
-	i = 0;
-	while (values[i])
-	{
-		data->cmd->cmd_complete[i] = values[i];
-		i++;
-	}
-	data->cmd->cmd_complete[i] = NULL;
-	
 	i = 0;
 	while (values[i])
 	{
@@ -306,22 +261,14 @@ void	ft_pipes(t_data *data, char *str)
 			printf("tmp: %s\n", tmp);
 			}
 			i--;
-			//ft_spaces(data, tmp);
 			data->command = ft_add_to_list(data->command, tmp);
-			//free(tmp);
-			free (values[i]);
+			free(tmp);
 		}
 		else
-		{
 			data->command = ft_add_to_list(data->command, values[i]);
-			/*if (ft_strchr(values[i], ' '))
-				ft_spaces(data, values[i]);
-			else
-				data->command = ft_add_to_list(data->command, values[i]);*/
-		}
 		i++;
 	}
-	free(values);
+	ft_free_split(values);
 }
 
 void	ft_input_checks(t_data *data, char *str)
@@ -381,12 +328,6 @@ void	ft_input_checks(t_data *data, char *str)
 	if (flag != 0)
 		exit(ft_printf("\033[31;1mSyntax Error\n \033[0m"));
 }
-
-void	ft_free(void *data)
-{
-	free(data);
-}
-
 
 //this function is to find the full comands between pipes
 // void    ft_devide_command(t_data *data)
