@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/30 18:54:53 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:57:16 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,14 @@ char	*ft_command(char *str)
 {
 	char	*command;
 	char	**values;
-	
+
 	command = 0;
 	values = 0;
 	if (ft_strchr(str, ' '))
 	{
 		values = ft_split(str, ' ');
 		command = values[0];
-		free (values);
+		ft_free_split(values);
 	}
 	else
 		command = str;
@@ -136,7 +136,7 @@ char	*ft_name(char *str)
 	{
 		values = ft_split(str, '=');
 		name = values[0];
-		free(values);
+		ft_free_split(values);
 	}
 	return (name);
 }
@@ -151,7 +151,7 @@ char	*ft_value(char *str)
 	{
 		values = ft_split(str, '=');
 		value = values[1];
-		free(values);
+		ft_free_split(values);
 	}
 	return (value);
 }
