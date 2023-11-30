@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/29 12:02:12 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:54:53 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,8 @@ char	*ft_name(char *str)
 {
 	char	*name;
 	char	**values;
-	
+
+	name = 0;
 	if (ft_strchr(str, '='))
 	{
 		values = ft_split(str, '=');
@@ -144,7 +145,8 @@ char	*ft_value(char *str)
 {
 	char	*value;
 	char	**values;
-	
+
+	value = 0;
 	if (ft_strchr(str, '='))
 	{
 		values = ft_split(str, '=');
@@ -179,12 +181,13 @@ void	ft_params(t_data *data, char *str)
 			}
 			i--;
 			data->parameter = ft_add_to_list(data->parameter, tmp);
+			free(tmp);
 		}
 		else
 			data->parameter = ft_add_to_list(data->parameter, values[i]);
 		i++;
 	}
-	free (values);
+	ft_free_split(values);
 }
 
 void debug(t_data *data)
@@ -215,7 +218,7 @@ void debug(t_data *data)
 		{
 			ft_printf("Comando: %s\n", nodo->content);
 			ft_params(data, nodo->content);
-			ft_printf("Número de Parametros: %d\n", ft_lstsize(data->parameter));			
+			ft_printf("Número de Parametros: %d\n", ft_lstsize(data->parameter));
 			if (ft_lstsize(data->parameter) > 0)
 			{
 				ft_printf("parametro: %s\n", data->parameter->content);
@@ -231,42 +234,6 @@ void debug(t_data *data)
 			nodo = nodo->next;
 		}
 	}
-}
-
-void	ft_spaces(t_data *data, char *str)
-{
-	int		i;
-	char	*tmp;
-	char	*leak_prevent;
-	char	**values;
-
-	values = ft_split(str, ' ');
-	data->command = ft_add_to_list(data->command, values[0]);
-	i = 1;
-	while (values[i])
-	{
-		if (ft_quoted(values[i]))
-		{
-			tmp = values[i];
-			while (values[++i] && ft_quoted(tmp))
-			{
-				leak_prevent = ft_strjoin(tmp, " ");
-				free(tmp);
-				tmp = ft_strjoin(leak_prevent, values[i]);
-				free(leak_prevent);
-			}
-			i--;
-			data->parameter = ft_add_to_list(data->parameter, tmp);
-			//free(tmp);
-		}
-		else
-		{
-			data->parameter = ft_add_to_list(data->parameter, values[i]);
-		}
-		free (values[i]);
-		i++;
-	}
-	//ft_free_split(values);
 }
 
 void	ft_pipes(t_data *data, char *str)
@@ -291,22 +258,14 @@ void	ft_pipes(t_data *data, char *str)
 				free(leak_prevent);
 			}
 			i--;
-			//ft_spaces(data, tmp);
 			data->command = ft_add_to_list(data->command, tmp);
-			//free(tmp);
-			free (values[i]);
+			free(tmp);
 		}
 		else
-		{
 			data->command = ft_add_to_list(data->command, values[i]);
-			/*if (ft_strchr(values[i], ' '))
-				ft_spaces(data, values[i]);
-			else
-				data->command = ft_add_to_list(data->command, values[i]);*/
-		}
 		i++;
 	}
-	free(values);
+	ft_free_split(values);
 }
 
 void	ft_input_checks(t_data *data, char *str)
