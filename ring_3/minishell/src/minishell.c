@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/30 19:57:16 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/11/30 20:48:54 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,22 +108,19 @@ int	ft_quoted(char *str)
 	return ((numQuotes % 2) || (numSingleQuotes % 2));
 }
 
-char	*ft_command(char *str)
+char	**ft_command(char *str)
 {
-	char	*command;
 	char	**values;
 
-	command = 0;
 	values = 0;
 	if (ft_strchr(str, ' '))
-	{
 		values = ft_split(str, ' ');
-		command = values[0];
-		ft_free_split(values);
-	}
 	else
-		command = str;
-	return (command);
+	{
+		values = ft_calloc(1, sizeof(char *));
+		values[0] = str;
+	}
+	return (values);
 }
 
 char	*ft_name(char *str)
@@ -199,6 +196,7 @@ void debug(t_data *data)
 	if (ft_lstsize(data->command) == 1)
 	{
 		ft_printf("Comando: %s\n", data->command->content);
+		ft_printf("Commando dividido: %s\n", ft_command(data->command->content)[0]);
 		ft_params(data, data->command->content);
 		ft_printf("Número de Parametros: %d\n", ft_lstsize(data->parameter));
 		if (ft_lstsize(data->parameter) > 0)
@@ -217,6 +215,8 @@ void debug(t_data *data)
 		while (nodo)
 		{
 			ft_printf("Comando: %s\n", nodo->content);
+			ft_printf("Commando dividido: %s\n", ft_command(nodo->content)[0]);
+			ft_printf("Commando dividido: %s\n", ft_command(nodo->content)[1]);
 			ft_params(data, nodo->content);
 			ft_printf("Número de Parametros: %d\n", ft_lstsize(data->parameter));
 			if (ft_lstsize(data->parameter) > 0)
