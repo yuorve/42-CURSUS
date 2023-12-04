@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:23:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/30 18:47:25 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/04 22:06:50 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,13 @@ typedef struct s_env_node
 
 typedef struct	s_cmd
 {
-	//char	**env_copy;
-	char	*var_name;
-	char	*var_value;
-	//char	*path;
-	//char	**cmd_splited;
+	char	*command;
+	char	*param;
+	//char	*var_name;
+	//char	*var_value;
+	char	**env_copy;
+	char	*path;
+	char	**cmd_splited;
 	//char	**cmd_complete;
 }	t_cmd;
 
@@ -62,10 +64,11 @@ void 	debug(t_data *data);
 t_list	*ft_add_to_list(t_list *list, char *content);
 int		ft_findpos(char *str, char c);
 int		ft_quoted(char *str);
-void	ft_spaces(t_data *data, char *str);
 void	ft_pipes(t_data *data, char *str);
 void	ft_input_checks(t_data *data, char *str);
 void	ft_free(void *data);
+void	ft_params(t_data *data, char *str);
+char    **ft_command(char *str);
 
 
 //signals.c
@@ -83,6 +86,7 @@ t_env_node *ft_create_env_node(char *name, char *value);
 t_env_node	*ft_listlast(t_env_node *lst);
 void ft_shell_level(t_env_node **head, int i);
 t_env_node *ft_find_node(t_env_node *head, const char *name);
+int ft_count_nodes(t_env_node *head);
 
 
 //builtins.c
@@ -96,7 +100,7 @@ int ft_env(t_data *data);
 void ft_sort_env_list(t_env_node **head);
 void ft_print_sorted_env(t_env_node *head);
 int ft_export(t_data *data);
-// int ft_unset(t_data *data);
+int ft_unset(t_data *data);
 // int ft_echo(t_data *data);
 // int ft_cd(t_data *data);
 

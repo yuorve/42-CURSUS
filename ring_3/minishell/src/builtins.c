@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2023/11/30 18:47:39 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/04 22:01:18 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int ft_pwd(void)
     char *pwd;
 
     pwd = getcwd(NULL, 0);
-    if (pwd == NULL) {
+    if (pwd == NULL) 
+    {
         perror("Error al obtener el directorio de trabajo actual");
         return 1;
     }
@@ -27,15 +28,15 @@ int ft_pwd(void)
 }
 
 
-// int ft_chdir(const char *path) 
-// {
-//     if (chdir(path) != 0) 
-//     {
-//         perror("Error al cambiar el directorio");
-//         return (1); 
-//     }
-//     return (0); 
-// }
+int ft_chdir(const char *path) 
+{
+    if (chdir(path) != 0) 
+    {
+        perror("Error al cambiar el directorio");
+        return (1); 
+    }
+    return (0); 
+}
 
 // char *ft_get_value(char *str, char **env)
 // {
@@ -75,57 +76,58 @@ int ft_pwd(void)
 //     return(0);
 // }
 
-// int ft_cd(t_data *data)
-// {
-//     const char *path;
-//     int result;
-//     char *home_dir = getenv("HOME");
+int ft_cd(t_data *data)
+{
+    const char *path;
+    int result;
+    //char *home_dir = getenv("HOME");
 
-//     if (ft_strncmp(data->command, "cd", 2) == 0) 
-//     {
-//         if (command->cmd_txt[2] == '\0') 
-//         {
-//             //home_dir = getcwd(NULL, 0);
-//             //tengo que añadir una line de "OLDPWD=" con el valor de PWD
-//             //ft_change_env("OLDPWD=", ft_get_value("PWD", command->env), command);
+    if (ft_strncmp(data->command->content, "cd", 2) == 0) 
+    {
+        // if (data->command->content == '\0') 
+        // {
+        //     //home_dir = getcwd(NULL, 0);
+        //     //tengo que añadir una line de "OLDPWD=" con el valor de PWD
+        //     //ft_change_env("OLDPWD=", ft_get_value("PWD", command->env), command);
             
-//             if (home_dir) 
-//             {
-//                 result = ft_chdir(home_dir);
-//             } 
-//             else 
-//             {
-//                 // No se pudo obtener el directorio de inicio, maneja el error
-//             }
+        //     if (home_dir) 
+        //     {
+        //         result = ft_chdir(home_dir);
+        //     } 
+        //     else 
+        //     {
+        //         // No se pudo obtener el directorio de inicio, maneja el error
+        //     }
             
-//             // El usuario solo escribió "cd" sin una ruta, puedes manejarlo como desees
-//         } 
-//         else if (command->cmd_txt[2] == ' ' && command->cmd_txt[3] == '-')
-//         {
+        //     // El usuario solo escribió "cd" sin una ruta, puedes manejarlo como desees
+        // } 
+        // else if (command->cmd_txt[2] == ' ' && command->cmd_txt[3] == '-')
+        // {
             
-//         }
-//         else 
-//         {
-//             // El usuario proporcionó una ruta, como "cd /ruta/deseada"
-//             // Debes extraer la ruta y pasarla a ft_cd
-//             path = &command->cmd_txt[3]; 
-//             // La ruta comienza después de "cd "
-//             result = ft_chdir(path);
-//             printf("result: %d\n", result);
-//             if (result == 0) 
-//             {
-//                 // Cambio de directorio exitoso
-//             } 
-//             else 
-//             {
-//                 // Error al cambiar de directorio, manejar el error
-//             }
-//         }
-//     }
+        // }
+        // else 
+        // {
+            // El usuario proporcionó una ruta, como "cd /ruta/deseada"
+            // Debes extraer la ruta y pasarla a ft_cd
+            path = data->parameter->content + 3; 
+            // La ruta comienza después de "cd "
+            result = ft_chdir(path);
+            printf("result: %d\n", result);
+            if (result == 0) 
+            {
+                // Cambio de directorio exitoso
+            } 
+            else 
+            {
+                // Error al cambiar de directorio, manejar el error
+            }
+        }
+    
 
-//     return (0);
+    return (0);
 
-// }
+}
+
 
 int ft_exit(void) 
 {
@@ -148,7 +150,7 @@ int ft_env(t_data *data)
     head = data->env_list;
     while(head)
     {
-        if(head->name != NULL && head->value != NULL)
+        if(head->name != NULL && head->value != NULL && strlen(head->value) > 0)
         {
             printf("%s=%s\n", head->name, head->value);
         }
@@ -157,13 +159,22 @@ int ft_env(t_data *data)
     return (0);
 }
 
+void ft_swap_values(char **str1, char **str2) 
+{
+    char *temp = *str1;
+    *str1 = *str2;
+    *str2 = temp;
+}
+
 void ft_sort_env_list(t_env_node **head) 
 {
     int swapped = 0;
     t_env_node *ptr;
-    t_env_node *last = NULL;
+    t_env_node *last; 
 
-    if (*head == NULL) {
+    last = NULL;
+    if (*head == NULL) 
+    {
         return;
     }
 
@@ -173,17 +184,10 @@ void ft_sort_env_list(t_env_node **head)
 
         while (ptr->next != last) 
         {
-            if (strcasecmp(ptr->name, ptr->next->name) > 0) 
+            if (ft_strcmp(ptr->name, ptr->next->name) > 0) 
             {
-                char *temp_name = ptr->name;
-                char *temp_value = ptr->value;
-
-                ptr->name = ptr->next->name;
-                ptr->value = ptr->next->value;
-
-                ptr->next->name = temp_name;
-                ptr->next->value = temp_value;
-
+                ft_swap_values(&ptr->name, &ptr->next->name);
+                ft_swap_values(&ptr->value, &ptr->next->value);
                 swapped = 0;
             }
             ptr = ptr->next;
@@ -228,71 +232,123 @@ void ft_print_sorted_env(t_env_node *head)
     }
 }
 
-
-int ft_export(t_data *data)
+int ft_unset(t_data *data) 
 {
-    if(data->parameter == NULL)
+    t_env_node *current;
+    t_env_node *prev;
+    char *name;
+
+    name = data->parameter->content;
+    prev = NULL;
+    current = data->env_list;
+    while (current != NULL) 
+    {
+        if (ft_strchr(name, '=') != NULL) 
+        {
+            // Si el nombre de unset tiene un '=', 
+            // no se puede eliminar
+            printf("minishell: unset: `%s': not a valid identifier\n", name);
+            return (1);
+        }
+        if (ft_strcmp(current->name, name) == 0) 
+        {
+            if (prev == NULL) 
+            {
+                data->env_list = current->next; // Si el nodo a eliminar es el primero
+            } 
+            else 
+            {
+                prev->next = current->next;
+            }
+            free(current->name);
+            free(current->value);
+            free(current);
+            return (0); // Éxito al eliminar la variable de entorno
+        }
+        prev = current;
+        current = current->next;
+    }
+    return (0); // Si la variable de entorno no se encuentra
+}
+
+int    ft_check_export_errors(t_data *data)
+{
+    t_list *parameter;
+
+    parameter = data->parameter;
+    while(parameter)
+    {
+        //compruebo
+        data->cmd->param = parameter->content;
+        printf("parameter: %s\n", parameter->content);
+        if(ft_isalpha(data->cmd->param[0]) == 0 && data->cmd->param[0] != '_')
+        {
+            printf("minishell: export: `%s': not a valid identifier\n", data->cmd->param);
+            return(1);
+        }
+        parameter = parameter->next;
+    }
+    return(0);
+}
+
+
+int ft_export(t_data *data) 
+{
+    if (data->parameter == NULL && (data->cmd->command[6] == ' ' || data->cmd->command[6] == '\0'))
     {
         ft_print_sorted_env(data->env_list);
     }
-    else
+    else if (data->cmd->command[6] != ' ')
     {
-        while(data->parameter)
+        printf("minishell: %s: command not found\n", data->cmd->command);
+        return (1);
+    }
+    else 
+    {
+        if  (ft_check_export_errors(data) == 0)
         {
-            if(ft_strchr(data->parameter->content, '='))
+            while (data->parameter) 
             {
-                char *name = ft_strchr(data->parameter->content, '=');
-                *name = '\0';
-                name = data->parameter->content;
-                char *value = name + ft_strlen(name) + 1;
-                ft_push_env_node(&data->env_list, name, value);
+                char *param_content = data->parameter->content;
+                char *name = param_content;
+                char *value = ft_strchr(param_content, '=');
+
+                if (value != NULL) 
+                {
+                    *value = '\0'; // Coloca '\0' para dividir nombre y valor
+                    value++; // Apunta al comienzo del valor (después del '=')
+                } 
+                else 
+                {
+                    value = ""; // Si no hay '=', establece un valor vacío
+                }
+
+                // Check if the variable exists in the current environment list
+                t_env_node *current = data->env_list;
+                int found = 0;
+                while (current) 
+                {
+                    if (ft_strcmp(current->name, name) == 0) 
+                    {
+                        // Variable exists, update its value
+                        free(current->value);
+                        current->value = ft_strdup(value);
+                        found = 1;
+                        break;
+                    }
+                    current = current->next;
+                }
+
+                // If the variable doesn't exist, add it to the environment list
+                if (!found) 
+                {
+                    ft_push_env_node(&data->env_list, name, value);
+                }
+                data->parameter = data->parameter->next;
             }
-            else
-                ft_push_env_node(&data->env_list, data->parameter->content, "");
-            data->parameter = data->parameter->next;
         }
     }
-
-    // if (data->parameter == NULL) 
-    // {
-    //     t_env_node *head;
-    //     t_env_node *temp;
-    //     // If no parameters provided, sort and print the environment list
-    //     head = data->env_list;
-    //     temp = data->env_list;
-    //     sort_env_list(&temp);
-    //     while (temp) 
-    //     {
-    //         if (temp->name != NULL && temp->value != NULL) 
-    //         {
-    //             printf("declare -x %s=\"%s\"\n", temp->name, temp->value);
-    //         }
-    //         temp = temp->next;
-    //     }
-    //     temp = head;
-    //     return (0);
-    // }
-    // int i;
-    // char *name;
-    // char *value;
-    // t_env_node *head;
-
-    // i = 0;
-    // head = data->env_list;
-    // while (data->parameter)
-    // {
-    //     if (ft_strchr(data->parameter->content, '='))
-    //     {
-    //         name = ft_strchr(data->parameter->content, '=');
-    //         *name = '\0';
-    //         name = data->parameter->content;
-    //         value = name + ft_strlen(name) + 1;
-    //         ft_push_env_node(&head, name, value);
-    //     }
-    //     else
-    //         ft_push_env_node(&head, data->parameter->content, "");
-    //     data->parameter = data->parameter->next;
-    // }
+    //free(data->cmd->param);
     return (0);
 }
 
@@ -309,20 +365,14 @@ int ft_execute_not_rebuiltins(t_data *data)
      if (ft_strncmp(data->command->content, "export", 6) == 0)
         {
             return (ft_export(data));
-            //printf("export\n");
-            //return (1);
         }
-//     else if (ft_strncmp(data->command, "unset", 5) == 0)
-//         {
-//             //return (ft_unset(command));
-//             printf("unset\n");
-//             return (1);
-//         }
+    else if (ft_strncmp(data->command->content, "unset", 5) == 0)
+        {
+            return (ft_unset(data));
+        }
     else if (ft_strncmp(data->command->content, "pwd", 3) == 0)
     {
         return (ft_pwd());
-        // printf("pwd\n");
-        // return (1);
     }
     else if (ft_strncmp(data->command->content, "exit", 4) == 0)
     {
@@ -364,24 +414,29 @@ int ft_execute_not_rebuiltins(t_data *data)
 
 int ft_not_redirected_builtins(t_data *data)
 {
+    //data->cmd->command = ft_strjoin(data->command->content, " ");
+    data->cmd->command = data->command->content;
+    ft_params(data, data->command->content);
+    
     // if (ft_strncmp(data->command, "cd", 2) == 0)
     //     return (1);
-    if (ft_strncmp(data->command->content, "export", 6) == 0)
+    //if (ft_strncmp(data->command->content, "export", 6) == 0)
+    if(ft_strncmp(data->cmd->command, "export", 6) == 0)
     {
         return (1);
     }
-    // else if (ft_strncmp(data->command, "unset", 5) == 0)
-    //     return (1);
+    else if (ft_strncmp(data->command->content, "unset", 5) == 0)
+        return (1);
     //else if (ft_strncmp(data->command->content, "exit", 4) == 0 && data->parameter != NULL)
     else if(ft_strncmp(data->command->content, "exit", 4) == 0)   
         return (1);
         //tengo que cambiar env y pwd a redirected builtins
     else if (ft_strncmp(data->command->content, "env", 3) == 0)
         return (1);
-    else if (ft_strncmp(data->command->content, "pwd", 3) == 0 && (data->command + 1 == NULL || data->parameter != NULL))
+    //else if (ft_strncmp(data->command->content, "pwd", 3) == 0 && (data->command + 1 == NULL || data->parameter != NULL))
+    else if (ft_strncmp(data->command->content, "pwd", 3) == 0)
         return (1);
     return (0);
-    
 }
 
 // int ft_is_redirected_builtins(t_data *data)

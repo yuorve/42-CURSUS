@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:59:00 by angalsty          #+#    #+#             */
-/*   Updated: 2023/11/30 18:47:11 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/04 22:10:26 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,17 @@ void    ft_init_command(t_data *data)
     data->env_list = NULL;
 }
 
-void    ft_init_cmd(t_data *data)
-{
-    //data->cmd->env_copy = NULL;
-    data->cmd->var_name = NULL;
-    data->cmd->var_value = NULL;
-    //data->cmd->cmd_splited = NULL;
-    //data->cmd->cmd_complete = NULL;
-    //data->cmd->path = NULL;
-}
+// void    ft_init_cmd(t_data *data)
+// {
+//     //data->cmd->env_copy = NULL;
+//     //data->cmd->command = NULL;
+//     //data->cmd->args = NULL;
+//     //data->cmd->var_name = NULL;
+//     //data->cmd->var_value = NULL;
+//     //data->cmd->cmd_splited = NULL;
+//     //data->cmd->cmd_complete = NULL;
+//     //data->cmd->path = NULL;
+// }
 
 // void    ft_shell_level(t_data *data)
 // {
@@ -72,6 +74,17 @@ void    ft_init_cmd(t_data *data)
 //     data->cmd->env_copy[i] = NULL;
 //     ft_shell_level(data);
 // }
+
+int ft_count_nodes(t_env_node *head) 
+{
+    int count = 0;
+    while (head != NULL) 
+    {
+        count++;
+        head = head->next;
+    }
+    return count;
+}
 
 t_env_node *ft_create_env_node(char *name, char *value) 
 {
@@ -125,10 +138,13 @@ t_env_node *ft_find_node(t_env_node *head, const char *name)
 
 void ft_shell_level(t_env_node **head, int i) 
 {
-    t_env_node *shlvl_node = ft_find_node(*head, "SHLVL");
+    t_env_node *shlvl_node;
+    int current_shlvl;
+    
+    shlvl_node = ft_find_node(*head, "SHLVL");
     if (shlvl_node) 
     {
-        int current_shlvl = atoi(shlvl_node->value);
+        current_shlvl = atoi(shlvl_node->value);
         current_shlvl += i;
         free(shlvl_node->value);
         shlvl_node->value = ft_itoa(current_shlvl);
@@ -140,6 +156,7 @@ void ft_shell_level(t_env_node **head, int i)
         free(value);
     }
 }
+
 
 void ft_init_env(t_env_node **head, char **env) 
 {
@@ -175,6 +192,6 @@ void    ft_init(t_data *data, char **env)
     ft_init_command(data);
     data->cmd = (t_cmd *)malloc(sizeof(t_cmd));
     //ft_bzero(data->cmd, sizeof(t_cmd));
-    ft_init_cmd(data);
+    //ft_init_cmd(data);
     ft_init_env(&data->env_list, env);
 }

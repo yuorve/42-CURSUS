@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/30 19:30:29 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/04 22:05:22 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,22 +109,59 @@ int	ft_quoted(char *str)
 	return ((numQuotes % 2) || (numSingleQuotes % 2));
 }
 
-char	*ft_command(char *str)
-{
-	char	*command;
-	char	**values;
+// char	*ft_command(char *str)
+// {
+// 	char	*command;
+// 	char	**values;
 	
-	command = 0;
-	values = 0;
-	if (ft_strchr(str, ' '))
+// 	command = 0;
+// 	values = 0;
+// 	if (ft_strchr(str, ' '))
+// 	{
+// 		values = ft_split(str, ' ');
+// 		command = values[0];
+// 		free (values);
+// 	}
+// 	else
+// 		command = str;
+// 	return (command);
+// }
+
+
+char	**ft_list_to_matrix(t_env_node *head)
+{
+	int i;
+	char **env_matrix;
+	char *leak_prevent;
+	t_env_node *curr;
+	
+	i = 0;
+	curr = head;
+	env_matrix = (char **)calloc(sizeof(char **), ft_count_nodes(curr) + 1);
+	while(curr)
 	{
-		values = ft_split(str, ' ');
-		command = values[0];
-		free (values);
+		leak_prevent = ft_strjoin(curr->name, "=");
+		env_matrix[i] = ft_strjoin(leak_prevent, curr->value);
+		free(leak_prevent);
+		i++;
+		curr = curr->next;
 	}
-	else
-		command = str;
-	return (command);
+	env_matrix[i] = NULL;
+	return (env_matrix);
+}
+
+char    **ft_command(char *str)
+{
+    char    **values;
+    values = 0;
+    if (ft_strchr(str, ' '))
+        values = ft_split(str, ' ');
+    else
+    {
+        values = ft_calloc(1, sizeof(char *));
+        values[0] = str;
+    }
+    return (values);
 }
 
 char	*ft_name(char *str)
@@ -137,7 +174,7 @@ char	*ft_name(char *str)
 	{
 		values = ft_split(str, '=');
 		name = values[0];
-		free(values);
+		ft_free_split(values);
 	}
 	return (name);
 }
@@ -152,7 +189,7 @@ char	*ft_value(char *str)
 	{
 		values = ft_split(str, '=');
 		value = values[1];
-		free(values);
+		ft_free_split(values);
 	}
 	return (value);
 }
@@ -200,6 +237,7 @@ void debug(t_data *data)
 	if (ft_lstsize(data->command) == 1)
 	{
 		ft_printf("Comando: %s\n", data->command->content);
+		ft_printf("comando dividido: %s\n", ft_command(data->command->content)[0]);
 		ft_params(data, data->command->content);
 		ft_printf("Número de Parametros: %d\n", ft_lstsize(data->parameter));
 		if (ft_lstsize(data->parameter) > 0)
@@ -218,6 +256,8 @@ void debug(t_data *data)
 		while (nodo)
 		{
 			ft_printf("Comando: %s\n", nodo->content);
+			ft_printf("comando dividido: %s\n", ft_command(nodo->content)[0]);
+			ft_printf("comando dividido: %s\n", ft_command(nodo->content)[1]);
 			ft_params(data, nodo->content);
 			ft_printf("Número de Parametros: %d\n", ft_lstsize(data->parameter));			
 			if (ft_lstsize(data->parameter) > 0)
@@ -363,33 +403,47 @@ void	ft_input_checks(t_data *data, char *str)
 
 void	ft_minishell(t_data *data)
 {
-	char	*input;
+	//char	*input;
 
 	while (1)
 	{
-		input = readline("\033[32;1mMinishell> \033[0m");
+		data->input = readline("\033[32;1mMinishell> \033[0m");
 		//if (input && (ft_strncmp(input, "exit", 4) == 0))
-		if (!input)
+		if (!data->input)
 		{
-			free(input);
-			//ft_free_matrix(data.cmd->env_copy);
-			break ;
+			free(data->input);
+			ft_lstclear(&data->command, ft_free);
+			ft_lstclear(&data->parameter, ft_free);
+			exit (1);
 		}
-		if (input && *input)
+		if (data->input)
 		{
-			add_history(input);
-			ft_input_checks(data, input);
-			ft_pipes(data, input);
-			debug(data);
+			add_history(data->input);
+			ft_input_checks(data, data->input);
+			ft_pipes(data, data->input);
+			//debug(data);
+			data->cmd->env_copy = ft_list_to_matrix(data->env_list);
+
+			// int i = 0;
+			// while(data->cmd->env_copy[i])
+			// {
+			// 	printf("env_copy[%d]: %s\n", i, data->cmd->env_copy[i]);
+			// 	i++;
+			// }
+			
 			if(ft_not_redirected_builtins(data) == 1)
 				ft_execute_not_rebuiltins(data);
             	//printf("tiene que ejecutar el buitin\n");
             else
-            	ft_execute(data);
+            ft_execute(data);
+			ft_free_matrix(data->cmd->env_copy);
 		}
+		
+		//ft_free_matrix(data->cmd->cmd_splited);
+		//tengo que liberar la estructura de cmd	
 		ft_lstclear(&data->command, ft_free);
 		ft_lstclear(&data->parameter, ft_free);
-		free(input);
+		free(data->input);
 		
 	}
 }
