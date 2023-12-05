@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/04 22:01:18 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:51:20 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,7 +348,7 @@ int ft_export(t_data *data)
             }
         }
     }
-    //free(data->cmd->param);
+    // free(data->cmd->param);
     return (0);
 }
 

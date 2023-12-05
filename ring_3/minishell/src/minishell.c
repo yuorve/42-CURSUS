@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/04 22:05:22 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/05 13:05:46 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,19 +150,28 @@ char	**ft_list_to_matrix(t_env_node *head)
 	return (env_matrix);
 }
 
-char    **ft_command(char *str)
+
+char	**ft_command(char *str)
 {
-    char    **values;
-    values = 0;
-    if (ft_strchr(str, ' '))
-        values = ft_split(str, ' ');
-    else
-    {
-        values = ft_calloc(1, sizeof(char *));
-        values[0] = str;
-    }
-    return (values);
+	char **values;
+
+	values = ft_split(str, ' ');
+	return (values);
 }
+
+// char    **ft_command(char *str)
+// {
+//     char    **values;
+//     values = 0;
+//     if (ft_strchr(str, ' '))
+//         values = ft_split(str, ' ');
+//     else
+//     {
+//         values = ft_calloc(1, sizeof(char *));
+//         values[0] = str;
+//     }
+//     return (values);
+// }
 
 char	*ft_name(char *str)
 {
@@ -440,7 +449,7 @@ void	ft_minishell(t_data *data)
 		}
 		
 		//ft_free_matrix(data->cmd->cmd_splited);
-		//tengo que liberar la estructura de cmd	
+		//tengo que liberar la estructura de cmdz	
 		ft_lstclear(&data->command, ft_free);
 		ft_lstclear(&data->parameter, ft_free);
 		free(data->input);

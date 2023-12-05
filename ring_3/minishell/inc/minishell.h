@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:23:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/04 22:06:50 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:51:27 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct	s_cmd
 	char	*command;
 	char	*param;
 	//char	*var_name;
-	//char	*var_value;
+	// xchar	*var_value;
 	char	**env_copy;
 	char	*path;
 	char	**cmd_splited;
