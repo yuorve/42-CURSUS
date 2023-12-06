@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/05 13:05:46 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/06 19:32:51 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,19 +222,18 @@ void	ft_params(t_data *data, char *str)
 			while (values[++i] && ft_quoted(tmp))
 			{
 				leak_prevent = ft_strjoin(tmp, " ");
-				free(tmp);
 				tmp = ft_strjoin(leak_prevent, values[i]);
 				free(leak_prevent);
+				free(tmp);
 			}
 			i--;
 			data->parameter = ft_add_to_list(data->parameter, tmp);
-			free(tmp);
 		}
 		else
 			data->parameter = ft_add_to_list(data->parameter, values[i]);
 		i++;
 	}
-	ft_free_split(values);
+	ft_free_matrix(values);
 }
 
 void debug(t_data *data)

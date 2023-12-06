@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/05 12:51:20 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/06 22:19:08 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ int ft_pwd(void)
 }
 
 
-int ft_chdir(const char *path) 
-{
-    if (chdir(path) != 0) 
-    {
-        perror("Error al cambiar el directorio");
-        return (1); 
-    }
-    return (0); 
-}
+// int ft_chdir(const char *path) 
+// {
+//     if (chdir(path) != 0) 
+//     {
+//         perror("Error al cambiar el directorio");
+//         return (1); 
+//     }
+//     return (0); 
+// }
 
 // char *ft_get_value(char *str, char **env)
 // {
@@ -57,90 +57,134 @@ int ft_chdir(const char *path)
 //     return (0);
 // }
 
-// int ft_change_env(char *name, char *new_value, t_command *command)
-// {
-//     int i;
-
-//     i = 0;
-//     while(command->env[i] != NULL)
-//     {
-//         if (ft_strncmp(command->env[i], name, ft_strlen(name)) == 0)
-//         {
-//             printf("the name already exists\n");
-//             free(command->env[i]);
-//             command->env[i] = ft_strjoin(name, new_value);
-//             return (1);
-//         }
-//         i++;
-//     }
-//     return(0);
-// }
 
 int ft_cd(t_data *data)
 {
-    const char *path;
-    int result;
-    //char *home_dir = getenv("HOME");
+    int     response;
+    t_env_node *head;
+    char *str;
+    char *dir;
 
-    if (ft_strncmp(data->command->content, "cd", 2) == 0) 
+    if (ft_lstsize(data->parameter) > 0)
     {
-        // if (data->command->content == '\0') 
-        // {
-        //     //home_dir = getcwd(NULL, 0);
-        //     //tengo que añadir una line de "OLDPWD=" con el valor de PWD
-        //     //ft_change_env("OLDPWD=", ft_get_value("PWD", command->env), command);
-            
-        //     if (home_dir) 
-        //     {
-        //         result = ft_chdir(home_dir);
-        //     } 
-        //     else 
-        //     {
-        //         // No se pudo obtener el directorio de inicio, maneja el error
-        //     }
-            
-        //     // El usuario solo escribió "cd" sin una ruta, puedes manejarlo como desees
-        // } 
-        // else if (command->cmd_txt[2] == ' ' && command->cmd_txt[3] == '-')
-        // {
-            
-        // }
-        // else 
-        // {
-            // El usuario proporcionó una ruta, como "cd /ruta/deseada"
-            // Debes extraer la ruta y pasarla a ft_cd
-            path = data->parameter->content + 3; 
-            // La ruta comienza después de "cd "
-            result = ft_chdir(path);
-            printf("result: %d\n", result);
-            if (result == 0) 
-            {
-                // Cambio de directorio exitoso
-            } 
-            else 
-            {
-                // Error al cambiar de directorio, manejar el error
-            }
+        if (ft_strncmp(data->parameter->content, "~", 1) == 0)
+        {
+            head = ft_find_node(data->env_list, "HOME");
+            dir = head->value;
         }
-    
-
+        else if (ft_strncmp(data->parameter->content, "-", 1) == 0)
+        {
+            head = ft_find_node(data->env_list, "OLDPWD");
+            dir = head->value;
+        }
+        else
+            dir = data->parameter->content;
+        str = getcwd(NULL, 0);
+        head = ft_find_node(data->env_list, "OLDPWD");
+        free(head->value);
+        head->value = ft_strdup(str);
+        free(str);
+        response = chdir(dir);
+        if (response != 0)
+            perror("error");
+        else
+        {
+            str = getcwd(NULL, 0);
+            head = ft_find_node(data->env_list, "PWD");
+            free(head->value);
+            head->value = ft_strdup(str);
+            free(str);
+        }
+    }
     return (0);
+}
 
+int ft_echo(t_data *data)
+{
+    t_list *current;
+    char *str;
+    char *leak_prevent;
+
+    ft_params(data, data->command->content);
+    if(ft_lstsize(data->parameter) > 0)
+    {
+        current = data->parameter;
+        if (ft_strncmp(current->content, "-n", 2) == 0)
+            current = current->next;
+        while (current)
+        {
+            str = current->content;
+            leak_prevent = ft_strtrim(str, "\"");
+            str = ft_strtrim(leak_prevent, "\'");
+            ft_printf("%s", str);
+            free (str);
+            free (leak_prevent);
+            current = current->next;
+            if (current)
+                ft_printf(" ");
+        }
+        if (ft_strncmp(data->parameter->content, "-n", 2) != 0)
+            ft_printf("\n");
+        ft_lstclear(&current, ft_free);
+    }
+    else
+        ft_printf("\n");
+    return (0);
 }
 
 
-int ft_exit(void) 
+// int ft_exit(t_data *data) 
+// {
+//     while (data->parameter) 
+//     {
+//         if//tengo que verificar si es un numero
+//         {
+//             printf("minishell: exit: %s: numeric argument required\n", data->parameter->content);
+//             return (1);
+//         }
+//         else
+//         // si es numero salir devolver salida de exit 
+//         data->parameter = data->parameter->next;
+//     }
+//     exit(0); // Salir del shell con código de éxito
+// }
+
+
+int ft_is_numeric(const char *str) 
 {
-    // while(&data->parameter->content)
-    // {
-    //     if (ft_isdigit(ft_atoi(&data->parameter->content)) == 0)
-    //     {
-    //         printf("minishell: exit: %s: numeric argument required\n", &data->parameter->content);
-    //         exit(255);
-    //     }
-    //     *data->parameter->content++;
-    // }
-    exit(0); // Salir del shell con código de éxito
+    while (*str) 
+    {
+        if (*str < '0' || *str > '9') 
+        {
+            return (1); // No es un número
+        }
+        str++;
+    }
+    return (0); // Es un número
+}
+
+
+int ft_exit(t_data *data) 
+{
+    int exit_code = 0;
+    if (data->parameter) 
+    {
+        if (ft_is_numeric(data->parameter->content) == 1) 
+        {
+            printf("minishell: exit: %s: numeric argument required\n", data->parameter->content);
+            exit (255);
+        }
+        else 
+        {
+            exit_code = ft_atoi(data->parameter->content);
+            if (ft_lstsize(data->parameter) > 1) 
+            {
+                printf("minishell: exit: too many arguments\n");
+                return (1);
+            }
+        }
+    }
+    exit(exit_code);
 }
 
 int ft_env(t_data *data)
@@ -292,83 +336,192 @@ int    ft_check_export_errors(t_data *data)
 }
 
 
+// int ft_export(t_data *data) 
+// {
+//     if (data->parameter == NULL && (data->cmd->command[6] == ' ' || data->cmd->command[6] == '\0'))
+//     {
+//         ft_print_sorted_env(data->env_list);
+//     }
+//     else if (data->cmd->command[6] != ' ')
+//     {
+//         printf("minishell: %s: command not found\n", data->cmd->command);
+//         return (1);
+//     }
+//     else 
+//     {
+//         if  (ft_check_export_errors(data) == 0)
+//         {
+//             while (data->parameter) 
+//             {
+//                 char *param_content = data->parameter->content;
+//                 char *name = param_content;
+//                 char *value = ft_strchr(param_content, '=');
+
+//                 if (value != NULL) 
+//                 {
+//                     *value = '\0'; // Coloca '\0' para dividir nombre y valor
+//                     value++; // Apunta al comienzo del valor (después del '=')
+//                 } 
+//                 else 
+//                 {
+//                     value = ""; // Si no hay '=', establece un valor vacío
+//                 }
+
+//                 // Check if the variable exists in the current environment list
+//                 t_env_node *current = data->env_list;
+//                 int found = 0;
+//                 while (current) 
+//                 {
+//                     if (ft_strcmp(current->name, name) == 0) 
+//                     {
+//                         // Variable exists, update its value
+//                         free(current->value);
+//                         current->value = ft_strdup(value);
+//                         found = 1;
+//                         break;
+//                     }
+//                     current = current->next;
+//                 }
+
+//                 // If the variable doesn't exist, add it to the environment list
+//                 if (!found) 
+//                 {
+//                     ft_push_env_node(&data->env_list, name, value);
+//                 }
+//                 data->parameter = data->parameter->next;
+//             }
+//         }
+//     }
+//     //free(data->cmd->param);
+//     return (0);
+// }
+
+
+char *get_value_from_parameter(char *param_content) 
+{
+    char *value = ft_strchr(param_content, '=');
+    if (value != NULL) 
+    {
+        *value = '\0';
+        value++;
+    } 
+    else 
+    {
+        value = "";
+    }
+    return value;
+}
+
+int update_env_variable(t_data *data, char *name, char *value) 
+{
+    t_env_node *current = data->env_list;
+    while (current) 
+    {
+        if (ft_strcmp(current->name, name) == 0) 
+        {
+            if (*value != '\0' && strcmp(current->value, value) != 0) 
+            {
+                free(current->value);
+                current->value = ft_strdup(value);
+            }
+            return 1;
+        }
+        current = current->next;
+    }
+    ft_push_env_node(&data->env_list, name, value);
+    return 0;
+}
+
+
+
 int ft_export(t_data *data) 
 {
-    if (data->parameter == NULL && (data->cmd->command[6] == ' ' || data->cmd->command[6] == '\0'))
+    if (data->parameter == NULL && (data->cmd->command[6] == ' ' || data->cmd->command[6] == '\0')) 
     {
         ft_print_sorted_env(data->env_list);
-    }
-    else if (data->cmd->command[6] != ' ')
+        return (0);
+    } 
+    else if (data->cmd->command[6] != ' ') 
     {
         printf("minishell: %s: command not found\n", data->cmd->command);
         return (1);
-    }
+    } 
     else 
     {
-        if  (ft_check_export_errors(data) == 0)
+        t_list *tmp;
+
+        tmp = data->parameter;
+        if (ft_check_export_errors(data) == 0) 
         {
-            while (data->parameter) 
+            while (tmp) 
             {
-                char *param_content = data->parameter->content;
-                char *name = param_content;
+                char *param_content = tmp->content;
                 char *value = ft_strchr(param_content, '=');
 
                 if (value != NULL) 
                 {
-                    *value = '\0'; // Coloca '\0' para dividir nombre y valor
-                    value++; // Apunta al comienzo del valor (después del '=')
-                } 
-                else 
+                    *value = '\0';
+                    value++;
+                } else 
                 {
-                    value = ""; // Si no hay '=', establece un valor vacío
+                    value = "";
                 }
 
-                // Check if the variable exists in the current environment list
                 t_env_node *current = data->env_list;
                 int found = 0;
-                while (current) 
-                {
-                    if (ft_strcmp(current->name, name) == 0) 
+
+                while (current) {
+                    if (ft_strcmp(current->name, param_content) == 0) 
                     {
-                        // Variable exists, update its value
-                        free(current->value);
-                        current->value = ft_strdup(value);
+                        // Variable exists, update its value only if a new value is provided and it's different
+                        if (*value != '\0' && strcmp(current->value, value) != 0) 
+                        {
+                            free(current->value);
+                            current->value = ft_strdup(value);
+                        }
                         found = 1;
                         break;
                     }
                     current = current->next;
                 }
-
-                // If the variable doesn't exist, add it to the environment list
-                if (!found) 
-                {
-                    ft_push_env_node(&data->env_list, name, value);
+                if (!found) {
+                    printf("hola\n");
+                    ft_push_env_node(&data->env_list, param_content, value);
                 }
-                data->parameter = data->parameter->next;
+                tmp = tmp->next;
             }
         }
-    }
-    // free(data->cmd->param);
-    return (0);
+        return (0);
+    } 
 }
 
 
 int ft_execute_not_rebuiltins(t_data *data)
 {
-//    if (ft_strncmp(data->command, "cd", 2) == 0)
+   if (ft_strncmp(data->command->content, "cd", 2) == 0)
         
-//         {
-//             //printf("cd\n");
-//             //return (1);
-//             return (ft_cd(data));
-//         }
-     if (ft_strncmp(data->command->content, "export", 6) == 0)
         {
+            if (data->cmd->command[2] != ' ' && data->cmd->command[4] != '\0') 
+            {
+                printf("minishell: %s: command not found\n", data->cmd->command);
+                return (1);
+            } 
+            else
+                return (ft_cd(data));
+        }
+    else if (ft_strncmp(data->command->content, "export", 6) == 0)
+        { 
             return (ft_export(data));
         }
     else if (ft_strncmp(data->command->content, "unset", 5) == 0)
         {
-            return (ft_unset(data));
+            if (data->cmd->command[5] != ' ') 
+            {
+                printf("minishell: %s: command not found\n", data->cmd->command);
+                return (1);
+            } 
+            else
+                return (ft_unset(data));
         }
     else if (ft_strncmp(data->command->content, "pwd", 3) == 0)
     {
@@ -376,16 +529,24 @@ int ft_execute_not_rebuiltins(t_data *data)
     }
     else if (ft_strncmp(data->command->content, "exit", 4) == 0)
     {
-        
-            return (ft_exit());
-        // else 
-        // {
-        //     printf("minishell: exit: too many arguments\n");
-        //     return (ft_exit());
-        // }
-    // printf("exit\n");
-    // return (1);
+       if(data->cmd->command[4] != ' ' && data->cmd->command[4] != '\0') 
+            {
+                printf("minishell: %s: command not found\n", data->cmd->command);
+                return (1);
+            } 
+            else
+                return (ft_exit(data));
     }
+    else if (ft_strncmp(data->command->content, "echo", 4) == 0)
+       {
+        if (data->cmd->command[4] != ' ' && data->cmd->command[4] != '\0') 
+            {
+                printf("minishell: %s: command not found\n", data->cmd->command);
+                return (1);
+            } 
+            else
+            return (ft_echo(data));
+       }
     else if (ft_strncmp(data->command->content, "env", 3) == 0)
     {
         return (ft_env(data));
@@ -418,13 +579,15 @@ int ft_not_redirected_builtins(t_data *data)
     data->cmd->command = data->command->content;
     ft_params(data, data->command->content);
     
-    // if (ft_strncmp(data->command, "cd", 2) == 0)
-    //     return (1);
+    if (ft_strncmp(data->command->content, "cd", 2) == 0)
+        return (1);
     //if (ft_strncmp(data->command->content, "export", 6) == 0)
-    if(ft_strncmp(data->cmd->command, "export", 6) == 0)
+    else if(ft_strncmp(data->cmd->command, "export", 6) == 0)
     {
         return (1);
     }
+    else if(ft_strncmp(data->command->content, "echo", 4) == 0)
+        return (1);
     else if (ft_strncmp(data->command->content, "unset", 5) == 0)
         return (1);
     //else if (ft_strncmp(data->command->content, "exit", 4) == 0 && data->parameter != NULL)
