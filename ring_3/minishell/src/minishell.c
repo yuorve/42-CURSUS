@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/11/30 20:48:54 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/06 19:37:23 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,18 +167,17 @@ void	ft_params(t_data *data, char *str)
 	while (values[i])
 	{
 		if (ft_quoted(values[i]))
-		{
+		{	
 			tmp = values[i];
 			while (values[++i] && ft_quoted(tmp))
 			{
 				leak_prevent = ft_strjoin(tmp, " ");
-				free(tmp);
 				tmp = ft_strjoin(leak_prevent, values[i]);
 				free(leak_prevent);
+				free(tmp);
 			}
 			i--;
 			data->parameter = ft_add_to_list(data->parameter, tmp);
-			free(tmp);
 		}
 		else
 			data->parameter = ft_add_to_list(data->parameter, values[i]);
@@ -331,6 +330,62 @@ void	ft_void(void)
 	system("leaks -q 'minishell'");
 }
 
+int ft_cd(t_data *data)
+{
+	int		response;
+
+	ft_params(data, data->command->content);
+	if (ft_lstsize(data->parameter) == 1)
+	{
+		if (ft_strncmp(data->command->content, "cd", 2) == 0)
+		{
+			ft_printf("ok");
+			//set env OLDPWD
+			response = chdir(data->parameter->content);
+			if (response != 0)
+				perror("error");
+			// SET ENV PWD
+		}
+	}
+	else
+		ft_printf("cd: too many arguments\n");
+	return (0);
+}
+
+int	ft_echo(t_data *data)
+{
+	t_list	*current;
+	char	*leak_prevent;
+	char	*str;
+
+	if (ft_strncmp(data->command->content, "echo", 4) == 0)
+	{
+		ft_params(data, data->command->content);
+		if (ft_lstsize(data->parameter) > 0)
+		{
+			current = data->parameter;
+			if (ft_strncmp(current->content, "-n", 2) == 0)
+				current = current->next;
+			while (current)
+			{
+				str = current->content;
+				leak_prevent = ft_strtrim(str, "\"");
+				str = ft_strtrim(leak_prevent, "\'");
+				ft_printf("%s", str);
+				free (str);
+				free (leak_prevent);
+				current = current->next;
+				if (current)
+					ft_printf(" ");
+			}
+			if (ft_strncmp(data->parameter->content, "-n", 2) != 0)
+				ft_printf("\n");
+			ft_lstclear(&current, ft_free);
+		}
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -354,7 +409,11 @@ int	main(int argc, char **argv)
 			add_history(input);
 			ft_input_checks(&data, input);
 			ft_pipes(&data, input);
-			debug(&data);
+			//ft_echo(&data);
+			ft_params(&data, data.command->content);
+			//ft_printf("parameter: %s\n", data.parameter->content);
+			//ft_cd(&data);
+			//debug(&data);
 		}
 		ft_lstclear(&data.command, ft_free);
 		ft_lstclear(&data.parameter, ft_free);
