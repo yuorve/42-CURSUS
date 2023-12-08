@@ -168,7 +168,7 @@ char *ft_get_path(char **cmd, t_data *data)
 
 
 
-void    ft_execute(t_data *data)
+/*void    ft_execute(t_data *data)
 {
     int pid;
     int status;
@@ -198,5 +198,119 @@ void    ft_execute(t_data *data)
     }
     ft_free_matrix(data->cmd->cmd_splited);
     free(data->cmd->path);
+}*/
+
+/*void ft_execute(t_data *data) {
+    int pid;
+    int status;
+    t_list *head;
+    
+
+    head = data->command;
+
+    // Obtener los comandos divididos y el path del primer comando
+    while (head)
+    {
+        data->cmd->cmd_splited = ft_command(head->content);
+        data->cmd->path = ft_get_path(data->cmd->cmd_splited, data);
+        if (data->cmd->path == NULL) {
+            printf("Error: command not found\n");
+            return;
+        }
+        pid = fork();
+        if (pid == -1)
+        {
+            perror ("Error: ");
+            return ;
+        }
+        else if ( pid == 0)
+        {
+            execve(data->cmd->path, data->cmd->cmd_splited, data->cmd->env_copy);
+        }
+        else
+        {
+            waitpid(-1, &status, 0);
+        }
+        ft_free_matrix(data->cmd->cmd_splited);
+        free(data->cmd->path); 
+        head = head->next;
+    }
+}*/
+
+void execute_multiple_commands_with_pipes(t_data *data, t_list *head) 
+{
+    int status;
+    int pipefd[2];
+    int prev_pipe = -1;
+
+    while (head) 
+    {
+        data->cmd->cmd_splited = ft_command(head->content);
+        data->cmd->path = ft_get_path(data->cmd->cmd_splited, data);
+
+        if (data->cmd->path == NULL) 
+        {
+            printf("Error: command not found\n");
+            return;
+        }
+
+        if (pipe(pipefd) == -1) 
+        {
+            perror("Pipe creation failed");
+            return;
+        }
+
+        int pid = fork();
+        if (pid == -1) 
+        {
+            perror("Fork error");
+            return;
+        } 
+        else if 
+        (pid == 0) 
+        {
+            // Hijo
+            if (prev_pipe != -1) 
+            {
+                dup2(prev_pipe, STDIN_FILENO);
+                close(prev_pipe);
+            }
+
+            if (head->next != NULL) 
+            {
+                dup2(pipefd[1], STDOUT_FILENO);
+            }
+
+            close(pipefd[0]);
+            close(pipefd[1]);
+
+            execve(data->cmd->path, data->cmd->cmd_splited, data->cmd->env_copy);
+            perror("Exec error");
+            exit(EXIT_FAILURE);
+        } 
+        else 
+        {
+            // Padre
+            if (prev_pipe != -1) 
+            {
+                close(prev_pipe);
+            }
+
+            close(pipefd[1]);
+
+            waitpid(pid, &status, 0);
+
+            ft_free_matrix(data->cmd->cmd_splited);
+            free(data->cmd->path);
+
+            prev_pipe = pipefd[0];
+            head = head->next;
+        }
+    }
+}
+
+void ft_execute(t_data *data) {
+    t_list *head = data->command;
+    execute_multiple_commands_with_pipes(data, head);
 }
 

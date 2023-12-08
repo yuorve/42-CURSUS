@@ -416,20 +416,36 @@ void	ft_minishell(t_data *data)
 	while (1)
 	{
 		data->input = readline("\033[32;1mMinishell> \033[0m");
-		//if (input && (ft_strncmp(input, "exit", 4) == 0))
 		if (!data->input)
+        {
+            // para Ctrl-D, salir del shell
+            break;
+        }
+
+		if (data->input[0] == '\0') 
+		{
+			// Si la entrada está vacía o es solo un salto de línea, continuar con la siguiente iteración del bucle
+			free(data->input);
+			continue;
+		}
+		/*if (!data->input)
 		{
 			free(data->input);
 			ft_lstclear(&data->command, ft_free);
 			ft_lstclear(&data->parameter, ft_free);
 			exit (1);
-		}
+		}*/
 		if (data->input)
 		{
 			add_history(data->input);
 			ft_input_checks(data, data->input);
 			ft_pipes(data, data->input);
 			//debug(data);
+			if (data->input[ft_strlen(data->input) - 1] == '\n')
+        {
+            data->input[ft_strlen(data->input) - 1] = '\0';
+        }
+
 			data->cmd->env_copy = ft_list_to_matrix(data->env_list);
 
 			// int i = 0;

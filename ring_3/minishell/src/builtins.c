@@ -171,7 +171,7 @@ int ft_exit(t_data *data)
     {
         if (ft_is_numeric(data->parameter->content) == 1) 
         {
-            printf("minishell: exit: %s: numeric argument required\n", data->parameter->content);
+            printf("minishell: exit: %p: numeric argument required\n", data->parameter->content);
             exit (255);
         }
         else 
@@ -182,6 +182,10 @@ int ft_exit(t_data *data)
                 printf("minishell: exit: too many arguments\n");
                 return (1);
             }
+            if (exit_code > 255)
+            {
+                exit (exit_code % 256);
+            }
         }
     }
     exit(exit_code);
@@ -190,7 +194,11 @@ int ft_exit(t_data *data)
 int ft_env(t_data *data)
 {
     t_env_node *head;
-    
+
+    if (data->parameter == NULL)
+   {
+
+   
     head = data->env_list;
     while(head)
     {
@@ -201,6 +209,12 @@ int ft_env(t_data *data)
         head = head->next;
     }
     return (0);
+   }
+   else 
+   {
+        printf ("minishell: command not found\n");
+        return (127);
+   }
 }
 
 void ft_swap_values(char **str1, char **str2) 
@@ -324,7 +338,7 @@ int    ft_check_export_errors(t_data *data)
     {
         //compruebo
         data->cmd->param = parameter->content;
-        printf("parameter: %s\n", parameter->content);
+        printf("parameter: %p\n", parameter->content);
         if(ft_isalpha(data->cmd->param[0]) == 0 && data->cmd->param[0] != '_')
         {
             printf("minishell: export: `%s': not a valid identifier\n", data->cmd->param);
@@ -484,8 +498,9 @@ int ft_export(t_data *data)
                     }
                     current = current->next;
                 }
-                if (!found) {
-                    printf("hola\n");
+                if (!found) 
+                {
+                    
                     ft_push_env_node(&data->env_list, param_content, value);
                 }
                 tmp = tmp->next;
@@ -524,8 +539,14 @@ int ft_execute_not_rebuiltins(t_data *data)
                 return (ft_unset(data));
         }
     else if (ft_strncmp(data->command->content, "pwd", 3) == 0)
-    {
-        return (ft_pwd());
+    { 
+        if (data->cmd->command[3] != ' ' && data->cmd->command[3] != '\0') 
+            {
+                printf("minishell: %s: command not found\n", data->cmd->command);
+                return (1);
+            } 
+            else
+                return (ft_pwd());
     }
     else if (ft_strncmp(data->command->content, "exit", 4) == 0)
     {
@@ -549,7 +570,13 @@ int ft_execute_not_rebuiltins(t_data *data)
        }
     else if (ft_strncmp(data->command->content, "env", 3) == 0)
     {
-        return (ft_env(data));
+         if (data->cmd->command[3] != ' ' && data->cmd->command[3] != '\0') 
+            {
+                printf("minishell: %s: command not found\n", data->cmd->command);
+                return (1);
+            } 
+            else
+                return (ft_env(data));
     }
     else
         return (0);
@@ -583,20 +610,15 @@ int ft_not_redirected_builtins(t_data *data)
         return (1);
     //if (ft_strncmp(data->command->content, "export", 6) == 0)
     else if(ft_strncmp(data->cmd->command, "export", 6) == 0)
-    {
         return (1);
-    }
     else if(ft_strncmp(data->command->content, "echo", 4) == 0)
         return (1);
     else if (ft_strncmp(data->command->content, "unset", 5) == 0)
         return (1);
-    //else if (ft_strncmp(data->command->content, "exit", 4) == 0 && data->parameter != NULL)
     else if(ft_strncmp(data->command->content, "exit", 4) == 0)   
         return (1);
-        //tengo que cambiar env y pwd a redirected builtins
     else if (ft_strncmp(data->command->content, "env", 3) == 0)
         return (1);
-    //else if (ft_strncmp(data->command->content, "pwd", 3) == 0 && (data->command + 1 == NULL || data->parameter != NULL))
     else if (ft_strncmp(data->command->content, "pwd", 3) == 0)
         return (1);
     return (0);

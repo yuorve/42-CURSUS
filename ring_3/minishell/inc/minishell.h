@@ -23,6 +23,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+#define READ_END 0
+#define WRITE_END 1
 
 typedef struct s_env_node 
 {
