@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/06 19:37:23 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/09 09:02:46 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,16 +110,9 @@ int	ft_quoted(char *str)
 
 char	**ft_command(char *str)
 {
-	char	**values;
+	char **values;
 
-	values = 0;
-	if (ft_strchr(str, ' '))
-		values = ft_split(str, ' ');
-	else
-	{
-		values = ft_calloc(1, sizeof(char *));
-		values[0] = str;
-	}
+	values = ft_split(str, ' ');
 	return (values);
 }
 
@@ -188,6 +181,7 @@ void	ft_params(t_data *data, char *str)
 
 void debug(t_data *data)
 {
+	int		i;
 	t_list	*nodo;
 	t_list	*prev;
 
@@ -233,6 +227,9 @@ void debug(t_data *data)
 			nodo = nodo->next;
 		}
 	}
+	i = 0;
+	while (data->env[i])
+		ft_printf("env: %s\n", data->env[i++]);
 }
 
 void	ft_pipes(t_data *data, char *str)
@@ -386,7 +383,57 @@ int	ft_echo(t_data *data)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+char	**ft_args(t_list *head)
+{
+	int i;
+	char **env_matrix;
+	t_list *curr;
+	
+	i = 0;
+	curr = head;
+	env_matrix = (char **)calloc(sizeof(char **), ft_lstsize(curr) + 1);
+	while(curr)
+	{
+		env_matrix[i++] = curr->content;
+		curr = curr->next;
+	}
+	env_matrix[i] = NULL;
+	return (env_matrix);
+}
+
+char	**ft_path(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->env[i] && ft_strchr(str, '='))
+}
+
+void	ft_execute(t_data *data)
+{
+	pid_t	pid;
+	char	**command;
+	
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	if (pid == 0)
+	{
+		command = ft_command(data->command->content);
+		if (execve(command[0], command, data->env) == -1)
+		{
+			perror("execve");
+			exit(EXIT_FAILURE);
+		}	
+	}
+	else
+		waitpid(pid, NULL, 0);
+}
+
+int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 	char	*input;
@@ -394,10 +441,12 @@ int	main(int argc, char **argv)
 	atexit(ft_void);
 	(void) argc;
 	(void) argv;
+	(void) env;
 	using_history();
 	ft_bzero(&data, sizeof(t_data));
 	while (1)
 	{
+		data.env = env;
 		input = readline("\033[32;1mMinishell> \033[0m");
 		if (input && (ft_strncmp(input, "exit", 4) == 0))
 		{
@@ -409,8 +458,9 @@ int	main(int argc, char **argv)
 			add_history(input);
 			ft_input_checks(&data, input);
 			ft_pipes(&data, input);
-			//ft_echo(&data);
 			ft_params(&data, data.command->content);
+			ft_execute(&data);
+			//ft_echo(&data);
 			//ft_printf("parameter: %s\n", data.parameter->content);
 			//ft_cd(&data);
 			//debug(&data);
