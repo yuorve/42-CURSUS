@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/09 09:02:46 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/09 12:27:27 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,6 +271,7 @@ void	ft_input_checks(t_data *data, char *str)
 	int	flag;
 
 	data->npipes = 0;
+	data->nredirection = 0;
 	start = 0;
 	flag = 0;
 	i = 0;
@@ -295,6 +296,13 @@ void	ft_input_checks(t_data *data, char *str)
 			data->npipes++;
 			start = i;
 		}
+		else if ((ft_checks(str[i], '>') || ft_checks(str[i], '<')) && flag == 0)
+		{
+			if (data->nredirection > 0 && data->redirection != str[i])
+				flag = 3;
+			data->redirection = str[i];
+			data->nredirection++;
+		}
 		else if (ft_checks(str[i], '$') && flag == 1)
 		{
 			start = i++;
@@ -318,7 +326,7 @@ void	ft_input_checks(t_data *data, char *str)
 		}
 		i++;
 	}
-	if (flag != 0)
+	if (flag != 0 || data->nredirection > 2)
 		exit(ft_printf("\033[31;1mSyntax Error\n \033[0m"));
 }
 
@@ -383,37 +391,37 @@ int	ft_echo(t_data *data)
 	return (0);
 }
 
-char	**ft_args(t_list *head)
+char	*ft_cmd(t_data *data, char *cmd)
 {
-	int i;
-	char **env_matrix;
-	t_list *curr;
-	
+	int		i;
+	char	*str;
+	char	**paths;
+
+	if (access(cmd, 0) == 0)
+			return (cmd);
 	i = 0;
-	curr = head;
-	env_matrix = (char **)calloc(sizeof(char **), ft_lstsize(curr) + 1);
-	while(curr)
+	while (data->env[i] && ft_strncmp(data->env[i], "PATH=", 5) != 0)
+		i++;
+	paths = ft_split(ft_substr(data->env[i], 5, ft_strlen(data->env[i])), ':');
+	i = 0;
+	cmd = ft_strjoin("/", cmd);
+	while (paths[i])
 	{
-		env_matrix[i++] = curr->content;
-		curr = curr->next;
+		str = ft_strjoin(paths[i], cmd);
+		if (access(str, 0) == 0)
+			return (str);
+		free(str);
+		i++;
 	}
-	env_matrix[i] = NULL;
-	return (env_matrix);
-}
-
-char	**ft_path(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (data->env[i] && ft_strchr(str, '='))
+	perror("minishell");
+	exit(EXIT_FAILURE);
 }
 
 void	ft_execute(t_data *data)
 {
 	pid_t	pid;
 	char	**command;
-	
+
 	pid = fork();
 	if (pid == -1)
 	{
@@ -423,11 +431,53 @@ void	ft_execute(t_data *data)
 	if (pid == 0)
 	{
 		command = ft_command(data->command->content);
+		command[0] = ft_cmd(data, command[0]);
 		if (execve(command[0], command, data->env) == -1)
 		{
 			perror("execve");
 			exit(EXIT_FAILURE);
-		}	
+		}
+	}
+	else
+		waitpid(pid, NULL, 0);
+}
+
+void	ft_output(t_data *data)
+{
+	pid_t	pid;
+	FILE	*fd;
+	char	**command;
+	
+	command = ft_split(data->command->content, data->redirection);
+	free (data->command->content);
+	data->command->content = ft_strtrim(command[0], " ");
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	if (pid == 0)
+	{	
+		if (data->nredirection == 1)
+			fd = fopen(ft_strtrim(command[1], " "), "w");
+		else
+			fd = fopen(ft_strtrim(command[1], " "), "a");
+		if (!fd)
+		{
+			perror("error open output file");
+			exit(EXIT_FAILURE);
+		}
+		dup2(fileno(fd), STDOUT_FILENO);
+		ft_free_split(command);
+		command = ft_command(data->command->content);
+		command[0] = ft_cmd(data, command[0]);
+		if (execve(command[0], command, data->env) == -1)
+		{
+			perror("execve");
+			exit(EXIT_FAILURE);
+		}
+		fclose(fd);
 	}
 	else
 		waitpid(pid, NULL, 0);
@@ -459,9 +509,12 @@ int	main(int argc, char **argv, char **env)
 			ft_input_checks(&data, input);
 			ft_pipes(&data, input);
 			ft_params(&data, data.command->content);
-			ft_execute(&data);
+			//ft_printf("redirección: %c - %d\n", data.redirection, data.nredirection);
+			if (data.nredirection > 0 && data.redirection == '>')
+				ft_output(&data);
+			else
+				ft_execute(&data);
 			//ft_echo(&data);
-			//ft_printf("parameter: %s\n", data.parameter->content);
 			//ft_cd(&data);
 			//debug(&data);
 		}
