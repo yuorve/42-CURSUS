@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/06 19:32:51 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/11 20:18:19 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -409,51 +409,44 @@ void	ft_input_checks(t_data *data, char *str)
 //     free(cmd_copy);
 // }
 
+void 	ft_control_d(t_data *i)
+{
+	(void)i;
+	rl_on_new_line();
+	//rl_redisplay();
+	ft_putstr_fd("exit\n", 0);
+	exit(0);
+}
+
 void	ft_minishell(t_data *data)
 {
-	//char	*input;
-
 	while (1)
 	{
 		data->input = readline("\033[32;1mMinishell> \033[0m");
 		if (!data->input)
         {
             // para Ctrl-D, salir del shell
-            break;
+			ft_control_d(data);
         }
-
 		if (data->input[0] == '\0') 
 		{
 			// Si la entrada está vacía o es solo un salto de línea, continuar con la siguiente iteración del bucle
 			free(data->input);
 			continue;
 		}
-		/*if (!data->input)
-		{
-			free(data->input);
-			ft_lstclear(&data->command, ft_free);
-			ft_lstclear(&data->parameter, ft_free);
-			exit (1);
-		}*/
 		if (data->input)
 		{
 			add_history(data->input);
 			ft_input_checks(data, data->input);
 			ft_pipes(data, data->input);
 			//debug(data);
-			if (data->input[ft_strlen(data->input) - 1] == '\n')
-        {
-            data->input[ft_strlen(data->input) - 1] = '\0';
-        }
-
-			data->cmd->env_copy = ft_list_to_matrix(data->env_list);
-
-			// int i = 0;
-			// while(data->cmd->env_copy[i])
-			// {
-			// 	printf("env_copy[%d]: %s\n", i, data->cmd->env_copy[i]);
-			// 	i++;
-			// }
+			
+			// if (data->input[ft_strlen(data->input) - 1] == '\n')
+        	// {
+            // 	data->input[ft_strlen(data->input) - 1] = '\0';
+        	// }
+			
+			data->cmd->env_copy = ft_list_to_matrix(data->env_list); //converte la lista de env en matriz
 			
 			if(ft_not_redirected_builtins(data) == 1)
 				ft_execute_not_rebuiltins(data);
@@ -464,7 +457,7 @@ void	ft_minishell(t_data *data)
 		}
 		
 		//ft_free_matrix(data->cmd->cmd_splited);
-		//tengo que liberar la estructura de cmdz	
+		//tengo que liberar la estructura de cmd	
 		ft_lstclear(&data->command, ft_free);
 		ft_lstclear(&data->parameter, ft_free);
 		free(data->input);

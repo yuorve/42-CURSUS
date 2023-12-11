@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:59:06 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/01 20:23:36 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/11 21:21:34 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,13 @@ void    handle_process_on(int sig)
     //rl_set_prompt("");
 }
 
-// void handler_ctrl_d(int sig) 
-// {
-//     (void)sig;
-//     printf("mi exit\n");
-//     exit(0);//no esta fiuncionando
-// }
-
 void    set_signal(void)
 {
     signal(SIGINT, handle_ctrl_c);
     signal(SIGQUIT, SIG_IGN); //ignores the signal
-    // signal(SIGTERM, handler_ctrl_d);  
     signal(SIGUSR2, handle_process_on);
-    //tcgetattr(0, &t);
-	// t.c_lflag &= ~ECHOCTL;
-	// tcsetattr(0, TCSANOW, &t);
-    //signal(SIGTSTP, SIG_IGN);
+    tcgetattr(0, &t);
+	t.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, &t);
+    signal(SIGTSTP, SIG_IGN);
 }

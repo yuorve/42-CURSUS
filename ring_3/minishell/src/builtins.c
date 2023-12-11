@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/06 22:19:08 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/11 22:59:34 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,36 +28,6 @@ int ft_pwd(void)
 }
 
 
-// int ft_chdir(const char *path) 
-// {
-//     if (chdir(path) != 0) 
-//     {
-//         perror("Error al cambiar el directorio");
-//         return (1); 
-//     }
-//     return (0); 
-// }
-
-// char *ft_get_value(char *str, char **env)
-// {
-//     int i = 0;
-//     if (!str)
-//         return (NULL);
-//     while (env[i])
-//     {
-//         if (ft_strncmp(str, env[i], ft_strlen(str)) == 0)
-//         {
-//             if (ft_strlen(env[i]) == ft_strlen(str))
-//                 return (env[i] + ft_strlen(str));
-//             else if (env[i][ft_strlen(str)] == '=')
-//                 return (env[i] + ft_strlen(str) + 1);
-//         }
-//         i++;
-//     }
-//     return (0);
-// }
-
-
 int ft_cd(t_data *data)
 {
     int     response;
@@ -76,9 +46,11 @@ int ft_cd(t_data *data)
         {
             head = ft_find_node(data->env_list, "OLDPWD");
             dir = head->value;
+            printf("%s\n", dir);
+            ft_swap_values(head->value, head->next->value);
         }
         else
-            dir = data->parameter->content;
+        dir = data->parameter->content;
         str = getcwd(NULL, 0);
         head = ft_find_node(data->env_list, "OLDPWD");
         free(head->value);
@@ -133,22 +105,6 @@ int ft_echo(t_data *data)
 }
 
 
-// int ft_exit(t_data *data) 
-// {
-//     while (data->parameter) 
-//     {
-//         if//tengo que verificar si es un numero
-//         {
-//             printf("minishell: exit: %s: numeric argument required\n", data->parameter->content);
-//             return (1);
-//         }
-//         else
-//         // si es numero salir devolver salida de exit 
-//         data->parameter = data->parameter->next;
-//     }
-//     exit(0); // Salir del shell con código de éxito
-// }
-
 
 int ft_is_numeric(const char *str) 
 {
@@ -191,6 +147,8 @@ int ft_exit(t_data *data)
     exit(exit_code);
 }
 
+
+
 int ft_env(t_data *data)
 {
     t_env_node *head;
@@ -202,7 +160,8 @@ int ft_env(t_data *data)
     head = data->env_list;
     while(head)
     {
-        if(head->name != NULL && head->value != NULL && strlen(head->value) > 0)
+        //if(head->name != NULL && head->value != NULL && strlen(head->value) > 0)
+        if (head->name != NULL && head->value != NULL && strlen(head->value) > 0 && head->equal == 1) 
         {
             printf("%s=%s\n", head->name, head->value);
         }
@@ -217,26 +176,27 @@ int ft_env(t_data *data)
    }
 }
 
-void ft_swap_values(char **str1, char **str2) 
+void ft_swap_values(char *str1, char *str2) 
 {
-    char *temp = *str1;
-    *str1 = *str2;
-    *str2 = temp;
+    char *temp = str1;
+    str1 = str2;
+    str2 = temp;
 }
 
 void ft_sort_env_list(t_env_node **head) 
 {
-    int swapped = 0;
+    int swapped;
     t_env_node *ptr;
     t_env_node *last; 
 
     last = NULL;
+    swapped = 0;
     if (*head == NULL) 
     {
         return;
     }
-
-    while (!swapped) {
+    while (!swapped) 
+    {
         swapped = 1;
         ptr = *head;
 
@@ -244,8 +204,8 @@ void ft_sort_env_list(t_env_node **head)
         {
             if (ft_strcmp(ptr->name, ptr->next->name) > 0) 
             {
-                ft_swap_values(&ptr->name, &ptr->next->name);
-                ft_swap_values(&ptr->value, &ptr->next->value);
+                ft_swap_values(ptr->name, ptr->next->name);
+                ft_swap_values(ptr->value, ptr->next->value);
                 swapped = 0;
             }
             ptr = ptr->next;
@@ -256,12 +216,16 @@ void ft_sort_env_list(t_env_node **head)
 
 void ft_print_sorted_env(t_env_node *head) 
 {
-    t_env_node *temp = head;
+    t_env_node *temp;
     // Crear una copia temporal para ordenar
-    t_env_node *sorted_env = NULL;
+    t_env_node *sorted_env;
+
+    sorted_env = NULL;
+    temp = head;
     while (temp) 
     {
-        ft_push_env_node(&sorted_env, temp->name, temp->value);
+        //ft_push_env_node(&sorted_env, temp->name, temp->value);
+        ft_push_env_node(&sorted_env, temp->name, temp->value, temp->equal);
         temp = temp->next;
     }
 
@@ -338,7 +302,6 @@ int    ft_check_export_errors(t_data *data)
     {
         //compruebo
         data->cmd->param = parameter->content;
-        printf("parameter: %p\n", parameter->content);
         if(ft_isalpha(data->cmd->param[0]) == 0 && data->cmd->param[0] != '_')
         {
             printf("minishell: export: `%s': not a valid identifier\n", data->cmd->param);
@@ -350,101 +313,46 @@ int    ft_check_export_errors(t_data *data)
 }
 
 
-// int ft_export(t_data *data) 
+
+// char *get_value_from_parameter(char *param_content) 
 // {
-//     if (data->parameter == NULL && (data->cmd->command[6] == ' ' || data->cmd->command[6] == '\0'))
+//     char *value;
+    
+//     value = ft_strchr(param_content, '=');
+//     if (value != NULL) 
 //     {
-//         ft_print_sorted_env(data->env_list);
-//     }
-//     else if (data->cmd->command[6] != ' ')
-//     {
-//         printf("minishell: %s: command not found\n", data->cmd->command);
-//         return (1);
-//     }
+//         *value = '\0';
+//         value++;
+//     } 
 //     else 
 //     {
-//         if  (ft_check_export_errors(data) == 0)
-//         {
-//             while (data->parameter) 
-//             {
-//                 char *param_content = data->parameter->content;
-//                 char *name = param_content;
-//                 char *value = ft_strchr(param_content, '=');
-
-//                 if (value != NULL) 
-//                 {
-//                     *value = '\0'; // Coloca '\0' para dividir nombre y valor
-//                     value++; // Apunta al comienzo del valor (después del '=')
-//                 } 
-//                 else 
-//                 {
-//                     value = ""; // Si no hay '=', establece un valor vacío
-//                 }
-
-//                 // Check if the variable exists in the current environment list
-//                 t_env_node *current = data->env_list;
-//                 int found = 0;
-//                 while (current) 
-//                 {
-//                     if (ft_strcmp(current->name, name) == 0) 
-//                     {
-//                         // Variable exists, update its value
-//                         free(current->value);
-//                         current->value = ft_strdup(value);
-//                         found = 1;
-//                         break;
-//                     }
-//                     current = current->next;
-//                 }
-
-//                 // If the variable doesn't exist, add it to the environment list
-//                 if (!found) 
-//                 {
-//                     ft_push_env_node(&data->env_list, name, value);
-//                 }
-//                 data->parameter = data->parameter->next;
-//             }
-//         }
+//         value = "";
 //     }
-//     //free(data->cmd->param);
-//     return (0);
+//     return value;
 // }
 
 
-char *get_value_from_parameter(char *param_content) 
-{
-    char *value = ft_strchr(param_content, '=');
-    if (value != NULL) 
-    {
-        *value = '\0';
-        value++;
-    } 
-    else 
-    {
-        value = "";
-    }
-    return value;
-}
-
-int update_env_variable(t_data *data, char *name, char *value) 
-{
-    t_env_node *current = data->env_list;
-    while (current) 
-    {
-        if (ft_strcmp(current->name, name) == 0) 
-        {
-            if (*value != '\0' && strcmp(current->value, value) != 0) 
-            {
-                free(current->value);
-                current->value = ft_strdup(value);
-            }
-            return 1;
-        }
-        current = current->next;
-    }
-    ft_push_env_node(&data->env_list, name, value);
-    return 0;
-}
+// int update_env_variable(t_data *data, char *name, char *value) 
+// {
+//     t_env_node *current;
+    
+//     current = data->env_list;
+//     while (current) 
+//     {
+//         if (ft_strcmp(current->name, name) == 0) 
+//         {
+//             if (*value != '\0' && ft_strcmp(current->value, value) != 0) 
+//             {
+//                 free(current->value);
+//                 current->value = ft_strdup(value);
+//             }
+//             return 1;
+//         }
+//         current = current->next;
+//     }
+//     ft_push_env_node(&data->env_list, name, value);
+//     return 0;
+// }
 
 
 
@@ -476,7 +384,8 @@ int ft_export(t_data *data)
                 {
                     *value = '\0';
                     value++;
-                } else 
+                } 
+                else 
                 {
                     value = "";
                 }
@@ -484,11 +393,12 @@ int ft_export(t_data *data)
                 t_env_node *current = data->env_list;
                 int found = 0;
 
-                while (current) {
+                while (current) 
+                {
                     if (ft_strcmp(current->name, param_content) == 0) 
                     {
                         // Variable exists, update its value only if a new value is provided and it's different
-                        if (*value != '\0' && strcmp(current->value, value) != 0) 
+                        if (*value != '\0' && ft_strcmp(current->value, value) != 0) 
                         {
                             free(current->value);
                             current->value = ft_strdup(value);
@@ -500,8 +410,8 @@ int ft_export(t_data *data)
                 }
                 if (!found) 
                 {
-                    
-                    ft_push_env_node(&data->env_list, param_content, value);
+                    //ft_push_env_node(&data->env_list, param_content, value);
+                    ft_push_env_node(&data->env_list, param_content, value, data->env_list->equal);
                 }
                 tmp = tmp->next;
             }
