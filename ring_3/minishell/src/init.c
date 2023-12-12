@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:59:00 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/11 21:42:52 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:43:33 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ void    ft_init_command(t_data *data)
 
 int ft_count_nodes(t_env_node *head) 
 {
-    int count = 0;
+    int count;
+    
+    count = 0;
     while (head != NULL) 
     {
         count++;
@@ -103,7 +105,6 @@ void ft_shell_level(t_env_node **head, int i)
     int equal;
 
     equal = 1;
-    
     shlvl_node = ft_find_node(*head, "SHLVL");
     if (shlvl_node) 
     {
@@ -129,7 +130,6 @@ void ft_init_env(t_env_node **head, char **env)
     char *value;
     
     i = 0;
-    
     while (env[i])
     {
         
@@ -152,7 +152,6 @@ void ft_init_env(t_env_node **head, char **env)
         } 
         else 
         {
-            //data->env_list->equal = 0;
             equal = 0;
             ft_push_env_node(head, name, "", equal); // Variable sin valor
         }

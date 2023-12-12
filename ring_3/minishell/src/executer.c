@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/11 21:20:45 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:26:33 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char *find_command_path(char **env_copy, char *cmd)
 
 char *ft_get_path(char **cmd, t_data *data) 
 {
+    
     return (find_command_path(data->cmd->env_copy, cmd[0]));
 }
 
@@ -134,6 +135,47 @@ void    ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe,
     // }
 }
 
+void    ft_redirections(t_data *data)
+{
+    int fd;
+    int i;
+
+    i = 0;
+    while (data->cmd->cmd_splited[i])
+    {
+        if (ft_strcmp(data->cmd->cmd_splited[i], ">") == 0)
+        {
+            fd = open(data->cmd->cmd_splited[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+            dup2(fd, STDOUT_FILENO);
+            close(fd);
+            data->cmd->cmd_splited[i] = NULL;
+        }
+        else if (ft_strcmp(data->cmd->cmd_splited[i], ">>") == 0)
+        {
+            fd = open(data->cmd->cmd_splited[i + 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+            dup2(fd, STDOUT_FILENO);
+            close(fd);
+            data->cmd->cmd_splited[i] = NULL;
+        }
+        else if (ft_strcmp(data->cmd->cmd_splited[i], "<") == 0)
+        {
+            fd = open(data->cmd->cmd_splited[i + 1], O_RDONLY);
+            dup2(fd, STDIN_FILENO);
+            close(fd);
+            data->cmd->cmd_splited[i] = NULL;
+        }
+        i++;
+    }
+}
+
+// void    ft_redirections(t_data *data)
+// {
+//     t_list *prev;
+
+//     prev = ft_previously(data->command, nodo);
+//     if(data->p)
+// }
+
 
 void ft_execute_pipes(t_data *data, t_list *head) 
 {
@@ -147,6 +189,7 @@ void ft_execute_pipes(t_data *data, t_list *head)
     {
         data->cmd->cmd_splited = ft_command(head->content);
         data->cmd->path = ft_get_path(data->cmd->cmd_splited, data);
+        ft_redirections(data);
         if (data->cmd->path == NULL) 
         {
             printf("Error: command not found\n");
