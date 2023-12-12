@@ -1,1 +1,8 @@
--la
+Makefile
+inc
+lib
+minishell
+minishell.dSYM
+obj
+src
+txt

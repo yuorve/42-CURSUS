@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/09 12:27:27 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:06:29 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -437,6 +437,7 @@ void	ft_execute(t_data *data)
 			perror("execve");
 			exit(EXIT_FAILURE);
 		}
+		ft_free_split(command);
 	}
 	else
 		waitpid(pid, NULL, 0);
@@ -447,7 +448,7 @@ void	ft_output(t_data *data)
 	pid_t	pid;
 	FILE	*fd;
 	char	**command;
-	
+
 	command = ft_split(data->command->content, data->redirection);
 	free (data->command->content);
 	data->command->content = ft_strtrim(command[0], " ");
@@ -458,7 +459,7 @@ void	ft_output(t_data *data)
 		exit(EXIT_FAILURE);
 	}
 	if (pid == 0)
-	{	
+	{
 		if (data->nredirection == 1)
 			fd = fopen(ft_strtrim(command[1], " "), "w");
 		else
@@ -481,6 +482,58 @@ void	ft_output(t_data *data)
 	}
 	else
 		waitpid(pid, NULL, 0);
+	ft_free_split(command);
+}
+
+void	ft_get_file(t_data *data)
+{
+	//get next line y meter en data->parameter
+	(void) data;
+}
+
+void	ft_heredoc(t_data *data, char *end)
+{
+	int		fd;
+	char	*input;
+
+	fd = open(".heredocfile.tmp", O_CREAT|O_WRONLY,0644);
+	while (1)
+	{
+		if (data->npipes > 0)
+			input = readline("\033[33;1mpipe heredoc> \033[0m");
+		else
+			input = readline("\033[33;1mheredoc> \033[0m");
+		if (input && (ft_strncmp(input, end, ft_strlen(end)) == 0))
+		{
+			free(input);
+			break ;
+		}
+		if (input && *input)
+		{
+			write(fd, input, ft_strlen(input));
+			write(fd, " ", 1);
+		}
+		free(input);
+	}
+	close(fd);
+}
+
+void	ft_redirections(t_data *data)
+{
+	char	*cmd;
+	char	*end;
+
+	cmd = data->command->content;
+	end = ft_substr(cmd, 2, ft_strlen(cmd) - 2);
+	if (data->nredirection == 1 && data->redirection == '<')
+		ft_printf("busca fichero\n");
+	else if (data->nredirection == 2 && data->redirection == '<')
+		ft_heredoc(data, end);
+	else if (data->nredirection > 0 && data->redirection == '>')
+		ft_output(data);
+	else
+		ft_execute(data);
+	free (end);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -509,11 +562,7 @@ int	main(int argc, char **argv, char **env)
 			ft_input_checks(&data, input);
 			ft_pipes(&data, input);
 			ft_params(&data, data.command->content);
-			//ft_printf("redirección: %c - %d\n", data.redirection, data.nredirection);
-			if (data.nredirection > 0 && data.redirection == '>')
-				ft_output(&data);
-			else
-				ft_execute(&data);
+			ft_redirections(&data);
 			//ft_echo(&data);
 			//ft_cd(&data);
 			//debug(&data);
