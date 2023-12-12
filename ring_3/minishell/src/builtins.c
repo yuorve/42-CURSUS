@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/11 22:59:34 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/12 19:55:45 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int ft_pwd(void)
     free(pwd);
     return (0);
 }
-
 
 int ft_cd(t_data *data)
 {
@@ -77,7 +76,7 @@ int ft_echo(t_data *data)
     char *str;
     char *leak_prevent;
 
-    ft_params(data, data->command->content);
+    //ft_params(data, data->command->content);
     if(ft_lstsize(data->parameter) > 0)
     {
         current = data->parameter;
@@ -514,7 +513,7 @@ int ft_not_redirected_builtins(t_data *data)
 {
     //data->cmd->command = ft_strjoin(data->command->content, " ");
     data->cmd->command = data->command->content;
-    ft_params(data, data->command->content);
+    //ft_params(data, data->command->content);
     
     if (ft_strncmp(data->command->content, "cd", 2) == 0)
         return (1);

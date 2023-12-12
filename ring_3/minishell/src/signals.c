@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:59:06 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/11 21:21:34 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/12 19:26:35 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,13 @@ void    set_signal(void)
 	t.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, TCSANOW, &t);
     signal(SIGTSTP, SIG_IGN);
+}
+
+void 	ft_control_d(t_data *i)
+{
+	(void)i;
+	rl_on_new_line();
+	//rl_redisplay();
+	ft_putstr_fd("exit\n", 0);
+	exit(0);
 }
