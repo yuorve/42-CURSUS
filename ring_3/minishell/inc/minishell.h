@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:23:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/12 17:49:58 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/12 19:18:00 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,11 @@ typedef struct	s_cmd
 
 typedef struct s_data
 {
+	char	**env;
 	char	*input;
+	char	*file;
+	char	redirection;
+	int		nredirection;
 	int		npipes;
 	int		num_command;
 	t_list	*command;
