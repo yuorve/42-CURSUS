@@ -3,5 +3,6 @@
         "minishell.h": "c",
         "valgirnd_check": "c",
         "chrono": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }
