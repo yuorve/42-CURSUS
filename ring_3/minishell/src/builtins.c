@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/12 20:46:18 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/12 21:01:09 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int ft_echo(t_data *data)
     char *str;
     char *leak_prevent;
 
-    //ft_params(data, data->command->content);
+    ft_params(data, data->command->content);
     if(ft_lstsize(data->parameter) > 0)
     {
         current = data->parameter;
@@ -96,7 +96,7 @@ int ft_echo(t_data *data)
         }
         if (ft_strncmp(data->parameter->content, "-n", 2) != 0)
             ft_printf("\n");
-        ft_lstclear(&current, ft_free);
+            ft_lstclear(&current, ft_free);
     }
     else
         ft_printf("\n");

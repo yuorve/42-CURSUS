@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/12 20:15:21 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/12 21:04:42 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,6 @@ void	ft_params(t_data *data, char *str)
 				tmp = ft_strjoin(leak_prevent, values[i]);
 				free(leak_prevent);
 				free(tmp);
-				free(tmp);
 			}
 			i--;
 			data->parameter = ft_add_to_list(data->parameter, tmp);
@@ -411,7 +410,7 @@ void	ft_minishell(t_data *data)
 			add_history(data->input);
 			ft_input_checks(data, data->input);
 			ft_pipes(data, data->input);
-			ft_params(data, data->command->content);
+			//ft_params(data, data->command->content);
 			//ft_redirections(data);
 			//debug(data);
 			
