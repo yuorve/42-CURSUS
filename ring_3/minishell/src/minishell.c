@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/12 18:06:29 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/13 20:52:24 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,64 @@ int	ft_quoted(char *str)
 	return ((numQuotes % 2) || (numSingleQuotes % 2));
 }
 
+char	*ft_replace(char *str, char c)
+{
+	int		i;
+	int		j;
+	char	*res;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			j++;
+		i++;
+	}
+	res = (char *) malloc (sizeof(char) * (ft_strlen(str) - j));
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			i++;
+		else
+			res[j++] = str[i++];
+	}
+	return (res);
+}
+
 char	**ft_command(char *str)
 {
-	char **values;
+	int		i;
+	int		j;
+	char	*tmp;
+	char	*leak_prevent;
+	char	**values;
 
 	values = ft_split(str, ' ');
+	i = 0;
+	while (values[i])
+	{
+		if (ft_quoted(values[i]))
+		{
+			tmp = values[i];
+			j = i;
+			while (values[++i] && ft_quoted(tmp))
+			{
+				leak_prevent = ft_strjoin(tmp, " ");
+				tmp = ft_strjoin(leak_prevent, values[i]);
+				free(leak_prevent);
+				free(values[i]);
+				values[i] = 0;
+			}
+			values[j] = tmp;
+			i = j;
+		}
+		values[i] = ft_replace(values[i], '\"');
+		values[i] = ft_replace(values[i], '\'');
+		i++;
+	}
 	return (values);
 }
 
@@ -160,7 +213,7 @@ void	ft_params(t_data *data, char *str)
 	while (values[i])
 	{
 		if (ft_quoted(values[i]))
-		{	
+		{
 			tmp = values[i];
 			while (values[++i] && ft_quoted(tmp))
 			{
@@ -561,7 +614,7 @@ int	main(int argc, char **argv, char **env)
 			add_history(input);
 			ft_input_checks(&data, input);
 			ft_pipes(&data, input);
-			ft_params(&data, data.command->content);
+			ft_params(&data, data.command->content);			
 			ft_redirections(&data);
 			//ft_echo(&data);
 			//ft_cd(&data);
