@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/12 20:35:00 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/14 20:31:38 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ char	*ft_cmd(t_data *data, char *cmd)
 void    ft_execute_child(t_data *data, t_list *head, int prev_pipe) 
 {
             // Hijo
+            if (ft_redirections_pars(data) == 1)
+                ft_redirections(data);
             if (prev_pipe != -1) 
             {
                 dup2(prev_pipe, STDIN_FILENO);
@@ -127,9 +129,11 @@ void    ft_execute_child(t_data *data, t_list *head, int prev_pipe)
             {
                 dup2(data->cmd->pipefd[1], STDOUT_FILENO);
             }
+            //ft_redirections(data);
 
             close(data->cmd->pipefd[0]);
             close(data->cmd->pipefd[1]);
+
 
             execve(data->cmd->path, data->cmd->cmd_splited, data->cmd->env_copy);
             perror("Exec error");
@@ -233,7 +237,7 @@ void	ft_output(t_data *data)
 		}
 		dup2(fileno(fd), STDOUT_FILENO);
 		ft_free_split(command);
-		command = ft_command(data->command->content);
+		command = ft_command(data->command->content, data);
 		command[0] = ft_cmd(data, command[0]);
 		if (execve(command[0], command, data->env) == -1)
 		{
@@ -253,17 +257,22 @@ void	ft_get_file(t_data *data)
 	(void) data;
 }
 
-void	ft_heredoc(t_data *data, char *end)
+void	ft_heredoc(t_data *data)
 {
 	int		fd;
 	char	*input;
+    char	*cmd;
+	char	*end;
+
+	cmd = data->command->content;
+	end = ft_substr(cmd, 2, ft_strlen(cmd) - 2);
 
 	fd = open(".heredocfile.tmp", O_CREAT|O_WRONLY,0644);
 	while (1)
 	{
-		if (data->npipes > 0)
-			input = readline("\033[33;1mpipe heredoc> \033[0m");
-		else
+		// if (data->npipes > 0)
+		// 	input = readline("\033[33;1mpipe heredoc> \033[0m");
+		// else
 			input = readline("\033[33;1mheredoc> \033[0m");
 		if (input && (ft_strncmp(input, end, ft_strlen(end)) == 0))
 		{
@@ -273,29 +282,131 @@ void	ft_heredoc(t_data *data, char *end)
 		if (input && *input)
 		{
 			write(fd, input, ft_strlen(input));
-			write(fd, " ", 1);
+			write(fd, "\n", 1);
 		}
 		free(input);
 	}
+    close(fd);
+    
+    // fd = open(".heredocfile.tmp", O_RDONLY);
+    // if (fd == -1)
+    // {
+    //     perror("Error opening file");
+    //     free(end);
+    //     free(input);
+    //     exit(EXIT_FAILURE);
+    // }
+    dup2(fd, STDIN_FILENO);
 	close(fd);
+    free(end);
+}
+
+
+
+int	ft_redirections_pars(t_data *data)
+{
+	// char	*cmd;
+	// char	*end;
+
+	// cmd = data->command->content;
+	// end = ft_substr(cmd, 2, ft_strlen(cmd) - 2);
+	if (data->nredirection == 1 && data->redirection == '<')
+		{
+            data->cmd->infiles = 1;
+            ft_printf("busca fichero\n");
+            return (1);
+        }
+	else if (data->nredirection == 2 && data->redirection == '<')
+		{
+            //ft_heredoc(data, end);
+            data->cmd->heredoc = 1;
+            printf("heredoc\n");
+            return (1);
+        }
+	else if (data->nredirection == 1 && data->redirection == '>')
+		{
+            //ft_output(data);
+            //data->cmd->outfiles = 1;
+            printf("output\n");
+            return (1);
+        }
+    else if (data->nredirection == 2 && data->redirection == '>')
+    {
+        data->cmd->append = 1;
+        printf("append\n");
+        return (1);
+    }
+	// else
+	// 	ft_execute(data);
+	// free (end);
+    return(0);
+}
+
+void    ft_dup_infile(t_data *data)
+{
+    int fd;
+    
+    if (data->cmd->infiles == 1)
+    {
+        fd = open(data->file, O_RDONLY);
+        if (fd == -1)
+        {
+            perror("Error opening file");
+            exit(EXIT_FAILURE);
+        }
+        dup2(fd, STDIN_FILENO);
+        close(fd);
+    }
+    else if (data->cmd->heredoc == 1)
+    {
+        ft_heredoc(data);
+        // fd = open(".heredocfile.tmp", O_RDONLY);
+        // if (fd[0] == -1)
+        // {
+        //     perror("Error opening file");
+        //     exit(EXIT_FAILURE);
+        // }
+        // dup2(fd, STDIN_FILENO);
+        // close(fd[0]);
+    }
+}
+
+void    ft_dup_outfile(t_data *data)
+{
+    int fd[2];
+    
+    if (data->cmd->outfiles == 1)
+    {
+        fd[1] = open(data->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+        if (fd[1] == -1)
+        {
+            perror("Error opening file");
+            exit(EXIT_FAILURE);
+        }
+        dup2(fd[1], STDOUT_FILENO);
+        close(fd[1]);
+    }
+    else if (data->cmd->append == 1)
+    {
+        fd[1] = open(data->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+        if (fd[1] == -1)
+        {
+            perror("Error opening file");
+            exit(EXIT_FAILURE);
+        }
+        dup2(fd[1], STDOUT_FILENO);
+        close(fd[1]);
+    }
 }
 
 void	ft_redirections(t_data *data)
 {
-	char	*cmd;
-	char	*end;
-
-	cmd = data->command->content;
-	end = ft_substr(cmd, 2, ft_strlen(cmd) - 2);
-	if (data->nredirection == 1 && data->redirection == '<')
-		ft_printf("busca fichero\n");
-	else if (data->nredirection == 2 && data->redirection == '<')
-		ft_heredoc(data, end);
-	else if (data->nredirection > 0 && data->redirection == '>')
-		ft_output(data);
-	// else
-	// 	ft_execute(data);
-	free (end);
+	/*if (cmd->prev != NULL)
+		dup2(cmd->prev->fd[0], 0);
+	if (cmd->next != NULL)
+		dup2(cmd->fd[1], 1);*/
+	ft_dup_infile(data);
+	ft_dup_outfile(data);
 }
 
 
@@ -310,11 +421,14 @@ void ft_execute_pipes(t_data *data, t_list *head)
     prev_pipe = -1;
     while (head) 
     {
-        data->cmd->cmd_splited = ft_command(head->content);
-        data->cmd->path = ft_get_path(data->cmd->cmd_splited, data);
+        data->cmd->cmd_splited = ft_command(head->content, data);
+        if (ft_redirections_pars(data) == 1)
+            ft_redirections(data);
+            else
+            
+        {
+            data->cmd->path = ft_get_path(data->cmd->cmd_splited, data);
         //data->cmd->path = ft_cmd(data, data->cmd->cmd_splited[0]);
-        //printf("hello\n");
-            //ft_redirections(data);
         if (data->cmd->path == NULL) 
         {
             printf("Error: command not found\n");
@@ -332,14 +446,13 @@ void ft_execute_pipes(t_data *data, t_list *head)
             return;
         } 
         else if (pid == 0) 
-        {
             ft_execute_child(data, head, prev_pipe);
-        }
         else 
             ft_execute_parent(status, data, head, prev_pipe, pid);
     
     ft_free_matrix(data->cmd->cmd_splited);
     free(data->cmd->path);
+        }
 
     prev_pipe = data->cmd->pipefd[0];
     head = head->next;
@@ -351,30 +464,4 @@ void ft_execute(t_data *data)
     t_list *head = data->command;
     ft_execute_pipes(data, head);
 }
-
-// void	ft_execute(t_data *data)
-// {
-// 	pid_t	pid;
-// 	char	**command;
-
-// 	pid = fork();
-// 	if (pid == -1)
-// 	{
-// 		perror("fork");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	if (pid == 0)
-// 	{
-// 		command = ft_command(data->command->content);
-// 		command[0] = ft_cmd(data, command[0]);
-// 		if (execve(command[0], command, data->env) == -1)
-// 		{
-// 			perror("execve");
-// 			exit(EXIT_FAILURE);
-// 		}
-// 		ft_free_split(command);
-// 	}
-// 	else
-// 		waitpid(pid, NULL, 0);
-// }
 

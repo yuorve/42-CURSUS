@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/12 21:01:09 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/13 18:41:38 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int ft_pwd(void)
     free(pwd);
     return (0);
 }
+
 
 int ft_cd(t_data *data)
 {
@@ -69,6 +70,8 @@ int ft_cd(t_data *data)
     }
     return (0);
 }
+
+
 
 int ft_echo(t_data *data)
 {

@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:59:00 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/12 17:43:33 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/13 20:33:15 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,13 @@ void    ft_init_command(t_data *data)
     data->env_list = NULL;
 }
 
-// void    ft_init_cmd(t_data *data)
-// {
-//     //data->cmd->env_copy = NULL;
-//     //data->cmd->command = NULL;
-//     //data->cmd->args = NULL;
-//     //data->cmd->var_name = NULL;
-//     //data->cmd->var_value = NULL;
-//     //data->cmd->cmd_splited = NULL;
-//     //data->cmd->cmd_complete = NULL;
-//     //data->cmd->path = NULL;
-// }
+ void    ft_init_cmd(t_data *data)
+ {
+    data->cmd->outfiles = 0;
+	data->cmd->infiles  = 0;
+	data->cmd->append = 0;
+	data->cmd->heredoc = 0;
+}
 
 
 int ft_count_nodes(t_env_node *head) 
@@ -167,6 +163,7 @@ void    ft_init(t_data *data, char **env)
 {
     ft_init_command(data);
     data->cmd = (t_cmd *)malloc(sizeof(t_cmd));
+    ft_init_cmd(data);
     //ft_bzero(data->cmd, sizeof(t_cmd));
     //ft_init_cmd(data);
     ft_init_env(&data->env_list, env);
