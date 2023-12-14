@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/13 20:52:24 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/14 08:20:25 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,31 +108,39 @@ int	ft_quoted(char *str)
 	return ((numQuotes % 2) || (numSingleQuotes % 2));
 }
 
-char	*ft_replace(char *str, char c)
+char	*ft_replace(char *str)
 {
 	int		i;
 	int		j;
-	char	*res;
+	int		flag;
 
 	i = 0;
 	j = 0;
+	flag = 0;	
 	while (str[i])
-	{
-		if (str[i] == c)
-			j++;
+	{		
+		if ((str[i] != '\"' && str[i] != '\'')
+		 || (str[i] == '\'' && flag == 1)
+		 || (str[i] == '\"' && flag == 2))
+			str[j++] = str[i];
+		if (ft_checks(str[i], '\"') && flag != 2)
+		{
+			if (flag == 1)
+				flag = 0;
+			else
+				flag = 1;
+		}
+		else if (ft_checks(str[i], '\'') && flag != 1)
+		{
+			if (flag == 2)
+				flag = 0;
+			else
+				flag = 2;
+		}
 		i++;
 	}
-	res = (char *) malloc (sizeof(char) * (ft_strlen(str) - j));
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			i++;
-		else
-			res[j++] = str[i++];
-	}
-	return (res);
+	str[j] = '\0';
+	return (str);
 }
 
 char	**ft_command(char *str)
@@ -162,8 +170,7 @@ char	**ft_command(char *str)
 			values[j] = tmp;
 			i = j;
 		}
-		values[i] = ft_replace(values[i], '\"');
-		values[i] = ft_replace(values[i], '\'');
+		values[i] = ft_replace(values[i]);
 		i++;
 	}
 	return (values);
