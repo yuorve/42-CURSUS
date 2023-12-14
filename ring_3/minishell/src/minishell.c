@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/14 08:20:25 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/14 19:55:41 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,22 +90,77 @@ int	ft_findpos(char *str, char c)
 
 int	ft_quoted(char *str)
 {
-	int i;
-	int numQuotes;
-	int numSingleQuotes;
+	int	i;
+	int	numquotes;
+	int	numsinglequotes;
 
-	numQuotes = 0;
-	numSingleQuotes = 0;
+	numquotes = 0;
+	numsinglequotes = 0;
 	i = 0;
 	while (str[i])
 	{
-		if (ft_checks(str[i], '\"') && !(numSingleQuotes % 2))
-			numQuotes++;
-		else if (ft_checks(str[i], '\'') && !(numQuotes % 2))
-			numSingleQuotes++;
+		if (ft_checks(str[i], '\"') && !(numsinglequotes % 2))
+			numquotes++;
+		else if (ft_checks(str[i], '\'') && !(numquotes % 2))
+			numsinglequotes++;
 		i++;
 	}
-	return ((numQuotes % 2) || (numSingleQuotes % 2));
+	return ((numquotes % 2) || (numsinglequotes % 2));
+}
+
+char	*ft_strxstr(char *str, char *from, char *to)
+{
+	int		i;
+	int		j;
+	char	*start;
+	char	*end;
+	char	*res;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		while (str[i] && from[j] && str[i] == from[j])
+		{
+			i++;
+			j++;
+		}
+		if (from[j])
+			i++;
+		else
+			break ;
+	}
+	start = ft_substr(str, 0, (i - j));
+	res = ft_strjoin(start, to);
+	end = ft_substr(str, i, ft_strlen(str));
+	str = ft_strjoin(res, end);
+	free (start);
+	free (res);
+	free (end);
+	return (str);
+}
+
+char	*ft_variable(char *str)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+	char	*res;
+
+	res = 0;
+	if (ft_strchr(str, '$'))
+	{
+		j = 0;
+		while (str[j] && str[j] != '$')
+			j++;
+		tmp = ft_substr(str, j, ft_strlen(str) - j);
+		i = 1;
+		while (tmp[i] && ft_isalpha(tmp[i]))
+			i++;
+		res = ft_substr(str, j + 1, i);
+		free (tmp);
+	}
+	return (res);
 }
 
 char	*ft_replace(char *str)
@@ -116,12 +171,11 @@ char	*ft_replace(char *str)
 
 	i = 0;
 	j = 0;
-	flag = 0;	
+	flag = 0;
 	while (str[i])
-	{		
+	{
 		if ((str[i] != '\"' && str[i] != '\'')
-		 || (str[i] == '\'' && flag == 1)
-		 || (str[i] == '\"' && flag == 2))
+			|| (str[i] == '\'' && flag == 1) || (str[i] == '\"' && flag == 2))
 			str[j++] = str[i];
 		if (ft_checks(str[i], '\"') && flag != 2)
 		{
@@ -171,6 +225,15 @@ char	**ft_command(char *str)
 			i = j;
 		}
 		values[i] = ft_replace(values[i]);
+		leak_prevent = ft_variable(values[i]);
+		if (leak_prevent)
+		{
+			ft_printf("y: %s\n", leak_prevent);
+			tmp = ft_strxstr(values[i], leak_prevent, "yury");
+			free(values[i]);
+			free(leak_prevent);
+			values[i] = tmp;
+		}
 		i++;
 	}
 	return (values);
@@ -356,21 +419,22 @@ void	ft_input_checks(t_data *data, char *str)
 			data->npipes++;
 			start = i;
 		}
-		else if ((ft_checks(str[i], '>') || ft_checks(str[i], '<')) && flag == 0)
+		else if ((ft_checks(str[i], '>') || ft_checks(str[i], '<'))
+			&& flag == 0)
 		{
 			if (data->nredirection > 0 && data->redirection != str[i])
 				flag = 3;
 			data->redirection = str[i];
 			data->nredirection++;
 		}
-		else if (ft_checks(str[i], '$') && flag == 1)
+		else if (ft_checks(str[i], '$') && flag != 2)
 		{
 			start = i++;
 			if (ft_isalpha(str[i]))
 			{
 				while (ft_isalpha(str[i]))
 					i++;
-				ft_printf("Obtain value from: %s\n", ft_substr(str, start, i - start));
+				//ft_printf("Obtain value from: %s\n", ft_substr(str, start, i - start));
 				i--;
 			}
 			else
@@ -458,7 +522,7 @@ char	*ft_cmd(t_data *data, char *cmd)
 	char	**paths;
 
 	if (access(cmd, 0) == 0)
-			return (cmd);
+		return (cmd);
 	i = 0;
 	while (data->env[i] && ft_strncmp(data->env[i], "PATH=", 5) != 0)
 		i++;
@@ -621,7 +685,7 @@ int	main(int argc, char **argv, char **env)
 			add_history(input);
 			ft_input_checks(&data, input);
 			ft_pipes(&data, input);
-			ft_params(&data, data.command->content);			
+			ft_params(&data, data.command->content);
 			ft_redirections(&data);
 			//ft_echo(&data);
 			//ft_cd(&data);
