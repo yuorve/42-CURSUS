@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:23:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/14 19:50:40 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/18 21:29:39 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,12 @@ char 	*join_path(char *path, char *cmd);
 char 	*check_path(char **path, char *cmd);
 char 	*find_command_path(char **env_copy, char *cmd);
 char    *ft_get_path(char **cmd, t_data *data);
-char	*ft_cmd(t_data *data, char *cmd);
+//char	*ft_cmd(t_data *data, char *cmd);
 void    ft_execute_child(t_data *data, t_list *head, int prev_pipe);
 void    ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe, int pid);
 void 	ft_execute_pipes(t_data *data, t_list *head);
 void    ft_execute(t_data *data);
-int	ft_redirections_pars(t_data *data);
+//int	ft_redirections_pars(t_data *data);
 void	ft_redirections(t_data *data);
 void	ft_dup_infile(t_data *data);
 void	ft_dup_outfile(t_data *data);
