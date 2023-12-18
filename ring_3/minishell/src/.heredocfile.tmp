@@ -1,6 +1,8 @@
 fin
 exit
-wc -l < main.c 
+as
+asd
+ main.c 
 <<fin
 exit
 <<fin

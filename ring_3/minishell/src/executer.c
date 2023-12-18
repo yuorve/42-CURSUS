@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/18 20:51:03 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/18 21:07:48 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,6 +307,7 @@ int	ft_redirections_pars(t_data *data)
 
 	// cmd = data->command->content;
 	// end = ft_substr(cmd, 2, ft_strlen(cmd) - 2);
+    ft_printf("redirec:%c\n", data->redirection);
 	if (data->nredirection == 1 && data->redirection == '<')
 		{
             data->cmd->infiles = 1;            
@@ -341,21 +342,20 @@ int	ft_redirections_pars(t_data *data)
 
 void    ft_dup_infile(t_data *data)
 {
-    //int fd;
+    int fd;
     
-    // if (data->cmd->infiles == 2)
-    // {
-    //     fd = open(data->file, O_RDONLY);
-    //     if (fd == -1)
-    //     {
-    //         perror("Error opening file");
-    //         exit(EXIT_FAILURE);
-    //     }
-    //     dup2(fd, STDIN_FILENO);
-    //     close(fd);
-    // }
-    // else 
-    if (data->cmd->heredoc == 1)
+    if (data->cmd->infiles == 2)
+    {
+        fd = open(data->file, O_RDONLY);
+        if (fd == -1)
+        {
+            perror("Error opening file");
+            exit(EXIT_FAILURE);
+        }
+        dup2(fd, STDIN_FILENO);
+        close(fd);
+    }
+    else if (data->cmd->heredoc == 1)
     {
         ft_heredoc(data);
         // fd = open(".heredocfile.tmp", O_RDONLY);
