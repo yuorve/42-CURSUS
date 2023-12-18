@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/14 20:28:24 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/18 19:12:39 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,15 +262,18 @@ char    **ft_command(char *str, t_data *data)
             values[j] = tmp;
             i = j;
         }
-        values[i] = ft_replace(values[i]);
+        values[i] = ft_replace(values[i]);		
         leak_prevent = ft_variable(values[i]);
         if (leak_prevent)
         {
 			head = ft_find_node(data->env_list, leak_prevent);
-            tmp = ft_strxstr(values[i], leak_prevent, head->value);
-            free(values[i]);
+			if (head)
+			{
+            	tmp = ft_strxstr(values[i], leak_prevent, head->value);
+            	free(values[i]);
+            	values[i] = tmp;
+			}
             free(leak_prevent);
-            values[i] = tmp;
         }
         i++;
     }
@@ -353,10 +356,13 @@ void	ft_params(t_data *data, char *str)
 		if (leak_prevent)
 		{
 			head = ft_find_node(data->env_list, leak_prevent);
-			tmp = ft_strxstr(values[i], leak_prevent, head->value);
-			free(values[i]);
+			if (head)
+			{
+				tmp = ft_strxstr(values[i], leak_prevent, head->value);
+				free(values[i]);
+				values[i] = tmp;
+			}
 			free(leak_prevent);
-			values[i] = tmp;
 		}
 		data->parameter = ft_add_to_list(data->parameter, values[i]);
 		i++;

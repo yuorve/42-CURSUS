@@ -1,0 +1,7 @@
+fin
+exit
+wc -l < main.c 
+<<fin
+exit
+<<fin
+fin

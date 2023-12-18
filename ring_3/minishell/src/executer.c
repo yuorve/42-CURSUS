@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/14 20:31:38 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/18 20:51:03 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,17 +124,14 @@ void    ft_execute_child(t_data *data, t_list *head, int prev_pipe)
                 dup2(prev_pipe, STDIN_FILENO);
                 close(prev_pipe);
             }
-
             if (head->next != NULL) 
             {
                 dup2(data->cmd->pipefd[1], STDOUT_FILENO);
             }
-            //ft_redirections(data);
-
             close(data->cmd->pipefd[0]);
             close(data->cmd->pipefd[1]);
 
-
+            ft_printf("comando: %s\n", data->cmd->path);
             execve(data->cmd->path, data->cmd->cmd_splited, data->cmd->env_copy);
             perror("Exec error");
             exit(EXIT_FAILURE);
@@ -312,8 +309,8 @@ int	ft_redirections_pars(t_data *data)
 	// end = ft_substr(cmd, 2, ft_strlen(cmd) - 2);
 	if (data->nredirection == 1 && data->redirection == '<')
 		{
-            data->cmd->infiles = 1;
-            ft_printf("busca fichero\n");
+            data->cmd->infiles = 1;            
+            data->file = ft_substr(data->command->content, ft_findpos(data->command->content, '<') + 2, ft_strlen(data->command->content));            
             return (1);
         }
 	else if (data->nredirection == 2 && data->redirection == '<')
@@ -344,20 +341,21 @@ int	ft_redirections_pars(t_data *data)
 
 void    ft_dup_infile(t_data *data)
 {
-    int fd;
+    //int fd;
     
-    if (data->cmd->infiles == 1)
-    {
-        fd = open(data->file, O_RDONLY);
-        if (fd == -1)
-        {
-            perror("Error opening file");
-            exit(EXIT_FAILURE);
-        }
-        dup2(fd, STDIN_FILENO);
-        close(fd);
-    }
-    else if (data->cmd->heredoc == 1)
+    // if (data->cmd->infiles == 2)
+    // {
+    //     fd = open(data->file, O_RDONLY);
+    //     if (fd == -1)
+    //     {
+    //         perror("Error opening file");
+    //         exit(EXIT_FAILURE);
+    //     }
+    //     dup2(fd, STDIN_FILENO);
+    //     close(fd);
+    // }
+    // else 
+    if (data->cmd->heredoc == 1)
     {
         ft_heredoc(data);
         // fd = open(".heredocfile.tmp", O_RDONLY);
@@ -422,40 +420,38 @@ void ft_execute_pipes(t_data *data, t_list *head)
     while (head) 
     {
         data->cmd->cmd_splited = ft_command(head->content, data);
-        if (ft_redirections_pars(data) == 1)
-            ft_redirections(data);
-            else
-            
-        {
+        // if (ft_redirections_pars(data) == 1)
+        //     ft_redirections(data);
+        // else    
+        //{
+			if (data->cmd->path)
+				free(data->cmd->path);
             data->cmd->path = ft_get_path(data->cmd->cmd_splited, data);
-        //data->cmd->path = ft_cmd(data, data->cmd->cmd_splited[0]);
-        if (data->cmd->path == NULL) 
-        {
-            printf("Error: command not found\n");
-            return;
-        }
-        if (pipe(data->cmd->pipefd) == -1) 
-        {
-            perror("Pipe creation failed");
-            return;
-        }
-        pid = fork();
-        if (pid == -1) 
-        {
-            perror("Fork error");
-            return;
-        } 
-        else if (pid == 0) 
-            ft_execute_child(data, head, prev_pipe);
-        else 
-            ft_execute_parent(status, data, head, prev_pipe, pid);
-    
-    ft_free_matrix(data->cmd->cmd_splited);
-    free(data->cmd->path);
-        }
-
-    prev_pipe = data->cmd->pipefd[0];
-    head = head->next;
+            //data->cmd->path = ft_cmd(data, data->cmd->cmd_splited[0]);
+            // if (data->cmd->path == NULL) 
+            // {
+            //     printf("Error: command not found\n");
+            //     return;
+            // }
+            if (pipe(data->cmd->pipefd) == -1) 
+            {
+                perror("Pipe creation failed");
+                return;
+            }
+            pid = fork();
+            if (pid == -1) 
+            {
+                perror("Fork error");
+                return;
+            } 
+            else if (pid == 0) 
+                ft_execute_child(data, head, prev_pipe);
+            else 
+                ft_execute_parent(status, data, head, prev_pipe, pid);
+        //}
+        ft_free_matrix(data->cmd->cmd_splited);
+        prev_pipe = data->cmd->pipefd[0];
+        head = head->next;
     }
 }
 
