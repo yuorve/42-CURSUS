@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/18 21:07:48 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/19 20:32:40 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char *find_command_path(char **env_copy, char *cmd)
 char *ft_get_path(char **cmd, t_data *data) 
 {
     if (access(*cmd, 0) == 0)
-			return (*cmd);
+		return (*cmd);
     else 
         return (find_command_path(data->cmd->env_copy, cmd[0]));
 }
@@ -96,9 +96,9 @@ char	*ft_cmd(t_data *data, char *cmd)
 	if (access(cmd, 0) == 0)
 			return (cmd);
 	i = 0;
-	while (data->env[i] && ft_strncmp(data->env[i], "PATH=", 5) != 0)
+	while (data->cmd->env_copy[i] && ft_strncmp(data->cmd->env_copy[i], "PATH=", 5) != 0)
 		i++;
-	paths = ft_split(ft_substr(data->env[i], 5, ft_strlen(data->env[i])), ':');
+	paths = ft_split(ft_substr(data->cmd->env_copy[i], 5, ft_strlen(data->cmd->env_copy[i])), ':');
 	i = 0;
 	cmd = ft_strjoin("/", cmd);
 	while (paths[i])
@@ -113,28 +113,28 @@ char	*ft_cmd(t_data *data, char *cmd)
 	exit(EXIT_FAILURE);
 }
 
-
 void    ft_execute_child(t_data *data, t_list *head, int prev_pipe) 
 {
             // Hijo
             if (ft_redirections_pars(data) == 1)
-                ft_redirections(data);
+                ft_redirections(data);           
             if (prev_pipe != -1) 
             {
                 dup2(prev_pipe, STDIN_FILENO);
                 close(prev_pipe);
             }
-            if (head->next != NULL) 
+            if (data->cmd->path)
             {
-                dup2(data->cmd->pipefd[1], STDOUT_FILENO);
+                if (head->next != NULL) 
+                {
+                    dup2(data->cmd->pipefd[1], STDOUT_FILENO);
+                }
+                close(data->cmd->pipefd[0]);
+                close(data->cmd->pipefd[1]);
+                execve(data->cmd->path, data->cmd->cmd_splited, data->cmd->env_copy);
+                perror("Exec error");
+                exit(EXIT_FAILURE);
             }
-            close(data->cmd->pipefd[0]);
-            close(data->cmd->pipefd[1]);
-
-            ft_printf("comando: %s\n", data->cmd->path);
-            execve(data->cmd->path, data->cmd->cmd_splited, data->cmd->env_copy);
-            perror("Exec error");
-            exit(EXIT_FAILURE);
 }
 
 void    ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe, int pid) 
@@ -259,11 +259,8 @@ void	ft_heredoc(t_data *data)
 	int		fd;
 	char	*input;
     char	*cmd;
-	char	*end;
 
 	cmd = data->command->content;
-	end = ft_substr(cmd, 2, ft_strlen(cmd) - 2);
-
 	fd = open(".heredocfile.tmp", O_CREAT|O_WRONLY,0644);
 	while (1)
 	{
@@ -271,7 +268,7 @@ void	ft_heredoc(t_data *data)
 		// 	input = readline("\033[33;1mpipe heredoc> \033[0m");
 		// else
 			input = readline("\033[33;1mheredoc> \033[0m");
-		if (input && (ft_strncmp(input, end, ft_strlen(end)) == 0))
+		if (input && (ft_strncmp(input, cmd, ft_strlen(cmd)) == 0))
 		{
 			free(input);
 			break ;
@@ -293,9 +290,8 @@ void	ft_heredoc(t_data *data)
     //     free(input);
     //     exit(EXIT_FAILURE);
     // }
-    dup2(fd, STDIN_FILENO);
-	close(fd);
-    free(end);
+    //dup2(fd, STDIN_FILENO);
+	//close(fd);
 }
 
 
@@ -307,33 +303,28 @@ int	ft_redirections_pars(t_data *data)
 
 	// cmd = data->command->content;
 	// end = ft_substr(cmd, 2, ft_strlen(cmd) - 2);
-    ft_printf("redirec:%c\n", data->redirection);
 	if (data->nredirection == 1 && data->redirection == '<')
 		{
-            data->cmd->infiles = 1;            
-            data->file = ft_substr(data->command->content, ft_findpos(data->command->content, '<') + 2, ft_strlen(data->command->content));            
+            data->cmd->infiles = 1;
             return (1);
         }
 	else if (data->nredirection == 2 && data->redirection == '<')
 		{
-            //ft_heredoc(data, end);
+            //ft_heredoc(data, end ;
             data->cmd->heredoc = 1;
-            printf("heredoc\n");
             return (1);
         }
 	else if (data->nredirection == 1 && data->redirection == '>')
 		{
             //ft_output(data);
-            //data->cmd->outfiles = 1;
-            printf("output\n");
+            data->cmd->outfiles = 1;
             return (1);
         }
     else if (data->nredirection == 2 && data->redirection == '>')
-    {
-        data->cmd->append = 1;
-        printf("append\n");
-        return (1);
-    }
+        {
+            data->cmd->append = 1;
+            return (1);
+        }
 	// else
 	// 	ft_execute(data);
 	// free (end);
@@ -344,7 +335,7 @@ void    ft_dup_infile(t_data *data)
 {
     int fd;
     
-    if (data->cmd->infiles == 2)
+    if (data->cmd->infiles == 1)
     {
         fd = open(data->file, O_RDONLY);
         if (fd == -1)
@@ -411,6 +402,7 @@ void	ft_redirections(t_data *data)
 
 void ft_execute_pipes(t_data *data, t_list *head) 
 {
+    char    **command;
     int status = 0;
     //int pipefd[2];
     int prev_pipe;
@@ -419,14 +411,18 @@ void ft_execute_pipes(t_data *data, t_list *head)
     prev_pipe = -1;
     while (head) 
     {
+        command = ft_split(head->content, data->redirection);
+        free (head->content);
+        head->content = ft_strtrim(command[0], " ");
+        data->file = ft_strtrim(command[1], " ");
+        ft_free_split(command);
         data->cmd->cmd_splited = ft_command(head->content, data);
         // if (ft_redirections_pars(data) == 1)
         //     ft_redirections(data);
         // else    
         //{
-			if (data->cmd->path)
-				free(data->cmd->path);
             data->cmd->path = ft_get_path(data->cmd->cmd_splited, data);
+            //data->env = data->cmd->env_copy;
             //data->cmd->path = ft_cmd(data, data->cmd->cmd_splited[0]);
             // if (data->cmd->path == NULL) 
             // {
@@ -449,10 +445,13 @@ void ft_execute_pipes(t_data *data, t_list *head)
             else 
                 ft_execute_parent(status, data, head, prev_pipe, pid);
         //}
+        if (access(data->cmd->cmd_splited[0], 0) != 0)
+            free(data->cmd->path);
         ft_free_matrix(data->cmd->cmd_splited);
+        free (data->file);
         prev_pipe = data->cmd->pipefd[0];
         head = head->next;
-    }
+    }   
 }
 
 void ft_execute(t_data *data) 

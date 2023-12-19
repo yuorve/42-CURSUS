@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/18 21:05:20 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:56:00 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -544,7 +544,7 @@ void	ft_minishell(t_data *data)
 			ft_input_checks(data, data->input);
 			ft_pipes(data, data->input);
 			ft_params(data, data->command->content);
-			ft_redirections_pars(data);
+			//ft_redirections_pars(data);
 			//debug(data);
 			
 			// if (data->input[ft_strlen(data->input) - 1] == '\n')
