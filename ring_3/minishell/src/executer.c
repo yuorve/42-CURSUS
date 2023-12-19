@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/19 20:32:40 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/19 21:25:07 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,13 +118,13 @@ void    ft_execute_child(t_data *data, t_list *head, int prev_pipe)
             // Hijo
             if (ft_redirections_pars(data) == 1)
                 ft_redirections(data);           
-            if (prev_pipe != -1) 
-            {
-                dup2(prev_pipe, STDIN_FILENO);
-                close(prev_pipe);
-            }
             if (data->cmd->path)
             {
+                if (prev_pipe != -1) 
+                {
+                    dup2(prev_pipe, STDIN_FILENO);
+                    close(prev_pipe);
+                }
                 if (head->next != NULL) 
                 {
                     dup2(data->cmd->pipefd[1], STDOUT_FILENO);
@@ -261,7 +261,7 @@ void	ft_heredoc(t_data *data)
     char	*cmd;
 
 	cmd = data->command->content;
-	fd = open(".heredocfile.tmp", O_CREAT|O_WRONLY,0644);
+	fd = open(".heredocfile.tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	while (1)
 	{
 		// if (data->npipes > 0)
@@ -281,17 +281,6 @@ void	ft_heredoc(t_data *data)
 		free(input);
 	}
     close(fd);
-    
-    // fd = open(".heredocfile.tmp", O_RDONLY);
-    // if (fd == -1)
-    // {
-    //     perror("Error opening file");
-    //     free(end);
-    //     free(input);
-    //     exit(EXIT_FAILURE);
-    // }
-    //dup2(fd, STDIN_FILENO);
-	//close(fd);
 }
 
 
