@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/19 21:52:35 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/20 22:28:39 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,25 @@ void    ft_execute_child(t_data *data, t_list *head, int prev_pipe)
             close(data->cmd->pipefd[0]);
             close(data->cmd->pipefd[1]);
 
-            execve(data->cmd->path, data->cmd->cmd_splited, data->cmd->env_copy);
-            perror("Exec error");
-            exit(EXIT_FAILURE);
+int i;
+i=0;
+while (data->cmd->cmd_splited[i])
+{
+    printf("cmd_splited:%s\n", data->cmd->cmd_splited[i]);
+    i++;
+}
+if (data->cmd->path != NULL)
+
+            {
+                execve(data->cmd->path, data->cmd->cmd_splited, data->cmd->env_copy);
+            }
+            else
+            {
+                printf("Error: command not found\n");
+                exit(EXIT_FAILURE);
+            }
+            // perror("Exec error");
+            // exit(EXIT_FAILURE);
 }
 
 void    ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe, int pid) 
@@ -148,6 +164,12 @@ void    ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe,
     {
         close(data->cmd->pipefd[1]);
     }
+    
+    if (head->next == NULL) 
+    {
+        close(data->cmd->pipefd[0]);
+    }
+
 
     waitpid(pid, &status, 0);
     // if (WIFEXITED(status)) 
@@ -210,9 +232,11 @@ void	ft_heredoc(t_data *data)
 {
 	int		fd_infile;
 	char	*input;
-    //char	*cmd;
+    char	*cmd;
+    
 
-	//cmd = data->command->content;
+	cmd = data->command->content;
+    input = NULL;
 
 	//fd_infile = open(".heredocfile.tmp", O_CREAT|O_WRONLY,0644);
     fd_infile = open("./.heredocfile.tmp", O_TRUNC | O_CREAT | O_RDWR, 0664);
@@ -222,7 +246,7 @@ void	ft_heredoc(t_data *data)
 		// 	input = readline("\033[33;1mpipe heredoc> \033[0m");
 		// else
 		input = readline("\033[33;1mheredoc> \033[0m");
-		if (input && (ft_strncmp(input, data->command->content, ft_strlen(data->command->content)) == 0))
+		if (input && (ft_strncmp(input, cmd, ft_strlen(cmd)) == 0))
 		{
 			free(input);
 			break ;
@@ -234,6 +258,7 @@ void	ft_heredoc(t_data *data)
 		}
 		free(input);
         //free(cmd);
+   
 	}
     close(fd_infile);
     
@@ -241,13 +266,14 @@ void	ft_heredoc(t_data *data)
     // if (fd_infile == -1)
     // {
     //     perror("Error opening file");
-    //     free(cmd);
+    //     //free(cmd);
     //     free(input);
     //     //exit(EXIT_FAILURE);
     // }
-    //dup2(fd_infile, STDIN_FILENO);
-	//close(fd_infile);
-    // free(cmd);
+    // dup2(fd_infile, STDIN_FILENO);
+	// close(fd_infile);
+    free(cmd);
+    exit(EXIT_SUCCESS);
 }
 
 void    ft_dup_infile(t_data *data)
@@ -320,6 +346,7 @@ void	ft_redirections(t_data *data)
 		dup2(cmd->prev->fd[0], 0);
 	if (cmd->next != NULL)
 		dup2(cmd->fd[1], 1);*/
+
 	ft_dup_infile(data);
 	ft_dup_outfile(data);
 }
@@ -340,9 +367,10 @@ void ft_execute_pipes(t_data *data, t_list *head)
         command = ft_split(head->content, data->redirection);
         free(head->content);
         head->content = ft_strtrim(command[0], " ");
+        printf("content:%s\n", head->content);
         data->file = ft_strtrim(command[1], " ");
             printf("file:%s\n", data->file);
-        ft_free_split(command);
+        ft_free_matrix(command);
         data->cmd->cmd_splited = ft_command(head->content, data);
         //  ft_redirections(data);
         data->cmd->path = ft_get_path(data->cmd->cmd_splited, data);
@@ -369,6 +397,7 @@ void ft_execute_pipes(t_data *data, t_list *head)
             ft_execute_parent(status, data, head, prev_pipe, pid);
         if ((access(*data->cmd->cmd_splited, 0) != 0))
             free(data->cmd->path);
+        data->redirection = 0;
         ft_free_matrix(data->cmd->cmd_splited);
         free(data->file);
         prev_pipe = data->cmd->pipefd[0];

@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/13 18:41:38 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/20 21:38:41 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ int ft_env(t_data *data)
     while(head)
     {
         //if(head->name != NULL && head->value != NULL && strlen(head->value) > 0)
-        if (head->name != NULL && head->value != NULL && strlen(head->value) > 0 && head->equal == 1) 
+        if (head->name != NULL && head->value != NULL && ft_strlen(head->value) > 0 && head->equal == 1) 
         {
             printf("%s=%s\n", head->name, head->value);
         }
