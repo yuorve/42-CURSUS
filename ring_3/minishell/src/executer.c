@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/19 21:25:07 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/20 21:00:15 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void    ft_execute_child(t_data *data, t_list *head, int prev_pipe)
 {
             // Hijo
             if (ft_redirections_pars(data) == 1)
-                ft_redirections(data);           
+                ft_redirections(data);
             if (data->cmd->path)
             {
                 if (prev_pipe != -1) 
@@ -258,9 +258,9 @@ void	ft_heredoc(t_data *data)
 {
 	int		fd;
 	char	*input;
-    char	*cmd;
+    //char	*cmd;
 
-	cmd = data->command->content;
+	//cmd = data->command->content;
 	fd = open(".heredocfile.tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	while (1)
 	{
@@ -268,7 +268,7 @@ void	ft_heredoc(t_data *data)
 		// 	input = readline("\033[33;1mpipe heredoc> \033[0m");
 		// else
 			input = readline("\033[33;1mheredoc> \033[0m");
-		if (input && (ft_strncmp(input, cmd, ft_strlen(cmd)) == 0))
+		if (input && (ft_strncmp(input, data->command->content, ft_strlen(data->command->content)) == 0))
 		{
 			free(input);
 			break ;
@@ -281,9 +281,8 @@ void	ft_heredoc(t_data *data)
 		free(input);
 	}
     close(fd);
+    //free(cmd);
 }
-
-
 
 int	ft_redirections_pars(t_data *data)
 {
@@ -338,6 +337,7 @@ void    ft_dup_infile(t_data *data)
     else if (data->cmd->heredoc == 1)
     {
         ft_heredoc(data);
+        exit(0);
         // fd = open(".heredocfile.tmp", O_RDONLY);
         // if (fd[0] == -1)
         // {
@@ -418,22 +418,29 @@ void ft_execute_pipes(t_data *data, t_list *head)
             //     printf("Error: command not found\n");
             //     return;
             // }
-            if (pipe(data->cmd->pipefd) == -1) 
-            {
-                perror("Pipe creation failed");
-                return;
-            }
-            pid = fork();
-            if (pid == -1) 
-            {
-                perror("Fork error");
-                return;
-            } 
-            else if (pid == 0) 
-                ft_execute_child(data, head, prev_pipe);
-            else 
-                ft_execute_parent(status, data, head, prev_pipe, pid);
+            //if (ft_redirections_pars(data) == 1)
+            //    ft_redirections(data);
+            //if (data->cmd->heredoc == 1)
+            //{
+                if (pipe(data->cmd->pipefd) == -1) 
+                {
+                    perror("Pipe creation failed");
+                    return;
+                }                    
+                pid = fork();
+                if (pid == -1) 
+                {
+                    perror("Fork error");
+                    return;
+                } 
+                else if (pid == 0) 
+                    ft_execute_child(data, head, prev_pipe);
+                else 
+                    ft_execute_parent(status, data, head, prev_pipe, pid);                
+            //}
         //}
+        data->cmd->heredoc = 0;        
+	    data->nredirection = 0;
         if (access(data->cmd->cmd_splited[0], 0) != 0)
             free(data->cmd->path);
         ft_free_matrix(data->cmd->cmd_splited);
