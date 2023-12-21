@@ -83,9 +83,18 @@ int ft_echo(t_data *data)
     if(ft_lstsize(data->parameter) > 0)
     {
         current = data->parameter;
-        if (ft_strncmp(current->content, "-n", 2) == 0)
+        if (ft_strncmp(current->content, "$?", 2) == 0 && current->next == NULL) //to get exit status and print it
+        {
+            //printf("The recent exit status:  %d", vars->error); // have to add as a global varient
+            //ft_putnbr_fd(data->num_exit, 1);
+            printf("%d\n", data->num_exit);
+            data->num_exit = 0; 
+        }
+        else if (ft_strncmp(current->content, "$?", 2) != 0)
+        {
+            if (ft_strncmp(current->content, "-n", 2) == 0)
             current = current->next;
-        while (current)
+            while (current)
         {
             str = current->content;
             leak_prevent = ft_strtrim(str, "\"");
@@ -97,12 +106,16 @@ int ft_echo(t_data *data)
             if (current)
                 ft_printf(" ");
         }
+        
+        
         if (ft_strncmp(data->parameter->content, "-n", 2) != 0)
             ft_printf("\n");
-            ft_lstclear(&current, ft_free);
+        //ft_lstclear(&current, ft_free);
+    }
     }
     else
         ft_printf("\n");
+    
     return (0);
 }
 
@@ -367,7 +380,7 @@ int ft_export(t_data *data)
     } 
     else if (data->cmd->command[6] != ' ') 
     {
-        printf("minishell: %s: command not found\n", data->cmd->command);
+        printf("minishell: command not found\n");
         return (1);
     } 
     else 

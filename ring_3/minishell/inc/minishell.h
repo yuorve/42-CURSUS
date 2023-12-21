@@ -60,6 +60,7 @@ typedef struct s_data
 	int		nredirection;
 	int		npipes;
 	int		num_command;
+	int		num_exit;
 	t_list	*command;
 	t_list	*parameter;
 	t_cmd	*cmd;

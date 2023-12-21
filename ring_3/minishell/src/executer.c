@@ -146,7 +146,8 @@ if (data->cmd->path != NULL)
             else
             {
                 printf("Error: command not found\n");
-                exit(EXIT_FAILURE);
+                data->num_exit = 127;
+                exit(127);
             }
             // perror("Exec error");
             // exit(EXIT_FAILURE);
@@ -170,8 +171,15 @@ void    ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe,
         close(data->cmd->pipefd[0]);
     }
 
-
+if (head->next == NULL)  
+{
     waitpid(pid, &status, 0);
+    if (WEXITSTATUS(status))
+    {
+        data->num_exit = WEXITSTATUS(status);
+    }
+    //head = head->next;
+}
     // if (WIFEXITED(status)) 
     // {
     //     if (WEXITSTATUS(status) == 0) 
@@ -367,7 +375,7 @@ void ft_execute_pipes(t_data *data, t_list *head)
         command = ft_split(head->content, data->redirection);
         free(head->content);
         head->content = ft_strtrim(command[0], " ");
-        printf("content:%s\n", head->content);
+        //printf("content:%s\n", head->content);
         data->file = ft_strtrim(command[1], " ");
             printf("file:%s\n", data->file);
         ft_free_matrix(command);
