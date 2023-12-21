@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/20 22:28:39 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/21 21:12:54 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,54 +227,94 @@ void    ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe,
 // }
 
 
-
-void	ft_heredoc(t_data *data)
+void    ft_heredoc(t_data *data)
 {
-	int		fd_infile;
-	char	*input;
+    char *line;
     char	*cmd;
+    int fd_infile;
+
+    cmd = data->command->content;
     
-
-	cmd = data->command->content;
-    input = NULL;
-
-	//fd_infile = open(".heredocfile.tmp", O_CREAT|O_WRONLY,0644);
-    fd_infile = open("./.heredocfile.tmp", O_TRUNC | O_CREAT | O_RDWR, 0664);
-	while (1)
-	{
-		// if (data->npipes > 0)
-		// 	input = readline("\033[33;1mpipe heredoc> \033[0m");
-		// else
-		input = readline("\033[33;1mheredoc> \033[0m");
-		if (input && (ft_strncmp(input, cmd, ft_strlen(cmd)) == 0))
-		{
-			free(input);
-			break ;
-		}
-		if (input && *input)
-		{
-			write(fd_infile, input, ft_strlen(input));
-			write(fd_infile, "\n", 1);
-		}
-		free(input);
-        //free(cmd);
-   
-	}
+    fd_infile = open(".heredoc.txt", O_CREAT | O_RDWR | O_TRUNC, 0664);
+    if (fd_infile == -1)
+    {
+        perror("fd_infile:");
+        //perror("Error opening file");
+        //exit(EXIT_FAILURE);
+    }
+    while (1)
+    {
+        line = readline("> ");
+        if (ft_strncmp(line, cmd, ft_strlen(cmd)) == 0)
+        {
+            free(line);
+            break;
+        }
+        ft_putstr_fd(line, fd_infile);
+        ft_putstr_fd("\n", fd_infile);
+        free(line);
+    }
     close(fd_infile);
-    
-    // fd_infile = open(".heredocfile.tmp", O_RDONLY);
-    // if (fd_infile == -1)
-    // {
-    //     perror("Error opening file");
-    //     //free(cmd);
-    //     free(input);
-    //     //exit(EXIT_FAILURE);
-    // }
-    // dup2(fd_infile, STDIN_FILENO);
-	// close(fd_infile);
     free(cmd);
-    exit(EXIT_SUCCESS);
+    fd_infile = open(".heredoc.txt", O_RDONLY);
+    if (fd_infile == -1)
+    {
+        //perror("fd:");
+        perror("Error opening file");
+        exit(EXIT_FAILURE);
+    }
+    dup2(fd_infile, STDIN_FILENO);
+    close(fd_infile);
 }
+
+
+// void	ft_heredoc(t_data *data)
+// {
+// 	int		fd_infile;
+// 	char	*input;
+//     char	*cmd;
+    
+
+// 	cmd = data->command->content;
+//     input = NULL;
+
+// 	//fd_infile = open(".heredocfile.tmp", O_CREAT|O_WRONLY,0644);
+//     fd_infile = open("./.heredocfile.tmp", O_TRUNC | O_CREAT | O_RDWR, 0664);
+// 	while (1)
+// 	{
+// 		// if (data->npipes > 0)
+// 		// 	input = readline("\033[33;1mpipe heredoc> \033[0m");
+// 		// else
+// 		input = readline("\033[33;1mheredoc> \033[0m");
+// 		if (input && (ft_strncmp(input, cmd, ft_strlen(cmd)) == 0))
+// 		{
+// 			free(input);
+// 			break ;
+// 		}
+// 		if (input && *input)
+// 		{
+// 			write(fd_infile, input, ft_strlen(input));
+// 			write(fd_infile, "\n", 1);
+// 		}
+// 		free(input);
+//         //free(cmd);
+   
+// 	}
+//     close(fd_infile);
+    
+//     // fd_infile = open(".heredocfile.tmp", O_RDONLY);
+//     // if (fd_infile == -1)
+//     // {
+//     //     perror("Error opening file");
+//     //     //free(cmd);
+//     //     free(input);
+//     //     //exit(EXIT_FAILURE);
+//     // }
+//     // dup2(fd_infile, STDIN_FILENO);
+// 	// close(fd_infile);
+//     free(cmd);
+//     exit(EXIT_SUCCESS);
+// }
 
 void    ft_dup_infile(t_data *data)
 {
@@ -295,6 +335,7 @@ void    ft_dup_infile(t_data *data)
     else if (data->nredirection == 2 && data->redirection == '<')
     {
         ft_heredoc(data);
+        exit(EXIT_SUCCESS);
         // fd = open(".heredocfile.tmp", O_RDONLY);
         // if (fd[0] == -1)
         // {
