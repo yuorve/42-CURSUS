@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/20 21:38:41 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/22 21:17:21 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ int ft_cd(t_data *data)
         free(str);
         response = chdir(dir);
         if (response != 0)
-            perror("error");
+            {
+                data->cmd->exit_status = 1;
+                perror("error");
+            }
         else
         {
             str = getcwd(NULL, 0);
@@ -72,20 +75,27 @@ int ft_cd(t_data *data)
 }
 
 
-
 int ft_echo(t_data *data)
 {
     t_list *current;
     char *str;
     char *leak_prevent;
-
     ft_params(data, data->command->content);
     if(ft_lstsize(data->parameter) > 0)
     {
         current = data->parameter;
-        if (ft_strncmp(current->content, "-n", 2) == 0)
+        if (ft_strncmp(current->content, "$?", 2) == 0 && current->next == NULL) //to get exit status and print it
+        {
+            //printf("The recent exit status:  %d", vars->error); // have to add as a global varient
+            //ft_putnbr_fd(data->num_exit, 1);
+            printf("%d\n", data->cmd->exit_status);
+            data->cmd->exit_status = 0;
+        }
+        else if (ft_strncmp(current->content, "$?", 2) != 0)
+        {
+            if (ft_strncmp(current->content, "-n", 2) == 0)
             current = current->next;
-        while (current)
+            while (current)
         {
             str = current->content;
             leak_prevent = ft_strtrim(str, "\"");
@@ -99,12 +109,47 @@ int ft_echo(t_data *data)
         }
         if (ft_strncmp(data->parameter->content, "-n", 2) != 0)
             ft_printf("\n");
-            ft_lstclear(&current, ft_free);
+        //ft_lstclear(&current, ft_free);
+    }
     }
     else
         ft_printf("\n");
     return (0);
 }
+
+
+// int ft_echo(t_data *data)
+// {
+//     t_list *current;
+//     char *str;
+//     char *leak_prevent;
+
+//     ft_params(data, data->command->content);
+//     if(ft_lstsize(data->parameter) > 0)
+//     {
+//         current = data->parameter;
+//         if (ft_strncmp(current->content, "-n", 2) == 0)
+//             current = current->next;
+//         while (current)
+//         {
+//             str = current->content;
+//             leak_prevent = ft_strtrim(str, "\"");
+//             str = ft_strtrim(leak_prevent, "\'");
+//             ft_printf("%s", str);
+//             free (str);
+//             free (leak_prevent);
+//             current = current->next;
+//             if (current)
+//                 ft_printf(" ");
+//         }
+//         if (ft_strncmp(data->parameter->content, "-n", 2) != 0)
+//             ft_printf("\n");
+//         ft_lstclear(&current, ft_free);
+//     }
+//     else
+//         ft_printf("\n");
+//     return (0);
+// }
 
 
 
@@ -130,6 +175,7 @@ int ft_exit(t_data *data)
         if (ft_is_numeric(data->parameter->content) == 1) 
         {
             printf("minishell: exit: %p: numeric argument required\n", data->parameter->content);
+            data->cmd->exit_status = 255;
             exit (255);
         }
         else 
@@ -142,6 +188,7 @@ int ft_exit(t_data *data)
             }
             if (exit_code > 255)
             {
+                data->cmd->exit_status = exit_code % 256;
                 exit (exit_code % 256);
             }
         }
@@ -269,9 +316,9 @@ int ft_unset(t_data *data)
     {
         if (ft_strchr(name, '=') != NULL) 
         {
-            // Si el nombre de unset tiene un '=', 
-            // no se puede eliminar
+            // Si el nombre de unset tiene un '=', no se puede eliminar
             printf("minishell: unset: `%s': not a valid identifier\n", name);
+            data->cmd->exit_status = 1;
             return (1);
         }
         if (ft_strcmp(current->name, name) == 0) 
@@ -307,55 +354,13 @@ int    ft_check_export_errors(t_data *data)
         if(ft_isalpha(data->cmd->param[0]) == 0 && data->cmd->param[0] != '_')
         {
             printf("minishell: export: `%s': not a valid identifier\n", data->cmd->param);
+            data->cmd->exit_status = 1;
             return(1);
         }
         parameter = parameter->next;
     }
     return(0);
 }
-
-
-
-// char *get_value_from_parameter(char *param_content) 
-// {
-//     char *value;
-    
-//     value = ft_strchr(param_content, '=');
-//     if (value != NULL) 
-//     {
-//         *value = '\0';
-//         value++;
-//     } 
-//     else 
-//     {
-//         value = "";
-//     }
-//     return value;
-// }
-
-
-// int update_env_variable(t_data *data, char *name, char *value) 
-// {
-//     t_env_node *current;
-    
-//     current = data->env_list;
-//     while (current) 
-//     {
-//         if (ft_strcmp(current->name, name) == 0) 
-//         {
-//             if (*value != '\0' && ft_strcmp(current->value, value) != 0) 
-//             {
-//                 free(current->value);
-//                 current->value = ft_strdup(value);
-//             }
-//             return 1;
-//         }
-//         current = current->next;
-//     }
-//     ft_push_env_node(&data->env_list, name, value);
-//     return 0;
-// }
-
 
 
 int ft_export(t_data *data) 
@@ -368,6 +373,7 @@ int ft_export(t_data *data)
     else if (data->cmd->command[6] != ' ') 
     {
         printf("minishell: %s: command not found\n", data->cmd->command);
+        data->cmd->exit_status = 127;
         return (1);
     } 
     else 
@@ -431,6 +437,7 @@ int ft_execute_not_rebuiltins(t_data *data)
             if (data->cmd->command[2] != ' ' && data->cmd->command[4] != '\0') 
             {
                 printf("minishell: %s: command not found\n", data->cmd->command);
+                data->cmd->exit_status = 127;
                 return (1);
             } 
             else
@@ -445,6 +452,7 @@ int ft_execute_not_rebuiltins(t_data *data)
             if (data->cmd->command[5] != ' ') 
             {
                 printf("minishell: %s: command not found\n", data->cmd->command);
+                data->cmd->exit_status = 127;
                 return (1);
             } 
             else
@@ -455,6 +463,7 @@ int ft_execute_not_rebuiltins(t_data *data)
         if (data->cmd->command[3] != ' ' && data->cmd->command[3] != '\0') 
             {
                 printf("minishell: %s: command not found\n", data->cmd->command);
+                data->cmd->exit_status = 127;
                 return (1);
             } 
             else
@@ -465,6 +474,7 @@ int ft_execute_not_rebuiltins(t_data *data)
        if(data->cmd->command[4] != ' ' && data->cmd->command[4] != '\0') 
             {
                 printf("minishell: %s: command not found\n", data->cmd->command);
+                data->cmd->exit_status = 127;
                 return (1);
             } 
             else
@@ -475,6 +485,7 @@ int ft_execute_not_rebuiltins(t_data *data)
         if (data->cmd->command[4] != ' ' && data->cmd->command[4] != '\0') 
             {
                 printf("minishell: %s: command not found\n", data->cmd->command);
+                data->cmd->exit_status = 127;
                 return (1);
             } 
             else
@@ -485,6 +496,7 @@ int ft_execute_not_rebuiltins(t_data *data)
          if (data->cmd->command[3] != ' ' && data->cmd->command[3] != '\0') 
             {
                 printf("minishell: %s: command not found\n", data->cmd->command);
+                data->cmd->exit_status = 127;
                 return (1);
             } 
             else

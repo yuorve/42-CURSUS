@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:59:00 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/13 20:33:15 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/22 20:40:43 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void    ft_init_command(t_data *data)
 
  void    ft_init_cmd(t_data *data)
  {
+    data->cmd->exit_status = 0;
     data->cmd->outfiles = 0;
 	data->cmd->infiles  = 0;
 	data->cmd->append = 0;
@@ -163,7 +164,7 @@ void    ft_init(t_data *data, char **env)
 {
     ft_init_command(data);
     data->cmd = (t_cmd *)malloc(sizeof(t_cmd));
-    ft_init_cmd(data);
+    //ft_init_cmd(data);
     //ft_bzero(data->cmd, sizeof(t_cmd));
     //ft_init_cmd(data);
     ft_init_env(&data->env_list, env);

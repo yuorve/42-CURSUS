@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:23:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/20 21:53:56 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/22 20:55:29 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct	s_cmd
 	char	*path;
 	char	**cmd_splited;
 	int		pipefd[2];
+	int		exit_status;
 	int		outfiles;
 	int		infiles;
 	int 	append;
@@ -130,10 +131,11 @@ void    ft_execute_child(t_data *data, t_list *head, int prev_pipe);
 void    ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe, int pid);
 void 	ft_execute_pipes(t_data *data, t_list *head);
 void    ft_execute(t_data *data);
-int	ft_redirections_pars(t_data *data);
+//int	ft_redirections_pars(t_data *data);
 void	ft_redirections(t_data *data);
 void	ft_dup_infile(t_data *data);
 void	ft_dup_outfile(t_data *data);
+int 	ft_redirection_check(t_data *data);
 
 //utils.c
 int 	ft_strcmp(const char *str1, const char *str2);

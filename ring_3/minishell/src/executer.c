@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/21 21:12:54 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/22 21:25:45 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,10 @@ void    ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe,
 
 
     waitpid(pid, &status, 0);
+    if (WIFEXITED(status))
+    {
+        data->cmd->exit_status = WEXITSTATUS(status);
+    }
     // if (WIFEXITED(status)) 
     // {
     //     if (WEXITSTATUS(status) == 0) 
@@ -244,7 +248,7 @@ void    ft_heredoc(t_data *data)
     }
     while (1)
     {
-        line = readline("> ");
+        line = readline("\033[33;1m> \033[0m");
         if (ft_strncmp(line, cmd, ft_strlen(cmd)) == 0)
         {
             free(line);
@@ -392,6 +396,18 @@ void	ft_redirections(t_data *data)
 	ft_dup_outfile(data);
 }
 
+int ft_redirection_check(t_data *data)
+{
+    if (data->nredirection == 1 && data->redirection == '<')
+        return (1);
+    else if (data->nredirection == 2 && data->redirection == '<')
+        return (1);
+    else if (data->nredirection == 1 && data->redirection == '>')
+        return (1);
+    else if (data->nredirection == 2 && data->redirection == '>')
+        return (1);
+    return (0);
+}
 
 
 void ft_execute_pipes(t_data *data, t_list *head) 
@@ -416,11 +432,12 @@ void ft_execute_pipes(t_data *data, t_list *head)
         //  ft_redirections(data);
         data->cmd->path = ft_get_path(data->cmd->cmd_splited, data);
         //data->cmd->path = ft_cmd(data, data->cmd->cmd_splited[0]);
-        // if (data->cmd->path == NULL) 
-        // {
-        //     printf("Error: command not found\n");
-        //     return;
-        // }
+        if (data->cmd->path == NULL && ft_redirection_check(data) == 0)
+        {
+            printf("Error: command not found\n");
+            data->cmd->exit_status = 127;
+            return;
+        }
         if (pipe(data->cmd->pipefd) == -1) 
         {
             perror("Pipe creation failed");
