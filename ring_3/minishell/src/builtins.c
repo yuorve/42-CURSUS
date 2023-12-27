@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/22 21:17:21 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/27 19:57:15 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int ft_echo(t_data *data)
     t_list *current;
     char *str;
     char *leak_prevent;
-    ft_params(data, data->command->content);
+    //ft_params(data, data->command->content);
     if(ft_lstsize(data->parameter) > 0)
     {
         current = data->parameter;
