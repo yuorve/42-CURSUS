@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/28 20:44:33 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/29 19:54:06 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int ft_echo(t_data *data)
     t_list *current;
     char *str;
     char *leak_prevent;
-    ft_params(data, data->command->content);
+    //ft_params(data, data->command->content);
     if(ft_lstsize(data->parameter) > 0)
     {
         current = data->parameter;
@@ -528,7 +528,7 @@ int ft_not_redirected_builtins(t_data *data)
 {
     //data->cmd->command = ft_strjoin(data->command->content, " ");
     data->cmd->command = data->command->content;
-    //ft_params(data, data->command->content);
+    ft_params(data, data->command->content);
     
     if (ft_strncmp(data->command->content, "cd", 2) == 0)
         return (1);

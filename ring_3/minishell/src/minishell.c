@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/28 20:44:51 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/29 20:53:25 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -488,30 +488,36 @@ void	ft_pipes(t_data *data, char *str)
 	char	*tmp;
 	char	*leak_prevent;
 	char	**values;
-
+	
 	values = ft_split(str, '|');
 	i = 0;
 	while (values[i])
 	{
-		if (ft_quoted(values[i]))
+		//ft_input_checks(data, values[i]);
+		if (ft_quoted(values[i]) && values[i + 1])
 		{
 			tmp = values[i];
 			while (values[++i] && ft_quoted(tmp))
 			{
 				leak_prevent = ft_strjoin(tmp, "|");
-				free(tmp);
+				//free(tmp);
 				tmp = ft_strjoin(leak_prevent, values[i]);
 				free(leak_prevent);
 			}
 			i--;
+			ft_input_checks(data, tmp);
 			data->command = ft_add_to_list(data->command, tmp);
+			ft_printf("ok.%s.\n", tmp);
 			free(tmp);
 		}
 		else
+		{
+			ft_input_checks(data, values[i]);
 			data->command = ft_add_to_list(data->command, values[i]);
+		}
 		i++;
 	}
-	ft_free_split(values);
+	ft_free_split(values);	
 }
 
 void	ft_input_checks(t_data *data, char *str)
@@ -550,6 +556,8 @@ void	ft_input_checks(t_data *data, char *str)
 		{
 			if (data->nredirection > 0 && data->redirection != str[i])
 				flag = 3;
+			else if (!str[i + 1])
+				flag = 3;
 			data->redirection = str[i];
 			data->nredirection++;
 		}
@@ -576,12 +584,17 @@ void	ft_input_checks(t_data *data, char *str)
 		i++;
 	}
 	if (flag != 0 || data->nredirection > 2)
-		exit(ft_printf("\033[31;1mSyntax Error\n \033[0m"));
+	{
+		data->input_error = 1;
+		ft_printf("\033[31;1mSyntax Error\n\033[0m");
+	}
 }
 
 
 void	ft_minishell(t_data *data)
 {
+	char	*leak_prevent;
+	
 	while (1)
 	{
 		data->input = readline("\033[32;1mMinishell> \033[0m");
@@ -600,8 +613,16 @@ void	ft_minishell(t_data *data)
 		{
 			add_history(data->input);
 			ft_pipes(data, data->input);
+			//ft_input_checks(data, data->command->content);
+			if (data->input_error == 1)
+			{
+				// Si la entrada tiene error, continuar con la siguiente iteración del bucle
+				data->input_error = 0;
+				free(data->input);
+				ft_lstclear(&data->command, ft_free);
+				continue;
+			}
 			//ft_params(data, data->command->content);
-			ft_input_checks(data, data->command->content);
 			//ft_redirections_pars(data);
 			//debug(data);
 			
@@ -611,12 +632,13 @@ void	ft_minishell(t_data *data)
         	// }
 			
 			data->cmd->env_copy = ft_list_to_matrix(data->env_list); //converte la lista de env en matriz
+			leak_prevent = ft_strtrim(data->input, " ");
 			
 			if(ft_not_redirected_builtins(data) == 1)
 				ft_execute_not_rebuiltins(data);
-            	//printf("tiene que ejecutar el buitin\n");
-            else
+            else if (ft_strlen(leak_prevent) > 0)
             	ft_execute(data);
+			free(leak_prevent);
 			ft_free_matrix(data->cmd->env_copy);
 		}
 		//ft_free_matrix(data->cmd->cmd_splited);
