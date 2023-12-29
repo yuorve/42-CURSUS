@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/22 21:17:21 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/28 20:44:33 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

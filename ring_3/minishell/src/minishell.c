@@ -3,14 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/22 19:27:14 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/28 20:44:51 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+char	*ft_strstr(const char *haystack, const char *needle)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	if (!*needle)
+		return ((char *)&haystack[i]);
+	while (haystack[i] != '\0')
+	{
+		j = 0;
+		while (haystack[i + j] != '\0'
+			&& haystack[i + j] == needle[j])
+		{
+			if (needle[j + 1] == '\0')
+				return ((char *)&haystack[i]);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
 
 int	ft_checks(char c1, char c2)
 {
@@ -165,17 +188,23 @@ char    *ft_strxstr(char *str, char *from, char *to)
         while (str[i] && from[j] && str[i] == from[j])
         {
             i++;
-            j++;
+           	j++;
         }
         if (from[j])
+		{
             i++;
+			j = 0;
+		}
         else
             break ;
     }
-    start = ft_substr(str, 0, (i - j) - 1);
+	if (from[0] == '$')
+		start = ft_substr(str, 0, (i - j));
+	else
+    	start = ft_substr(str, 0, (i - j) - 1);
     res = ft_strjoin(start, to);
     end = ft_substr(str, i, ft_strlen(str));
-    str = ft_strjoin(res, end);
+	str = ft_strjoin(res, end);
     free (start);
     free (res);
     free (end);
@@ -188,7 +217,7 @@ char    *ft_strxstr(char *str, char *from, char *to)
     char    *tmp;
     char    *res;
     res = 0;
-    if (ft_strchr(str, '$'))
+	if (str[0] == '$' && ft_isalpha(str[1]))
     {
         j = 0;
         while (str[j] && str[j] != '$')
@@ -238,6 +267,7 @@ char    **ft_command(char *str, t_data *data)
 {
     int     i;
     int     j;
+	int		flag;
     char    *tmp;
     char    *leak_prevent;
     char    **values;
@@ -262,7 +292,17 @@ char    **ft_command(char *str, t_data *data)
             values[j] = tmp;
             i = j;
         }
-        values[i] = ft_replace(values[i]);		
+        values[i] = ft_replace(values[i]);
+		flag = 0;
+		while (ft_strstr(values[i], "$?"))		
+		{
+			flag = 1;
+			leak_prevent = ft_itoa(data->cmd->exit_status);
+		 	tmp = ft_strxstr(values[i], "$?", leak_prevent);
+			free(leak_prevent);
+		 	free(values[i]);
+		 	values[i] = tmp;
+		}
         leak_prevent = ft_variable(values[i]);
         if (leak_prevent)
         {
@@ -277,6 +317,8 @@ char    **ft_command(char *str, t_data *data)
         }
         i++;
     }
+	if (flag == 1)
+		data->cmd->exit_status = 0;	
     return (values);
 }
 
@@ -324,6 +366,7 @@ void	ft_params(t_data *data, char *str)
 {
 	int		i;
 	int		j;
+	int		flag;
 	char	*tmp;
 	char	*leak_prevent;
 	char	**values;
@@ -336,22 +379,34 @@ void	ft_params(t_data *data, char *str)
 	while (values[i])
 	{
 		if (ft_quoted(values[i]))
-		{	
+		{
 			tmp = values[i];
 			j = i;
-			while (values[++i] && ft_quoted(tmp))
+			i++;
+			while (values[i] && ft_quoted(tmp))
 			{
 				leak_prevent = ft_strjoin(tmp, " ");
+				free(tmp);
 				tmp = ft_strjoin(leak_prevent, values[i]);
 				free(leak_prevent);
-				free(tmp);
 				free(values[i]);
                 values[i] = 0;
+				i++;
             }
             values[j] = tmp;
             i = j;
 		}
 		values[i] = ft_replace(values[i]);
+		flag = 0;
+		while (ft_strstr(values[i], "$?"))
+		{
+			flag = 1;
+			leak_prevent = ft_itoa(data->cmd->exit_status);
+		 	tmp = ft_strxstr(values[i], "$?", leak_prevent);
+			free(leak_prevent);		 	
+		 	free(values[i]);
+		 	values[i] = tmp;
+		}
 		leak_prevent = ft_variable(values[i]);
 		if (leak_prevent)
 		{
@@ -361,12 +416,16 @@ void	ft_params(t_data *data, char *str)
 				tmp = ft_strxstr(values[i], leak_prevent, head->value);
 				free(values[i]);
 				values[i] = tmp;
+				data->parameter = ft_add_to_list(data->parameter, values[i]);
 			}
 			free(leak_prevent);
 		}
-		data->parameter = ft_add_to_list(data->parameter, values[i]);
+		else
+			data->parameter = ft_add_to_list(data->parameter, values[i]);
 		i++;
 	}
+	if (flag == 1)
+		data->cmd->exit_status = 0;
 	ft_free_split(values);
 }
 
@@ -501,7 +560,6 @@ void	ft_input_checks(t_data *data, char *str)
 			{
 				while (ft_isalpha(str[i]))
 					i++;
-				ft_printf("Obtain value from: %s\n", ft_substr(str, start, i - start));
 				i--;
 			}
 			else
@@ -541,9 +599,9 @@ void	ft_minishell(t_data *data)
 		if (data->input)
 		{
 			add_history(data->input);
-			ft_input_checks(data, data->input);
 			ft_pipes(data, data->input);
-			ft_params(data, data->command->content);
+			//ft_params(data, data->command->content);
+			ft_input_checks(data, data->command->content);
 			//ft_redirections_pars(data);
 			//debug(data);
 			

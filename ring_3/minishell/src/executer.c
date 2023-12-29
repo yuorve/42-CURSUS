@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/22 21:25:45 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/28 20:45:00 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
