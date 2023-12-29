@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/28 20:45:00 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/29 21:04:38 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ void    ft_execute_child(t_data *data, t_list *head, int prev_pipe)
 {
             // Hijo
             // if (ft_redirections_pars(data) == 1)
+            printf("In child\n");
+            signal(SIGUSR2, handle_process_on);
             ft_redirections(data);
             if (prev_pipe != -1) 
             {
@@ -131,13 +133,13 @@ void    ft_execute_child(t_data *data, t_list *head, int prev_pipe)
             close(data->cmd->pipefd[0]);
             close(data->cmd->pipefd[1]);
 
-int i;
-i=0;
-while (data->cmd->cmd_splited[i])
-{
-    printf("cmd_splited:%s\n", data->cmd->cmd_splited[i]);
-    i++;
-}
+//int i;
+// i=0;
+// while (data->cmd->cmd_splited[i])
+// {
+//     printf("cmd_splited:%s\n", data->cmd->cmd_splited[i]);
+//     i++;
+// }
 if (data->cmd->path != NULL)
 
             {
@@ -155,6 +157,8 @@ if (data->cmd->path != NULL)
 void    ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe, int pid) 
 {
     // Padre
+    signal(SIGUSR2, SIG_IGN); //signal to ignore
+    rl_set_prompt("");
     if (prev_pipe != -1) 
     {
         close(prev_pipe);
@@ -419,6 +423,7 @@ void ft_execute_pipes(t_data *data, t_list *head)
     int pid;
     
     prev_pipe = -1;
+    signal(SIGUSR2, SIG_IGN);
     while (head) 
     {
         command = ft_split(head->content, data->redirection);
@@ -436,6 +441,7 @@ void ft_execute_pipes(t_data *data, t_list *head)
         {
             printf("Error: command not found\n");
             data->cmd->exit_status = 127;
+            ft_free_matrix(data->cmd->cmd_splited);
             return;
         }
         if (pipe(data->cmd->pipefd) == -1) 
@@ -449,8 +455,10 @@ void ft_execute_pipes(t_data *data, t_list *head)
             perror("Fork error");
             return;
         } 
-        else if (pid == 0) 
+        else if (pid == 0)
+        {
             ft_execute_child(data, head, prev_pipe);
+        } 
         else 
             ft_execute_parent(status, data, head, prev_pipe, pid);
         if ((access(*data->cmd->cmd_splited, 0) != 0))

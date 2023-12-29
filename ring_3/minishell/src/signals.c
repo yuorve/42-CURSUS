@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:59:06 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/12 19:26:35 by angalsty         ###   ########.fr       */
+/*   Updated: 2023/12/29 19:39:36 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ void    handle_ctrl_c(int sig)
 void    handle_process_on(int sig)
 {
     (void)sig;
-    //rl_replace_line("", 0); //clears the line
-    //rl_on_new_line(); //moves the cursor to the beginning of the line and writes Minishell
-    rl_redisplay(); //writes minishell on the desktop
+    printf("I'm alive\n");
+    rl_replace_line("", 0); //clears the line
+    rl_on_new_line(); //moves the cursor to the beginning of the line and writes Minishell
+    //rl_redisplay(); //writes minishell on the desktop
     //rl_set_prompt("");
 }
 
@@ -51,7 +52,7 @@ void    set_signal(void)
     tcgetattr(0, &t);
 	t.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, TCSANOW, &t);
-    signal(SIGTSTP, SIG_IGN);
+    //signal(SIGTSTP, SIG_IGN);
 }
 
 void 	ft_control_d(t_data *i)
