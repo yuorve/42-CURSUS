@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/29 19:54:06 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/30 20:28:20 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,39 +78,39 @@ int ft_cd(t_data *data)
 int ft_echo(t_data *data)
 {
     t_list *current;
-    char *str;
-    char *leak_prevent;
+    //char *str;
+    //char *leak_prevent;
     //ft_params(data, data->command->content);
     if(ft_lstsize(data->parameter) > 0)
     {
         current = data->parameter;
-        if (ft_strncmp(current->content, "$?", 2) == 0 && current->next == NULL) //to get exit status and print it
-        {
-            //printf("The recent exit status:  %d", vars->error); // have to add as a global varient
-            //ft_putnbr_fd(data->num_exit, 1);
-            printf("%d\n", data->cmd->exit_status);
-            data->cmd->exit_status = 0;
-        }
-        else if (ft_strncmp(current->content, "$?", 2) != 0)
-        {
+        // if (ft_strncmp(current->content, "$?", 2) == 0 && current->next == NULL) //to get exit status and print it
+        // {
+        //     //printf("The recent exit status:  %d", vars->error); // have to add as a global varient
+        //     //ft_putnbr_fd(data->num_exit, 1);
+        //     printf("%d\n", data->cmd->exit_status);
+        //     data->cmd->exit_status = 0;
+        // }
+        // else if (ft_strncmp(current->content, "$?", 2) != 0)
+        // {
             if (ft_strncmp(current->content, "-n", 2) == 0)
-            current = current->next;
+                current = current->next;            
             while (current)
-        {
-            str = current->content;
-            leak_prevent = ft_strtrim(str, "\"");
-            str = ft_strtrim(leak_prevent, "\'");
-            ft_printf("%s", str);
-            free (str);
-            free (leak_prevent);
-            current = current->next;
-            if (current)
-                ft_printf(" ");
-        }
-        if (ft_strncmp(data->parameter->content, "-n", 2) != 0)
-            ft_printf("\n");
+            {
+                //str = current->content;
+                //leak_prevent = ft_strtrim(str, "¡"); // \"
+                //str = ft_strtrim(leak_prevent, "¿'"); // \'
+                ft_printf("%s", current->content);
+                //free (str);
+                //free (leak_prevent);
+                current = current->next;
+                if (current)
+                    ft_printf(" ");
+            }
+            if (ft_strncmp(data->parameter->content, "-n", 2) != 0)
+                ft_printf("\n");
         //ft_lstclear(&current, ft_free);
-    }
+        //}
     }
     else
         ft_printf("\n");

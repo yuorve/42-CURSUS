@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/29 20:53:25 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/30 20:28:36 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,38 @@ int	ft_checks(char c1, char c2)
 	return (0);
 }
 
+int	ft_findpos(char *str, char c)
+{
+	int	i;
+
+	i = 1;
+	while (str[i] && !ft_checks(str[i], c))
+		i++;
+	return (i);
+}
+
+int	ft_quoted(char *str)
+{
+	int i;
+	int numQuotes;
+	int numSingleQuotes;
+
+	numQuotes = 0;
+	numSingleQuotes = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (ft_checks(str[i], '\"') && !(numSingleQuotes % 2))
+			numQuotes++;
+		else if (ft_checks(str[i], '\'') && !(numQuotes % 2))
+			numSingleQuotes++;
+		i++;
+	}
+	return ((numQuotes % 2) || (numSingleQuotes % 2));
+}
+
 //no entiendo si esta funcion es necesaria y esta correcta
+//esta función la utiliza ft_lstclear para liberar la memoria del nodo de la lista
 void	ft_free(void *data)
 {
 	free(data);
@@ -77,22 +108,6 @@ t_list	*ft_previously(t_list *list, t_list *target)
 	return (0);
 }
 
-t_list	*ft_previously1(t_list *list, char *content)
-{
-	t_list	*curr;
-
-	if (!list)
-		return (0);
-	curr = list;
-	while (curr->next)
-	{
-		if (curr->next->content == content)
-			return (curr);
-		curr = curr->next;
-	}
-	return (0);
-}
-
 t_list	*ft_add_to_list(t_list *list, char *content)
 {
 	if (!list)
@@ -102,41 +117,27 @@ t_list	*ft_add_to_list(t_list *list, char *content)
 	return (list);
 }
 
-int	ft_findpos(char *str, char c)
-{
-	int	i;
+// t_list	*ft_previously1(t_list *list, char *content)
+// {
+// 	t_list	*curr;
 
-	i = 1;
-	while (str[i] && !ft_checks(str[i], c))
-		i++;
-	return (i);
-}
-
-int	ft_quoted(char *str)
-{
-	int i;
-	int numQuotes;
-	int numSingleQuotes;
-
-	numQuotes = 0;
-	numSingleQuotes = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (ft_checks(str[i], '\"') && !(numSingleQuotes % 2))
-			numQuotes++;
-		else if (ft_checks(str[i], '\'') && !(numQuotes % 2))
-			numSingleQuotes++;
-		i++;
-	}
-	return ((numQuotes % 2) || (numSingleQuotes % 2));
-}
+// 	if (!list)
+// 		return (0);
+// 	curr = list;
+// 	while (curr->next)
+// 	{
+// 		if (curr->next->content == content)
+// 			return (curr);
+// 		curr = curr->next;
+// 	}
+// 	return (0);
+// }
 
 // char	*ft_command(char *str)
 // {
 // 	char	*command;
 // 	char	**values;
-	
+
 // 	command = 0;
 // 	values = 0;
 // 	if (ft_strchr(str, ' '))
@@ -150,14 +151,13 @@ int	ft_quoted(char *str)
 // 	return (command);
 // }
 
-
 char	**ft_list_to_matrix(t_env_node *head)
 {
 	int i;
 	char **env_matrix;
 	char *leak_prevent;
 	t_env_node *curr;
-	
+
 	i = 0;
 	curr = head;
 	env_matrix = (char **)calloc(sizeof(char **), ft_count_nodes(curr) + 1);
@@ -173,153 +173,161 @@ char	**ft_list_to_matrix(t_env_node *head)
 	return (env_matrix);
 }
 
-
 char    *ft_strxstr(char *str, char *from, char *to)
 {
-    int     i;
-    int     j;
-    char    *start;
-    char    *end;
-    char    *res;
-    i = 0;
-    j = 0;
-    while (str[i])
-    {
-        while (str[i] && from[j] && str[i] == from[j])
-        {
-            i++;
-           	j++;
-        }
-        if (from[j])
+	int     i;
+	int     j;
+	char    *start;
+	char    *end;
+	char    *res;
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		while (str[i] && from[j] && str[i] == from[j])
 		{
-            i++;
+			i++;
+		   	j++;
+		}
+		if (from[j])
+		{
+			i++;
 			j = 0;
 		}
-        else
-            break ;
-    }
+		else
+			break ;
+	}
 	if (from[0] == '$')
 		start = ft_substr(str, 0, (i - j));
 	else
-    	start = ft_substr(str, 0, (i - j) - 1);
-    res = ft_strjoin(start, to);
-    end = ft_substr(str, i, ft_strlen(str));
+		start = ft_substr(str, 0, (i - j) - 1);
+	res = ft_strjoin(start, to);
+	end = ft_substr(str, i, ft_strlen(str));
 	str = ft_strjoin(res, end);
-    free (start);
-    free (res);
-    free (end);
-    return (str);
+	free (start);
+	free (res);
+	free (end);
+	return (str);
 }
- char    *ft_variable(char *str)
+
+char    *ft_variable(char *str)
 {
-    int     i;
-    int     j;
-    char    *tmp;
-    char    *res;
-    res = 0;
-	if (str[0] == '$' && ft_isalpha(str[1]))
-    {
-        j = 0;
-        while (str[j] && str[j] != '$')
-            j++;
-        tmp = ft_substr(str, j, ft_strlen(str) - j);
-        i = 1;
-        while (tmp[i] && ft_isalpha(tmp[i]))
-            i++;
-        res = ft_substr(str, j + 1, i - 1);
-        free (tmp);
-    }
-    return (res);
+	int     i;
+	int     j;
+	char    *tmp;
+	char    *res;
+	res = 0;
+	//if (str[0] == '$' && ft_isalpha(str[1]))	
+	if (ft_strchr(str, '$'))
+	{
+		j = 0;
+		while (str[j] && str[j] != '$')
+			j++;
+		tmp = ft_substr(str, j, ft_strlen(str) - j);
+		i = 1;
+		while (tmp[i] && ft_isalpha(tmp[i]))
+			i++;
+		res = ft_substr(str, j + 1, i - 1);
+		free (tmp);
+	}
+	return (res);
 }
+
 char    *ft_replace(char *str)
 {
-    int     i;
-    int     j;
-    int     flag;
-    i = 0;
-    j = 0;
-    flag = 0;
-    while (str[i])
-    {
-        if ((str[i] != '\"' && str[i] != '\'')
-            || (str[i] == '\'' && flag == 1) || (str[i] == '\"' && flag == 2))
-            str[j++] = str[i];
-        if (ft_checks(str[i], '\"') && flag != 2)
-        {
-            if (flag == 1)
-                flag = 0;
-            else
-                flag = 1;
-        }
-        else if (ft_checks(str[i], '\'') && flag != 1)
-        {
-            if (flag == 2)
-                flag = 0;
-            else
-                flag = 2;
-        }
-        i++;
-    }
-    str[j] = '\0';
-    return (str);
+	int     i;
+	int     j;
+	int     flag;
+	i = 0;
+	j = 0;
+	flag = 0;
+	while (str[i])
+	{
+		if ((str[i] != '\"' && str[i] != '\'')
+			|| (str[i] == '\'' && flag == 1) || (str[i] == '\"' && flag == 2))
+			str[j++] = str[i];
+		if (ft_checks(str[i], '\"') && flag != 2)
+		{
+			if (flag == 1)
+				flag = 0;
+			else
+				flag = 1;
+		}
+		else if (ft_checks(str[i], '\'') && flag != 1)
+		{
+			if (flag == 2)
+				flag = 0;
+			else
+				flag = 2;
+		}
+		i++;
+	}
+	str[j] = '\0';
+	return (str);
 }
+
 char    **ft_command(char *str, t_data *data)
 {
-    int     i;
-    int     j;
+	int     i;
+	int     j;
 	int		flag;
-    char    *tmp;
-    char    *leak_prevent;
-    char    **values;
+	char    *tmp;
+	char    *leak_prevent;
+	char    **values;
 	t_env_node *head;
-	
-    values = ft_split(str, ' ');
-    i = 0;
-    while (values[i])
-    {
-        if (ft_quoted(values[i]))
-        {
-            tmp = values[i];
-            j = i;
-            while (values[++i] && ft_quoted(tmp))
-            {
-                leak_prevent = ft_strjoin(tmp, " ");
-                tmp = ft_strjoin(leak_prevent, values[i]);
-                free(leak_prevent);
-                free(values[i]);
-                values[i] = 0;
-            }
-            values[j] = tmp;
-            i = j;
-        }
-        values[i] = ft_replace(values[i]);
-		flag = 0;
-		while (ft_strstr(values[i], "$?"))		
+
+	values = ft_split(str, ' ');
+	i = 0;
+	while (values[i])
+	{
+		if (ft_quoted(values[i]))
 		{
-			flag = 1;
-			leak_prevent = ft_itoa(data->cmd->exit_status);
-		 	tmp = ft_strxstr(values[i], "$?", leak_prevent);
-			free(leak_prevent);
-		 	free(values[i]);
-		 	values[i] = tmp;
+			tmp = values[i];
+			j = i;
+			while (values[++i] && ft_quoted(tmp))
+			{
+				leak_prevent = ft_strjoin(tmp, " ");
+				tmp = ft_strjoin(leak_prevent, values[i]);
+				free(leak_prevent);
+				free(values[i]);
+				values[i] = 0;
+			}
+			values[j] = tmp;
+			i = j;
 		}
-        leak_prevent = ft_variable(values[i]);
-        if (leak_prevent)
-        {
+		values[i] = ft_replace(values[i]);
+		flag = 0;
+		if (data->expand == 1)
+		{
+			while (ft_strstr(values[i], "$?"))
+			{
+				flag = 1;
+				leak_prevent = ft_itoa(data->cmd->exit_status);
+				tmp = ft_strxstr(values[i], "$?", leak_prevent);
+				free(leak_prevent);
+				free(values[i]);
+				values[i] = tmp;
+			}
+			leak_prevent = ft_variable(values[i]);
+		}
+		else
+			leak_prevent = 0;
+		if (leak_prevent)
+		{
 			head = ft_find_node(data->env_list, leak_prevent);
 			if (head)
 			{
-            	tmp = ft_strxstr(values[i], leak_prevent, head->value);
-            	free(values[i]);
-            	values[i] = tmp;
+				tmp = ft_strxstr(values[i], leak_prevent, head->value);
+				free(values[i]);
+				values[i] = tmp;
 			}
-            free(leak_prevent);
-        }
-        i++;
-    }
+			free(leak_prevent);
+		}
+		i++;
+	}
 	if (flag == 1)
-		data->cmd->exit_status = 0;	
-    return (values);
+		data->cmd->exit_status = 0;
+	return (values);
 }
 
 // char	**ft_command(char *str)
@@ -330,37 +338,36 @@ char    **ft_command(char *str, t_data *data)
 // 	return (values);
 // }
 
+// char	*ft_name(char *str)
+// {
+// 	char	*name;
+// 	char	**values;
 
-char	*ft_name(char *str)
-{
-	char	*name;
-	char	**values;
+// 	name = 0;
+// 	if (ft_strchr(str, '='))
+// 	{
+// 		values = ft_split(str, '=');
+// 		name = values[0];
+// 		ft_free_split(values);
+// 		ft_free_split(values);
+// 	}
+// 	return (name);
+// }
 
-	name = 0;
-	if (ft_strchr(str, '='))
-	{
-		values = ft_split(str, '=');
-		name = values[0];
-		ft_free_split(values);
-		ft_free_split(values);
-	}
-	return (name);
-}
+// char	*ft_value(char *str)
+// {
+// 	char	*value;
+// 	char	**values;
 
-char	*ft_value(char *str)
-{
-	char	*value;
-	char	**values;
-
-	value = 0;
-	if (ft_strchr(str, '='))
-	{
-		values = ft_split(str, '=');
-		value = values[1];
-		ft_free_split(values);
-	}
-	return (value);
-}
+// 	value = 0;
+// 	if (ft_strchr(str, '='))
+// 	{
+// 		values = ft_split(str, '=');
+// 		value = values[1];
+// 		ft_free_split(values);
+// 	}
+// 	return (value);
+// }
 
 void	ft_params(t_data *data, char *str)
 {
@@ -390,24 +397,29 @@ void	ft_params(t_data *data, char *str)
 				tmp = ft_strjoin(leak_prevent, values[i]);
 				free(leak_prevent);
 				free(values[i]);
-                values[i] = 0;
+				values[i] = 0;
 				i++;
-            }
-            values[j] = tmp;
-            i = j;
+			}
+			values[j] = tmp;
+			i = j;
 		}
 		values[i] = ft_replace(values[i]);
 		flag = 0;
-		while (ft_strstr(values[i], "$?"))
+		if (data->expand == 1)
 		{
-			flag = 1;
-			leak_prevent = ft_itoa(data->cmd->exit_status);
-		 	tmp = ft_strxstr(values[i], "$?", leak_prevent);
-			free(leak_prevent);		 	
-		 	free(values[i]);
-		 	values[i] = tmp;
+			while (ft_strstr(values[i], "$?"))
+			{
+				flag = 1;
+				leak_prevent = ft_itoa(data->cmd->exit_status);
+				tmp = ft_strxstr(values[i], "$?", leak_prevent);
+				free(leak_prevent);
+				free(values[i]);
+				values[i] = tmp;
+			}
+			leak_prevent = ft_variable(values[i]);
 		}
-		leak_prevent = ft_variable(values[i]);
+		else
+			leak_prevent = 0;
 		if (leak_prevent)
 		{
 			head = ft_find_node(data->env_list, leak_prevent);
@@ -421,7 +433,9 @@ void	ft_params(t_data *data, char *str)
 			free(leak_prevent);
 		}
 		else
+		{
 			data->parameter = ft_add_to_list(data->parameter, values[i]);
+		}
 		i++;
 	}
 	if (flag == 1)
@@ -488,7 +502,7 @@ void	ft_pipes(t_data *data, char *str)
 	char	*tmp;
 	char	*leak_prevent;
 	char	**values;
-	
+
 	values = ft_split(str, '|');
 	i = 0;
 	while (values[i])
@@ -517,7 +531,7 @@ void	ft_pipes(t_data *data, char *str)
 		}
 		i++;
 	}
-	ft_free_split(values);	
+	ft_free_split(values);
 }
 
 void	ft_input_checks(t_data *data, char *str)
@@ -528,6 +542,7 @@ void	ft_input_checks(t_data *data, char *str)
 
 	data->npipes = 0;
 	data->nredirection = 0;
+	data->expand = 0;
 	start = 0;
 	flag = 0;
 	i = 0;
@@ -561,17 +576,18 @@ void	ft_input_checks(t_data *data, char *str)
 			data->redirection = str[i];
 			data->nredirection++;
 		}
-		else if (ft_checks(str[i], '$') && flag == 1)
+		else if (ft_checks(str[i], '$') && (flag == 1 || flag == 0))
 		{
+			data->expand = 1;
 			start = i++;
 			if (ft_isalpha(str[i]))
 			{
 				while (ft_isalpha(str[i]))
-					i++;
+					i++;				
 				i--;
 			}
-			else
-				flag = 3;
+			//else
+			//	flag = 3;
 		}
 		else if (flag == 0)
 		{
@@ -594,16 +610,16 @@ void	ft_input_checks(t_data *data, char *str)
 void	ft_minishell(t_data *data)
 {
 	char	*leak_prevent;
-	
+
 	while (1)
 	{
 		data->input = readline("\033[32;1mMinishell> \033[0m");
 		if (!data->input)
-        {
-            // para Ctrl-D, salir del shell
+		{
+			// para Ctrl-D, salir del shell
 			ft_control_d(data);
-        }
-		if (data->input[0] == '\0') 
+		}
+		if (data->input[0] == '\0')
 		{
 			// Si la entrada está vacía o es solo un salto de línea, continuar con la siguiente iteración del bucle
 			free(data->input);
@@ -625,24 +641,24 @@ void	ft_minishell(t_data *data)
 			//ft_params(data, data->command->content);
 			//ft_redirections_pars(data);
 			//debug(data);
-			
+
 			// if (data->input[ft_strlen(data->input) - 1] == '\n')
-        	// {
-            // 	data->input[ft_strlen(data->input) - 1] = '\0';
-        	// }
-			
+			// {
+			// 	data->input[ft_strlen(data->input) - 1] = '\0';
+			// }
+
 			data->cmd->env_copy = ft_list_to_matrix(data->env_list); //converte la lista de env en matriz
 			leak_prevent = ft_strtrim(data->input, " ");
-			
+
 			if(ft_not_redirected_builtins(data) == 1)
 				ft_execute_not_rebuiltins(data);
-            else if (ft_strlen(leak_prevent) > 0)
-            	ft_execute(data);
+			else if (ft_strlen(leak_prevent) > 0)
+				ft_execute(data);
 			free(leak_prevent);
 			ft_free_matrix(data->cmd->env_copy);
 		}
 		//ft_free_matrix(data->cmd->cmd_splited);
-		//tengo que liberar la estructura de cmd	
+		//tengo que liberar la estructura de cmd
 		ft_lstclear(&data->command, ft_free);
 		ft_lstclear(&data->parameter, ft_free);
 		free(data->input);
