@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/07 19:35:59 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/07 19:56:27 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,73 +24,6 @@ int	ft_pwd(void)
 	}
 	printf("%s\n", pwd);
 	free(pwd);
-	return (0);
-}
-
-// char	*ft_cd_utils(t_data *data)
-// {
-// 	char		*dir;
-// 	t_env_node	*head;
-
-// 	if (ft_strncmp(data->parameter->content, "~", 1) == 0)
-// 	{
-// 		head = ft_find_node(data->env_list, "HOME");
-// 		dir = head->value;
-// 	}
-// 	else if (ft_strncmp(data->parameter->content, "-", 1) == 0)
-// 	{
-// 		head = ft_find_node(data->env_list, "OLDPWD");
-// 		dir = head->value;
-// 		printf("%s\n", dir);
-// 		ft_swap_values(head->value, head->next->value);
-// 	}
-// 	free(head->value);
-// 	return (dir);
-// }
-
-int	ft_cd(t_data *data)
-{
-	int			response;
-	t_env_node	*head;
-	char		*str;
-	char		*dir;
-
-	if (ft_lstsize(data->parameter) > 0)
-	{
-		if (ft_strncmp(data->parameter->content, "~", 1) == 0)
-		{
-			head = ft_find_node(data->env_list, "HOME");
-			dir = head->value;
-		}
-		else if (ft_strncmp(data->parameter->content, "-", 1) == 0)
-		{
-			head = ft_find_node(data->env_list, "OLDPWD");
-			dir = head->value;
-			printf("%s\n", dir);
-			ft_swap_values(head->value, head->next->value);
-		}
-		else
-			dir = data->parameter->content;
-		str = getcwd(NULL, 0);
-		head = ft_find_node(data->env_list, "OLDPWD");
-		free(head->value);
-		head->value = ft_strdup(str);
-		free(str);
-		response = chdir(dir);
-		if (response != 0)
-		{
-			data->cmd->exit_status = 1;
-			perror("error");
-		}
-		else
-		{
-			str = getcwd(NULL, 0);
-			head = ft_find_node(data->env_list, "PWD");
-			free(head->value);
-			head->value = ft_strdup(str);
-			free(str);
-		}
-	}
 	return (0);
 }
 
@@ -117,39 +50,6 @@ int	ft_echo(t_data *data)
 		ft_printf("\n");
 	return (0);
 }
-
-// int ft_echo(t_data *data)
-// {
-//     t_list *current;
-//     char *str;
-//     char *leak_prevent;
-
-//     ft_params(data, data->command->content);
-//     if(ft_lstsize(data->parameter) > 0)
-//     {
-//         current = data->parameter;
-//         if (ft_strncmp(current->content, "-n", 2) == 0)
-//             current = current->next;
-//         while (current)
-//         {
-//             str = current->content;
-//             leak_prevent = ft_strtrim(str, "\"");
-//             str = ft_strtrim(leak_prevent, "\'");
-//             ft_printf("%s", str);
-//             free (str);
-//             free (leak_prevent);
-//             current = current->next;
-//             if (current)
-//                 ft_printf(" ");
-//         }
-//         if (ft_strncmp(data->parameter->content, "-n", 2) != 0)
-//             ft_printf("\n");
-//         ft_lstclear(&current, ft_free);
-//     }
-//     else
-//         ft_printf("\n");
-//     return (0);
-// }
 
 int ft_is_numeric(const char *str)
 {
