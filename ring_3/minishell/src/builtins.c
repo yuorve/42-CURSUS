@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/29 18:53:30 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/07 20:04:37 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -429,100 +429,105 @@ int ft_export(t_data *data)
 }
 
 
+int    ft_command_not_found(t_data *data)
+{
+    printf("minishell: %s: command not found\n", data->cmd->command);
+    data->cmd->exit_status = 127;
+    return (1);
+    
+}
+
+
 int ft_execute_not_rebuiltins(t_data *data)
 {
-   if (ft_strncmp(data->command->content, "cd", 2) == 0)
-        
-        {
-            if (data->cmd->command[2] != ' ' && data->cmd->command[4] != '\0') 
-            {
-                printf("minishell: %s: command not found\n", data->cmd->command);
-                data->cmd->exit_status = 127;
-                return (1);
-            } 
-            else
-                return (ft_cd(data));
-        }
-    else if (ft_strncmp(data->command->content, "export", 6) == 0)
-        { 
-            return (ft_export(data));
-        }
-    else if (ft_strncmp(data->command->content, "unset", 5) == 0)
-        {
-            if (data->cmd->command[5] != ' ') 
-            {
-                printf("minishell: %s: command not found\n", data->cmd->command);
-                data->cmd->exit_status = 127;
-                return (1);
-            } 
-            else
-                return (ft_unset(data));
-        }
-    else if (ft_strncmp(data->command->content, "pwd", 3) == 0)
-    { 
-        if (data->cmd->command[3] != ' ' && data->cmd->command[3] != '\0') 
-            {
-                printf("minishell: %s: command not found\n", data->cmd->command);
-                data->cmd->exit_status = 127;
-                return (1);
-            } 
-            else
-                return (ft_pwd());
+    if (ft_strncmp(data->command->content, "cd", 2) == 0)    
+    {
+        if (data->cmd->command[2] != ' ' && data->cmd->command[4] != '\0') 
+            return (ft_command_not_found(data));
+        else
+            return (ft_cd(data));
     }
+    else if (ft_strncmp(data->command->content, "export", 6) == 0)
+    { 
+        return (ft_export(data));
+    }
+    else if (ft_strncmp(data->command->content, "unset", 5) == 0)
+    {
+        if (data->cmd->command[5] != ' ') 
+            return (ft_command_not_found(data));
+        else
+            return (ft_unset(data));
+    }
+    // else if (ft_strncmp(data->command->content, "pwd", 3) == 0)
+    // { 
+    //     if (data->cmd->command[3] != ' ' && data->cmd->command[3] != '\0') 
+    //         {
+    //             printf("minishell: %s: command not found\n", data->cmd->command);
+    //             data->cmd->exit_status = 127;
+    //             return (1);
+    //         } 
+    //         else
+    //             return (ft_pwd());
+    // }
     else if (ft_strncmp(data->command->content, "exit", 4) == 0)
     {
-       if(data->cmd->command[4] != ' ' && data->cmd->command[4] != '\0') 
-            {
-                printf("minishell: %s: command not found\n", data->cmd->command);
-                data->cmd->exit_status = 127;
-                return (1);
-            } 
-            else
-                return (ft_exit(data));
+        if(data->cmd->command[4] != ' ' && data->cmd->command[4] != '\0') 
+            return (ft_command_not_found(data));
+        else
+            return (ft_exit(data));
     }
-    else if (ft_strncmp(data->command->content, "echo", 4) == 0)
-       {
-        if (data->cmd->command[4] != ' ' && data->cmd->command[4] != '\0') 
-            {
-                printf("minishell: %s: command not found\n", data->cmd->command);
-                data->cmd->exit_status = 127;
-                return (1);
-            } 
-            else
-            return (ft_echo(data));
-       }
-    else if (ft_strncmp(data->command->content, "env", 3) == 0)
-    {
-         if (data->cmd->command[3] != ' ' && data->cmd->command[3] != '\0') 
-            {
-                printf("minishell: %s: command not found\n", data->cmd->command);
-                data->cmd->exit_status = 127;
-                return (1);
-            } 
-            else
-                return (ft_env(data));
-    }
+    // else if (ft_strncmp(data->command->content, "echo", 4) == 0)
+    //    {
+    //     if (data->cmd->command[4] != ' ' && data->cmd->command[4] != '\0') 
+    //         {
+    //             printf("minishell: %s: command not found\n", data->cmd->command);
+    //             data->cmd->exit_status = 127;
+    //             return (1);
+    //         } 
+    //         else
+    //         return (ft_echo(data));
+    //    }
+    // else if (ft_strncmp(data->command->content, "env", 3) == 0)
+    // {
+    //      if (data->cmd->command[3] != ' ' && data->cmd->command[3] != '\0') 
+    //         {
+    //             printf("minishell: %s: command not found\n", data->cmd->command);
+    //             data->cmd->exit_status = 127;
+    //             return (1);
+    //         } 
+    //         else
+    //             return (ft_env(data));
+    // }
     else
         return (0);
 }
 
-// int ft_execute_rebuiltins(t_data *data)
-// {
-//     if (ft_strncmp(data->command->content, "echo", 4) == 0)
-//        {
-//         printf("echo\n");
-//         return (1);
-//         //return (ft_echo(command));
-//        }
-//     else if (ft_strncmp(data->command->content, "pwd", 3) == 0)
-//         return (ft_pwd());
-//     // else if (ft_strncmp(command->cmd_txt, "env", 3) == 0)
-//     //     {
-//     //         return (ft_env(command));
-//     //     }
-//     else
-//         return (0);
-// }
+int ft_execute_rebuiltins(t_data *data)
+{
+    if (ft_strncmp(data->command->content, "echo", 4) == 0)
+    {
+        if (data->cmd->command[4] != ' ' && data->cmd->command[4] != '\0') 
+            return (ft_command_not_found(data));
+        else
+            return (ft_echo(data));
+    }
+    else if (ft_strncmp(data->command->content, "pwd", 3) == 0)
+    { 
+        if (data->cmd->command[3] != ' ' && data->cmd->command[3] != '\0') 
+            return (ft_command_not_found(data));
+        else
+            return (ft_pwd());
+    }
+    else if (ft_strncmp(data->command->content, "env", 3) == 0)
+    {
+        if (data->cmd->command[3] != ' ' && data->cmd->command[3] != '\0') 
+            return (ft_command_not_found(data));
+        else
+            return (ft_env(data));
+    }
+    else
+        return (0);
+}
 
 int ft_not_redirected_builtins(t_data *data)
 {
@@ -535,26 +540,26 @@ int ft_not_redirected_builtins(t_data *data)
     //if (ft_strncmp(data->command->content, "export", 6) == 0)
     else if(ft_strncmp(data->cmd->command, "export", 6) == 0)
         return (1);
-    else if(ft_strncmp(data->command->content, "echo", 4) == 0)
-        return (1);
+    // else if(ft_strncmp(data->command->content, "echo", 4) == 0)
+    //     return (1);
     else if (ft_strncmp(data->command->content, "unset", 5) == 0)
         return (1);
     else if(ft_strncmp(data->command->content, "exit", 4) == 0)   
         return (1);
-    else if (ft_strncmp(data->command->content, "env", 3) == 0)
-        return (1);
-    else if (ft_strncmp(data->command->content, "pwd", 3) == 0)
-        return (1);
+    // else if (ft_strncmp(data->command->content, "env", 3) == 0)
+    //     return (1);
+    // else if (ft_strncmp(data->command->content, "pwd", 3) == 0)
+    //     return (1);
     return (0);
 }
 
-// int ft_is_redirected_builtins(t_data *data)
-// {
-//     if (ft_strncmp(data->command->content, "echo", 4) == 0)
-//         return (1);
-//     //else if (ft_strncmp(data->command, "pwd", 3) == 0)
-//     //    return (1);
-//     // else if (ft_strncmp(data->command, "env", 3) == 0)
-//     //     return (1);
-//     return (0);  
-// }
+int ft_is_redirected_builtins(t_data *data)
+{
+    if (ft_strncmp(data->command->content, "echo", 4) == 0)
+        return (1);
+    else if (ft_strncmp(data->command->content, "pwd", 3) == 0)
+        return (1);
+    else if (ft_strncmp(data->command->content, "env", 3) == 0)
+        return (1);
+    return (0);  
+}

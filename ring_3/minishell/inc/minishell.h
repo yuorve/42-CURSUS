@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:23:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/22 20:55:29 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/07 20:04:07 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ int		ft_count_nodes(t_env_node *head);
 
 //builtins.c
 int 	ft_not_redirected_builtins(t_data *data);
-//int 	ft_is_redirected_builtins(t_data *data);
+int 	ft_is_redirected_builtins(t_data *data);
 int 	ft_execute_not_rebuiltins(t_data *data);
-//int 	ft_execute_rebuiltins(t_data *data);
+int 	ft_execute_rebuiltins(t_data *data);
 int 	ft_pwd(void);
 int 	ft_exit(t_data *data);
 int 	ft_env(t_data *data);

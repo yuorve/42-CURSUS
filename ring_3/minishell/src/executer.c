@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/29 21:04:38 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/07 21:49:49 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,42 +116,43 @@ char *ft_get_path(char **cmd, t_data *data)
 
 void    ft_execute_child(t_data *data, t_list *head, int prev_pipe) 
 {
-            // Hijo
-            // if (ft_redirections_pars(data) == 1)
-            printf("In child\n");
-            signal(SIGUSR2, handle_process_on);
-            ft_redirections(data);
-            if (prev_pipe != -1) 
-            {
-                dup2(prev_pipe, STDIN_FILENO);
-                close(prev_pipe);
-            }
-            if (head->next != NULL) 
-            {
-                dup2(data->cmd->pipefd[1], STDOUT_FILENO);
-            }
-            close(data->cmd->pipefd[0]);
-            close(data->cmd->pipefd[1]);
+    // Hijo
+    // if (ft_redirections_pars(data) == 1)
+    signal(SIGUSR2, handle_process_on);
+    ft_redirections(data);
+   
+    if (prev_pipe != -1) 
+    {
+        dup2(prev_pipe, STDIN_FILENO);
+        close(prev_pipe);
+    }
+    if (head->next != NULL) 
+    {
+        dup2(data->cmd->pipefd[1], STDOUT_FILENO);
+    }
+    close(data->cmd->pipefd[0]);
+    close(data->cmd->pipefd[1]);
 
-//int i;
-// i=0;
-// while (data->cmd->cmd_splited[i])
-// {
-//     printf("cmd_splited:%s\n", data->cmd->cmd_splited[i]);
-//     i++;
-// }
-if (data->cmd->path != NULL)
+    // if (head->next == NULL) 
+    // {
+    //     close(data->cmd->pipefd[0]);
+    // }
+    
+    // if (ft_is_redirected_builtins(data) == 1)
+    // {
+    //     printf("Is redirected builtins\n");
+    //     ft_execute_rebuiltins(data);
+    // }
+    // if (data->cmd->path != NULL)
+    // {
+        execve(data->cmd->path, data->cmd->cmd_splited, data->cmd->env_copy);
+    //}
 
-            {
-                execve(data->cmd->path, data->cmd->cmd_splited, data->cmd->env_copy);
-            }
-            else
-            {
-                printf("Error: command not found\n");
-                exit(EXIT_FAILURE);
-            }
-            // perror("Exec error");
-            // exit(EXIT_FAILURE);
+    // else
+    // {
+    //     printf("Error: command not found\n");
+    //     exit(EXIT_FAILURE);
+    // }
 }
 
 void    ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe, int pid) 
@@ -159,21 +160,19 @@ void    ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe,
     // Padre
     signal(SIGUSR2, SIG_IGN); //signal to ignore
     rl_set_prompt("");
+    
     if (prev_pipe != -1) 
     {
         close(prev_pipe);
     }
-
     if (head->next != NULL) 
     {
         close(data->cmd->pipefd[1]);
-    }
-    
+    } 
     if (head->next == NULL) 
     {
         close(data->cmd->pipefd[0]);
     }
-
 
     waitpid(pid, &status, 0);
     if (WIFEXITED(status))
@@ -237,8 +236,8 @@ void    ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe,
 
 void    ft_heredoc(t_data *data)
 {
-    char *line;
-    char	*cmd;
+    char    *line;
+    char    *cmd;
     int fd_infile;
 
     cmd = data->command->content;
@@ -429,9 +428,9 @@ void ft_execute_pipes(t_data *data, t_list *head)
         command = ft_split(head->content, data->redirection);
         free(head->content);
         head->content = ft_strtrim(command[0], " ");
-        printf("content:%s\n", head->content);
+        //printf("content:%s\n", head->content);
         data->file = ft_strtrim(command[1], " ");
-            printf("file:%s\n", data->file);
+            //printf("file:%s\n", data->file);
         ft_free_matrix(command);
         data->cmd->cmd_splited = ft_command(head->content, data);
         //  ft_redirections(data);
@@ -475,6 +474,12 @@ void ft_execute_pipes(t_data *data, t_list *head)
 void ft_execute(t_data *data) 
 {
     t_list *head = data->command;
-    ft_execute_pipes(data, head);
+    if (head->next == NULL && ft_is_redirected_builtins(data) == 1)
+    {
+        printf("Is redirected builtins, will not enter en execute\n");
+        ft_execute_rebuiltins(data);
+    }
+    else
+        ft_execute_pipes(data, head);
 }
 
