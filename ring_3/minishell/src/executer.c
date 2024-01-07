@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2023/12/28 20:45:00 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/07 18:56:32 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -409,7 +409,6 @@ int ft_redirection_check(t_data *data)
     return (0);
 }
 
-
 void ft_execute_pipes(t_data *data, t_list *head) 
 {
     int status = 0;
@@ -463,10 +462,8 @@ void ft_execute_pipes(t_data *data, t_list *head)
     }
 }
 
-
 void ft_execute(t_data *data) 
 {
     t_list *head = data->command;
     ft_execute_pipes(data, head);
 }
-
