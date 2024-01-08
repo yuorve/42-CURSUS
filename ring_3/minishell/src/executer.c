@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/07 18:56:32 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/08 20:10:22 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,11 +133,11 @@ void    ft_execute_child(t_data *data, t_list *head, int prev_pipe)
 
 int i;
 i=0;
-while (data->cmd->cmd_splited[i])
-{
-    printf("cmd_splited:%s\n", data->cmd->cmd_splited[i]);
-    i++;
-}
+//while (data->cmd->cmd_splited[i])
+//{
+//    printf("cmd_splited:%s\n", data->cmd->cmd_splited[i]);
+//    i++;
+//}
 if (data->cmd->path != NULL)
 
             {
@@ -423,9 +423,9 @@ void ft_execute_pipes(t_data *data, t_list *head)
         command = ft_split(head->content, data->redirection);
         free(head->content);
         head->content = ft_strtrim(command[0], " ");
-        printf("content:%s\n", head->content);
+        //printf("content:%s\n", head->content);
         data->file = ft_strtrim(command[1], " ");
-            printf("file:%s\n", data->file);
+            //printf("file:%s\n", data->file);
         ft_free_matrix(command);
         data->cmd->cmd_splited = ft_command(head->content, data);
         //  ft_redirections(data);
