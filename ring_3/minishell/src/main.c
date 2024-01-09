@@ -1,5 +1,16 @@
-#include "../inc/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/05 18:43:08 by yoropeza          #+#    #+#             */
+/*   Updated: 2024/01/05 18:43:40 by yoropeza         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../inc/minishell.h"
 
 void	ft_void(void)
 {
@@ -9,20 +20,14 @@ void	ft_void(void)
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
-	//char	*input;
 
 	atexit(ft_void);
 	(void) argc;
 	(void) argv;
-	//using_history();
-	set_signal(); //signals set to start
+	set_signal();
 	ft_bzero(&data, sizeof(t_data));
 	ft_init(&data, env);
-    ft_minishell(&data);
-	
-	
-	//ft_free_matrix(data.env_list);
-	//ft_free_matrix(data.cmd->cmd_complete);
+	ft_minishell(&data);
 	clear_history();
 	return (0);
 }
