@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/08 20:49:18 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/09 19:58:47 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,11 @@ void	ft_pipes_quoted(t_data *data, int *i, char **values)
 
 	if (ft_quoted(values[*i]) && values[*i + 1])
 	{
-		tmp = values[*i];
+		tmp = ft_strdup(values[*i]);
 		while (values[++*i] && ft_quoted(tmp))
 		{
 			leak_prevent = ft_strjoin(tmp, "|");
+			free(tmp);
 			tmp = ft_strjoin(leak_prevent, values[*i]);
 			free(leak_prevent);
 		}
