@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/09 20:32:38 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/09 21:29:23 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,25 +233,20 @@ void    ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe,
 // }
 
 
+
+
 void    ft_heredoc(t_data *data)
 {
     char    *line;
-    char    *cmd;
     int fd_infile;
-
-    cmd = data->command->content;
     
     fd_infile = open(".heredoc.txt", O_CREAT | O_RDWR | O_TRUNC, 0664);
     if (fd_infile == -1)
-    {
-        perror("fd_infile:");
-        //perror("Error opening file");
-        //exit(EXIT_FAILURE);
-    }
+        ft_exit_error();
     while (1)
     {
         line = readline("\033[33;1m> \033[0m");
-        if (ft_strncmp(line, cmd, ft_strlen(cmd)) == 0)
+        if (ft_strcmp(line, data->command->content) == 0)
         {
             free(line);
             break;
@@ -261,66 +256,13 @@ void    ft_heredoc(t_data *data)
         free(line);
     }
     close(fd_infile);
-    free(cmd);
     fd_infile = open(".heredoc.txt", O_RDONLY);
     if (fd_infile == -1)
-    {
-        //perror("fd:");
-        perror("Error opening file");
-        exit(EXIT_FAILURE);
-    }
+        ft_exit_error();
     dup2(fd_infile, STDIN_FILENO);
     close(fd_infile);
 }
 
-
-// void	ft_heredoc(t_data *data)
-// {
-// 	int		fd_infile;
-// 	char	*input;
-//     char	*cmd;
-    
-
-// 	cmd = data->command->content;
-//     input = NULL;
-
-// 	//fd_infile = open(".heredocfile.tmp", O_CREAT|O_WRONLY,0644);
-//     fd_infile = open("./.heredocfile.tmp", O_TRUNC | O_CREAT | O_RDWR, 0664);
-// 	while (1)
-// 	{
-// 		// if (data->npipes > 0)
-// 		// 	input = readline("\033[33;1mpipe heredoc> \033[0m");
-// 		// else
-// 		input = readline("\033[33;1mheredoc> \033[0m");
-// 		if (input && (ft_strncmp(input, cmd, ft_strlen(cmd)) == 0))
-// 		{
-// 			free(input);
-// 			break ;
-// 		}
-// 		if (input && *input)
-// 		{
-// 			write(fd_infile, input, ft_strlen(input));
-// 			write(fd_infile, "\n", 1);
-// 		}
-// 		free(input);
-//         //free(cmd);
-   
-// 	}
-//     close(fd_infile);
-    
-//     // fd_infile = open(".heredocfile.tmp", O_RDONLY);
-//     // if (fd_infile == -1)
-//     // {
-//     //     perror("Error opening file");
-//     //     //free(cmd);
-//     //     free(input);
-//     //     //exit(EXIT_FAILURE);
-//     // }
-//     // dup2(fd_infile, STDIN_FILENO);
-// 	// close(fd_infile);
-//     free(cmd);
-//     exit(EXIT_SUCCESS);
-// }
 
 void    ft_dup_infile(t_data *data)
 {
@@ -330,11 +272,7 @@ void    ft_dup_infile(t_data *data)
     {
         fd_infile = open(data->file, O_RDONLY);
         if (fd_infile == -1)
-        {
-            perror("fd_infile");
-            //perror("Error opening file");
-            //exit(EXIT_FAILURE);
-        }
+            ft_exit_error(); 
         dup2(fd_infile, STDIN_FILENO);
         close(fd_infile);
     }
@@ -342,15 +280,13 @@ void    ft_dup_infile(t_data *data)
     {
         ft_heredoc(data);
         exit(EXIT_SUCCESS);
-        // fd = open(".heredocfile.tmp", O_RDONLY);
-        // if (fd[0] == -1)
-        // {
-        //     perror("Error opening file");
-        //     exit(EXIT_FAILURE);
-        // }
-        // dup2(fd, STDIN_FILENO);
-        // close(fd[0]);
     }
+}
+
+void    ft_exit_error(void)
+{
+    perror("fd_outfile:");
+    exit(EXIT_FAILURE);
 }
 
 void    ft_dup_outfile(t_data *data)
@@ -359,28 +295,18 @@ void    ft_dup_outfile(t_data *data)
     
     if (data->nredirection == 1 && data->redirection == '>')
     {
-        //fd = open(data->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
         fd_outfile = open(data->file, O_TRUNC | O_CREAT | O_RDWR, 0664);
         if (fd_outfile == -1)
-        {
-            perror("fd_outfile:");
-            //perror("Error opening file");
-            //exit(EXIT_FAILURE);
-        }
+            ft_exit_error();
         close(STDOUT_FILENO);
         dup2(fd_outfile, STDOUT_FILENO);
         close(fd_outfile);
     }
     else if (data->nredirection == 2 && data->redirection == '>')
     {
-        //fd_outfile = open(data->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
         fd_outfile = open(data->file, O_APPEND | O_CREAT | O_RDWR, 0664);
         if (fd_outfile == -1)
-        {
-            perror("fd_outfile:");
-            //perror("Error opening file");
-            //exit(EXIT_FAILURE);
-        }
+            ft_exit_error();
         close(STDOUT_FILENO);
         dup2(fd_outfile, STDOUT_FILENO);
         close(fd_outfile);
@@ -389,11 +315,6 @@ void    ft_dup_outfile(t_data *data)
 
 void	ft_redirections(t_data *data)
 {
-	/*if (cmd->prev != NULL)
-		dup2(cmd->prev->fd[0], 0);
-	if (cmd->next != NULL)
-		dup2(cmd->fd[1], 1);*/
-
 	ft_dup_infile(data);
 	ft_dup_outfile(data);
 }
@@ -410,7 +331,6 @@ int ft_redirection_check(t_data *data)
         return (1);
     return (0);
 }
-
 
 void ft_execute_pipes(t_data *data, t_list *head) 
 {
@@ -437,7 +357,9 @@ void ft_execute_pipes(t_data *data, t_list *head)
         free(head->content);
         head->content = ft_strtrim(command[0], " ");
         //printf("content:%s\n", head->content);
+        //printf("content:%s\n", head->content);
         data->file = ft_strtrim(command[1], " ");
+            //printf("file:%s\n", data->file);
             //printf("file:%s\n", data->file);
         ft_free_matrix(command);
         data->cmd->cmd_splited = ft_command(head->content, data);
@@ -479,7 +401,6 @@ void ft_execute_pipes(t_data *data, t_list *head)
     }
 }
 
-
 void ft_execute(t_data *data) 
 {
     t_list *head = data->command;
@@ -491,4 +412,3 @@ void ft_execute(t_data *data)
     else
         ft_execute_pipes(data, head);
 }
-

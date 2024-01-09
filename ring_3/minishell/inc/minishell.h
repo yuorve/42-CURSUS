@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:23:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/09 20:25:56 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/09 21:18:16 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <errno.h>
-#define READ_END 0
-#define WRITE_END 1
+# define READ_END 0
+# define WRITE_END 1
 
-typedef struct s_env_node 
+typedef struct s_env_node
 {
-    char *name;
-    char *value;
-	int	 equal;
-    struct s_env_node *next;
-} t_env_node;
+	char				*name;
+	char				*value;
+	int					equal;
+	struct s_env_node	*next;
+}	t_env_node;
 
-typedef struct	s_cmd
+typedef struct s_cmd
 {
 	char	*command;
 	char	*param;
@@ -46,48 +46,85 @@ typedef struct	s_cmd
 	int		exit_status;
 	int		outfiles;
 	int		infiles;
-	int 	append;
-	int 	heredoc;
+	int		append;
+	int		heredoc;
 	//int 	pid;
 	//char	**cmd_complete;
 }	t_cmd;
 
 typedef struct s_data
 {
-	char	**env;
-	char	*input;
-	char	*file;
-	char	redirection;
-	int		nredirection;
-	int		npipes;
-	int		num_command;
-	t_list	*command;
-	t_list	*parameter;
-	t_cmd	*cmd;
-	t_env_node  *env_list;
+	char		**env;
+	char		*input;
+	char		*file;
+	char		redirection;
+	int			nredirection;
+	int			npipes;
+	int			num_command;
+	int			input_error;
+	int			expand;
+	t_list		*command;
+	t_list		*parameter;
+	t_cmd		*cmd;
+	t_env_node	*env_list;
 }	t_data;
 
+typedef struct s_strxstr
+{
+	int		i;
+	int		j;
+	char	*start;
+	char	*end;
+	char	*res;
+}	t_strxstr;
+
+typedef struct s_params
+{
+	int			i;
+	int			j;
+	int			flag;
+	char		*tmp;
+	char		*leak;
+	char		**values;
+	t_env_node	*head;
+}	t_params;
+
+typedef struct s_replace
+{
+	int		i;
+	int		j;
+	int		flag;
+}	t_replace;
 
 //minishell.c
 void	ft_minishell(t_data *data);
-int		ft_checks(char c1, char c2);
-void	ft_free_split(char **str);
-void 	debug(t_data *data);
+void	ft_pipes(t_data *data, char *str);
+char	*ft_replace(char *str);
+
+//params.c
+char	**ft_command(char *str, t_data *data);
+void	ft_params(t_data *data, char *str);
+
+//list.c
+t_list	*ft_previously(t_list *list, t_list *target);
 t_list	*ft_add_to_list(t_list *list, char *content);
+char	**ft_list_to_matrix(t_env_node *head);
+
+//checks_utils.c
+char	*ft_variable(char *str);
+int		ft_checks(char c1, char c2);
 int		ft_findpos(char *str, char c);
 int		ft_quoted(char *str);
-void	ft_pipes(t_data *data, char *str);
-void	ft_input_checks(t_data *data, char *str);
-void	ft_free(void *data);
-void	ft_params(t_data *data, char *str);
-char    **ft_command(char *str, t_data *data);
+void	ft_checks_zeros(t_data *data, int *start, int *flag, int *i);
 
+//checks.c
+void	ft_input_checks(t_data *data, char *str);
 
 //signals.c
-void    set_signal(void);
-void    handle_process_on(int sig);
-void    handle_ctrl_c(int sig);
-void 	ft_control_d(t_data *i);
+void	set_signal(void);
+void	handle_process_on(int sig);
+void	handle_ctrl_c(int sig);
+void	ft_control_d(t_data *i);
 
 //init.c
 void    ft_init(t_data *data, char **env);
@@ -102,7 +139,6 @@ t_env_node	*ft_listlast(t_env_node *lst);
 void 	ft_shell_level(t_env_node **head, int i);
 t_env_node *ft_find_node(t_env_node *head, const char *name);
 int		ft_count_nodes(t_env_node *head);
-
 
 //builtins.c
 int 	ft_not_redirected_builtins(t_data *data);
@@ -119,7 +155,7 @@ int 	ft_export(t_data *data);
 int 	ft_unset(t_data *data);
 int 	ft_echo(t_data *data);
 int 	ft_cd(t_data *data);
-int    ft_command_not_found(t_data *data);
+int		ft_command_not_found(t_data *data);
 
 
 //executer.c
@@ -139,9 +175,18 @@ void	ft_dup_outfile(t_data *data);
 int 	ft_redirection_check(t_data *data);
 
 //utils.c
-int 	ft_strcmp(const char *str1, const char *str2);
+int		ft_strcmp(const char *str1, const char *str2);
+char	*ft_strstr(const char *haystack, const char *needle);
+char	*ft_strxstr(char *str, char *from, char *to);
 
 //free.c
-void 	ft_free_matrix(char **array);
+void	ft_free_matrix(char **array);
+void	ft_free_split(char **str);
+void	ft_free(void *data);
+void	ft_free3(char *str1, char *str2, char *str3);
+void	ft_free_minishell(t_data *data);
+
+//error.c
+void    ft_exit_error(void);
 
 #endif
