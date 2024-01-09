@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/28 20:44:51 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/09 20:35:21 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -612,10 +612,10 @@ void	ft_minishell(t_data *data)
 			
 			data->cmd->env_copy = ft_list_to_matrix(data->env_list); //converte la lista de env en matriz
 			
-			if(ft_not_redirected_builtins(data) == 1)
-				ft_execute_not_rebuiltins(data);
+			// if(ft_not_redirected_builtins(data) == 1)
+			// 	ft_execute_not_rebuiltins(data);
             	//printf("tiene que ejecutar el buitin\n");
-            else
+            //else
             	ft_execute(data);
 			ft_free_matrix(data->cmd->env_copy);
 		}

@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:23:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/07 20:04:07 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/09 20:25:56 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int 	ft_export(t_data *data);
 int 	ft_unset(t_data *data);
 int 	ft_echo(t_data *data);
 int 	ft_cd(t_data *data);
+int    ft_command_not_found(t_data *data);
 
 
 //executer.c

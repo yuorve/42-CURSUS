@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/07 21:49:49 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/09 20:32:38 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,9 +143,8 @@ void    ft_execute_child(t_data *data, t_list *head, int prev_pipe)
     //     printf("Is redirected builtins\n");
     //     ft_execute_rebuiltins(data);
     // }
-    // if (data->cmd->path != NULL)
-    // {
-        execve(data->cmd->path, data->cmd->cmd_splited, data->cmd->env_copy);
+    if (data->cmd->path != NULL)
+            execve(data->cmd->path, data->cmd->cmd_splited, data->cmd->env_copy);
     //}
 
     // else
@@ -425,6 +424,15 @@ void ft_execute_pipes(t_data *data, t_list *head)
     signal(SIGUSR2, SIG_IGN);
     while (head) 
     {
+        if (ft_not_redirected_builtins(data) == 1 && head->next == NULL)
+    {
+        ft_execute_not_rebuiltins(data);
+        return;
+    }
+    else if (ft_not_redirected_builtins(data) == 1 && head->next != NULL)
+    {
+        head = head->next;
+    }
         command = ft_split(head->content, data->redirection);
         free(head->content);
         head->content = ft_strtrim(command[0], " ");
@@ -436,6 +444,7 @@ void ft_execute_pipes(t_data *data, t_list *head)
         //  ft_redirections(data);
         data->cmd->path = ft_get_path(data->cmd->cmd_splited, data);
         //data->cmd->path = ft_cmd(data, data->cmd->cmd_splited[0]);
+    
         if (data->cmd->path == NULL && ft_redirection_check(data) == 0)
         {
             printf("Error: command not found\n");
@@ -474,7 +483,7 @@ void ft_execute_pipes(t_data *data, t_list *head)
 void ft_execute(t_data *data) 
 {
     t_list *head = data->command;
-    if (head->next == NULL && ft_is_redirected_builtins(data) == 1)
+    if (ft_is_redirected_builtins(data) == 1 && head->next == NULL)
     {
         printf("Is redirected builtins, will not enter en execute\n");
         ft_execute_rebuiltins(data);

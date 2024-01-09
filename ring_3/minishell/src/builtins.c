@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/07 20:04:37 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/09 20:25:47 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -370,12 +370,8 @@ int ft_export(t_data *data)
         ft_print_sorted_env(data->env_list);
         return (0);
     } 
-    else if (data->cmd->command[6] != ' ') 
-    {
-        printf("minishell: %s: command not found\n", data->cmd->command);
-        data->cmd->exit_status = 127;
-        return (1);
-    } 
+    else if (data->cmd->command[6] != ' ')
+        return (ft_command_not_found(data));
     else 
     {
         t_list *tmp;
@@ -458,17 +454,6 @@ int ft_execute_not_rebuiltins(t_data *data)
         else
             return (ft_unset(data));
     }
-    // else if (ft_strncmp(data->command->content, "pwd", 3) == 0)
-    // { 
-    //     if (data->cmd->command[3] != ' ' && data->cmd->command[3] != '\0') 
-    //         {
-    //             printf("minishell: %s: command not found\n", data->cmd->command);
-    //             data->cmd->exit_status = 127;
-    //             return (1);
-    //         } 
-    //         else
-    //             return (ft_pwd());
-    // }
     else if (ft_strncmp(data->command->content, "exit", 4) == 0)
     {
         if(data->cmd->command[4] != ' ' && data->cmd->command[4] != '\0') 
@@ -504,6 +489,9 @@ int ft_execute_not_rebuiltins(t_data *data)
 
 int ft_execute_rebuiltins(t_data *data)
 {
+    data->cmd->command = data->command->content;
+    ft_params(data, data->command->content);
+    
     if (ft_strncmp(data->command->content, "echo", 4) == 0)
     {
         if (data->cmd->command[4] != ' ' && data->cmd->command[4] != '\0') 
