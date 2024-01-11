@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 19:55:11 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/07 19:55:38 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/11 18:13:12 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void ft_swap_dir(char *str1, char *str2)
+{
+	char *temp;
+	
+	temp = str1;
+	str1 = str2;
+	str2 = temp;
+}
 
 char	*ft_cd_utils(t_data *data)
 {
@@ -27,7 +36,7 @@ char	*ft_cd_utils(t_data *data)
 		head = ft_find_node(data->env_list, "OLDPWD");
 		dir = head->value;
 		printf("%s\n", dir);
-		ft_swap_values(head->value, head->next->value);
+		ft_swap_dir(head->value, head->next->value);
 	}
 	return (dir);
 }
