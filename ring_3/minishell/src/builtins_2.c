@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 20:59:56 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/11 21:00:43 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/12 19:32:06 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,30 +51,28 @@ int	ft_echo(t_data *data)
 	return (0);
 }
 
-int ft_is_numeric(const char *str)
+int	ft_is_numeric(const char *str)
 {
 	while (*str)
 	{
 		if (*str < '0' || *str > '9')
 		{
-			return (1); // No es un número
+			return (1);
 		}
 		str++;
 	}
-	return (0); // Es un número
+	return (0);
 }
 
-int ft_exit(t_data *data)
+int	ft_exit(t_data *data)
 {
-	int exit_code = 0;
+	int	exit_code;
+
+	exit_code = 0;
 	if (data->parameter)
 	{
 		if (ft_is_numeric(data->parameter->content) == 1)
-		{
-			printf("minishell: exit: %p: numeric argument required\n", data->parameter->content);
-			data->cmd->exit_status = 255;
-			exit (255);
-		}
+			ft_exit_num_error(data);
 		else
 		{
 			exit_code = ft_atoi(data->parameter->content);
@@ -93,27 +91,28 @@ int ft_exit(t_data *data)
 	exit(exit_code);
 }
 
-int ft_env(t_data *data)
+int	ft_env(t_data *data)
 {
-	t_env_node *head;
+	t_env_node	*head;
 
 	if (data->parameter == NULL)
-   {
+	{
 		head = data->env_list;
-		while(head)
+		while (head)
 		{
-			if (head->name != NULL && head->value != NULL && ft_strlen(head->value) > 0 && head->equal == 1)
+			if (head->name != NULL && head->value != NULL
+				&& ft_strlen(head->value) > 0)
 			{
 				printf("%s=%s\n", head->name, head->value);
 			}
 			head = head->next;
 		}
 		return (0);
-   }
-   else
-   {
+	}
+	else
+	{
 		printf ("env: No such file or directory\n");
 		data->cmd->exit_status = 127;
 		return (127);
-   }
+	}
 }

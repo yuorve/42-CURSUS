@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:59:00 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/11 18:42:30 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/12 19:29:11 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	ft_init(t_data *data, char **env)
 void	ft_init_env(t_env_node **head, char **env)
 {
 	int		i;
-	int		equal;
 	char	*name;
 	char	*value;
 
@@ -51,30 +50,25 @@ void	ft_init_env(t_env_node **head, char **env)
 		value = ft_strchr(env[i], '=');
 		if (value)
 		{
-			equal = 1;
 			*value = '\0';
 			value++;
-			ft_push_env_node(head, name, value, equal);
+			ft_push_env_node(head, name, value);
 		}
 		else
 		{
-			equal = 0;
-			ft_push_env_node(head, name, "", equal);
+			ft_push_env_node(head, name, "");
 		}
 		i++;
 	}
 	ft_shell_level(head, 1);
 }
 
-
-void ft_shell_level(t_env_node **head, int i)
+void	ft_shell_level(t_env_node **head, int i)
 {
 	t_env_node	*shlvl_node;
 	char		*value;
 	int			current_shlvl;
-	int			equal;
 
-	equal = 1;
 	shlvl_node = ft_find_node(*head, "SHLVL");
 	if (shlvl_node)
 	{
@@ -86,7 +80,7 @@ void ft_shell_level(t_env_node **head, int i)
 	else
 	{
 		value = ft_itoa(i);
-		ft_push_env_node(head, "SHLVL", value, equal);
+		ft_push_env_node(head, "SHLVL", value);
 		free(value);
 	}
 }

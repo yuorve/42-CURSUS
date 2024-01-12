@@ -6,16 +6,16 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 19:55:11 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/11 18:13:12 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/12 18:54:27 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void ft_swap_dir(char *str1, char *str2)
+void	ft_swap_dir(char *str1, char *str2)
 {
-	char *temp;
-	
+	char	*temp;
+
 	temp = str1;
 	str1 = str2;
 	str2 = temp;

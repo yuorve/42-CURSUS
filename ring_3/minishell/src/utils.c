@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 21:11:27 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/02 19:57:05 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/12 19:24:28 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_strcmp(const char *str1, const char *str2)
 {
 	while (*str1 == *str2)
 	{
-		if (*str1 == '\0') 
+		if (*str1 == '\0')
 		{
 			return (0);
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 07:46:09 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/05/11 09:51:47 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/12 20:32:08 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_printf(char const *str, ...)
 		{
 			i++;
 			ft_checking(str[i], args, ptr);
-		}			
+		}
 		i++;
 	}
 	va_end(args);

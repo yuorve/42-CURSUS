@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/11 21:45:29 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/12 21:08:18 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_execute_child(t_data *data, t_list *head, int prev_pipe)
 		execve(data->cmd->path, data->cmd->cmd_splited, data->cmd->env_copy);
 }
 
-void	ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe, int pid)
+void	ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe)
 {
 	signal(SIGUSR2, SIG_IGN);
 	rl_set_prompt("");
@@ -47,21 +47,18 @@ void	ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe, in
 	{
 		close(data->cmd->pipefd[0]);
 	}
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
+	if (head->next == NULL)
 	{
-		data->cmd->exit_status = WEXITSTATUS(status);
+		waitpid(data->cmd->pid, &status, 0);
+		if (WIFEXITED(status))
+		{
+			data->cmd->exit_status = WEXITSTATUS(status);
+		}
 	}
+	// waitpid(data->cmd->pid, &status, 0);
 	// if (WIFEXITED(status))
 	// {
-	//     if (WEXITSTATUS(status) == 0)
-	//     {
-	//         printf("Command executed successfully\n");
-	//     }
-	//     else
-	//     {
-	//         printf("Command failed with code: %d\n", WEXITSTATUS(status));
-	//     }
+	// 	data->cmd->exit_status = WEXITSTATUS(status);
 	// }
 }
 
@@ -99,7 +96,6 @@ void	ft_execute(t_data *data)
 	head = data->command;
 	if (ft_is_redirected_builtins(data) == 1 && head->next == NULL)
 	{
-		printf("Is redirected builtins, will not enter en execute\n");
 		ft_execute_rebuiltins(data);
 	}
 	else if (ft_not_redirected_builtins(data) == 1 && head->next == NULL)

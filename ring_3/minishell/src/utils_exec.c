@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 19:10:21 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/11 21:52:36 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/12 21:18:05 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void	ft_execute_command(t_data *data, t_list *head, int prev_pipe)
 {
-	int	pid;
+	// int	pid;
 	int	status;
 
 	status = 0;
 	if (pipe(data->cmd->pipefd) == -1)
 		ft_perror();
-	pid = fork();
-	if (pid == -1)
+	data->cmd->pid = fork();
+	if (data->cmd->pid == -1)
 		ft_perror();
-	else if (pid == 0)
+	else if (data->cmd->pid == 0)
 		ft_execute_child(data, head, prev_pipe);
 	else
-		ft_execute_parent(status, data, head, prev_pipe, pid);
+		ft_execute_parent(status, data, head, prev_pipe);
 }
 
 void	ft_free_execute(t_data *data)
@@ -65,9 +65,9 @@ char	*ft_filename(t_data *data, char *str)
 		leak = ft_variable(str);
 		tmp = ft_find_node(data->env_list, leak);
 		if (tmp)
-			return (free (leak), tmp->value);
+			return (free(leak), tmp->value);
 		else
-			return (free (leak), ft_strtrim(str, " "));
+			return (free(leak), ft_strtrim(str, " "));
 	}
 	else
 		return (ft_strtrim(str, " "));

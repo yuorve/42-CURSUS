@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:15:34 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/09 19:14:30 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/12 19:22:49 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//no entiendo si esta funcion es necesaria y esta correcta
-//esta función la utiliza ft_lstclear para liberar la memoria del nodo de la lista
 void	ft_free(void *data)
 {
 	free (data);
