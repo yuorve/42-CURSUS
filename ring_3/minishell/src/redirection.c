@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 18:48:45 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/12 19:21:39 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/14 14:15:33 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_dup_infile(t_data *data)
 
 	if (data->nredirection == 1 && data->redirection == '<')
 	{
-		fd_infile = open(data->file, O_RDONLY);
+		fd_infile = open(ft_filename(data, data->file), O_RDONLY);
 		if (fd_infile == -1)
 			ft_exit_error();
 		dup2(fd_infile, STDIN_FILENO);
@@ -65,7 +65,8 @@ void	ft_dup_outfile(t_data *data)
 
 	if (data->nredirection == 1 && data->redirection == '>')
 	{
-		fd_outfile = open(data->file, O_TRUNC | O_CREAT | O_RDWR, 0664);
+		fd_outfile = open(ft_filename(data, data->file),
+				O_TRUNC | O_CREAT | O_RDWR, 0664);
 		if (fd_outfile == -1)
 			ft_exit_error();
 		close(STDOUT_FILENO);
@@ -74,7 +75,8 @@ void	ft_dup_outfile(t_data *data)
 	}
 	else if (data->nredirection == 2 && data->redirection == '>')
 	{
-		fd_outfile = open(data->file, O_APPEND | O_CREAT | O_RDWR, 0664);
+		fd_outfile = open(ft_filename(data, data->file),
+				O_APPEND | O_CREAT | O_RDWR, 0664);
 		if (fd_outfile == -1)
 			ft_exit_error();
 		close(STDOUT_FILENO);

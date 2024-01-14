@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 19:10:21 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/12 21:18:05 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/14 14:10:08 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,20 @@ char	*ft_filename(t_data *data, char *str)
 {
 	t_env_node	*tmp;
 	char		*leak;
+	char		*name;
 
 	if (ft_strchr(str, '$'))
 	{
 		leak = ft_variable(str);
 		tmp = ft_find_node(data->env_list, leak);
 		if (tmp)
-			return (free(leak), tmp->value);
+		{
+			name = ft_strdup(tmp->value);
+			return (free(leak), free(tmp), name);
+		}
 		else
-			return (free(leak), ft_strtrim(str, " "));
+			return (free(leak), str);
 	}
 	else
-		return (ft_strtrim(str, " "));
+		return (str);
 }

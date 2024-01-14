@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/12 21:08:18 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/14 14:04:04 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,12 @@ void	ft_execute(t_data *data)
 	head = data->command;
 	if (ft_is_redirected_builtins(data) == 1 && head->next == NULL)
 	{
+		ft_params(data, data->command->content);
 		ft_execute_rebuiltins(data);
 	}
 	else if (ft_not_redirected_builtins(data) == 1 && head->next == NULL)
 	{
+		ft_params(data, data->command->content);
 		ft_execute_not_rebuiltins(data);
 	}
 	else
