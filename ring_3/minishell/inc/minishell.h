@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:23:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/12 21:16:24 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/15 20:16:27 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,9 @@ void		ft_print_sorted_env(t_env_node *head);
 int			ft_command_not_found(t_data *data);
 
 //unset.c
-int			ft_check_parameter(t_data *data);
+int			ft_check_parameter(t_data *data, char *param_content);
+int			ft_check_and_remove(t_data *data, t_env_node **env_list,
+				t_list *parameters);
 int			ft_unset(t_data *data);
 
 //export.c

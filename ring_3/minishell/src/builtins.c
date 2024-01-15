@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/14 14:05:54 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/15 20:14:56 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	ft_not_redirected_builtins(t_data *data)
 }
 
 int	ft_is_redirected_builtins(t_data *data)
-{	
+{
 	if (ft_strncmp(data->command->content, "echo", 4) == 0)
 		return (1);
 	else if (ft_strncmp(data->command->content, "pwd", 3) == 0)

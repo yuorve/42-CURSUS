@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 19:10:21 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/14 14:10:08 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/15 20:15:56 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
