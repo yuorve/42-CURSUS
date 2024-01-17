@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 18:48:45 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/14 14:15:33 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/17 18:54:38 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	ft_heredoc(t_data *data)
 void	ft_dup_infile(t_data *data)
 {
 	int	fd_infile;
+
+	//if (data->cmd->path != NULL && data->nredirection)
 
 	if (data->nredirection == 1 && data->redirection == '<')
 	{

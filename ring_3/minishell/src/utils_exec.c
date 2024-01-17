@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 19:10:21 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/15 20:15:56 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/17 19:56:37 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ char	*ft_filename(t_data *data, char *str)
 		tmp = ft_find_node(data->env_list, leak);
 		if (tmp)
 		{
-			name = ft_strdup(tmp->value);
-			return (free(leak), free(tmp), name);
+			name = tmp->value;
+			return (free(leak), name);
 		}
 		else
 			return (free(leak), str);
