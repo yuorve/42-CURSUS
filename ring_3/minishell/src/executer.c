@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/17 21:41:23 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:45:43 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,7 @@ void	ft_execute_pipes(t_data *data, t_list *head)
 		data->cmd->cmd_splited = ft_command(head->content, data);
 		data->cmd->path = ft_get_path(data->cmd->cmd_splited, data);
 		if (data->cmd->path == NULL && ft_redirection_check(data) == 0)
-		{
-			ft_free_execute(data);
-			return ;
-		}
+			return (ft_free_execute(data));
 		if (ft_error_infile(data) == 1)
 			return ;
 		ft_execute_command(data, head, prev_pipe);
