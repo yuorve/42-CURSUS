@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 20:54:48 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/12 19:11:25 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:29:33 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	ft_check_export_errors(t_data *data)
 			ft_export_error(data);
 		parameter = parameter->next;
 	}
+	data->cmd->exit_status = 0;
 	return (0);
 }
 

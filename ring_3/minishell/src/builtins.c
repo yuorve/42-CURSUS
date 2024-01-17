@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/15 20:14:56 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:32:48 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	ft_execute_rebuiltins(t_data *data)
 		if (data->cmd->command[3] != ' ' && data->cmd->command[3] != '\0')
 			return (ft_command_not_found(data));
 		else
-			return (ft_pwd());
+			return (ft_pwd(data));
 	}
 	else if (ft_strncmp(data->command->content, "env", 3) == 0)
 	{

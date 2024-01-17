@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/09 20:52:59 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/17 20:27:08 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ void	ft_pipes_quoted(t_data *data, int *i, char **values)
 			free(leak_prevent);
 		}
 		--*i;
-		ft_input_checks(data, tmp);
+		//ft_input_checks(data, tmp);
 		data->command = ft_add_to_list(data->command, tmp);
 		free(tmp);
 	}
 	else
 	{
-		ft_input_checks(data, values[*i]);
+		//ft_input_checks(data, values[*i]);
 		data->command = ft_add_to_list(data->command, values[*i]);
 	}
 }
@@ -100,6 +100,7 @@ void	ft_minishell(t_data *data)
 		{
 			add_history(data->input);
 			ft_pipes(data, data->input);
+			ft_input_checks(data, data->input);
 			if (data->input_error == 0)
 			{
 				data->cmd->env_copy = ft_list_to_matrix(data->env_list);

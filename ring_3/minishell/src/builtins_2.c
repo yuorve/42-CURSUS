@@ -6,13 +6,13 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 20:59:56 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/12 19:32:06 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:31:20 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_pwd(void)
+int	ft_pwd(t_data *data)
 {
 	char	*pwd;
 
@@ -24,6 +24,7 @@ int	ft_pwd(void)
 	}
 	printf("%s\n", pwd);
 	free(pwd);
+	data->cmd->exit_status = 0;
 	return (0);
 }
 
@@ -48,6 +49,7 @@ int	ft_echo(t_data *data)
 	}
 	else
 		ft_printf("\n");
+	data->cmd->exit_status = 0;
 	return (0);
 }
 
@@ -107,6 +109,7 @@ int	ft_env(t_data *data)
 			}
 			head = head->next;
 		}
+		data->cmd->exit_status = 0;
 		return (0);
 	}
 	else

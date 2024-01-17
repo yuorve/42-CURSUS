@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 19:55:11 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/12 18:54:27 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:29:05 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ int	ft_cd(t_data *data)
 		else
 			ft_update_pwd(data, "PWD");
 	}
+	data->cmd->exit_status = 0;
 	return (0);
 }

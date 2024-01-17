@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/17 19:53:52 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:41:23 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 void	ft_execute_child(t_data *data, t_list *head, int prev_pipe)
 {
 	signal(SIGUSR2, handle_process_on);
-	ft_redirections(data);
 	if (prev_pipe != -1)
 	{
 		dup2(prev_pipe, STDIN_FILENO);
 		close(prev_pipe);
 	}
-	if (head->next != NULL)
+	if (head->next != NULL && !(data->nredirection == 2 && data->redirection == '<'))
 	{
 		dup2(data->cmd->pipefd[1], STDOUT_FILENO);
 	}
 	close(data->cmd->pipefd[0]);
 	close(data->cmd->pipefd[1]);
+	ft_redirections(data);
 	if (data->cmd->path != NULL)
 		execve(data->cmd->path, data->cmd->cmd_splited, data->cmd->env_copy);
 }
@@ -43,23 +43,23 @@ void	ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe)
 	{
 		close(data->cmd->pipefd[1]);
 	}
-	// if (head->next == NULL)
-	// {
-	// 	close(data->cmd->pipefd[0]);
-	// }
 	if (head->next == NULL)
 	{
-		waitpid(data->cmd->pid, &status, 0);
-		if (WIFEXITED(status))
-		{
-			data->cmd->exit_status = WEXITSTATUS(status);
-		}
+		close(data->cmd->pipefd[0]);
 	}
-	// waitpid(data->cmd->pid, &status, 0);
-	// if (WIFEXITED(status))
+	// if (head->next == NULL)
 	// {
-	// 	data->cmd->exit_status = WEXITSTATUS(status);
+	// 	waitpid(data->cmd->pid, &status, 0);
+	// 	if (WIFEXITED(status))
+	// 	{
+	// 		data->cmd->exit_status = WEXITSTATUS(status);
+	// 	}
 	// }
+	waitpid(data->cmd->pid, &status, 0);
+	if (WIFEXITED(status))
+	{
+		data->cmd->exit_status = WEXITSTATUS(status);
+	}
 }
 
 int	ft_error_infile(t_data *data)
@@ -87,6 +87,7 @@ void	ft_execute_pipes(t_data *data, t_list *head)
 	signal(SIGUSR2, SIG_IGN);
 	while (head)
 	{
+		ft_input_checks(data, head->content);
 		if (ft_not_redirected_builtins(data) == 1 && head->next != NULL)
 			head = head->next;
 		ft_get_command(head, data);

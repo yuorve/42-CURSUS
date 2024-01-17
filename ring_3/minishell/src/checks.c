@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 19:07:43 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/09 19:58:09 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/17 20:32:38 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ int	ft_checks_pipes(char c, int *flag, t_data *data)
 			*flag = 2;
 	}
 	else if (ft_checks(c, '|') && *flag == 0)
-		return (data->npipes++, 1);
+	{
+		data->nredirection = 0;
+		data->npipes++;
+		return (1);
+	}
 	return (0);
 }
 

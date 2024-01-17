@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:23:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/15 20:16:27 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:31:53 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int			ft_execute_not_rebuiltins(t_data *data);
 int			ft_execute_rebuiltins(t_data *data);
 
 //builtins_2.c
-int			ft_pwd(void);
+int			ft_pwd(t_data *data);
 int			ft_echo(t_data *data);
 int			ft_is_numeric(const char *str);
 int			ft_exit(t_data *data);
