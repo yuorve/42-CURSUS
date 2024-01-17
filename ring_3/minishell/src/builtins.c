@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/17 21:32:48 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:57:03 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	ft_execute_not_rebuiltins(t_data *data)
 int	ft_execute_rebuiltins(t_data *data)
 {
 	data->cmd->command = data->command->content;
-	//ft_params(data, data->command->content);
 	if (ft_strncmp(data->command->content, "echo", 4) == 0)
 	{
 		if (data->cmd->command[4] != ' ' && data->cmd->command[4] != '\0')
@@ -72,7 +71,6 @@ int	ft_execute_rebuiltins(t_data *data)
 int	ft_not_redirected_builtins(t_data *data)
 {
 	data->cmd->command = data->command->content;
-	//ft_params(data, data->command->content);
 	if (ft_strncmp(data->command->content, "cd", 2) == 0)
 		return (1);
 	else if (ft_strncmp(data->cmd->command, "export", 6) == 0)

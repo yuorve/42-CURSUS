@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:23:55 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/17 21:31:53 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:55:37 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # include <errno.h>
 # define READ_END 0
 # define WRITE_END 1
-struct termios	t;
 
 typedef struct s_env_node
 {

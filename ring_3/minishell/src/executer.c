@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:12:01 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/17 21:45:43 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:48:24 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	ft_execute_child(t_data *data, t_list *head, int prev_pipe)
 		dup2(prev_pipe, STDIN_FILENO);
 		close(prev_pipe);
 	}
-	if (head->next != NULL && !(data->nredirection == 2 && data->redirection == '<'))
+	if (head->next != NULL
+		&& !(data->nredirection == 2 && data->redirection == '<'))
 	{
 		dup2(data->cmd->pipefd[1], STDOUT_FILENO);
 	}
@@ -47,14 +48,6 @@ void	ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe)
 	{
 		close(data->cmd->pipefd[0]);
 	}
-	// if (head->next == NULL)
-	// {
-	// 	waitpid(data->cmd->pid, &status, 0);
-	// 	if (WIFEXITED(status))
-	// 	{
-	// 		data->cmd->exit_status = WEXITSTATUS(status);
-	// 	}
-	// }
 	waitpid(data->cmd->pid, &status, 0);
 	if (WIFEXITED(status))
 	{
@@ -64,7 +57,8 @@ void	ft_execute_parent(int status, t_data *data, t_list *head, int prev_pipe)
 
 int	ft_error_infile(t_data *data)
 {
-	if (data->cmd->path != NULL && (data->nredirection == 1 && data->redirection == '<'))
+	if (data->cmd->path != NULL
+		&& (data->nredirection == 1 && data->redirection == '<'))
 	{
 		if (access(ft_filename(data, data->file), F_OK) != 0)
 		{

@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:59:06 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/11 21:38:02 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:58:23 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	handle_process_on(int sig)
 
 void	set_signal(void)
 {
+	struct termios	t;
+
 	signal(SIGINT, handle_ctrl_c);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGUSR2, handle_process_on);

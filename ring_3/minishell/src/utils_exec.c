@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 19:10:21 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/17 19:56:37 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:58:55 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_execute_command(t_data *data, t_list *head, int prev_pipe)
 {
-	// int	pid;
 	int	status;
 
 	status = 0;
@@ -51,7 +50,6 @@ void	ft_get_command(t_list *head, t_data *data)
 	free(head->content);
 	head->content = ft_strtrim(command[0], " ");
 	data->file = ft_strtrim(command[1], " ");
-	//data->file = ft_filename(data, command[1]);
 	ft_free_matrix(command);
 }
 

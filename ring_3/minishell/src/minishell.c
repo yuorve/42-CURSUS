@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/17 20:27:08 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:57:40 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,11 @@ void	ft_pipes_quoted(t_data *data, int *i, char **values)
 			free(leak_prevent);
 		}
 		--*i;
-		//ft_input_checks(data, tmp);
 		data->command = ft_add_to_list(data->command, tmp);
 		free(tmp);
 	}
 	else
 	{
-		//ft_input_checks(data, values[*i]);
 		data->command = ft_add_to_list(data->command, values[*i]);
 	}
 }
