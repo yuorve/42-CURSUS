@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 20:23:41 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/17 21:57:03 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/18 20:49:36 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_execute_not_rebuiltins(t_data *data)
 	}
 	else if (ft_strncmp(data->command->content, "unset", 5) == 0)
 	{
-		if (data->cmd->command[5] != ' ')
+		if (data->cmd->command[5] != ' ' && data->cmd->command[5] != '\0')
 			return (ft_command_not_found(data));
 		return (ft_unset(data));
 	}

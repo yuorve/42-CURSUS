@@ -3,25 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:43:08 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/05 18:43:40 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/18 21:09:43 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_void(void)
-{
-	system("leaks -q 'minishell'");
-}
+// void	ft_void(void)
+// {
+// 	system("leaks -q 'minishell'");
+// }
+
+	// atexit(ft_void);
 
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 
-	atexit(ft_void);
 	(void) argc;
 	(void) argv;
 	set_signal();
