@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:43:08 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/18 21:09:43 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/19 19:12:50 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // 	system("leaks -q 'minishell'");
 // }
 
-	// atexit(ft_void);
+// 	atexit(ft_void);
 
 int	main(int argc, char **argv, char **env)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   params.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 19:12:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/09 18:42:32 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/19 19:14:05 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

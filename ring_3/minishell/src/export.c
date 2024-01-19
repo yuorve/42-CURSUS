@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 20:54:48 by angalsty          #+#    #+#             */
-/*   Updated: 2024/01/17 21:29:33 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/01/19 19:13:40 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int	ft_check_export_errors(t_data *data)
 	{
 		data->cmd->param = parameter->content;
 		if (ft_isalpha(data->cmd->param[0]) == 0 && data->cmd->param[0] != '_')
+		{
 			ft_export_error(data);
+			return (data->cmd->exit_status);
+		}
 		parameter = parameter->next;
 	}
 	data->cmd->exit_status = 0;

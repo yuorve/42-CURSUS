@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 17:56:57 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/05 18:15:35 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/19 18:52:27 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*ft_variable(char *str)
 	if (ft_strchr(str, '$'))
 	{
 		j = 0;
+		if (ft_strlen(str) == 1)
+			return (0);
 		while (str[j] && str[j] != '$')
 			j++;
 		tmp = ft_substr(str, j, ft_strlen(str) - j);
