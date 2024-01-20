@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 08:33:33 by yoropeza          #+#    #+#             */
-/*   Updated: 2023/12/14 19:55:41 by yoropeza         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:35:34 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,77 +90,22 @@ int	ft_findpos(char *str, char c)
 
 int	ft_quoted(char *str)
 {
-	int	i;
-	int	numquotes;
-	int	numsinglequotes;
+	int i;
+	int numQuotes;
+	int numSingleQuotes;
 
-	numquotes = 0;
-	numsinglequotes = 0;
+	numQuotes = 0;
+	numSingleQuotes = 0;
 	i = 0;
 	while (str[i])
 	{
-		if (ft_checks(str[i], '\"') && !(numsinglequotes % 2))
-			numquotes++;
-		else if (ft_checks(str[i], '\'') && !(numquotes % 2))
-			numsinglequotes++;
+		if (ft_checks(str[i], '\"') && !(numSingleQuotes % 2))
+			numQuotes++;
+		else if (ft_checks(str[i], '\'') && !(numQuotes % 2))
+			numSingleQuotes++;
 		i++;
 	}
-	return ((numquotes % 2) || (numsinglequotes % 2));
-}
-
-char	*ft_strxstr(char *str, char *from, char *to)
-{
-	int		i;
-	int		j;
-	char	*start;
-	char	*end;
-	char	*res;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		while (str[i] && from[j] && str[i] == from[j])
-		{
-			i++;
-			j++;
-		}
-		if (from[j])
-			i++;
-		else
-			break ;
-	}
-	start = ft_substr(str, 0, (i - j));
-	res = ft_strjoin(start, to);
-	end = ft_substr(str, i, ft_strlen(str));
-	str = ft_strjoin(res, end);
-	free (start);
-	free (res);
-	free (end);
-	return (str);
-}
-
-char	*ft_variable(char *str)
-{
-	int		i;
-	int		j;
-	char	*tmp;
-	char	*res;
-
-	res = 0;
-	if (ft_strchr(str, '$'))
-	{
-		j = 0;
-		while (str[j] && str[j] != '$')
-			j++;
-		tmp = ft_substr(str, j, ft_strlen(str) - j);
-		i = 1;
-		while (tmp[i] && ft_isalpha(tmp[i]))
-			i++;
-		res = ft_substr(str, j + 1, i);
-		free (tmp);
-	}
-	return (res);
+	return ((numQuotes % 2) || (numSingleQuotes % 2));
 }
 
 char	*ft_replace(char *str)
@@ -171,11 +116,12 @@ char	*ft_replace(char *str)
 
 	i = 0;
 	j = 0;
-	flag = 0;
+	flag = 0;	
 	while (str[i])
-	{
+	{		
 		if ((str[i] != '\"' && str[i] != '\'')
-			|| (str[i] == '\'' && flag == 1) || (str[i] == '\"' && flag == 2))
+		 || (str[i] == '\'' && flag == 1)
+		 || (str[i] == '\"' && flag == 2))
 			str[j++] = str[i];
 		if (ft_checks(str[i], '\"') && flag != 2)
 		{
@@ -225,15 +171,6 @@ char	**ft_command(char *str)
 			i = j;
 		}
 		values[i] = ft_replace(values[i]);
-		leak_prevent = ft_variable(values[i]);
-		if (leak_prevent)
-		{
-			ft_printf("y: %s\n", leak_prevent);
-			tmp = ft_strxstr(values[i], leak_prevent, "yury");
-			free(values[i]);
-			free(leak_prevent);
-			values[i] = tmp;
-		}
 		i++;
 	}
 	return (values);
@@ -419,22 +356,21 @@ void	ft_input_checks(t_data *data, char *str)
 			data->npipes++;
 			start = i;
 		}
-		else if ((ft_checks(str[i], '>') || ft_checks(str[i], '<'))
-			&& flag == 0)
+		else if ((ft_checks(str[i], '>') || ft_checks(str[i], '<')) && flag == 0)
 		{
 			if (data->nredirection > 0 && data->redirection != str[i])
 				flag = 3;
 			data->redirection = str[i];
 			data->nredirection++;
 		}
-		else if (ft_checks(str[i], '$') && flag != 2)
+		else if (ft_checks(str[i], '$') && flag == 1)
 		{
 			start = i++;
 			if (ft_isalpha(str[i]))
 			{
 				while (ft_isalpha(str[i]))
 					i++;
-				//ft_printf("Obtain value from: %s\n", ft_substr(str, start, i - start));
+				ft_printf("Obtain value from: %s\n", ft_substr(str, start, i - start));
 				i--;
 			}
 			else
@@ -522,7 +458,7 @@ char	*ft_cmd(t_data *data, char *cmd)
 	char	**paths;
 
 	if (access(cmd, 0) == 0)
-		return (cmd);
+			return (cmd);
 	i = 0;
 	while (data->env[i] && ft_strncmp(data->env[i], "PATH=", 5) != 0)
 		i++;
@@ -541,92 +477,68 @@ char	*ft_cmd(t_data *data, char *cmd)
 	exit(EXIT_FAILURE);
 }
 
-void	ft_execute(t_data *data)
+int		ft_input(t_list *curr)
 {
-	pid_t	pid;
+	int		fd;
 	char	**command;
-
-	pid = fork();
-	if (pid == -1)
+		
+	command = ft_split(curr->content, '<');
+	free (curr->content);
+	curr->content = ft_strtrim(command[0], " ");
+	fd = open(ft_strtrim(command[1], " "), O_RDONLY);
+	if (!fd)
 	{
-		perror("fork");
+		perror("error open input file");
 		exit(EXIT_FAILURE);
 	}
-	if (pid == 0)
-	{
-		command = ft_command(data->command->content);
-		command[0] = ft_cmd(data, command[0]);
-		if (execve(command[0], command, data->env) == -1)
-		{
-			perror("execve");
-			exit(EXIT_FAILURE);
-		}
-		ft_free_split(command);
-	}
-	else
-		waitpid(pid, NULL, 0);
-}
-
-void	ft_output(t_data *data)
-{
-	pid_t	pid;
-	FILE	*fd;
-	char	**command;
-
-	command = ft_split(data->command->content, data->redirection);
-	free (data->command->content);
-	data->command->content = ft_strtrim(command[0], " ");
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
-	if (pid == 0)
-	{
-		if (data->nredirection == 1)
-			fd = fopen(ft_strtrim(command[1], " "), "w");
-		else
-			fd = fopen(ft_strtrim(command[1], " "), "a");
-		if (!fd)
-		{
-			perror("error open output file");
-			exit(EXIT_FAILURE);
-		}
-		dup2(fileno(fd), STDOUT_FILENO);
-		ft_free_split(command);
-		command = ft_command(data->command->content);
-		command[0] = ft_cmd(data, command[0]);
-		if (execve(command[0], command, data->env) == -1)
-		{
-			perror("execve");
-			exit(EXIT_FAILURE);
-		}
-		fclose(fd);
-	}
-	else
-		waitpid(pid, NULL, 0);
 	ft_free_split(command);
+	return (fd);
 }
 
-void	ft_get_file(t_data *data)
+int		ft_output(t_list *curr, int nredirection)
 {
-	//get next line y meter en data->parameter
-	(void) data;
+	int		fd;
+	char	**command;
+	
+	command = ft_split(curr->content, '>');
+	free (curr->content);
+	curr->content = ft_strtrim(command[0], " ");
+	if (nredirection == 1)
+		fd = open(ft_strtrim(command[1], " "), O_CREAT|O_WRONLY|O_TRUNC,0644);
+	else
+		fd = open(ft_strtrim(command[1], " "), O_CREAT|O_WRONLY|O_APPEND,0644);
+	if (!fd)
+	{
+		perror("error open output file");
+		exit(EXIT_FAILURE);
+	}
+	ft_free_split(command);
+	return (fd);
 }
 
-void	ft_heredoc(t_data *data, char *end)
+void	ft_heredoc(t_list *curr)
 {
 	int		fd;
 	char	*input;
-
+	char	*end;
+	char	**command;
+	
+	command = ft_split(curr->content, '<');
+	free (curr->content);
+	if (!command[1])
+	{
+		end = ft_strtrim(command[0], " ");
+		curr->content = NULL;
+	}
+	else
+	{
+		end = ft_strtrim(command[1], " ");
+		curr->content = ft_strtrim(command[0], " ");
+	}
 	fd = open(".heredocfile.tmp", O_CREAT|O_WRONLY,0644);
 	while (1)
 	{
-		if (data->npipes > 0)
-			input = readline("\033[33;1mpipe heredoc> \033[0m");
-		else
-			input = readline("\033[33;1mheredoc> \033[0m");
+		input = readline("\033[33;1m> \033[0m");
 		if (input && (ft_strncmp(input, end, ft_strlen(end)) == 0))
 		{
 			free(input);
@@ -639,25 +551,101 @@ void	ft_heredoc(t_data *data, char *end)
 		}
 		free(input);
 	}
+	ft_free_split(command);
+	free (end);
 	close(fd);
 }
 
-void	ft_redirections(t_data *data)
+int	ft_redirections(t_data *data, t_list *curr)
 {
-	char	*cmd;
 	char	*end;
 
-	cmd = data->command->content;
-	end = ft_substr(cmd, 2, ft_strlen(cmd) - 2);
+	end = ft_substr(curr->content, ft_findpos(curr->content, '<') + 1, 2);
 	if (data->nredirection == 1 && data->redirection == '<')
-		ft_printf("busca fichero\n");
+		return (1);
 	else if (data->nredirection == 2 && data->redirection == '<')
-		ft_heredoc(data, end);
+		return (3);
 	else if (data->nredirection > 0 && data->redirection == '>')
-		ft_output(data);
-	else
-		ft_execute(data);
+		return (2);
+	data->nredirection = 0;
 	free (end);
+	return (0);
+}
+
+void	ft_execute(t_data *data, t_list *curr, int *prev_pipe)
+{
+	int		fd[2];
+	int		file;
+	int		status, pid;
+	char	**command;
+	
+	file = -1;
+	ft_input_checks(data, curr->content);
+	if (ft_redirections(data, curr) == 1)
+		file = ft_input(curr);
+	else if (ft_redirections(data, curr) == 2)
+		file = ft_output(curr, data->nredirection);
+	else if (ft_redirections(data, curr) == 3)
+		ft_heredoc(curr);
+	else if (curr->next)
+		pipe(fd);
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	if (pid == 0)
+	{
+		if (file > -1)
+		{
+			if (ft_redirections(data, curr) == 1)
+			{
+				dup2(file, STDIN_FILENO);
+			}
+			else
+			{
+				dup2(file, STDOUT_FILENO);
+			}
+		}
+		if (prev_pipe)
+		{
+			close(fd[READ_END]);
+			dup2(prev_pipe[READ_END], STDIN_FILENO);
+			close(prev_pipe[READ_END]);
+		}
+		if (curr->next)
+		{
+			close(fd[READ_END]);
+			dup2(fd[WRITE_END], STDOUT_FILENO);
+			close(fd[WRITE_END]);
+		}
+		if (curr->content)
+		{
+			command = ft_command(curr->content);
+			command[0] = ft_cmd(data, command[0]);
+			execve(command[0], command, data->env);
+			perror("execve");
+			exit(EXIT_FAILURE);
+		}
+		else
+			exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		wait(&status);
+		if (file > -1)
+		{
+			close(file);
+		}
+		if (prev_pipe)
+			close(prev_pipe[READ_END]);
+		if (curr->next)
+		{
+			close(fd[WRITE_END]);
+			ft_execute(data, curr->next, fd);
+		}
+	}
 }
 
 int	main(int argc, char **argv, char **env)
@@ -683,12 +671,9 @@ int	main(int argc, char **argv, char **env)
 		if (input && *input)
 		{
 			add_history(input);
-			ft_input_checks(&data, input);
 			ft_pipes(&data, input);
 			ft_params(&data, data.command->content);
-			ft_redirections(&data);
-			//ft_echo(&data);
-			//ft_cd(&data);
+			ft_execute(&data, data.command, NULL);
 			//debug(&data);
 		}
 		ft_lstclear(&data.command, ft_free);
