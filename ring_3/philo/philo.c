@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 07:42:10 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/21 10:18:41 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/21 20:45:09 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	table(int philosopher_id, int left_fork, int right_fork, t_data *data)
 	{
 		data->dead[philosopher_id] = 1;
 		data->game_over = 1;
-		printf("%ldms %d is dead\n", elapsed(data), philosopher_id + 1);
+		printf("%ldms %d died\n", elapsed(data), philosopher_id + 1);
 		return ;
 	}
-	do_action(philosopher_id, left_fork, right_fork, data);	
+	do_action(philosopher_id, left_fork, right_fork, data);
 	if (data->meals[philosopher_id] == data->numbers_of_meals)
 	{
 		data->game_over = 1;
@@ -48,7 +48,7 @@ void	table(int philosopher_id, int left_fork, int right_fork, t_data *data)
 	if (data->game_over == 0)
 	{
 		printf("%ldms %d is sleeping\n", elapsed(data), philosopher_id + 1);
-		usleep(data->time_to_sleep * 1000);	
+		do_sleep(data, philosopher_id);
 	}
 	return ;
 }

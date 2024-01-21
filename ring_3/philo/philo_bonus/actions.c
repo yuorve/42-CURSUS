@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:30:00 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/21 10:31:01 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/21 20:55:51 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,42 @@ time_t	elapsed(t_data *data)
 
 	time = get_time_in_ms() - data->start_time;
 	return (time);
+}
+
+void	check_dead(t_data *data, int philosopher_id)
+{
+	if (get_time_in_ms() - data->time_remaining[philosopher_id]
+		>= data->time_to_die)
+	{
+		data->dead[philosopher_id] = 1;
+		data->game_over = 1;
+		printf("%ldms %d died\n", elapsed(data), philosopher_id + 1);
+		exit (1);
+	}
+}
+
+void	do_eat(t_data *data, int philosopher_id)
+{
+	time_t	time;
+
+	time = get_time_in_ms();
+	while (get_time_in_ms() - time < data->time_to_eat)
+	{
+		check_dead(data, philosopher_id);
+		usleep(500);
+	}
+}
+
+void	do_sleep(t_data *data, int philosopher_id)
+{
+	time_t	time;
+
+	time = get_time_in_ms();
+	while (get_time_in_ms() - time < data->time_to_sleep)
+	{
+		check_dead(data, philosopher_id);
+		usleep(500);
+	}
 }
 
 void	do_action(int i, int j, int status, t_data *data)

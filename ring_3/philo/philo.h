@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:31:23 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/21 08:27:16 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/21 20:45:58 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <signal.h>
 # include <pthread.h>
 # include <string.h>
 # include <sys/time.h>
@@ -44,6 +45,8 @@ void	ft_bzero(void *s, size_t n);
 void	err_msg(int errno);
 void	validate(t_data *data);
 void	do_action(int philo_id, int left_fork, int right_fork, t_data *data);
+void	do_eat(t_data *data, int philosopher_id);
+void	do_sleep(t_data *data, int philosopher_id);
 int		ft_atoi(const char *str);
 time_t	get_time_in_ms(void);
 time_t	elapsed(t_data *data);

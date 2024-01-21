@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 07:42:10 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/21 10:45:55 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/21 20:58:38 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 int	table(int philosopher_id, t_data *data)
 {
 	if (get_time_in_ms() - data->time_remaining[philosopher_id]
-		> data->time_to_die)
+		>= data->time_to_die)
 	{
 		data->dead[philosopher_id] = 1;
 		data->game_over = 1;
-		printf("%ldms %d is dead\n", elapsed(data), philosopher_id + 1);
+		printf("%ldms %d died\n", elapsed(data), philosopher_id + 1);
 		exit(2);
 	}
 	printf("%ldms %d is thinking\n", elapsed(data), philosopher_id + 1);
@@ -28,15 +28,15 @@ int	table(int philosopher_id, t_data *data)
 	sem_wait(data->forks);
 	printf("%ldms %d has taken a fork\n", elapsed(data), philosopher_id + 1);
 	printf("%ldms %d is eating\n", elapsed(data), philosopher_id + 1);
-	usleep(data->time_to_eat * 1000);
-	sem_post(data->forks);
-	sem_post(data->forks);
 	data->time_remaining[philosopher_id] = get_time_in_ms();
+	do_eat(data, philosopher_id);
+	sem_post(data->forks);
+	sem_post(data->forks);
 	data->meals[philosopher_id]++;
 	if (data->meals[philosopher_id] >= data->numbers_of_meals)
 		exit(3);
 	printf("%ldms %d is sleeping\n", elapsed(data), philosopher_id + 1);
-	usleep(data->time_to_sleep * 1000);
+	do_sleep(data, philosopher_id);
 	return (0);
 }
 

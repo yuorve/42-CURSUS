@@ -4,7 +4,7 @@ SRC		= philo.c utils.c validations.c actions.c
 OBJS	= $(SRC:.c=.o)
 
 CC 		= gcc
-CFLAGS	= -Wall -Werror -Wextra -lpthread
+CFLAGS	= -Wall -Werror -Wextra
 RM 		= rm -rf
 
 UNAME	= $(shell uname -s)
