@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 07:42:10 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/20 18:37:24 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/21 10:45:55 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 int	table(int philosopher_id, t_data *data)
 {
-	time_t	time;
-
-	time = get_time_in_ms();
 	if (get_time_in_ms() - data->time_remaining[philosopher_id]
 		> data->time_to_die)
 	{
 		data->dead[philosopher_id] = 1;
 		data->game_over = 1;
-		printf("%ld %d is dead\n", time, philosopher_id);
+		printf("%ldms %d is dead\n", elapsed(data), philosopher_id + 1);
 		exit(2);
 	}
-	printf("%ld %d is thinking\n", time, philosopher_id);
+	printf("%ldms %d is thinking\n", elapsed(data), philosopher_id + 1);
 	sem_wait(data->forks);
-	printf("%ld %d has taken a pair of forks\n", time, philosopher_id);
-	printf("%ld %d is eating\n", time, philosopher_id);
+	printf("%ldms %d has taken a fork\n", elapsed(data), philosopher_id + 1);
+	sem_wait(data->forks);
+	printf("%ldms %d has taken a fork\n", elapsed(data), philosopher_id + 1);
+	printf("%ldms %d is eating\n", elapsed(data), philosopher_id + 1);
 	usleep(data->time_to_eat * 1000);
+	sem_post(data->forks);
 	sem_post(data->forks);
 	data->time_remaining[philosopher_id] = get_time_in_ms();
 	data->meals[philosopher_id]++;
 	if (data->meals[philosopher_id] >= data->numbers_of_meals)
 		exit(3);
-	printf("%ld %d is sleeping\n", time, philosopher_id);
+	printf("%ldms %d is sleeping\n", elapsed(data), philosopher_id + 1);
 	usleep(data->time_to_sleep * 1000);
 	return (0);
 }
@@ -66,7 +66,7 @@ void	philosopher(t_data *data)
 
 	sem_unlink("/forks");
 	data->forks = sem_open("/forks", O_CREAT | O_EXCL,
-			0644, (data->num_of_philos / 2));
+			0644, (data->num_of_philos));
 	if (data->forks == SEM_FAILED)
 	{
 		printf("sem_open() failed.  errno:%d\n", errno);

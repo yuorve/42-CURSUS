@@ -6,11 +6,19 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:30:00 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/20 18:41:33 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/21 10:31:01 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+
+time_t	elapsed(t_data *data)
+{
+	time_t	time;
+
+	time = get_time_in_ms() - data->start_time;
+	return (time);
+}
 
 void	do_action(int i, int j, int status, t_data *data)
 {

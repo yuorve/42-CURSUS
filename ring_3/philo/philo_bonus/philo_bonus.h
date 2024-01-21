@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:31:23 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/20 18:39:27 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/21 10:32:06 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ void	*routine(void *arg);
 void	do_action(int i, int j, int status, t_data *data);
 int		ft_atoi(const char *str);
 time_t	get_time_in_ms(void);
+time_t	elapsed(t_data *data);
 #endif

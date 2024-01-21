@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 07:42:10 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/20 18:25:12 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/21 10:18:41 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,25 @@ int	checking(t_data *data)
 
 void	table(int philosopher_id, int left_fork, int right_fork, t_data *data)
 {
-	time_t	time;
-
-	time = get_time_in_ms();
 	if (get_time_in_ms() - data->time_remaining[philosopher_id]
 		> data->time_to_die)
 	{
 		data->dead[philosopher_id] = 1;
 		data->game_over = 1;
-		return (printf("%ld %d is dead\n", time, philosopher_id));
+		printf("%ldms %d is dead\n", elapsed(data), philosopher_id + 1);
+		return ;
 	}
-	do_actions(philosopher_id, left_fork, right_fork, data);
+	do_action(philosopher_id, left_fork, right_fork, data);	
 	if (data->meals[philosopher_id] == data->numbers_of_meals)
 	{
 		data->game_over = 1;
 		return ;
 	}
-	printf("%ld %d is sleeping\n", time, philosopher_id);
-	usleep(data->time_to_sleep * 1000);
+	if (data->game_over == 0)
+	{
+		printf("%ldms %d is sleeping\n", elapsed(data), philosopher_id + 1);
+		usleep(data->time_to_sleep * 1000);	
+	}
 	return ;
 }
 

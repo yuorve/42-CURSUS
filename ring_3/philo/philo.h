@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:31:23 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/20 18:27:17 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/21 08:27:16 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,5 @@ void	validate(t_data *data);
 void	do_action(int philo_id, int left_fork, int right_fork, t_data *data);
 int		ft_atoi(const char *str);
 time_t	get_time_in_ms(void);
+time_t	elapsed(t_data *data);
 #endif
