@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 07:42:10 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/22 19:38:09 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:47:46 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	table(int philosopher_id, t_data *data)
 	sem_post(data->forks);
 	sem_post(data->forks);
 	data->meals[philosopher_id]++;
+	printf("%ldms %d is sleeping\n", elapsed(data), philosopher_id + 1);
 	if (data->meals[philosopher_id] >= data->numbers_of_meals)
 		exit(3);
-	printf("%ldms %d is sleeping\n", elapsed(data), philosopher_id + 1);
 	do_sleep(data, philosopher_id);
 	return (0);
 }

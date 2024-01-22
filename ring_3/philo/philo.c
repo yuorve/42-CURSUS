@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 07:42:10 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/21 20:45:09 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/22 20:01:46 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,17 @@ void	table(int philosopher_id, int left_fork, int right_fork, t_data *data)
 	if (get_time_in_ms() - data->time_remaining[philosopher_id]
 		> data->time_to_die)
 	{
+		printf("%ldms %d died\n", elapsed(data), philosopher_id + 1);
 		data->dead[philosopher_id] = 1;
 		data->game_over = 1;
-		printf("%ldms %d died\n", elapsed(data), philosopher_id + 1);
 		return ;
 	}
 	do_action(philosopher_id, left_fork, right_fork, data);
-	if (data->meals[philosopher_id] == data->numbers_of_meals)
-	{
-		data->game_over = 1;
-		return ;
-	}
+	printf("%ldms %d is sleeping\n", elapsed(data), philosopher_id + 1);
 	if (data->game_over == 0)
-	{
-		printf("%ldms %d is sleeping\n", elapsed(data), philosopher_id + 1);
 		do_sleep(data, philosopher_id);
-	}
+	if (data->meals[philosopher_id] == data->numbers_of_meals)
+		data->game_over = 1;
 	return ;
 }
 
@@ -67,9 +62,7 @@ void	*thread_routine(void *arg)
 	data->meals[data->philos_id] = 0;
 	data->time_remaining[data->philos_id] = get_time_in_ms();
 	while (!data->game_over)
-	{
 		table(philosopher_id, left_fork, right_fork, data);
-	}
 	return (NULL);
 }
 
@@ -94,6 +87,7 @@ void	philosopher(t_data *data)
 	i = -1;
 	while (++i < data->num_of_philos)
 		pthread_mutex_destroy(&data->forks[i]);
+	just_one(data);
 }
 
 int	main(int argc, char **argv)
