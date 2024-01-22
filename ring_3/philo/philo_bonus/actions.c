@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:30:00 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/21 20:55:51 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:37:21 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,16 @@ void	do_sleep(t_data *data, int philosopher_id)
 	{
 		check_dead(data, philosopher_id);
 		usleep(500);
+	}
+}
+
+void	just_one(t_data *data)
+{
+	if (data->num_of_philos == 1)
+	{
+		usleep(data->time_to_die * 1000);
+		printf("%ldms 1 died\n", elapsed(data));
+		exit (1);
 	}
 }
 

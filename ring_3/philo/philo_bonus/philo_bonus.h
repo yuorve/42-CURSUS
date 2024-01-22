@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 08:31:23 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/21 20:56:06 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:36:07 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	check_dead(t_data *data, int philosopher_id);
 void	do_action(int i, int j, int status, t_data *data);
 void	do_eat(t_data *data, int philosopher_id);
 void	do_sleep(t_data *data, int philosopher_id);
+void	just_one(t_data *data);
 int		ft_atoi(const char *str);
 time_t	get_time_in_ms(void);
 time_t	elapsed(t_data *data);

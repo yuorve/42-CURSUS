@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 07:42:10 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/21 20:58:38 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:38:09 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	table(int philosopher_id, t_data *data)
 	printf("%ldms %d is thinking\n", elapsed(data), philosopher_id + 1);
 	sem_wait(data->forks);
 	printf("%ldms %d has taken a fork\n", elapsed(data), philosopher_id + 1);
+	just_one(data);
 	sem_wait(data->forks);
 	printf("%ldms %d has taken a fork\n", elapsed(data), philosopher_id + 1);
 	printf("%ldms %d is eating\n", elapsed(data), philosopher_id + 1);
