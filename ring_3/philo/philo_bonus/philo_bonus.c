@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 07:42:10 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/22 19:47:46 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/23 20:46:25 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,14 @@
 
 int	table(int philosopher_id, t_data *data)
 {
-	if (get_time_in_ms() - data->time_remaining[philosopher_id]
-		>= data->time_to_die)
-	{
-		data->dead[philosopher_id] = 1;
-		data->game_over = 1;
-		printf("%ldms %d died\n", elapsed(data), philosopher_id + 1);
-		exit(2);
-	}
+	check_dead(data, philosopher_id);
 	printf("%ldms %d is thinking\n", elapsed(data), philosopher_id + 1);
 	sem_wait(data->forks);
+	check_dead(data, philosopher_id);
 	printf("%ldms %d has taken a fork\n", elapsed(data), philosopher_id + 1);
 	just_one(data);
 	sem_wait(data->forks);
+	check_dead(data, philosopher_id);
 	printf("%ldms %d has taken a fork\n", elapsed(data), philosopher_id + 1);
 	printf("%ldms %d is eating\n", elapsed(data), philosopher_id + 1);
 	data->time_remaining[philosopher_id] = get_time_in_ms();
@@ -55,7 +50,6 @@ void	*routine(void *arg)
 		if (table(philosopher_id, data))
 			break ;
 	}
-	exit (4);
 	return (NULL);
 }
 

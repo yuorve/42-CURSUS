@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 07:42:10 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/22 20:01:46 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/23 20:01:21 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,11 @@ void	philosopher(t_data *data)
 		pthread_mutex_destroy(&data->forks[i]);
 	just_one(data);
 }
+
+//void	ft_void(void)
+//{
+//	system("leaks -q 'philo'");atexit(ft_void);
+//}
 
 int	main(int argc, char **argv)
 {

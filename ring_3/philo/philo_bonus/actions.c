@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:30:00 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/23 19:48:58 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/23 20:48:22 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	check_dead(t_data *data, int philosopher_id)
 		data->dead[philosopher_id] = 1;
 		data->game_over = 1;
 		printf("%ldms %d died\n", elapsed(data), philosopher_id + 1);
-		exit (1);
+		exit (2);
 	}
 }
 

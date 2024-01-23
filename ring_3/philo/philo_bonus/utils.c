@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 11:07:17 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/20 18:09:02 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/23 20:24:02 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_init(t_data *data)
 {
-	data->forks = malloc(data->num_of_philos * sizeof(sem_t));
 	data->philos = malloc(data->num_of_philos * sizeof(pid_t));
 	data->meals = malloc(data->num_of_philos * sizeof(int));
 	data->dead = malloc(data->num_of_philos * sizeof(int));
