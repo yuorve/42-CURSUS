@@ -6,19 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:20:02 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/22 19:35:38 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/23 19:48:35 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-time_t	elapsed(t_data *data)
-{
-	time_t	time;
-
-	time = get_time_in_ms() - data->start_time;
-	return (time);
-}
 
 void	check_dead(t_data *data, int philosopher_id)
 {

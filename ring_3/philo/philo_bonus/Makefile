@@ -1,6 +1,6 @@
 NAME = philo
 
-SRC		= philo_bonus.c utils.c validations.c actions.c
+SRC		= philo_bonus.c utils.c validations.c actions.c more_utils.c
 OBJS	= $(SRC:.c=.o)
 
 CC 		= gcc

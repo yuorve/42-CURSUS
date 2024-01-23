@@ -6,19 +6,11 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:30:00 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/22 19:37:21 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/23 19:48:58 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-
-time_t	elapsed(t_data *data)
-{
-	time_t	time;
-
-	time = get_time_in_ms() - data->start_time;
-	return (time);
-}
 
 void	check_dead(t_data *data, int philosopher_id)
 {
