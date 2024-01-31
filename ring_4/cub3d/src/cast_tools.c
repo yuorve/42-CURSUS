@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:21 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/31 18:24:21 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/31 21:23:31 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,14 @@ void	ft_cast(t_data *data, int x, int y, float angle, int col)
 	int box_x;
 	int box_y;
 
+	(void)col;
 	interception_x = 0;
 	interception_y = 0;
 	down = 0;
 	left = 0;
 	if (angle < M_PI)
 		down = 1;
-	if (angle > M_PI / 2 && angle < 3 * M_PI / 2)
+	if (angle > M_PI_2 && angle < 3 * M_PI_2)
 		left = 1;
 	collision_h = 0;
 	interception_y = floor(y / data->tile_height) * data->tile_height;
@@ -55,7 +56,7 @@ void	ft_cast(t_data *data, int x, int y, float angle, int col)
 	{
 		box_x = step_x / data->tile_width;
 		box_y = step_y / data->tile_height;
-		if (ft_collision(box_x, box_y))
+		if (ft_collision(data, box_x, box_y))
 			collision_h = 1;
 	}
 }

@@ -6,13 +6,13 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:25:08 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/31 18:25:08 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/31 21:24:27 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void    ft_player_init(t_data *data)
+void	ft_player_init(t_data *data)
 {
 	data->forward = 0;
 	data->turn = 0;
@@ -24,11 +24,11 @@ void    ft_player_init(t_data *data)
 void	ft_player(t_data *data)
 {
 	mlx_t	*mlx;
-	t_point start;
-    t_point end;
+	t_point	start;
+	t_point	end;
 
 	mlx = data->mlx;
-	data->player = mlx_new_image(mlx, data->tile_width, data->tile_height);	
+	data->player = mlx_new_image(mlx, data->tile_width, data->tile_height);
 	mlx_image_to_window(mlx, data->player, data->player_x, data->player_y);
 	start.x = (data->tile_width / 2) - 3;
 	start.y = (data->tile_height / 2) - 3;
@@ -49,9 +49,15 @@ void	ft_player_move(t_data *data, char *direction)
 	else if (ft_strncmp(direction, "DOWN", 4) == 0)
 		data->forward = -1;
 	else if (ft_strncmp(direction, "LEFT", 4) == 0)
+		data->sidle = 1;
+	else if (ft_strncmp(direction, "RIGHT", 5) == 0)
+		data->sidle = -1;
+	else if (ft_strncmp(direction, "TURN LEFT", 9) == 0)
 		data->turn = -1;
-	else if (ft_strncmp(direction, "RIGHT", 4) == 0)
+	else if (ft_strncmp(direction, "TURN RIGHT", 10) == 0)
 		data->turn = 1;
+	else if (ft_strncmp(direction, "STOP SIDLE", 10) == 0)
+		data->sidle = 0;
 	else if (ft_strncmp(direction, "STOP TURN", 9) == 0)
 		data->turn = 0;
 	else if (ft_strncmp(direction, "STOP FORWARD", 12) == 0)
@@ -69,6 +75,5 @@ int	ft_player_collision(t_data *data, int x, int y)
 	box_y = (y + (data->tile_height / 2)) / data->tile_height;
 	if (ft_collision(data, box_x, box_y))
 		res = 1;
-	return res;
-
+	return (res);
 }

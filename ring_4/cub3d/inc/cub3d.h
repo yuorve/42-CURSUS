@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 19:19:43 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/29 20:21:24 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/01/31 20:00:41 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,20 @@ typedef struct s_data
 	int			player_x;
 	int			player_y;
 	int			forward;
+	int			sidle;
 	int			turn;
 	float		anglerotation;
 	int			speed_move;
 	float		speed_turn;
 }	t_data;
 
-int 	ft_get_rgba(int r, int g, int b, int a);
+int		ft_get_rgba(int r, int g, int b, int a);
 int		ft_collision(t_data *data, int x, int y);
 float	ft_normalized(float angle);
 void	read_map(t_data *data);
+// Key utils
+void	ft_keys_press(mlx_key_data_t keydata, void *param);
+void	ft_keys_release(mlx_key_data_t keydata, void *param);
 // Drawing tools
 void	ft_draw_scene(t_data *data);
 void	ft_draw_line(t_point start, t_point end, mlx_image_t *img);
