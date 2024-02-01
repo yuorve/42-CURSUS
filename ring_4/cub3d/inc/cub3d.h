@@ -74,9 +74,12 @@ void	ft_keys_release(mlx_key_data_t keydata, void *param);
 // Drawing tools
 void	ft_draw_scene(t_data *data);
 void	ft_draw_line(t_point start, t_point end, mlx_image_t *img);
+void	ft_draw_line_red(t_point start, t_point end, mlx_image_t *img);
 void	ft_draw_square(t_point start, t_point end, mlx_image_t *img);
 // Player
 void	ft_player(t_data *data);
 void	ft_player_init(t_data *data);
 void	ft_player_move(t_data *data, char *direction);
 int		ft_player_collision(t_data *data, int x, int y);
+// Cast
+void	ft_cast(t_data *data, int x, int y, float angle, int col);

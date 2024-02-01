@@ -49,6 +49,43 @@ void	ft_draw_line(t_point start, t_point end, mlx_image_t *img)
 	}
 }
 
+void	ft_draw_line_red(t_point start, t_point end, mlx_image_t *img)
+{
+	int		e2;
+	int		err;
+	t_line	line;
+
+	ft_bzero(&line, sizeof(t_line));
+	line.dx = abs(end.x - start.x);
+	line.dy = abs(end.y - start.y);
+	if (start.x < end.x)
+		line.sx = 1;
+	else
+		line.sx = -1;
+	if (start.y < end.y)
+		line.sy = 1;
+	else
+		line.sy = -1;
+	err = line.dx - line.dy;
+	while (1)
+	{
+		mlx_put_pixel(img, start.x, start.y, 0xFF0000FF);
+		if (start.x == end.x && start.y == end.y)
+			break ;
+		e2 = 2 * err;
+		if (e2 > -line.dy)
+		{
+			err -= line.dy;
+			start.x += line.sx;
+		}
+		if (e2 < line.dx)
+		{
+			err += line.dx;
+			start.y += line.sy;
+		}
+	}
+}
+
 void	ft_draw_square(t_point start, t_point end, mlx_image_t *img)
 {
 	int	i;

@@ -26,14 +26,14 @@ void	ft_move(mlx_t *mlx, t_data *data)
 	side_angle = ft_normalized(angle - (M_PI_2));
 	if (data->sidle == 0)
 	{
-		new.x = data->player_x + (data->forward * cos(angle) * speed);
-		new.y = data->player_y + (data->forward * sin(angle) * speed);
+		new.x = data->player_x + round(data->forward * cos(angle) * speed);
+		new.y = data->player_y + round(data->forward * sin(angle) * speed);
 	}
 	else
 	{
-		new.x = data->player_x + (data->sidle * cos(side_angle) * speed);
-		new.y = data->player_y + (data->sidle * sin(side_angle) * speed);
-	}
+		new.x = data->player_x + round(data->sidle * cos(side_angle) * speed);
+		new.y = data->player_y + round(data->sidle * sin(side_angle) * speed);
+	}	
 	data->anglerotation += (data->turn * data->speed_turn);
 	data->anglerotation = ft_normalized(data->anglerotation);
 	if (!ft_player_collision(data, new.x, new.y))
@@ -43,6 +43,8 @@ void	ft_move(mlx_t *mlx, t_data *data)
 	}
 	mlx_delete_image(data->mlx, data->player);
 	ft_player(data);
+	printf("ok\n");
+	ft_cast(data, data->player_x, data->player_x, data->anglerotation, 0);
 }
 
 void	ft_keys_hook(mlx_key_data_t keydata, void *param)

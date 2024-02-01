@@ -28,15 +28,15 @@ void	ft_player(t_data *data)
 	t_point	end;
 
 	mlx = data->mlx;
-	data->player = mlx_new_image(mlx, data->tile_width, data->tile_height);
-	mlx_image_to_window(mlx, data->player, data->player_x, data->player_y);
-	start.x = (data->tile_width / 2) - 3;
-	start.y = (data->tile_height / 2) - 3;
+	data->player = mlx_new_image(mlx, data->map_width, data->map_height);
+	mlx_image_to_window(mlx, data->player, 0, 0);
+	start.x = data->player_x - 3;
+	start.y = data->player_y - 3;
 	end.x = 6;
 	end.y = 6;
 	ft_draw_square(start, end, data->player);
-	start.x = (data->tile_width / 2);
-	start.y = (data->tile_height / 2);
+	start.x = data->player_x;
+	start.y = data->player_y;
 	end.x = start.x + cos(data->anglerotation) * 20;
 	end.y = start.y + sin(data->anglerotation) * 20;
 	ft_draw_line(start, end, data->player);
