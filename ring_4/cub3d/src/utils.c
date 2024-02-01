@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:02 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/31 20:48:58 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/02/01 19:38:44 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,13 @@ float	ft_normalized(float angle)
 	if (normalized_angle < 0)
 		normalized_angle += two_pi;
 	return (normalized_angle);
+}
+
+t_point	ft_get_tile(t_data *data, int x, int y)
+{
+	t_point	tile;
+
+	tile.x = round(x / data->tile_width);
+	tile.y = round(y / data->tile_height);
+	return (tile);
 }

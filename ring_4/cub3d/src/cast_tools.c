@@ -6,13 +6,54 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:21 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/31 21:23:31 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/02/01 19:58:25 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	ft_cast(t_data *data, int x, int y, float angle, int col)
+void	ft_cast(t_data *data, int col)
+{
+	t_point	start;
+	t_point	end;
+	int		down;
+	int		left;	
+	int		collision_h;
+	int		wallhitx;
+	int		wallhity;
+	t_point	tile;
+
+	(void)col;
+	down = 0;
+	left = 0;
+	if (data->anglerotation < M_PI)
+		down = 1;
+	if (data->anglerotation > M_PI_2 && data->anglerotation < 3 * M_PI_2)
+		left = 1;
+	collision_h = 0;
+	tile = ft_get_tile(data, data->player_x, data->player_y);
+	printf("x:%d y:%d\n", tile.x, tile.y);
+	wallhitx = data->tile_width;
+	wallhity = data->tile_height;
+	start.x = data->player_x;
+	start.y = data->player_y;
+	while (!collision_h)
+	{
+		end.x = start.x + cos(data->anglerotation) * wallhitx;
+		end.y = start.y + sin(data->anglerotation) * wallhity;
+		tile = ft_get_tile(data, end.x, end.y);
+		if (ft_collision(data, tile.x, tile.y))
+			collision_h = 1;
+		else
+		{
+			wallhitx += data->tile_height;
+			wallhity += data->tile_width;
+		}
+	}
+	ft_draw_line_red(start, end, data->player);
+}
+
+void	ft_cast_OLD(t_data *data, int x, int y, float angle, int col)
 {
 	t_point start;
 	t_point end;
@@ -60,8 +101,6 @@ void	ft_cast(t_data *data, int x, int y, float angle, int col)
 	adjacent = (interception_y - y) / tan(angle);
 	interception_x = x + adjacent;
 	step_y = data->tile_height;
-	if (angle == 0)
-		angle = 1;
 	step_x = round(step_y / tan(angle));
 	if (!down)
 		step_y = -step_y;
@@ -71,13 +110,10 @@ void	ft_cast(t_data *data, int x, int y, float angle, int col)
 	next_x = step_x;
 	if (!down)
 		next_y--;
-	printf("player x: %d player y:%d\n", data->player_x, data->player_y);
-	printf("x: %d y:%d\n", next_x, next_y);
 	while (!collision_h)
 	{
 		box_x = floor(next_x / data->tile_width);
 		box_y = floor(next_y / data->tile_height);
-		printf("x: %d y:%d\n", box_x, box_y);
 		if (ft_collision(data, box_x, box_y))
 		{
 			collision_h = 1;
@@ -90,11 +126,12 @@ void	ft_cast(t_data *data, int x, int y, float angle, int col)
 			next_y = step_y;
 		}
 	}
-	(void)wallhitxh;
-	(void)wallhityh;
-	start.x = data->player_x;
-	start.y = data->player_y;
-	end.x = wallhitx;
-	end.y = wallhity;
-	ft_draw_line(start, end, data->player);
+	//(void)wallhitxh;
+	//(void)wallhityh;
+	start.x = x;
+	start.y = y;
+	end.x = wallhitxh;
+	end.y = wallhityh;
+	printf("x:%d y:%d\n", wallhitxh, wallhityh);
+	ft_draw_line_red(start, end, data->player);
 }

@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 19:19:43 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/31 20:00:41 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/02/01 19:39:42 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int		ft_get_rgba(int r, int g, int b, int a);
 int		ft_collision(t_data *data, int x, int y);
 float	ft_normalized(float angle);
 void	read_map(t_data *data);
+t_point	ft_get_tile(t_data *data, int x, int y);
 // Key utils
 void	ft_keys_press(mlx_key_data_t keydata, void *param);
 void	ft_keys_release(mlx_key_data_t keydata, void *param);
@@ -82,4 +83,4 @@ void	ft_player_init(t_data *data);
 void	ft_player_move(t_data *data, char *direction);
 int		ft_player_collision(t_data *data, int x, int y);
 // Cast
-void	ft_cast(t_data *data, int x, int y, float angle, int col);
+void	ft_cast(t_data *data, int col);

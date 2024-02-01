@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:36 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/31 21:23:47 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/02/01 19:26:54 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_move(mlx_t *mlx, t_data *data)
 	{
 		new.x = data->player_x + round(data->sidle * cos(side_angle) * speed);
 		new.y = data->player_y + round(data->sidle * sin(side_angle) * speed);
-	}	
+	}
 	data->anglerotation += (data->turn * data->speed_turn);
 	data->anglerotation = ft_normalized(data->anglerotation);
 	if (!ft_player_collision(data, new.x, new.y))
@@ -43,8 +43,7 @@ void	ft_move(mlx_t *mlx, t_data *data)
 	}
 	mlx_delete_image(data->mlx, data->player);
 	ft_player(data);
-	printf("ok\n");
-	ft_cast(data, data->player_x, data->player_x, data->anglerotation, 0);
+	ft_cast(data, 0);
 }
 
 void	ft_keys_hook(mlx_key_data_t keydata, void *param)
@@ -80,7 +79,7 @@ int32_t	main(int argc, char **argv)
 		ft_draw_scene(&data);
 		ft_player_init(&data);
 		data.player_x = 100;
-		data.player_y = 100;		
+		data.player_y = 100;
 		ft_player(&data);
 		mlx_key_hook(data.mlx, &ft_keys_hook, &data);
 		mlx_loop_hook(data.mlx, &ft_game, &data);

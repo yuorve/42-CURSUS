@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:25:08 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/31 21:24:27 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:43:20 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int	ft_player_collision(t_data *data, int x, int y)
 	int	box_y;
 
 	res = 0;
-	box_x = (x + (data->tile_width / 2)) / data->tile_width;
-	box_y = (y + (data->tile_height / 2)) / data->tile_height;
+	box_x = round(x / data->tile_width);
+	box_y = round(y / data->tile_height);
 	if (ft_collision(data, box_x, box_y))
 		res = 1;
 	return (res);
