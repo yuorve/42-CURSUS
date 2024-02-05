@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 19:19:43 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/02/01 19:39:42 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:46:25 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,4 @@ void	ft_player_init(t_data *data);
 void	ft_player_move(t_data *data, char *direction);
 int		ft_player_collision(t_data *data, int x, int y);
 // Cast
-void	ft_cast(t_data *data, int col);
+void	ft_cast(t_data *data, int x, int y, float angle, int col);

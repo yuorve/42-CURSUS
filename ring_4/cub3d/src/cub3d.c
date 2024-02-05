@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:36 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/02/01 19:26:54 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:48:30 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_move(mlx_t *mlx, t_data *data)
 	angle = data->anglerotation;
 	speed = data->speed_move;
 	side_angle = ft_normalized(angle - (M_PI_2));
+	printf("player angle:%f\n", angle);
 	if (data->sidle == 0)
 	{
 		new.x = data->player_x + round(data->forward * cos(angle) * speed);
@@ -43,7 +44,7 @@ void	ft_move(mlx_t *mlx, t_data *data)
 	}
 	mlx_delete_image(data->mlx, data->player);
 	ft_player(data);
-	ft_cast(data, 0);
+	ft_cast(data, data->player_x, data->player_y, data->anglerotation, 0);
 }
 
 void	ft_keys_hook(mlx_key_data_t keydata, void *param)
@@ -78,8 +79,8 @@ int32_t	main(int argc, char **argv)
 		data.mlx = mlx_init(800, 600, "Cube 3D - Play it!", true);
 		ft_draw_scene(&data);
 		ft_player_init(&data);
-		data.player_x = 100;
-		data.player_y = 100;
+		data.player_x = 125;
+		data.player_y = 125;
 		ft_player(&data);
 		mlx_key_hook(data.mlx, &ft_keys_hook, &data);
 		mlx_loop_hook(data.mlx, &ft_game, &data);
