@@ -18,13 +18,14 @@ void	ft_move(mlx_t *mlx, t_data *data)
 	float	angle;
 	float	side_angle;
 	int		speed;
+	int		i;
+	float	angle_increment;
 
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 	angle = data->anglerotation;
 	speed = data->speed_move;
 	side_angle = ft_normalized(angle - (M_PI_2));
-	printf("player angle:%f\n", angle);
 	if (data->sidle == 0)
 	{
 		new.x = data->player_x + round(data->forward * cos(angle) * speed);
@@ -44,7 +45,24 @@ void	ft_move(mlx_t *mlx, t_data *data)
 	}
 	mlx_delete_image(data->mlx, data->player);
 	ft_player(data);
-	ft_cast(data, data->player_x, data->player_y, data->anglerotation, 0);
+	i = 31;	
+	while (--i > 0)
+	{
+		angle = data->anglerotation - (i * (M_PI / 180));		
+		ft_cast(data, data->player_x, data->player_y, ft_normalized(angle), 0);		
+	}
+	i = 31;	
+	while (--i > 0)
+	{
+		angle = data->anglerotation + (i * (M_PI / 180));		
+		ft_cast(data, data->player_x, data->player_y, ft_normalized(angle), 0);
+	}
+	angle_increment = (30 * (M_PI / 180)) / (data->map_width / 2);
+	while (angle < (data->anglerotation + (30 * (M_PI / 180))))
+	{
+		ft_cast(data, data->player_x, data->player_y, ft_normalized(angle), 0);
+		angle +=angle_increment;
+	}
 }
 
 void	ft_keys_hook(mlx_key_data_t keydata, void *param)

@@ -68,91 +68,94 @@ void	ft_cast(t_data *data, int x, int y, float angle, int col)
 	t_point end;
 	int	interception_x;
 	int	interception_y;
-	float adjacent;
+	/*float adjacent;
 	int	down;
 	int left;
-	// int collision_h;
-	// int step_y;
-	// int step_x;
-	// int next_y;
-	// int next_x;
-	// int box_x;
-	// int box_y;
-	// int	wallhitx;
-	// int wallhity;
-	// int wallhitxh;
-	// int wallhityh;
-	// int wallhitxv;
-	// int wallhityv;
+	int step_y;
+	int step_x;
+	int next_yh;
+	int next_xh;*/
+	int collision_h;
+	int box_x;
+	int box_y;
+	//int	wallhitxh;
+	//int wallhityh;
 
-	// (void)col;
-	// (void)interception_x;
-	// (void)wallhitxv;
-	// (void)wallhityv;
-	// wallhitx = 0;
-	// wallhity = 0;
-	// wallhitxh = 0;
-	// wallhityh = 0;
-	// wallhitxv = 0;
-	// wallhityv = 0;
 	(void)col;
 	interception_x = 0;
 	interception_y = 0;
-	down = 0;
-	left = 0;
+	//down = 0;
+	//left = 0;
 	if (angle < 0.0001)
 		angle = M_PI * 2;
-	if (angle < M_PI)
+	/*if (angle < M_PI)
 		down = 1;
 	if (angle > M_PI_2 && angle < 3 * M_PI_2)
 		left = 1;
 	interception_y = floor(y / data->tile_height) * data->tile_height;
-	printf("interception_y:%d\n", interception_y);
 	if (down)
 		interception_y += data->tile_height;
 	adjacent = (interception_y - y) / tan(angle);
-	printf("adjacent:%f\f", adjacent);
 	interception_x = x + adjacent;
-	printf("interception_x:%d\n", interception_x);
+	step_y = data->tile_height;
+	step_x = floor(step_y / tan(angle));
+	if (!down)
+		step_y = -step_y;
+	if ((left && step_x > 0) || (!left && step_x < 0))
+		step_x = -step_x;
+	next_xh = interception_x;
+	next_yh = interception_y;
+	if (!down)
+		next_yh--;
+	collision_h = 0;
+	while (!collision_h)
+	{
+		box_x = round(next_xh / data->tile_width);
+		box_y = round(next_yh / data->tile_height);
+		if (ft_collision(data, box_x, box_y))
+		{
+			collision_h = 1;
+			wallhitxh = next_xh;
+			wallhityh = next_yh;
+		}
+		else
+		{
+			next_xh = step_x;
+			next_yh = step_y;
+		}
+	}*/
 	start.x = x;
 	start.y = y;
-	end.x = interception_x;
-	end.y = interception_y;
-	//printf("x:%d y:%d\n", interception_x, interception_y);
+	//end.y = wallhityh;
+	//end.x = wallhitxh;
+	interception_x = x;
+	interception_y = y;
+	collision_h = 0;
+	while (!collision_h)
+	{
+		box_x = round(interception_x / data->tile_width);
+		box_y = round(interception_y / data->tile_height);
+		if (ft_collision(data, box_x, box_y))
+		{
+			collision_h = 1;
+			end.y = floor(interception_y);
+			end.x = floor(interception_x);
+		}
+		else
+		{
+			interception_x += cos(angle) * (data->tile_width / 10);
+			interception_y += sin(angle) * (data->tile_height / 10);
+		}
+	}
+	printf("x:%d y:%d\n", interception_x, interception_y);
 	ft_draw_line_red(start, end, data->player);
-	// step_y = data->tile_height;
-	// step_x = round(step_y / tan(angle));
-	// if (!down)
-	// 	step_y = -step_y;
-	// if ((left && step_x > 0) || (!left && step_x < 0))
-	// 	step_x = -step_x;
-	// next_y = step_y;
-	// next_x = step_x;
-	// if (!down)
-	// 	next_y--;
-	// collision_h = 0;
-	// while (!collision_h)
-	// {
-	// 	box_x = floor(next_x / data->tile_width);
-	// 	box_y = floor(next_y / data->tile_height);
-	// 	if (ft_collision(data, box_x, box_y))
-	// 	{
-	// 		collision_h = 1;
-	// 		wallhitxh = next_x;
-	// 		wallhityh = next_y;
-	// 	}
-	// 	else
-	// 	{
-	// 		next_x = step_x;
-	// 		next_y = step_y;
-	// 	}
-	// }
-	// //(void)wallhitxh;
-	// //(void)wallhityh;
-	// start.x = x;
-	// start.y = y;
-	// end.x = wallhitxh;
-	// end.y = wallhityh;
-	// printf("x:%d y:%d\n", wallhitxh, wallhityh);
-	// ft_draw_line_red(start, end, data->player);
+	/*if (angle == (float)(M_PI * 2) || angle == (float)M_PI)
+		end.y = y;
+	if (angle == (float)M_PI_2 || angle == (float)(3 * M_PI_2))
+		end.x = x;
+	if ((angle < (float)(5 * M_PI_4) && angle > M_PI) || (angle < (float)(M_PI * 2) && angle > (float)(7 * M_PI_4)))
+		end.y = y - cos(angle) * (interception_x - x);
+	if ((angle > (float)(3 * M_PI_4) && angle < M_PI) || angle < (float)M_PI_4)
+		end.y = y + cos(angle) * (x - interception_x);	
+	printf("x:%d y:%d\n", interception_x, interception_y);*/
 }
