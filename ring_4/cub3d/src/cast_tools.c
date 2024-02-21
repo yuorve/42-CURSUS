@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:21 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/02/20 20:48:12 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/02/21 20:03:32 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,18 +122,17 @@ void	ft_cast(t_data *data, int x, int y, float angle, int col)
 		if (ft_collision(data, box_x, box_y))
 		{
 			collision_h = 1;
-			end.y = floor(interception_y);
-			end.x = floor(interception_x);
+			end.y = interception_y;
+			end.x = interception_x;
 		}
 		else
 		{
-			interception_y += sin(angle) * (data->tile_height / 10);
-			interception_x += cos(angle) * (data->tile_width / 10);
-			//
-			//interception_y += step_y;
-			//interception_x += step_x;
+			interception_y += sin(angle);
+			interception_x += cos(angle);
 		}
 	}
+	printf("BOX x:%d y:%d\n", box_x, box_y);
+	printf("END x:%d y:%d\n", end.x, end.y);
 	printf("STEP x:%f y:%f angle:%f\n", step_x, step_y, angle);
 	printf("INTER x:%f y:%f angle:%f\n", interception_x, interception_y, angle);
 	ft_draw_line_red(start, end, data->player);

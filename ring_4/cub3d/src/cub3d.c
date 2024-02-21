@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:36 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/02/20 19:16:48 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/02/21 20:08:39 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	ft_move(mlx_t *mlx, t_data *data)
 	float	angle;
 	float	side_angle;
 	int		speed;
-	int		i;
-	//float	angle_increment;
+	size_t	i;
+	float	angle_increment;
 
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
@@ -45,7 +45,7 @@ void	ft_move(mlx_t *mlx, t_data *data)
 	}
 	mlx_delete_image(data->mlx, data->player);
 	ft_player(data);
-	i = 31;	
+	/*i = 31;	
 	while (--i >= 0)
 	{
 		angle = data->anglerotation - (i * (M_PI / 180));		
@@ -56,13 +56,16 @@ void	ft_move(mlx_t *mlx, t_data *data)
 	{
 		angle = data->anglerotation + (i * (M_PI / 180));		
 		ft_cast(data, data->player_x, data->player_y, ft_normalized(angle), 0);
-	}
-	/*angle_increment = (30 * (M_PI / 180)) / (data->map_width / 2);
-	while (angle < (data->anglerotation + (30 * (M_PI / 180))))
-	{
-		ft_cast(data, data->player_x, data->player_y, ft_normalized(angle), 0);
-		angle +=angle_increment;
 	}*/
+	i = 0;
+	angle_increment = (60 / data->map_width);
+	angle = data->anglerotation - (30 * (M_PI / 180));
+	while (++i <= data->map_width)
+	{
+		ft_cast(data, data->player_x, data->player_y, ft_normalized(angle), i);
+		angle += angle_increment;
+	}
+	printf("increment angle:%f\n", angle_increment);
 }
 
 void	ft_keys_hook(mlx_key_data_t keydata, void *param)
@@ -94,7 +97,7 @@ int32_t	main(int argc, char **argv)
 		ft_bzero(&data, sizeof(t_data));
 		data.mapfile = ft_strjoin("assets/maps/", argv[1]);
 		read_map(&data);
-		data.mlx = mlx_init(800, 600, "Cube 3D - Play it!", true);
+		data.mlx = mlx_init(data.map_width, data.map_height, "Cube 3D - Play it!", true);
 		ft_draw_scene(&data);
 		ft_player_init(&data);
 		data.player_x = 125;
