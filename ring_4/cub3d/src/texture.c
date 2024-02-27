@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 09:57:37 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/02/27 19:13:41 by yoropeza         ###   ########.fr       */
+/*   Created: 2024/02/27 20:41:38 by yoropeza          #+#    #+#             */
+/*   Updated: 2024/02/27 21:08:56 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/libft.h"
+#include "../inc/cub3d.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	ft_load_texture(t_data *data)
 {
-	t_list	*node;
+	mlx_texture_t	*png;
 
-	if (!*lst)
-		return ;
-	while (*lst)
-	{
-		node = (*lst)->next;
-		ft_lstdelone(*lst, del);
-		*lst = node;
-	}
-	free(node);
+	(void)data;
+	png = mlx_load_png("assets/walls.png");
+	//data->png = mlx_texture_to_image(data->mlx, img);
+	mlx_delete_texture(png);
 }

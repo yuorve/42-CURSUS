@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:58 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/01/31 20:50:26 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/02/27 19:09:11 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,20 +115,20 @@ void	ft_draw_scene(t_data *data)
 	mlx_image_t	*wall;
 	mlx_image_t	*ground;
 
-	wall = mlx_new_image(data->mlx, data->tile_height, data->tile_width);
+	wall = mlx_new_image(data->mlx, TILE_SIZE, TILE_SIZE);
 	memset(wall->pixels, ft_get_rgba(0, 0, 0, 0), wall->width * wall->height * sizeof(int32_t));
-	ground = mlx_new_image(data->mlx, data->tile_height, data->tile_width);
-	memset(ground->pixels, ft_get_rgba(102, 102, 102, 102), ground->width * ground->height * sizeof(int32_t));	
+	ground = mlx_new_image(data->mlx, TILE_SIZE, TILE_SIZE);
+	memset(ground->pixels, ft_get_rgba(102, 102, 102, 102), ground->width * ground->height * sizeof(int32_t));
 	i = -1;	
-	while (++i < data->matrix_height)
+	while (++i < data->map->height)
 	{
 		j = -1;
-		while (++j < data->matrix_width)
+		while (++j < data->map->width)
 		{
-			if (data->matrix[i][j] == '1')
-				mlx_image_to_window(data->mlx, wall, j * data->tile_width, i * data->tile_height);
+			if (data->map->matrix[i][j] == '1')
+				mlx_image_to_window(data->mlx, wall, j * TILE_SIZE, i * TILE_SIZE);
 			else
-				mlx_image_to_window(data->mlx, ground, j * data->tile_width, i * data->tile_height);
+				mlx_image_to_window(data->mlx, ground, j * TILE_SIZE, i * TILE_SIZE);
 		}
 	}
 }

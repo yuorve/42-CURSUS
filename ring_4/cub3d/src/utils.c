@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:02 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/02/01 19:38:44 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/02/27 19:51:10 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,12 @@ int	ft_get_rgba(int r, int g, int b, int a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void	read_map(t_data *data)
-{
-	int		fd;
-	int		i;
-
-	fd = open(data->mapfile, O_RDONLY);
-	if (fd < 0)
-		exit(printf("Error Opening file\n"));
-	i = 0;
-	data->map_height = 500;
-	data->map_width = 500;
-	data->matrix = ft_calloc(data->map_height, data->map_width);
-	data->matrix[i] = get_next_line(fd);
-	while (data->matrix[i++] != NULL)
-		data->matrix[i] = get_next_line(fd);
-	close(fd);
-	data->matrix_height = i - 1;
-	data->matrix_width = ft_strlen(data->matrix[0]) - 1;
-	data->tile_height = data->map_height / data->matrix_height;
-	data->tile_width = data->map_width / data->matrix_width;
-}
-
 int	ft_collision(t_data *data, int x, int y)
 {
 	int	res;
 
 	res = 0;
-	if (data->matrix[y][x] != '0')
+	if (data->map->matrix[y][x] != '0')
 		res = 1;
 	return (res);
 }
@@ -61,11 +39,23 @@ float	ft_normalized(float angle)
 	return (normalized_angle);
 }
 
-t_point	ft_get_tile(t_data *data, int x, int y)
+t_point	ft_get_pos(t_point *pos, float angle, int n)
 {
-	t_point	tile;
+	t_point	new;
 
-	tile.x = round(x / data->tile_width);
-	tile.y = round(y / data->tile_height);
-	return (tile);
+	new.x = pos->x + round(n * cos(angle) * P_SPEED);
+	new.y = pos->y + round(n * sin(angle) * P_SPEED);
+	return (new);
+}
+
+float	ft_pitagoras(float a, float b, float c, float d)
+{
+	float	n_pow_x;
+	float	n_pow_y;
+	float	n_sqr;
+
+	n_pow_x = pow(a - b, 2);
+	n_pow_y = pow(c - d, 2);
+	n_sqr = sqrt(n_pow_x + n_pow_y);
+	return (n_sqr);
 }
