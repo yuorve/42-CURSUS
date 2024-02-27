@@ -18,20 +18,13 @@
 #include <stdio.h>
 #include <memory.h>
 
-typedef struct s_point {
-    int	x;
-    int	y;
-}	t_point;
-
-typedef struct s_tile {
-    size_t	height;
-    size_t	width;
-}	t_tile;
-
-typedef struct s_map {
-	size_t	width;
-	size_t	height;
-}	t_map;
+#define S_W 800 // screen width
+#define S_H 600 // screen height
+#define TILE_SIZE 30 // tile size
+#define FOV ((60 * M_PI) / 180) // field of view
+#define R_SPEED (3 * M_PI) / 180 // rotation speed
+#define P_SPEED 3 // player speed
+#define V_DIST ((S_W / 2) / tan(FOV / 2))
 
 typedef struct s_line {
 	int	dx;
@@ -40,36 +33,55 @@ typedef struct s_line {
 	int	sy;
 }	t_line;
 
-typedef struct s_data
+typedef struct s_point {
+    int	x;
+    int	y;
+}	t_point;
+
+typedef struct s_player
 {
-	mlx_t		*mlx;
 	mlx_image_t	*img;
-	char		**matrix;
-	char		*mapfile;
-	size_t		map_width;
-	size_t		map_height;
-	size_t		tile_width;
-	size_t		tile_height;
-	int			matrix_height;
-	int			matrix_width;
-	int			key;
-	mlx_image_t	*player;
-	int			player_x;
-	int			player_y;
+	t_point		*pos;
+	double		angle;
 	int			forward;
 	int			sidle;
 	int			turn;
-	float		anglerotation;
-	int			speed_move;
-	float		speed_turn;
-}	t_data;
+} t_player;
 
+typedef struct s_ray
+{
+	double	angle;
+	double	distance;
+	int		flag;
+} t_ray;
+
+typedef struct s_map
+{
+	char	**matrix;
+	char	*file;
+	int		ply_x;
+	int		ply_y;
+	int		width;
+	int		height;
+} t_map;
+
+typedef struct s_data
+{
+	mlx_t   	*mlx;
+	mlx_image_t *img;
+	t_ray   	*ray;
+	t_map   	*map;
+	t_player  	*ply;
+	int			key;
+} t_data;
+
+// Utils
 int		ft_get_rgba(int r, int g, int b, int a);
 int		ft_collision(t_data *data, int x, int y);
 float	ft_normalized(float angle);
 void	read_map(t_data *data);
-t_point	ft_get_tile(t_data *data, int x, int y);
-// Key utils
+t_point	ft_get_tile(int x, int y);
+// Key
 void	ft_keys_press(mlx_key_data_t keydata, void *param);
 void	ft_keys_release(mlx_key_data_t keydata, void *param);
 // Drawing tools
@@ -83,4 +95,9 @@ void	ft_player_init(t_data *data);
 void	ft_player_move(t_data *data, char *direction);
 int		ft_player_collision(t_data *data, int x, int y);
 // Cast
-void	ft_cast(t_data *data, int x, int y, float angle, int col);
+int 	ft_circle(float angle, char c);
+int 	ft_inter_check(float angle, float *inter, float *step, int is_horizon);
+int 	ft_wall_hit(float x, float y, t_data *data);
+void	ft_cast_rays(t_data *data);
+// Render
+void	ft_render(t_data *data, int ray);

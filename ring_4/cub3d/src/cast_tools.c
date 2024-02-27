@@ -12,129 +12,57 @@
 
 #include "../inc/cub3d.h"
 
-// void	ft_cast_TMP(t_data *data, int x, int y, float angle, int col)
-// {
-// 	t_point	start;
-// 	t_point	end;
-// 	int		adjacent;
-// 	int		hypotenuse;
-// 	int		opposite;
-// 	int		down;
-// 	int		left;	
-// 	int		collision_h;
-// 	int		wallhitx;
-// 	int		wallhity;
-// 	t_point	tile;
-
-// 	(void)col;
-// 	down = 0;
-// 	left = 0;
-// 	if (angle < 0.0001)
-// 		angle = M_PI * 2;
-// 	if (angle < M_PI)
-// 		down = 1;
-// 	if (angle > M_PI_2 && angle < 3 * M_PI_2)
-// 		left = 1;
-// 	wallhitx = floor(x / data->tile_width) * data->tile_width;
-
-	
-// 	collision_h = 0;
-// 	tile = ft_get_tile(data, data->player_x, data->player_y);
-// 	printf("x:%d y:%d\n", tile.x, tile.y);
-// 	wallhitx = data->tile_width - data->player_x;
-// 	wallhity = data->tile_height - data->player_y;
-// 	start.x = data->player_x;
-// 	start.y = data->player_y;
-// 	while (!collision_h)
-// 	{
-// 		adjacent = cos(angle) / sin(angle);
-// 		end.x = start.x + cos(angle) * adjacent;
-// 		end.y = start.y + sin(angle) * adjacent;
-// 		tile = ft_get_tile(data, end.x, end.y);
-// 		if (ft_collision(data, tile.x, tile.y))
-// 			collision_h = 1;
-// 		else
-// 		{
-// 			wallhitx += data->tile_height;
-// 			wallhity += data->tile_width;
-// 		}
-// 	}
-// 	ft_draw_line_red(start, end, data->player);
-// }
-
-void	ft_cast(t_data *data, int x, int y, float angle, int col)
+int ft_circle(float angle, char c)
 {
-	t_point start;
-	t_point end;
-	float	interception_x;
-	float	interception_y;
-	int	down;
-	int left;
-	float adjacent;
-	float step_y;
-	float step_x;
-	/*int next_yh;
-	int next_xh;*/
-	int collision_h;
-	int box_x;
-	int box_y;
-	//int	wallhitxh;
-	//int wallhityh;
-
-	(void)col;
-	interception_x = 0;
-	interception_y = 0;
-	down = 0;
-	left = 0;
-	if (angle < 0.0001)
-		angle = M_PI * 2;
-	if (angle < M_PI)
-		down = 1;
-	if (angle > M_PI_2 && angle < 3 * M_PI_2)
-		left = 1;
-	interception_y = floor(y / data->tile_height) * data->tile_height;
-	if (down)
-		interception_y += data->tile_height;
-	if (y > interception_y)
-		adjacent = (y - interception_y) / tan(angle);
-	else
-		adjacent = (interception_y - y) / tan(angle);
-	interception_x = x + adjacent;
-	step_y = data->tile_height;
-	step_x = step_y / tan(angle);
-	if (!down)
-		step_y = -step_y;
-	if ((left && step_x > 0) || (!left && step_x < 0))
-		step_x = -step_x;
-	if (!down)
-		interception_y--;
-	start.x = x;
-	start.y = y;
-	// CORREGIR INICIO *******
-	interception_x = x;
-	interception_y = y;
-	// ***********************
-	collision_h = 0;
-	while (!collision_h)
+	if (c == 'x')
 	{
-		box_x = floor(interception_x / data->tile_width);
-		box_y = floor(interception_y / data->tile_height);
-		if (ft_collision(data, box_x, box_y))
-		{
-			collision_h = 1;
-			end.y = floor(interception_y);
-			end.x = floor(interception_x);
-		}
-		else
-		{
-			interception_y += sin(angle) * (data->tile_height / 10);
-			interception_x += cos(angle) * (data->tile_width / 10);
-			//
-			//interception_y += step_y;
-			//interception_x += step_x;
-		}
+		if (angle > 0 && angle < M_PI)
+		return (1);
 	}
-	printf("STEP x:%f y:%f angle:%f\n", step_x, step_y, angle);
-	printf("INTER x:%f y:%f angle:%f\n", interception_x, interception_y, angle);
-	ft_draw_line_red(start, end, data->player);
+	else if (c == 'y')
+	{
+		if (angle > (M_PI / 2) && angle < (3 * M_PI) / 2)
+			return (1);
+	}
+	return (0);
+}
+
+int ft_inter_check(float angle, float *inter, float *step, int is_horizon)
+{
+	if (is_horizon)
+	{
+		if (angle > 0 && angle < M_PI)
+		{
+			*inter += TILE_SIZE;
+			return (-1);
+		}
+		*step *= -1;
+	}
+	else
+	{
+		if (!(angle > M_PI / 2 && angle < 3 * M_PI / 2)) 
+		{
+			*inter += TILE_SIZE;
+			return (-1);
+		}
+		*step *= -1;
+	}
+	return (1);
+}
+
+int ft_wall_hit(float x, float y, t_data *data)
+{
+	int  x_m;
+	int  y_m;
+
+	if (x < 0 || y < 0)
+		return (0);
+	x_m = floor(x / TILE_SIZE);
+	y_m = floor(y / TILE_SIZE);
+	if ((y_m >= data->map->height || x_m >= data->map->width))
+		return (0);
+	if (data->map->matrix[y_m] && x_m <= (int)strlen(data->map->matrix[y_m]))
+		if (data->map->matrix[y_m][x_m] == '1')
+			return (0);
+	return (1);
 }

@@ -22,21 +22,17 @@ void	read_map(t_data *data)
 	int		fd;
 	int		i;
 
-	fd = open(data->mapfile, O_RDONLY);
+	fd = open(data->map->file, O_RDONLY);
 	if (fd < 0)
 		exit(printf("Error Opening file\n"));
 	i = 0;
-	data->map_height = 500;
-	data->map_width = 500;
-	data->matrix = ft_calloc(data->map_height, data->map_width);
-	data->matrix[i] = get_next_line(fd);
-	while (data->matrix[i++] != NULL)
-		data->matrix[i] = get_next_line(fd);
+	data->map->width = 10;
+	data->map->height = 10;
+	data->map->matrix = ft_calloc(data->map->height, data->map->width);
+	data->map->matrix[i] = get_next_line(fd);
+	while (data->map->matrix[i++] != NULL)
+		data->map->matrix[i] = get_next_line(fd);
 	close(fd);
-	data->matrix_height = i - 1;
-	data->matrix_width = ft_strlen(data->matrix[0]) - 1;
-	data->tile_height = data->map_height / data->matrix_height;
-	data->tile_width = data->map_width / data->matrix_width;
 }
 
 int	ft_collision(t_data *data, int x, int y)
@@ -44,7 +40,7 @@ int	ft_collision(t_data *data, int x, int y)
 	int	res;
 
 	res = 0;
-	if (data->matrix[y][x] != '0')
+	if (data->map->matrix[y][x] != '0')
 		res = 1;
 	return (res);
 }
@@ -61,11 +57,11 @@ float	ft_normalized(float angle)
 	return (normalized_angle);
 }
 
-t_point	ft_get_tile(t_data *data, int x, int y)
+t_point	ft_get_tile(int x, int y)
 {
 	t_point	tile;
 
-	tile.x = round(x / data->tile_width);
-	tile.y = round(y / data->tile_height);
+	tile.x = round(x / TILE_SIZE);
+	tile.y = round(y / TILE_SIZE);
 	return (tile);
 }
