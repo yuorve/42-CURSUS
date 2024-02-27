@@ -31,10 +31,10 @@ void ft_floor_ceiling(t_data *data, int ray, int t_pix, int b_pix)
 
 	i = b_pix;
 	while (i < S_H)
-		ft_pixel_put(data, ray, i++, 0xB99470FF);
+		ft_pixel_put(data, ray, i++, ft_get_rgba(128, 128, 128, 255));
 	i = 0;
 	while (i < t_pix)
-		ft_pixel_put(data, ray, i++, 0x89CFF3FF);
+		ft_pixel_put(data, ray, i++, ft_get_rgba(137, 207, 243, 255));
 }
 
 int ft_color(t_data *data, int flag)
@@ -43,16 +43,16 @@ int ft_color(t_data *data, int flag)
 	if (flag == 0)
 	{
 		if (data->ray->angle > M_PI / 2 && data->ray->angle < 3 * (M_PI / 2))
-			return (0xB5B5B5FF); // west
+			return (ft_get_rgba(181, 181, 181, 255)); // west
 		else
-			return (0xB5B5B5FF); // east
+			return (ft_get_rgba(181, 181, 181, 255)); // east
 	}
 	else
 	{
 		if (data->ray->angle > 0 && data->ray->angle < M_PI)
-			return (0xF5F5F5FF); // south
+			return (ft_get_rgba(245, 245, 245, 255)); // south
 		else
-			return (0xF5F5F5FF); // north
+			return (ft_get_rgba(245, 245, 245, 255)); // north
 		}
 	}
 
