@@ -66,10 +66,19 @@ typedef struct s_map
 	int		height;
 }	t_map;
 
+typedef struct s_wall
+{
+	mlx_image_t	*north;
+	mlx_image_t	*south;
+	mlx_image_t	*east;
+	mlx_image_t	*west;
+}	t_wall;
+
 typedef struct s_data
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+	t_wall		*wall;
 	t_ray		*ray;
 	t_map		*map;
 	t_player	*ply;

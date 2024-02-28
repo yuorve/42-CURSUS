@@ -53,9 +53,9 @@ void	ft_game(void *param)
 	t_data	*data;
 
 	data = param;
-	mlx_delete_image(data->mlx, data->img);
-	data->img = mlx_new_image(data->mlx, S_W, S_H);
-	mlx_image_to_window(data->mlx, data->img, 0, 0);
+	//mlx_delete_image(data->mlx, data->img);
+	//data->img = mlx_new_image(data->mlx, S_W, S_H);
+	//mlx_image_to_window(data->mlx, data->img, 0, 0);
 	ft_move(data->mlx, data);
 	ft_cast_rays(data);
 }
@@ -67,6 +67,7 @@ int32_t	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		data = calloc(1, sizeof(t_data));
+		data->wall = calloc(1, sizeof(t_wall));
 		data->ply = calloc(1, sizeof(t_player));
 		data->ply->pos = calloc(1, sizeof(t_point));
 		data->ray = calloc(1, sizeof(t_ray));
@@ -74,7 +75,7 @@ int32_t	main(int argc, char **argv)
 		data->map->file = ft_strjoin("assets/maps/", argv[1]);
 		read_map(data);
 		data->mlx = mlx_init(S_W, S_H, "Cube 3D - Play it!", true);
-		//ft_load_texture(data);
+		ft_load_texture(data);
 		ft_draw_scene(data);
 		ft_player_init(data);
 		ft_player(data);
