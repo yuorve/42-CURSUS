@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:36 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/02/27 21:10:20 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/02/28 19:32:47 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	ft_game(void *param)
 	t_data	*data;
 
 	data = param;
-	//mlx_delete_image(data->mlx, data->img);
-	//data->img = mlx_new_image(data->mlx, S_W, S_H);
-	//mlx_image_to_window(data->mlx, data->img, 0, 0);
+	mlx_delete_image(data->mlx, data->img);
+	data->img = mlx_new_image(data->mlx, S_W, S_H);
+	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	ft_move(data->mlx, data);
 	ft_cast_rays(data);
 }

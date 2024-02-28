@@ -6,39 +6,57 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:41:38 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/02/27 21:08:56 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/02/28 20:15:24 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	ft_load_texture(t_data *data)
+mlx_image_t	*ft_load_image(t_data *data, int c)
 {
 	int				i;
 	int				line;
 	int				pixel;
-	mlx_image_t		*img;
+	mlx_image_t		*wall;
 	mlx_texture_t	*png;
 
 	png = mlx_load_png("assets/walls.png");
-	data->wall->north = mlx_texture_to_image(data->mlx, png);
-	data->wall->south = mlx_texture_to_image(data->mlx, png);
-	data->wall->east = mlx_texture_to_image(data->mlx, png);
-	data->wall->west = mlx_texture_to_image(data->mlx, png);
-	mlx_delete_texture(png);
-	img = mlx_new_image(data->mlx, 64, 64);
-	line = 1;
+	wall = mlx_new_image(data->mlx, TEXTURE, TEXTURE);
+	line = 0;
 	i = 0;
-	while (i < 8192)
+	while (i < (TEXTURE * TEXTURE * 4))
 	{
-		pixel = 0;
-		while (pixel < 64)
+		pixel = ((TEXTURE * 4) * c);
+		while (pixel < ((TEXTURE * 4) * (c + 1)))
 		{
-			img->pixels[i] = data->wall->north->pixels[pixel + line];
+			wall->pixels[i] = png->pixels[pixel + line];
 			pixel++;
 			i++;
 		}
-		line += 384;
+		line += (TEXTURE * 6 * 4);
 	}
-	mlx_image_to_window(data->mlx, img, 0, 0);
+	mlx_delete_texture(png);
+	return (wall);
+}
+
+void	ft_load_texture(t_data *data)
+{
+	data->wall->north = ft_load_image(data, 0);
+	data->wall->south = ft_load_image(data, 1);
+	data->wall->east = ft_load_image(data, 5);
+	data->wall->west = ft_load_image(data, 0);
+}
+
+int	ft_get_color(mlx_image_t *img, int pixel)
+{
+	int	tmp;
+
+	tmp = img->pixels[pixel] << 24 | img->pixels[pixel + 1] << 16
+		| img->pixels[pixel + 2] << 8 | img->pixels[pixel + 3];
+	return (tmp);
+}
+
+int	ft_load_pixel(mlx_image_t *wall, int pixel)
+{
+	return (wall->pixels[pixel]);
 }

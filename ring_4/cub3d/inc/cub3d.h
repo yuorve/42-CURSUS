@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 19:19:43 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/02/27 21:03:43 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/02/28 20:25:21 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 #define TILE_SIZE 30
 #define FOV 1.0472
 #define R_SPEED 0.05
-#define P_SPEED 3 
+#define P_SPEED 3
+#define TEXTURE 64
 
 typedef struct s_line
 {
@@ -76,13 +77,14 @@ typedef struct s_wall
 
 typedef struct s_data
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	t_wall		*wall;
-	t_ray		*ray;
-	t_map		*map;
-	t_player	*ply;
-	int			key;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	mlx_texture_t	*png;
+	t_wall			*wall;
+	t_ray			*ray;
+	t_map			*map;
+	t_player		*ply;
+	int				key;
 }	t_data;
 
 // Parsing
@@ -114,4 +116,5 @@ void	ft_cast_rays(t_data *data);
 // Render
 void	ft_render(t_data *data, int ray);
 // Textures
+int		ft_get_color(mlx_image_t *img, int pixel);
 void	ft_load_texture(t_data *data);
