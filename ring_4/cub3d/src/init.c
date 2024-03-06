@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 19:56:28 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/04 19:56:29 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/06 22:19:13 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	ft_map_init(t_map *map) 
 {
-    map->n_rows = 0;
-    map->n_lines = 0;
     map->n_player = 0;
     map->direction = 0;
     map->player.x = 0;

@@ -6,54 +6,11 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:14:43 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/04 21:29:02 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/06 22:37:49 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-
-void ft_print_map(t_data *data)
-{
-	int i;
-
-	i = 0;
-	while (data->structure->copy_map[i] != NULL)
-	{
-		printf("copy_map = %s\n", data->structure->copy_map[i]);
-		i++;
-	}
-}
-
-
-int	ft_get_len(char **array)
-{
-	int	i;
-
-	i = 0;
-	while (array[i])
-		i++;
-	return (i);
-}
-
-
-// int ft_check_empty_line(char *line)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (line[i] != '\0')
-// 	{
-// 		if ((line[i] == ' ' || line[i] == '	') && line[i] == '\n')
-// 			{
-// 				return (1);
-// 			}
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
-
 
 void ft_check_file(t_data *data)
 {
@@ -99,9 +56,9 @@ void	ft_void(void)
 	system("leaks -q 'cub3d'");
 }
 
-int main(int argc, char **argv)
+int32_t main(int argc, char **argv)
 {
-    t_data data;
+    t_data *data;
 
 	atexit(ft_void);
 
@@ -109,18 +66,36 @@ int main(int argc, char **argv)
 	{
 		exit_error("Wrong number of arguments\n");
 	}
-	ft_bzero(&data, sizeof(t_data));
-	data.map = malloc(sizeof(t_map));
-	data.structure = malloc(sizeof(t_structure));
-	if (!data.map || !data.structure)
-		return (0);
-    ft_map_init(data.map);
-	ft_structure_init(data.structure);
-	ft_check_name(argv[1], &data);
-	ft_check_file(&data);
+	//ft_bzero(&data, sizeof(t_data));
+	data = calloc(1, sizeof(t_data));
+	data->wall = calloc(1, sizeof(t_wall));
+	data->ply = calloc(1, sizeof(t_player));
+	data->ply->pos = calloc(1, sizeof(t_point));
+	data->ray = calloc(1, sizeof(t_ray));
+	data->map = calloc(1, sizeof(t_map));
+	data->structure = calloc(1, sizeof(t_structure));
+	//data.map = malloc(sizeof(t_map));
+	//data.structure = malloc(sizeof(t_structure));
+	// if (!data.map || !data.structure)
+	// 	return (0);
+    ft_map_init(data->map);
+	ft_structure_init(data->structure);
+	ft_check_name(argv[1], data);
+	ft_check_file(data);
+	read_map(data);
+	data->mlx = mlx_init(S_W, S_H, "Cube 3D - Play it!", true);
+	ft_load_texture(data);
+	ft_draw_scene(data);
+	ft_player_init(data);
+	ft_player(data);
+	mlx_key_hook(data->mlx, &ft_keys_hook, data);
+	mlx_loop_hook(data->mlx, &ft_game, data);
+	mlx_loop(data->mlx);
+	mlx_terminate(data->mlx);
+	free(data->map->file);
 	//ft_read_file(&data);
 	//ft_get_map_size(&data);
-	ft_free_structure(data.structure);
+	ft_free_structure(data->structure);
 
 	// if (ft_read_file(&data) == 0)
 	// {
@@ -132,8 +107,8 @@ int main(int argc, char **argv)
 	// } 
 
 	//free(data.structure);
-	free(data.map);
-	free(data.map_path);  
+	free(data->map);
+	free(data->map_path);  
 	//free(&data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 21:35:16 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/04 21:35:17 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/06 22:20:17 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ void  ft_get_param(t_data *data, char **param)
 			data->structure->EA = ft_strdup(param[1]);
 		}
 	else if (ft_strncmp(param[0], "F", 1) == 0)
-		data->structure->F = ft_get_color(param[1]);
+		data->structure->F = ft_check_color(param[1]);
 	else if (ft_strncmp(param[0], "C", 1) == 0)
-		data->structure->C = ft_get_color(param[1]);
+		data->structure->C = ft_check_color(param[1]);
 	else
 	{
-		free_split(param);
+		ft_free_split(param);
 		exit_error("Missing elements\n");
 	}
 }

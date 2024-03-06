@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 19:56:02 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/04 21:26:38 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/06 22:18:53 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_structure_check(t_data *data)
 			ft_param_exists(data, param[0]);
 			ft_get_param(data, param);
 			data->structure->count_params++;
-			free_split(param);
+			ft_free_split(param);
 			//printf("count_param = %d\n", data->structure->count_params);
 		}
 		ft_not_param(line, data);

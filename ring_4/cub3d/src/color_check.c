@@ -6,13 +6,13 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 21:34:53 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/04 21:34:54 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/06 22:18:29 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	validate_color(char	*c)
+void	ft_validate_color(char	*c)
 {
 	size_t	i;
 
@@ -29,7 +29,7 @@ void	validate_color(char	*c)
 		exit_error("Invalid Color\n");
 }
 
-size_t	split_size(char **split)
+size_t	ft_split_size(char **split)
 {
 	size_t	size;
 
@@ -39,7 +39,7 @@ size_t	split_size(char **split)
 	return (size);
 }
 
-void	free_split(char **split)
+void	ft_free_split(char **split)
 {
 	int		i;
 
@@ -54,7 +54,7 @@ void	free_split(char **split)
 	free(split);
 }
 
-int	ft_get_color(char *str)
+int	ft_check_color(char *str)
 {
 	int		r;
 	int		g;
@@ -64,16 +64,16 @@ int	ft_get_color(char *str)
 
 	i = 0;
 	rgb = ft_split(str, ',');
-	if (split_size(rgb) != 3)
+	if (ft_split_size(rgb) != 3)
 		exit_error("Invalid color\n");
 	rgb[2][ft_strlen(rgb[2]) - 1] = '\0';
 	while (rgb[i])
-		validate_color(rgb[i++]);
+		ft_validate_color(rgb[i++]);
 	r = ft_atoi(rgb[0]);
 	g = ft_atoi(rgb[1]);
 	b = ft_atoi(rgb[2]);
 	if (r > 255 || g > 255 || b > 255)
 		exit_error("Invalid color\n");
-	free_split(rgb);
+	ft_free_split(rgb);
 	return (r << 24 | g << 16 | b << 8 | 255);
 }
