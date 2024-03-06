@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 11:59:50 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/02/28 20:26:01 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/06 20:14:37 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,10 @@ void	ft_wall(t_data *data, int ray, int t_pix, int b_pix)
 	color = ft_color(data, data->ray->flag);
 	while (t_pix < b_pix)
 	{
-		//pixel = ((TILE_SIZE * TILE_SIZE) - TILE_SIZE + t_pix) * 4;
-		//pixel = ((TILE_SIZE * (ray + t_pix)) % TILE_SIZE) * 4;
-		//color = ft_get_color(data->wall->north, pixel);		
+		//pixel = ((TEXTURE * TEXTURE) - TEXTURE + t_pix) * 4;
+		//pixel = ((TEXTURE * (ray + t_pix)) % TEXTURE);
+		//color = ft_get_color(data->wall->north, pixel);
+		//color = data->wall->north->pixels[pixel];
 		//ft_pixel_put(data, ray, pixel, color);
 		//t_pix++;
 		ft_pixel_put(data, ray, t_pix++, color);
@@ -78,8 +79,10 @@ void	ft_render(t_data *data, int ray)
 	double	wall_h;
 	double	b_pix;
 	double	t_pix;
+	double	angle;
 
-	data->ray->distance *= cos(ft_normalized(data->ray->angle - data->ply->angle)); //too long line!!!
+	angle = data->ray->angle - data->ply->angle;
+	data->ray->distance *= cos(ft_normalized(angle));
 	wall_h = (TILE_SIZE / data->ray->distance) * ((S_W / 2) / tan(FOV / 2));
 	b_pix = (S_H / 2) + (wall_h / 2);
 	t_pix = (S_H / 2) - (wall_h / 2);

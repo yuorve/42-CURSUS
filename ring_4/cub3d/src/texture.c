@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:41:38 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/02/28 20:15:24 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/06 19:39:37 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,14 @@ mlx_image_t	*ft_load_image(t_data *data, int c)
 		}
 		line += (TEXTURE * 6 * 4);
 	}
-	png = mlx_load_png("assets/bricksx64.png");
-	wall = mlx_new_image(data->mlx, TEXTURE, TEXTURE);
-
 	mlx_delete_texture(png);
 	return (wall);
 }
 
 void	ft_load_texture(t_data *data)
 {
-	//data->wall->north = ft_load_image(data, 0);
 	data->wall->north = ft_load_bricks(data);
+	//data->wall->north = ft_load_image(data, 0);
 	data->wall->south = ft_load_image(data, 1);
 	data->wall->east = ft_load_image(data, 5);
 	data->wall->west = ft_load_image(data, 0);
