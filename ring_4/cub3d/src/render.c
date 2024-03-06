@@ -65,7 +65,10 @@ void	ft_wall(t_data *data, int ray, int t_pix, int b_pix)
 	while (t_pix < b_pix)
 	{
 		//pixel = ((TILE_SIZE * TILE_SIZE) - TILE_SIZE + t_pix) * 4;
-		//color = ft_get_color(data->wall->north, pixel);
+		//pixel = ((TILE_SIZE * (ray + t_pix)) % TILE_SIZE) * 4;
+		//color = ft_get_color(data->wall->north, pixel);		
+		//ft_pixel_put(data, ray, pixel, color);
+		//t_pix++;
 		ft_pixel_put(data, ray, t_pix++, color);
 	}
 }

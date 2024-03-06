@@ -12,6 +12,17 @@
 
 #include "../inc/cub3d.h"
 
+mlx_image_t	*ft_load_bricks(t_data *data)
+{
+	mlx_image_t		*wall;
+	mlx_texture_t	*png;
+
+	png = mlx_load_png("assets/bricksx64.png");
+	wall = mlx_texture_to_image(data->mlx, png);
+	mlx_delete_texture(png);
+	return (wall);
+}
+
 mlx_image_t	*ft_load_image(t_data *data, int c)
 {
 	int				i;
@@ -35,13 +46,17 @@ mlx_image_t	*ft_load_image(t_data *data, int c)
 		}
 		line += (TEXTURE * 6 * 4);
 	}
+	png = mlx_load_png("assets/bricksx64.png");
+	wall = mlx_new_image(data->mlx, TEXTURE, TEXTURE);
+
 	mlx_delete_texture(png);
 	return (wall);
 }
 
 void	ft_load_texture(t_data *data)
 {
-	data->wall->north = ft_load_image(data, 0);
+	//data->wall->north = ft_load_image(data, 0);
+	data->wall->north = ft_load_bricks(data);
 	data->wall->south = ft_load_image(data, 1);
 	data->wall->east = ft_load_image(data, 5);
 	data->wall->west = ft_load_image(data, 0);
