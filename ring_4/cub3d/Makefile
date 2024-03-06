@@ -4,6 +4,9 @@ OBJDIR	= obj
 LIBFT	= lib/libft
 LIBMLX	= lib/MLX42
 
+INC		= -I $(MLX42_PATH)/include -I $(LIBFT_PATH)
+GLFW_FLAGS = -lglfw -L /Users/angalsty/.brew/opt/glfw/lib
+
 HEADER	= -I ./inc -I $(LIBMLX)/include -I $(LIBFT)/inc
 LFLAGS	= -L$(LIBFT) -lft -L$(LIBMLX) -lmlx42 
 LIBS	= -lglfw -L /Users/$(USER)/.brew/opt/glfw/lib/ -lm
@@ -13,7 +16,7 @@ OBJS	:= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
 OBJS_B	:= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC_B))
 
 CC 		= gcc
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -g -Wall -Werror -Wextra
 RM 		= rm -rf
 
 UNAME	= $(shell uname -s)
