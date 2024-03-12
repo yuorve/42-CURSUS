@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 19:19:43 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/02/28 20:25:21 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:34:03 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct s_data
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
-	mlx_texture_t	*png;
+	mlx_texture_t	*tex;
 	t_wall			*wall;
 	t_ray			*ray;
 	t_map			*map;
@@ -89,6 +89,7 @@ typedef struct s_data
 	double			horiz_y;
 	double			vert_x;
 	double			vert_y;
+	double			wall_h;
 }	t_data;
 
 // Parsing
@@ -119,6 +120,8 @@ int		ft_wall_hit(float x, float y, t_data *data);
 void	ft_cast_rays(t_data *data);
 // Render
 void	ft_render(t_data *data, int ray);
+void	ft_pixel_put(t_data *data, int x, int y, int color);
 // Textures
 int		ft_get_color(int pixel);
 void	ft_load_texture(t_data *data);
+void	ft_floor_ceiling(t_data *data, int ray, int t_pix, int b_pix);
