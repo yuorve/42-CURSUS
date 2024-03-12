@@ -69,10 +69,10 @@ typedef struct s_map
 
 typedef struct s_wall
 {
-	mlx_image_t	*north;
-	mlx_image_t	*south;
-	mlx_image_t	*east;
-	mlx_image_t	*west;
+	mlx_texture_t	*north;	
+	mlx_texture_t	*south;
+	mlx_texture_t	*east;
+	mlx_texture_t	*west;
 }	t_wall;
 
 typedef struct s_data
@@ -85,6 +85,10 @@ typedef struct s_data
 	t_map			*map;
 	t_player		*ply;
 	int				key;
+	double			horiz_x;
+	double			horiz_y;
+	double			vert_x;
+	double			vert_y;
 }	t_data;
 
 // Parsing
@@ -116,5 +120,5 @@ void	ft_cast_rays(t_data *data);
 // Render
 void	ft_render(t_data *data, int ray);
 // Textures
-int		ft_get_color(mlx_image_t *img, int pixel);
+int		ft_get_color(int pixel);
 void	ft_load_texture(t_data *data);

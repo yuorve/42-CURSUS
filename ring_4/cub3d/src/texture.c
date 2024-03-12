@@ -12,15 +12,19 @@
 
 #include "../inc/cub3d.h"
 
-mlx_image_t	*ft_load_bricks(t_data *data)
+mlx_texture_t	*ft_load_bricks(int c)
 {
-	mlx_image_t		*wall;
 	mlx_texture_t	*png;
 
-	png = mlx_load_png("assets/bricksx64.png");
-	wall = mlx_texture_to_image(data->mlx, png);
-	mlx_delete_texture(png);
-	return (wall);
+	if (c == 1)
+		png = mlx_load_png("assets/north.png");
+	else if (c == 2)
+		png = mlx_load_png("assets/south.png");
+	else if (c == 3)
+		png = mlx_load_png("assets/east.png");
+	else if (c == 4)
+		png = mlx_load_png("assets/west.png");
+	return (png);
 }
 
 mlx_image_t	*ft_load_image(t_data *data, int c)
@@ -31,7 +35,7 @@ mlx_image_t	*ft_load_image(t_data *data, int c)
 	mlx_image_t		*wall;
 	mlx_texture_t	*png;
 
-	png = mlx_load_png("assets/walls.png");
+	png = mlx_load_png("assets/walls.png");	
 	wall = mlx_new_image(data->mlx, TEXTURE, TEXTURE);
 	line = 0;
 	i = 0;
@@ -52,20 +56,20 @@ mlx_image_t	*ft_load_image(t_data *data, int c)
 
 void	ft_load_texture(t_data *data)
 {
-	data->wall->north = ft_load_bricks(data);
 	//data->wall->north = ft_load_image(data, 0);
-	data->wall->south = ft_load_image(data, 1);
-	data->wall->east = ft_load_image(data, 5);
-	data->wall->west = ft_load_image(data, 0);
+	data->wall->north = ft_load_bricks(1);
+	data->wall->south = ft_load_bricks(2);
+	data->wall->east = ft_load_bricks(3);
+	data->wall->west = ft_load_bricks(4);
 }
 
-int	ft_get_color(mlx_image_t *img, int pixel)
+int	ft_get_color(int pixel)
 {
-	int	tmp;
-
-	tmp = img->pixels[pixel] << 24 | img->pixels[pixel + 1] << 16
-		| img->pixels[pixel + 2] << 8 | img->pixels[pixel + 3];
-	return (tmp);
+	unsigned int	tmp;
+	
+	tmp = (pixel & 0xFF) << 24 | (pixel & 0xFF00) << 8 
+		| (pixel & 0xFF0000) >> 8 | (pixel & 0xFF000000) >> 24;
+	return (tmp);	
 }
 
 int	ft_load_pixel(mlx_image_t *wall, int pixel)

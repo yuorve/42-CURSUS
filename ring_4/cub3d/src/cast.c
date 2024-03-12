@@ -33,6 +33,8 @@ float	ft_hinter(t_data *data, float angl)
 		h_x += x_step;
 		h_y += y_step;
 	}
+	data->horiz_x = h_x;
+	data->horiz_y = h_y;
 	return (ft_pitagoras(h_x, data->ply->pos->x, h_y, data->ply->pos->y));
 }
 
@@ -57,6 +59,8 @@ float	ft_vinter(t_data *data, float angl)
 		v_x += x_step;
 		v_y += y_step;
 	}
+	data->vert_x = v_x;
+	data->vert_y = v_y;
 	return (ft_pitagoras(v_x, data->ply->pos->x, v_y, data->ply->pos->y));
 }
 
