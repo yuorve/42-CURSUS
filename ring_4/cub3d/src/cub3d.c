@@ -48,6 +48,36 @@ void	ft_keys_hook(mlx_key_data_t keydata, void *param)
 	ft_keys_release(keydata, param);
 }
 
+void test_draw(t_data *data)
+{
+	mlx_image_t *img;
+	mlx_texture_t *texture;
+	uint32_t *xy;
+	uint32_t *wh;
+
+	texture = mlx_load_png("assets/walls.png");
+	xy = calloc(2, sizeof(uint32_t));
+	wh = calloc(2, sizeof(uint32_t));
+	xy[0] = (64 * 0);
+	xy[1] = (64 * 4);
+	wh[0] = 64;
+	wh[1] = 64;
+	img = mlx_texture_area_to_image(data->mlx, texture, xy, wh);
+	mlx_image_to_window(data->mlx, img, 50, 50);
+}
+
+void ft_mini_map(t_data *data)
+{
+	t_point	start;
+	t_point	end;
+
+	start.x = S_W - (S_W / 10);
+	start.y = S_H - (S_H / 10);
+	end.x = (S_W / 10) - 5;
+	end.y = (S_H / 10) - 10;
+	ft_draw_square(start, end, data->img);
+}
+
 void	ft_game(void *param)
 {
 	t_data	*data;
@@ -58,6 +88,8 @@ void	ft_game(void *param)
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	ft_move(data->mlx, data);
 	ft_cast_rays(data);
+	test_draw(data);
+	ft_mini_map(data);
 }
 
 int32_t	main(int argc, char **argv)
@@ -87,3 +119,4 @@ int32_t	main(int argc, char **argv)
 	}
 	return (EXIT_SUCCESS);
 }
+

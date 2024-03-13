@@ -98,7 +98,7 @@ void	ft_cast_rays(t_data *data)
 		}
 		//ft_raycasting(data);
 		ft_render(data, ray);
-		ray++;
+		ray++;	
 		data->ray->angle += (FOV / S_W);
 	}
 }

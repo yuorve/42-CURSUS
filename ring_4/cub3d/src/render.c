@@ -64,8 +64,10 @@ void	ft_wall(t_data *data, int ray, int t_pix, int b_pix)
 	double		t_y;
 	double		y_step;
 	uint32_t	*pixels;
+	mlx_image_t *tmp;
 
-	pixels = (uint32_t *)data->tex->pixels;
+	tmp = mlx_texture_to_image(data->mlx, data->tex);
+	pixels = (uint32_t *)tmp->pixels;
 	y_step = (double)data->tex->height / data->wall_h;
 	t_x = ft_get_x(data->tex, data);
 	t_y = (t_pix - (S_H / 2) + (data->wall_h / 2)) * y_step;

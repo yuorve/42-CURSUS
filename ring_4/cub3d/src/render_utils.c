@@ -40,30 +40,24 @@ int	ft_color(t_data *data, int flag)
 	}
 }
 
-mlx_image_t	*ft_load_image(t_data *data, int c)
+mlx_image_t	*ft_load_image(t_data *data, int x, int y)
 {
-	int				i;
-	int				line;
-	int				pixel;
-	mlx_image_t		*wall;
-	mlx_texture_t	*png;
+	mlx_image_t 	*wall;
+	mlx_texture_t	*texture;
+	uint32_t		*xy;
+	uint32_t		*wh;
 
-	png = mlx_load_png("assets/walls.png");
-	wall = mlx_new_image(data->mlx, TEXTURE, TEXTURE);
-	line = 0;
-	i = 0;
-	while (i < (TEXTURE * TEXTURE * 4))
-	{
-		pixel = ((TEXTURE * 4) * c);
-		while (pixel < ((TEXTURE * 4) * (c + 1)))
-		{
-			wall->pixels[i] = png->pixels[pixel + line];
-			pixel++;
-			i++;
-		}
-		line += (TEXTURE * 6 * 4);
-	}
-	mlx_delete_texture(png);
+	texture = mlx_load_png("assets/walls.png");
+	xy = calloc(2, sizeof(uint32_t));
+	wh = calloc(2, sizeof(uint32_t));
+	xy[0] = (TEXTURE * x);
+	xy[1] = (TEXTURE * y);
+	wh[0] = TEXTURE;
+	wh[1] = TEXTURE;
+	wall = mlx_texture_area_to_image(data->mlx, texture, xy, wh);
+	mlx_delete_texture(texture);
+	free(xy);
+	free(wh);
 	return (wall);
 }
 
