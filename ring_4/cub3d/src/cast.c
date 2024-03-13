@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:13:48 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/12 19:55:04 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:16:01 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	ft_cast_rays(t_data *data)
 		}
 		//ft_raycasting(data);
 		ft_render(data, ray);
-		ray++;	
+		ray++;
 		data->ray->angle += (FOV / S_W);
 	}
 }

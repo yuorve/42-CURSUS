@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:58 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/12 19:00:07 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:45:34 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	ft_draw_line_red(t_point start, t_point end, mlx_image_t *img)
 	}
 }
 
-void	ft_draw_square(t_point start, t_point end, mlx_image_t *img)
+void	ft_draw_square(t_point start, t_point end, mlx_image_t *img, uint32_t color)
 {
 	int	i;
 
@@ -95,7 +95,7 @@ void	ft_draw_square(t_point start, t_point end, mlx_image_t *img)
 	end.y += start.y;
 	while (1)
 	{
-		mlx_put_pixel(img, start.x, start.y, 0xFFFFFFFF);
+		mlx_put_pixel(img, start.x, start.y, color);
 		if (start.x == end.x && start.y == end.y)
 			break ;
 		else if (start.x == end.x)

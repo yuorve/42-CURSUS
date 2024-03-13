@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 19:19:43 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/12 18:34:03 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:31:50 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	ft_keys_release(mlx_key_data_t keydata, void *param);
 void	ft_draw_scene(t_data *data);
 void	ft_draw_line(t_point start, t_point end, mlx_image_t *img);
 void	ft_draw_line_red(t_point start, t_point end, mlx_image_t *img);
-void	ft_draw_square(t_point start, t_point end, mlx_image_t *img);
+void	ft_draw_square(t_point start, t_point end, mlx_image_t *img, uint32_t color);
 // Player
 void	ft_player(t_data *data);
 void	ft_player_init(t_data *data);

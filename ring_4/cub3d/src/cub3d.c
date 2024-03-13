@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:36 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/12 19:54:55 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:31:58 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,34 +48,68 @@ void	ft_keys_hook(mlx_key_data_t keydata, void *param)
 	ft_keys_release(keydata, param);
 }
 
-void test_draw(t_data *data)
-{
-	mlx_image_t *img;
-	mlx_texture_t *texture;
-	uint32_t *xy;
-	uint32_t *wh;
-
-	texture = mlx_load_png("assets/walls.png");
-	xy = calloc(2, sizeof(uint32_t));
-	wh = calloc(2, sizeof(uint32_t));
-	xy[0] = (64 * 0);
-	xy[1] = (64 * 4);
-	wh[0] = 64;
-	wh[1] = 64;
-	img = mlx_texture_area_to_image(data->mlx, texture, xy, wh);
-	mlx_image_to_window(data->mlx, img, 50, 50);
-}
-
-void ft_mini_map(t_data *data)
+void	ft_draw_player(t_data *data)
 {
 	t_point	start;
 	t_point	end;
 
-	start.x = S_W - (S_W / 10);
-	start.y = S_H - (S_H / 10);
-	end.x = (S_W / 10) - 5;
-	end.y = (S_H / 10) - 10;
-	ft_draw_square(start, end, data->img);
+	start.x = (data->ply->pos->x / TILE_SIZE) * (TILE_SIZE / 5) + 5;
+	start.y = (data->ply->pos->y / TILE_SIZE) * (TILE_SIZE / 5) + 5;
+	end.x = 6;
+	end.y = 6;
+	ft_draw_square(start, end, data->img, 0xFF0000FF);
+	start.x = (data->ply->pos->x / TILE_SIZE) * (TILE_SIZE / 5) + 8;
+	start.y = (data->ply->pos->y / TILE_SIZE) * (TILE_SIZE / 5) + 8;
+	end.x = start.x + cos(data->ply->angle) * 10;
+	end.y = start.y + sin(data->ply->angle) * 10;
+	ft_draw_line_red(start, end, data->img);
+}
+
+void	ft_draw_walls(t_data *data)
+{
+	t_point	start;
+	t_point	end;
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < data->map->height)
+	{
+		j = -1;
+		while (++j < data->map->width)
+		{
+			if (data->map->matrix[i][j] == '1')
+			{
+				start.x = j * (TILE_SIZE / 5) + 5;
+				start.y = i * (TILE_SIZE / 5) + 5;
+				end.x = TILE_SIZE / 5;
+				end.y = TILE_SIZE / 5;
+				ft_draw_square(start, end, data->img, 0x000000FF);
+			}
+		}
+	}
+}
+
+void	ft_draw_ground(t_data *data)
+{
+	t_point		start;
+	t_point		end;
+
+	start.x = 5;
+	start.y = 5;
+	end.x = data->map->width * (TILE_SIZE / 5);
+	end.y = data->map->height * (TILE_SIZE / 5);
+	ft_draw_square(start, end, data->img, 0xFFFFFFFF);
+}
+
+void	ft_minimap(void *param)
+{
+	t_data	*data;
+
+	data = param;
+	ft_draw_ground(data);
+	ft_draw_walls(data);
+	ft_draw_player(data);
 }
 
 void	ft_game(void *param)
@@ -88,8 +122,6 @@ void	ft_game(void *param)
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	ft_move(data->mlx, data);
 	ft_cast_rays(data);
-	test_draw(data);
-	ft_mini_map(data);
 }
 
 int32_t	main(int argc, char **argv)
@@ -113,6 +145,7 @@ int32_t	main(int argc, char **argv)
 		ft_player(data);
 		mlx_key_hook(data->mlx, &ft_keys_hook, data);
 		mlx_loop_hook(data->mlx, &ft_game, data);
+		mlx_loop_hook(data->mlx, &ft_minimap, data);
 		mlx_loop(data->mlx);
 		mlx_terminate(data->mlx);
 		free(data->map->file);
