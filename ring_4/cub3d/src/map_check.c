@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 19:59:55 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/04 21:17:37 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:58:55 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	ft_get_map_size(t_data *data)
 	//printf("cntl = %d\n", data->structure->cntl_map);
 	data->map_fd = open(data->map_path, O_RDONLY);
 	line = get_next_line(data->map_fd);
+	printf("size_x = %d\n", data->structure->size_x);
 
 	// if (!ft_strchr(line, '1') && line[0] == '\n')
 	// {
@@ -98,8 +99,10 @@ void	ft_get_map_size(t_data *data)
 		// }
 			//printf("line len = %ld\n", ft_strlen(line));
 			//printf("size_x = %d\n", data->structure->size_x);
+			
 		if (data->structure->cntl_map != 0 && (ft_is_param (line) == 0 || ft_empty_line(line) == 0))
 		{
+				printf("line = %s\n", line);
 			
 			//printf("size_x = %d\n", data->structure->size_x);}
 			//printf("size_y = %d\n", data->structure->size_y);
@@ -120,8 +123,8 @@ void	ft_get_map_size(t_data *data)
 		line = get_next_line(data->map_fd);
 	}
 	data->structure->size_y++;
-	//printf("size_x = %d\n", data->structure->size_x);
-	//printf("size_y = %d\n", data->structure->size_y);
+	printf("size_x = %d\n", data->structure->size_x);
+	printf("size_y = %d\n", data->structure->size_y);
 	//free(line);
 	close(data->map_fd);
 }

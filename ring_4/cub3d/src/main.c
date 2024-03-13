@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:14:43 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/06 22:37:49 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:53:11 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,12 @@ int32_t main(int argc, char **argv)
 	ft_structure_init(data->structure);
 	ft_check_name(argv[1], data);
 	ft_check_file(data);
-	read_map(data);
+	//read_map(data);
+	//data->map->width = data->structure->size_x;
+	printf("data->structure->size_x: %d\n", data->structure->size_x);
+	printf("data->structure->size_y: %d\n", data->structure->size_y);
+	data->map->height = data->structure->size_y;
+	data->map->matrix = data->structure->map;
 	data->mlx = mlx_init(S_W, S_H, "Cube 3D - Play it!", true);
 	ft_load_texture(data);
 	ft_draw_scene(data);
