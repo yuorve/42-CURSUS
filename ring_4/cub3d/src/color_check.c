@@ -6,13 +6,10 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 21:34:53 by angalsty          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/03/06 22:18:29 by angalsty         ###   ########.fr       */
-=======
-/*   Updated: 2024/03/12 19:06:06 by angalsty         ###   ########.fr       */
->>>>>>> anush_cub3d
+/*   Updated: 2024/03/18 19:19:31 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "cub3d.h"
 

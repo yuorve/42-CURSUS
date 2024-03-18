@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:14:43 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/18 19:17:47 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/18 19:24:27 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int32_t main(int argc, char **argv)
 	ft_check_name(argv[1], data);
 	ft_check_file(data);
 	//read_map(data);
-	//data->map->width = data->structure->size_x;
+	data->map->width = data->structure->size_x;
+	data->map->height = data->structure->size_y;
 	printf("data->structure->size_x: %d\n", data->structure->size_x);
 	printf("data->structure->size_y: %d\n", data->structure->size_y);
 	data->map->height = data->structure->size_y;
