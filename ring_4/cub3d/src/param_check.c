@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 21:35:16 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/12 19:07:21 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/18 18:45:29 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,33 +47,43 @@ void  ft_get_param(t_data *data, char **param)
 	if (ft_strncmp(param[0], "NO", 2) == 0)
 		{
 			ft_param_path(param[1]);
-			if (param[2] != NULL)
+			if (param[2] != NULL && ft_empty_line(param[2]) == 0)
 				exit_error("Wrong elements in the path\n");
 			data->structure->NO = ft_strdup(param[1]);
 		}
 	else if (ft_strncmp(param[0], "SO", 2) == 0)
 		{
 			ft_param_path(param[1]);
+			if (param[2] != NULL && ft_empty_line(param[2]) == 0)
+				exit_error("Wrong elements in the path\n");
 			data->structure->SO = ft_strdup(param[1]);
 		}
 	else if (ft_strncmp(param[0], "WE", 2) == 0)
 		{
 			ft_param_path(param[1]);
+			if (param[2] != NULL && ft_empty_line(param[2]) == 0)
+				exit_error("Wrong elements in the path\n");
 			data->structure->WE = ft_strdup(param[1]);
 		}
 	else if (ft_strncmp(param[0], "EA", 2) == 0)
 		{
 			ft_param_path(param[1]);
+			if (param[2] != NULL && ft_empty_line(param[2]) == 0)
+				exit_error("Wrong elements in the path\n");
 			data->structure->EA = ft_strdup(param[1]);
 		}
 	else if (ft_strncmp(param[0], "F", 1) == 0)
 	{
 		data->structure->F = ft_get_color(param[1]);
-		if (param[2] != NULL)
+		if (param[2] != NULL && ft_empty_line(param[2]) == 0)
 			exit_error("Wrong elements in the color\n");
 	}
 	else if (ft_strncmp(param[0], "C", 1) == 0)
+	{
 		data->structure->C = ft_get_color(param[1]);
+		if (param[2] != NULL && ft_empty_line(param[2]) == 0)
+			exit_error("Wrong elements in the path\n");
+	}
 	else
 	{
 		free_split(param);
