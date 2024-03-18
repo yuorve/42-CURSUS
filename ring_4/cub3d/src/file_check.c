@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 19:56:02 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/06 22:18:53 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/18 19:16:45 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,12 @@ void	ft_structure_check(t_data *data)
 				//data->structure->count_params++;
 				//printf("count_param = %d\n", data->structure->count_params);
 			//}
-				free(line);
+			free(line);
 			line = get_next_line(data->map_fd);
 	}	
 	// if (data->structure->count_params > 6)
 	// 	exit_error("Too many elements in the file\n");
+	printf("cntl_map = %d\n", data->structure->cntl_map);
 
 	if (data->structure->count_params < 6)
 		exit_error("Missing elements in the file\n");

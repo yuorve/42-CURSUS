@@ -6,7 +6,11 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 21:15:16 by angalsty          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/06 22:12:26 by angalsty         ###   ########.fr       */
+=======
+/*   Updated: 2024/03/12 18:48:25 by angalsty         ###   ########.fr       */
+>>>>>>> anush_cub3d
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +37,8 @@ void ft_check_map_params(t_data *data)
 				data->map->player.x = j;
 				data->map->direction = data->structure->map[i][j];
 				ft_check_player_pos(data, i, j);
+				if (data->map->player.x == 0 || data->map->player.y == 0)
+					exit_error("Player is in wrong position\n");
 				//printf("player x = %d\n", data->map->player.x);
 				//printf("player y = %d\n", data->map->player.y);
 				data->map->n_player++;
@@ -79,9 +85,7 @@ void	ft_check_player_pos(t_data *data, int y, int x)
 	|| data->structure->map[y][x + 1] == '\n' || data->structure->map[y][x - 1] == '\n')
 	{
 		exit_error("Player is in wrong position\n");
-	}
-
-	
+	}	
 	// if (data->map->player.x + 1 == ' ' || data->map->player.x - 1 == ' '
 	// || data->map->player.y + 1 == ' ' || data->map->player.y - 1 == ' '
 	// || data->map->player.x + 1 == '\0' || data->map->player.x - 1 == '\0'

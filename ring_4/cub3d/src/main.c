@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:14:43 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/13 18:53:11 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/18 19:17:47 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int32_t main(int argc, char **argv)
 	// 	return (0);
 	// } 
 
-	//free(data.structure);
+	free(data->structure);
 	free(data->map);
 	free(data->map_path);  
 	//free(&data);
