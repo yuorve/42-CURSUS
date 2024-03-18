@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 19:59:55 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/12 18:42:09 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/18 19:02:16 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,66 +64,97 @@ void ft_check_map(t_data *data)
 
 
 
-void	ft_get_map_size(t_data *data)
+// void	ft_get_map_size(t_data *data)
+// {
+// 	char *line;
+	
+// 	//printf("cntl = %d\n", data->structure->cntl_map);
+// 	data->map_fd = open(data->map_path, O_RDONLY);
+// 	line = get_next_line(data->map_fd);
+
+// 	// if (!ft_strchr(line, '1') && line[0] == '\n')
+// 	// {
+// 	// 	while (!ft_strchr(line, '1') && line[0] == '\n')
+// 	// 	{
+// 	// 		printf("line - %s", line);
+// 	// 	free(line);
+// 	// 	line = get_next_line(data->map_fd);
+// 	// 	//data->structure->full_size++;
+// 	// 	}
+// 	// }
+// 	// if (!ft_strchr(line, '1') && line[0] != '\n')
+// 	// 	exit_error("Error\nBad map\n");
+
+// 	while (line)
+// 	{
+// 		//printf("line = %s\n", line);
+// 		//if (line == '1' || line == '0')
+// 		//data->structure->full_size++;
+// 		//printf("full_size %d\n", data->structure->full_size);
+// 		// if (ft_is_param(line) == 1)
+// 		// {
+// 		// 	free(line);
+// 		// 	line = get_next_line(data->map_fd);
+// 		// }
+// 			//printf("line len = %ld\n", ft_strlen(line));
+// 			//printf("size_x = %d\n", data->structure->size_x);
+// 		if (data->structure->cntl_map != 0 && (ft_is_param (line) == 0 || ft_empty_line(line) == 0))
+// 		{
+			
+// 			//printf("size_x = %d\n", data->structure->size_x);}
+// 			//printf("size_y = %d\n", data->structure->size_y);
+// 			data->structure->size_y++;
+// 			data->structure->cntl_map--;
+// 		}
+// 		else if (ft_is_param (line) == 0 && ft_empty_line(line) == 0 && ft_map_param(line) == 1)
+// 		{
+// 			printf("line = %s\n", line);
+// 			if (ft_strlen(line) > (size_t)data->structure->size_x)
+// 			{
+// 				data->structure->size_x = ft_strlen(line);
+// 			}
+// 			data->structure->size_x++;
+// 		}
+// 		// {
+// 		// 	if (ft_strlen(line) > (size_t)data->structure->size_x)
+// 		// 	{
+// 		// 		data->structure->size_x = ft_strlen(line);
+
+// 		// 	}
+// 		// 	data->structure->size_x++;
+// 		// }
+
+// 		free(line);
+// 		line = get_next_line(data->map_fd);
+// 	}
+// 	data->structure->size_y++;
+// 	printf("size_x = %d\n", data->structure->size_x);
+// 	printf("size_y = %d\n", data->structure->size_y);
+// 	//free(line);
+// 	close(data->map_fd);
+// }
+
+void ft_get_map_size(t_data *data)
 {
 	char *line;
-	
-	//printf("cntl = %d\n", data->structure->cntl_map);
 	data->map_fd = open(data->map_path, O_RDONLY);
 	line = get_next_line(data->map_fd);
-
-	// if (!ft_strchr(line, '1') && line[0] == '\n')
-	// {
-	// 	while (!ft_strchr(line, '1') && line[0] == '\n')
-	// 	{
-	// 		printf("line - %s", line);
-	// 	free(line);
-	// 	line = get_next_line(data->map_fd);
-	// 	//data->structure->full_size++;
-	// 	}
-	// }
-	// if (!ft_strchr(line, '1') && line[0] != '\n')
-	// 	exit_error("Error\nBad map\n");
-
 	while (line)
 	{
-		//printf("line = %s\n", line);
-		//if (line == '1' || line == '0')
-		//data->structure->full_size++;
-		//printf("full_size %d\n", data->structure->full_size);
-		// if (ft_is_param(line) == 1)
-		// {
-		// 	free(line);
-		// 	line = get_next_line(data->map_fd);
-		// }
-			//printf("line len = %ld\n", ft_strlen(line));
-			//printf("size_x = %d\n", data->structure->size_x);
-		if (data->structure->cntl_map != 0 && (ft_is_param (line) == 0 || ft_empty_line(line) == 0))
-		{
-			
-			//printf("size_x = %d\n", data->structure->size_x);}
-			//printf("size_y = %d\n", data->structure->size_y);
-			data->structure->size_y++;
-			data->structure->cntl_map--;
-		}
-		else if (ft_is_param (line) == 0 && ft_empty_line(line) == 0)
+		if (ft_map_param(line) == 1 && ft_is_param(line) == 0)
 		{
 			if (ft_strlen(line) > (size_t)data->structure->size_x)
-			{
 				data->structure->size_x = ft_strlen(line);
-
-			}
-			data->structure->size_x++;
+			data->structure->size_y++;
 		}
-
 		free(line);
 		line = get_next_line(data->map_fd);
 	}
-	data->structure->size_y++;
-	//printf("size_x = %d\n", data->structure->size_x);
-	//printf("size_y = %d\n", data->structure->size_y);
-	//free(line);
 	close(data->map_fd);
+	printf("size_x = %d\n", data->structure->size_x);
+	printf("size_y = %d\n", data->structure->size_y);
+	
+	
 }
 
 void ft_validate_map(t_data *data)
