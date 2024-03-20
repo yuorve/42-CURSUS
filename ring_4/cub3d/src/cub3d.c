@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:36 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/13 18:31:58 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:30:45 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,70 +48,6 @@ void	ft_keys_hook(mlx_key_data_t keydata, void *param)
 	ft_keys_release(keydata, param);
 }
 
-void	ft_draw_player(t_data *data)
-{
-	t_point	start;
-	t_point	end;
-
-	start.x = (data->ply->pos->x / TILE_SIZE) * (TILE_SIZE / 5) + 5;
-	start.y = (data->ply->pos->y / TILE_SIZE) * (TILE_SIZE / 5) + 5;
-	end.x = 6;
-	end.y = 6;
-	ft_draw_square(start, end, data->img, 0xFF0000FF);
-	start.x = (data->ply->pos->x / TILE_SIZE) * (TILE_SIZE / 5) + 8;
-	start.y = (data->ply->pos->y / TILE_SIZE) * (TILE_SIZE / 5) + 8;
-	end.x = start.x + cos(data->ply->angle) * 10;
-	end.y = start.y + sin(data->ply->angle) * 10;
-	ft_draw_line_red(start, end, data->img);
-}
-
-void	ft_draw_walls(t_data *data)
-{
-	t_point	start;
-	t_point	end;
-	int		i;
-	int		j;
-
-	i = -1;
-	while (++i < data->map->height)
-	{
-		j = -1;
-		while (++j < data->map->width)
-		{
-			if (data->map->matrix[i][j] == '1')
-			{
-				start.x = j * (TILE_SIZE / 5) + 5;
-				start.y = i * (TILE_SIZE / 5) + 5;
-				end.x = TILE_SIZE / 5;
-				end.y = TILE_SIZE / 5;
-				ft_draw_square(start, end, data->img, 0x000000FF);
-			}
-		}
-	}
-}
-
-void	ft_draw_ground(t_data *data)
-{
-	t_point		start;
-	t_point		end;
-
-	start.x = 5;
-	start.y = 5;
-	end.x = data->map->width * (TILE_SIZE / 5);
-	end.y = data->map->height * (TILE_SIZE / 5);
-	ft_draw_square(start, end, data->img, 0xFFFFFFFF);
-}
-
-void	ft_minimap(void *param)
-{
-	t_data	*data;
-
-	data = param;
-	ft_draw_ground(data);
-	ft_draw_walls(data);
-	ft_draw_player(data);
-}
-
 void	ft_game(void *param)
 {
 	t_data	*data;
@@ -126,7 +62,7 @@ void	ft_game(void *param)
 
 void	ft_void(void)
 {
-	system("leaks -q 'minishell'");
+	system("leaks -q 'cub3d'");
 }
 
 int32_t	main(int argc, char **argv)
@@ -154,8 +90,7 @@ int32_t	main(int argc, char **argv)
 		mlx_loop_hook(data->mlx, &ft_minimap, data);
 		mlx_loop(data->mlx);
 		mlx_terminate(data->mlx);
-		free(data->map->file);
+		ft_free(data);
 	}
 	return (EXIT_SUCCESS);
 }
-

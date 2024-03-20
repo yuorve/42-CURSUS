@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 19:19:43 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/13 18:31:50 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:30:30 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ t_point	ft_get_pos(t_point *pos, float angle, int n);
 // Key
 void	ft_keys_press(mlx_key_data_t keydata, void *param);
 void	ft_keys_release(mlx_key_data_t keydata, void *param);
+// Minimap
+void	ft_minimap(void *param);
 // Drawing tools
 void	ft_draw_scene(t_data *data);
 void	ft_draw_line(t_point start, t_point end, mlx_image_t *img);
@@ -125,3 +127,7 @@ void	ft_pixel_put(t_data *data, int x, int y, int color);
 int		ft_get_color(int pixel);
 void	ft_load_texture(t_data *data);
 void	ft_floor_ceiling(t_data *data, int ray, int t_pix, int b_pix);
+// Free
+void	ft_free_texture(t_data *data);
+void	ft_free_matrix(char **array);
+void	ft_free(t_data *data);
