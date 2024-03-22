@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:13:48 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/02/28 19:32:34 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:16:01 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ float	ft_hinter(t_data *data, float angl)
 		h_x += x_step;
 		h_y += y_step;
 	}
+	data->horiz_x = h_x;
+	data->horiz_y = h_y;
 	return (ft_pitagoras(h_x, data->ply->pos->x, h_y, data->ply->pos->y));
 }
 
@@ -57,6 +59,8 @@ float	ft_vinter(t_data *data, float angl)
 		v_x += x_step;
 		v_y += y_step;
 	}
+	data->vert_x = v_x;
+	data->vert_y = v_y;
 	return (ft_pitagoras(v_x, data->ply->pos->x, v_y, data->ply->pos->y));
 }
 

@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:36 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/02/28 19:32:47 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:30:45 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	ft_move(mlx_t *mlx, t_data *data)
 		data->ply->pos->x = new.x;
 		data->ply->pos->y = new.y;
 	}
-	mlx_delete_image(data->mlx, data->ply->img);
-	ft_player(data);
+	//mlx_delete_image(data->mlx, data->ply->img);
+	//ft_player(data);
 }
 
 void	ft_keys_hook(mlx_key_data_t keydata, void *param)
@@ -60,10 +60,16 @@ void	ft_game(void *param)
 	ft_cast_rays(data);
 }
 
+void	ft_void(void)
+{
+	system("leaks -q 'cub3d'");
+}
+
 int32_t	main(int argc, char **argv)
 {
 	t_data	*data;
 
+	atexit(ft_void);
 	if (argc == 2)
 	{
 		data = calloc(1, sizeof(t_data));
@@ -76,14 +82,15 @@ int32_t	main(int argc, char **argv)
 		read_map(data);
 		data->mlx = mlx_init(S_W, S_H, "Cube 3D - Play it!", true);
 		ft_load_texture(data);
-		ft_draw_scene(data);
+		//ft_draw_scene(data);
 		ft_player_init(data);
-		ft_player(data);
+		//ft_player(data);
 		mlx_key_hook(data->mlx, &ft_keys_hook, data);
 		mlx_loop_hook(data->mlx, &ft_game, data);
+		mlx_loop_hook(data->mlx, &ft_minimap, data);
 		mlx_loop(data->mlx);
 		mlx_terminate(data->mlx);
-		free(data->map->file);
+		ft_free(data);
 	}
 	return (EXIT_SUCCESS);
 }
