@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 21:15:16 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/18 19:23:30 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/23 14:08:26 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,12 @@ void	ft_check_player_pos(t_data *data, int y, int x)
 
 void	ft_player_init(t_data *data)
 {
-	data->ply->pos->x = 3 * TILE_SIZE + TILE_SIZE / 2;
-	data->ply->pos->y = 3 * TILE_SIZE + TILE_SIZE / 2;
+	data->ply->pos->x = data->map->player.x * TILE_SIZE + TILE_SIZE / 2;
+	data->ply->pos->y = data->map->player.y * TILE_SIZE + TILE_SIZE / 2;
 	data->ply->forward = 0;
 	data->ply->turn = 0;
 	data->ply->angle = M_PI;
+	printf("player angle = %f\n", data->ply->angle);
 }
 
 void	ft_player(t_data *data)

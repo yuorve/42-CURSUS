@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:14:43 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/18 19:24:27 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/23 14:02:59 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,12 @@ int32_t main(int argc, char **argv)
 	data->map->height = data->structure->size_y;
 	printf("data->structure->size_x: %d\n", data->structure->size_x);
 	printf("data->structure->size_y: %d\n", data->structure->size_y);
-	data->map->height = data->structure->size_y;
 	data->map->matrix = data->structure->map;
 	data->mlx = mlx_init(S_W, S_H, "Cube 3D - Play it!", true);
 	ft_load_texture(data);
-	ft_draw_scene(data);
+	//ft_draw_scene(data);
 	ft_player_init(data);
-	ft_player(data);
+	//ft_player(data);
 	mlx_key_hook(data->mlx, &ft_keys_hook, data);
 	mlx_loop_hook(data->mlx, &ft_game, data);
 	mlx_loop(data->mlx);
