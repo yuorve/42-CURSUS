@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:25:08 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/23 14:36:45 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:53:44 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_player_init(t_data *data)
 	else if (data->map->direction == 'E')
 		data->ply->angle = 180 * M_PI / 180;
 	else if (data->map->direction == 'W')
-		data->ply->angle = 0 * M_PI / 180;	
+		data->ply->angle = 0 * M_PI / 180;
 }
 
 void	ft_player(t_data *data)
@@ -68,7 +68,7 @@ void	ft_player_move(t_data *data, char *direction)
 	else if (ft_strncmp(direction, "STOP TURN", 9) == 0)
 		data->ply->turn = 0;
 	else if (ft_strncmp(direction, "STOP FORWARD", 12) == 0)
-		data->ply->forward = 0;	
+		data->ply->forward = 0;
 }
 
 int	ft_player_collision(t_data *data, int x, int y)
@@ -79,7 +79,7 @@ int	ft_player_collision(t_data *data, int x, int y)
 
 	res = 0;
 	box_x = round(x / TILE_SIZE);
-	box_y = round(y / TILE_SIZE);	
+	box_y = round(y / TILE_SIZE);
 	if (ft_collision(data, box_x, box_y))
 		res = 1;
 	return (res);

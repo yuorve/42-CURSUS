@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:14:43 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/23 15:27:52 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/23 18:10:53 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void ft_check_file(t_data *data)
+void	ft_check_file(t_data *data)
 {
 	ft_structure_check(data);
 	ft_check_map_lines(data);
@@ -22,8 +22,7 @@ void ft_check_file(t_data *data)
 	ft_validate_map(data);
 }
 
-
-void    ft_check_name(char *name, t_data *data)
+void	ft_check_name(char *name, t_data *data)
 {
 	char	*path;
 	int		len;
@@ -36,7 +35,7 @@ void    ft_check_name(char *name, t_data *data)
 		if (data->map_fd == -1)
 		{
 			free(path);
-            exit_error("Map not found\n");
+			exit_error("Map not found\n");
 		}
 		else
 		{
@@ -49,24 +48,20 @@ void    ft_check_name(char *name, t_data *data)
 		exit_error("Wrong name for the map\n");
 }
 
-
-
 void	ft_void(void)
 {
 	system("leaks -q 'cub3d'");
 }
 
-int32_t main(int argc, char **argv)
+int32_t	main(int argc, char **argv)
 {
-    t_data *data;
+	t_data	*data;
 
 	atexit(ft_void);
-
 	if (argc != 2)
 	{
 		exit_error("Wrong number of arguments\n");
 	}
-	//ft_bzero(&data, sizeof(t_data));
 	data = calloc(1, sizeof(t_data));
 	data->wall = calloc(1, sizeof(t_wall));
 	data->ply = calloc(1, sizeof(t_player));
@@ -74,15 +69,10 @@ int32_t main(int argc, char **argv)
 	data->ray = calloc(1, sizeof(t_ray));
 	data->map = calloc(1, sizeof(t_map));
 	data->structure = calloc(1, sizeof(t_structure));
-	//data.map = malloc(sizeof(t_map));
-	//data.structure = malloc(sizeof(t_structure));
-	// if (!data.map || !data.structure)
-	// 	return (0);
-    ft_map_init(data->map);
+	ft_map_init(data->map);
 	ft_structure_init(data->structure);
 	ft_check_name(argv[1], data);
 	ft_check_file(data);
-	//read_map(data);
 	data->map->width = data->structure->size_x;
 	data->map->height = data->structure->size_y;
 	data->map->matrix = data->structure->map;

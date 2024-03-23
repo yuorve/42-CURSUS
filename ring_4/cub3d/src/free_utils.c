@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 19:27:32 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/23 14:18:12 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:52:44 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,5 @@ void	ft_free(t_data *data)
 	free(data->ply);
 	free(data->ray);
 	ft_free_texture(data);
-	//ft_free_matrix(data->map->matrix);
 	free(data);
 }

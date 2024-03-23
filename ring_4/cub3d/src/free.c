@@ -6,24 +6,24 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 19:56:24 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/04 19:56:25 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/23 16:29:18 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	exit_error(const char *message) 
+void	exit_error(const char *message)
 {
-    printf("Error\n%s", message);
-    exit(EXIT_FAILURE);
+	printf("Error\n%s", message);
+	exit(EXIT_FAILURE);
 }
 
-void  ft_free_matrix(char **str)
+void	ft_free_matrix(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if(str)
+	if (str)
 	{
 		while (str[i] != NULL)
 		{

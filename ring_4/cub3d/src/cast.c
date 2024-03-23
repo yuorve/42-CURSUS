@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:13:48 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/13 18:16:01 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:51:09 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	ft_cast_rays(t_data *data)
 			data->ray->distance = h_inter;
 			data->ray->flag = 1;
 		}
-		//ft_raycasting(data);
 		ft_render(data, ray);
 		ray++;
 		data->ray->angle += (FOV / S_W);

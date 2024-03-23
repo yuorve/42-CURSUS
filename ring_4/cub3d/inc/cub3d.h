@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 19:19:43 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/23 15:22:08 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/23 18:05:22 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include "../lib/libft/inc/libft.h"
-#include "../lib/MLX42/include/MLX42/MLX42.h"
-#include <stdlib.h>
-#include <fcntl.h>
-#include <math.h>
-#include <stdio.h>
-#include <memory.h>
+# include "../lib/libft/inc/libft.h"
+# include "../lib/MLX42/include/MLX42/MLX42.h"
+# include <stdlib.h>
+# include <fcntl.h>
+# include <math.h>
+# include <stdio.h>
+# include <memory.h>
 
-#define S_W 800
-#define S_H 600
-#define TILE_SIZE 30
-#define FOV 1.0472
-#define R_SPEED 0.05
-#define P_SPEED 20
-#define TEXTURE 64
+# define S_W 800
+# define S_H 600
+# define TILE_SIZE 30
+# define FOV 1.0472
+# define R_SPEED 0.1
+# define P_SPEED 20
+# define TEXTURE 64
 
-#define N 90;
-#define S 270;
-#define E 180;
-#define W 0;
+# define N 90;
+# define S 270;
+# define E 180;
+# define W 0;
 
 typedef struct s_pos
 {
@@ -54,11 +54,10 @@ typedef struct s_map
 	int		ply_y;
 	int		width;
 	int		height;
-	int 	n_player;
-	char 	direction;
-	t_pos 	player;
+	int		n_player;
+	char	direction;
+	t_pos	player;
 }	t_map;
-
 
 typedef struct s_rgb
 {
@@ -69,21 +68,19 @@ typedef struct s_rgb
 
 typedef struct s_structure
 {
-	char *NO;
-	char *SO;
-	char *WE;
-	char *EA;
-	int  C;
-	int  F;
-	//char **C;
-	// char **F;
-	int	count_params;
-	int cntl_map;
-	char **map;
-	char **copy_map;
-	int size_y;
-	int size_x;
-	int full_size;
+	char	*NO;
+	char	*SO;
+	char	*WE;
+	char	*EA;
+	int		C;
+	int		F;
+	int		count_params;
+	int		cntl_map;
+	char	**map;
+	char	**copy_map;
+	int		size_y;
+	int		size_x;
+	int		full_size;
 }	t_structure;
 
 typedef struct s_line
@@ -111,10 +108,9 @@ typedef struct s_ray
 	int		flag;
 }	t_ray;
 
-
 typedef struct s_wall
 {
-	mlx_texture_t	*north;	
+	mlx_texture_t	*north;
 	mlx_texture_t	*south;
 	mlx_texture_t	*east;
 	mlx_texture_t	*west;
@@ -125,12 +121,11 @@ typedef struct s_data
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	mlx_texture_t	*tex;
-	//mlx_texture_t	*png;
 	t_wall			*wall;
 	t_ray			*ray;
-	char		*map_path;
-	int			map_fd;
-	float		player_dir;	
+	char			*map_path;
+	int				map_fd;
+	float			player_dir;
 	t_map			*map;
 	t_player		*ply;
 	int				key;
@@ -139,7 +134,7 @@ typedef struct s_data
 	double			vert_x;
 	double			vert_y;
 	double			wall_h;
-	t_structure	*structure;
+	t_structure		*structure;
 }	t_data;
 
 // Parsing
@@ -195,14 +190,13 @@ void	ft_game(void *param);
 void	ft_move(mlx_t *mlx, t_data *data);
 void	ft_keys_hook(mlx_key_data_t keydata, void *param);
 
-
 //main.c
 void	ft_check_file(t_data *data);
-void   	ft_check_name(char *name, t_data *data);
+void	ft_check_name(char *name, t_data *data);
 
 //free.c
 void	exit_error(const char *message);
-void 	ft_free_matrix(char **str);
+void	ft_free_matrix(char **str);
 void	ft_free_struct(t_data *data);
 void	ft_free_structure(t_structure *structure);
 //void	ft_free_map(t_map *map);
@@ -213,8 +207,8 @@ void	ft_structure_init(t_structure *structure);
 
 //file_check.c
 void	ft_structure_check(t_data *data);
-void 	ft_check_map_lines(t_data *data);
-void 	ft_check_empty_line_map(t_data *data, char *line);
+void	ft_check_map_lines(t_data *data);
+void	ft_check_empty_line_map(t_data *data, char *line);
 int		ft_empty_line(char *line);
 
 //map_check.c
@@ -224,10 +218,10 @@ void	ft_get_map_size(t_data *data);
 void	ft_validate_map(t_data *data);
 
 //parse_map.c
-void 	ft_flood_fill(t_data *data, int y, int x);
+void	ft_flood_fill(t_data *data, int y, int x);
 void	ft_check_flood(t_data *data);
 void	ft_parsing_map(t_data *data);
-void 	ft_copy_map(t_data *data);
+void	ft_copy_map(t_data *data);
 
 //player.c
 void	ft_check_map_params(t_data *data);
@@ -248,9 +242,7 @@ void	ft_not_param(char *line, t_data *data);
 int		ft_is_param(char *line);
 
 //utils2.c decide if we need to keep this file
-void ft_print_map(t_data *data);
-int	ft_get_len(char **array);
-//int ft_check_empty_line(char *line);
-
+void	ft_print_map(t_data *data);
+int		ft_get_len(char **array);
 
 #endif

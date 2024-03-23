@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 11:59:50 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/12 18:37:25 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:54:22 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_wall(t_data *data, int ray, int t_pix, int b_pix)
 	double		t_y;
 	double		y_step;
 	uint32_t	*pixels;
-	mlx_image_t *tmp;
+	mlx_image_t	*tmp;
 
 	tmp = mlx_texture_to_image(data->mlx, data->tex);
 	pixels = (uint32_t *)tmp->pixels;

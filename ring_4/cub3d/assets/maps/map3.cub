@@ -1,7 +1,4 @@
-
-
-F 137,207,243
-
+NO ./assets/north.png
 
 SO ./assets/brick.png
 
@@ -10,11 +7,9 @@ WE ./assets/block.png
 EA ./assets/east.png
 
 C 128,128,128
+F 137,207,243
 
-NO ./assets/north.png
 
-
-        
         1111111111111111111111111
         1000000000110000000000001
         1011000001110000000000001
