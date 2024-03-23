@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:21 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/02/27 19:36:54 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:48:21 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:36 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/20 19:30:45 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/23 14:25:05 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,37 +60,32 @@ void	ft_game(void *param)
 	ft_cast_rays(data);
 }
 
-void	ft_void(void)
-{
-	system("leaks -q 'cub3d'");
-}
+// int32_t	main(int argc, char **argv)
+// {
+// 	t_data	*data;
 
-int32_t	main(int argc, char **argv)
-{
-	t_data	*data;
-
-	atexit(ft_void);
-	if (argc == 2)
-	{
-		data = calloc(1, sizeof(t_data));
-		data->wall = calloc(1, sizeof(t_wall));
-		data->ply = calloc(1, sizeof(t_player));
-		data->ply->pos = calloc(1, sizeof(t_point));
-		data->ray = calloc(1, sizeof(t_ray));
-		data->map = calloc(1, sizeof(t_map));
-		data->map->file = ft_strjoin("assets/maps/", argv[1]);
-		read_map(data);
-		data->mlx = mlx_init(S_W, S_H, "Cube 3D - Play it!", true);
-		ft_load_texture(data);
-		//ft_draw_scene(data);
-		ft_player_init(data);
-		//ft_player(data);
-		mlx_key_hook(data->mlx, &ft_keys_hook, data);
-		mlx_loop_hook(data->mlx, &ft_game, data);
-		mlx_loop_hook(data->mlx, &ft_minimap, data);
-		mlx_loop(data->mlx);
-		mlx_terminate(data->mlx);
-		ft_free(data);
-	}
-	return (EXIT_SUCCESS);
-}
+// 	atexit(ft_void);
+// 	if (argc == 2)
+// 	{
+// 		data = calloc(1, sizeof(t_data));
+// 		data->wall = calloc(1, sizeof(t_wall));
+// 		data->ply = calloc(1, sizeof(t_player));
+// 		data->ply->pos = calloc(1, sizeof(t_point));
+// 		data->ray = calloc(1, sizeof(t_ray));
+// 		data->map = calloc(1, sizeof(t_map));
+// 		data->map->file = ft_strjoin("assets/maps/", argv[1]);
+// 		read_map(data);
+// 		data->mlx = mlx_init(S_W, S_H, "Cube 3D - Play it!", true);
+// 		ft_load_texture(data);
+// 		//ft_draw_scene(data);
+// 		ft_player_init(data);
+// 		//ft_player(data);
+// 		mlx_key_hook(data->mlx, &ft_keys_hook, data);
+// 		mlx_loop_hook(data->mlx, &ft_game, data);
+// 		mlx_loop_hook(data->mlx, &ft_minimap, data);
+// 		mlx_loop(data->mlx);
+// 		mlx_terminate(data->mlx);
+// 		ft_free(data);
+// 	}
+// 	return (EXIT_SUCCESS);
+// }
