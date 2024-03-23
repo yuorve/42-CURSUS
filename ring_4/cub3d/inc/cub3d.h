@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 19:19:43 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/23 18:05:22 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/23 19:26:07 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ void	ft_free_structure(t_structure *structure);
 //void	ft_free_map(t_map *map);
 
 //init.c
+void ft_init(t_data *data);
 void	ft_map_init(t_map *map);
 void	ft_structure_init(t_structure *structure);
 
@@ -224,6 +225,7 @@ void	ft_parsing_map(t_data *data);
 void	ft_copy_map(t_data *data);
 
 //player.c
+void	ft_get_player(t_data *data, int y, int x);
 void	ft_check_map_params(t_data *data);
 void	ft_get_player_dir(t_data *data);
 void	ft_check_player_pos(t_data *data, int y, int x);
@@ -241,8 +243,11 @@ void	ft_param_exists(t_data *data, char *param);
 void	ft_not_param(char *line, t_data *data);
 int		ft_is_param(char *line);
 
-//utils2.c decide if we need to keep this file
-void	ft_print_map(t_data *data);
+//utils2.c
 int		ft_get_len(char **array);
+void	ft_process_texture(t_data *data, char **param, char **texture);
+void	ft_process_color(t_data *data, char **param, int *color);
+void	ft_check_texture_exists(char *texture);
+void	ft_check_color_exists(int color);
 
 #endif

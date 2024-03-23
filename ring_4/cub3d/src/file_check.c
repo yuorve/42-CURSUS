@@ -6,16 +6,26 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 19:56:02 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/23 16:26:30 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/23 18:26:28 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	ft_param(char *line, t_data *data)
+{
+	char	**param;
+
+	param = ft_split(line, ' ');
+	ft_param_exists(data, param[0]);
+	ft_get_param(data, param);
+	data->structure->count_params++;
+	ft_free_split(param);
+}
+
 void	ft_structure_check(t_data *data)
 {
 	char	*line;
-	char	**param;
 
 	data->map_fd = open(data->map_path, O_RDONLY);
 	if (data->map_fd == -1)
@@ -26,11 +36,7 @@ void	ft_structure_check(t_data *data)
 		data->structure->full_size++;
 		if (ft_is_param(line) == 1)
 		{
-			param = ft_split(line, ' ');
-			ft_param_exists(data, param[0]);
-			ft_get_param(data, param);
-			data->structure->count_params++;
-			ft_free_split(param);
+			ft_param(line, data);
 		}
 		ft_not_param(line, data);
 		if (ft_map_param(line) == 1 && ft_is_param(line) == 0)

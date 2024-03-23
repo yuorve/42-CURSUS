@@ -1,3 +1,4 @@
+
 NO ./assets/north.png
 
 SO ./assets/brick.png
@@ -8,6 +9,7 @@ EA ./assets/east.png
 
 C 128,128,128
 F 137,207,243
+
 
 
         1111111111111111111111111

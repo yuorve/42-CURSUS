@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 19:59:55 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/23 16:39:29 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/23 18:27:41 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	ft_check_map(t_data *data)
 
 	i = 0;
 	data->map_fd = open(data->map_path, O_RDONLY);
-	data->structure->map = (char **)malloc(sizeof(char *) * (data->structure->size_y + 1));
+	data->structure->map = (char **)malloc(sizeof(char *)
+			* (data->structure->size_y + 1));
 	if (!data->structure->map)
 		exit_error("Malloc error\n");
 	line = get_next_line(data->map_fd);

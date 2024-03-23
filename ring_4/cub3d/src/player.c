@@ -6,11 +6,21 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 21:15:16 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/23 17:49:03 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/23 19:13:29 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ft_get_player(t_data *data, int y, int x)
+{
+	data->map->player.x = x;
+	data->map->player.y = y;
+	data->map->direction = data->structure->map[y][x];
+	ft_check_player_pos(data, y, x);
+	if (data->map->player.x == 0 || data->map->player.y == 0)
+		exit_error("Player is in wrong position\n");
+}
 
 void	ft_check_map_params(t_data *data)
 {
@@ -25,17 +35,9 @@ void	ft_check_map_params(t_data *data)
 		{
 			if (!ft_strchr("01NSWE \n", data->structure->map[i][j]))
 				exit_error("Wrong cherechter in the map\n");
-			if (data->structure->map[i][j] == 'N'
-			|| data->structure->map[i][j] == 'S'
-			|| data->structure->map[i][j] == 'W'
-			|| data->structure->map[i][j] == 'E')
+			if (ft_strchr("NSWE", data->structure->map[i][j]))
 			{
-				data->map->player.y = i;
-				data->map->player.x = j;
-				data->map->direction = data->structure->map[i][j];
-				ft_check_player_pos(data, i, j);
-				if (data->map->player.x == 0 || data->map->player.y == 0)
-					exit_error("Player is in wrong position\n");
+				ft_get_player(data, i, j);
 				data->map->n_player++;
 				data->structure->map[i][j] = '0';
 			}

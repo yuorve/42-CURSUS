@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:14:43 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/23 18:10:53 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/23 19:27:07 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,17 @@ void	ft_check_name(char *name, t_data *data)
 		exit_error("Wrong name for the map\n");
 }
 
+void	ft_data_calloc(t_data **data)
+{
+	*data = calloc(1, sizeof(t_data));
+	(*data)->wall = calloc(1, sizeof(t_wall));
+	(*data)->ply = calloc(1, sizeof(t_player));
+	(*data)->ply->pos = calloc(1, sizeof(t_point));
+	(*data)->ray = calloc(1, sizeof(t_ray));
+	(*data)->map = calloc(1, sizeof(t_map));
+	(*data)->structure = calloc(1, sizeof(t_structure));
+}
+
 void	ft_void(void)
 {
 	system("leaks -q 'cub3d'");
@@ -59,18 +70,9 @@ int32_t	main(int argc, char **argv)
 
 	atexit(ft_void);
 	if (argc != 2)
-	{
 		exit_error("Wrong number of arguments\n");
-	}
-	data = calloc(1, sizeof(t_data));
-	data->wall = calloc(1, sizeof(t_wall));
-	data->ply = calloc(1, sizeof(t_player));
-	data->ply->pos = calloc(1, sizeof(t_point));
-	data->ray = calloc(1, sizeof(t_ray));
-	data->map = calloc(1, sizeof(t_map));
-	data->structure = calloc(1, sizeof(t_structure));
-	ft_map_init(data->map);
-	ft_structure_init(data->structure);
+	ft_data_calloc(&data);
+	ft_init(data);
 	ft_check_name(argv[1], data);
 	ft_check_file(data);
 	data->map->width = data->structure->size_x;

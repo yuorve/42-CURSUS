@@ -6,7 +6,7 @@
 /*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 21:35:16 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/23 16:44:33 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/23 18:58:55 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,45 +37,17 @@ char	*ft_param_path(char *path)
 void	ft_get_param(t_data *data, char **param)
 {
 	if (ft_strncmp(param[0], "NO", 2) == 0)
-	{
-		//ft_param_path(param[1]);
-		if (param[2] != NULL && ft_empty_line(param[2]) == 0)
-			exit_error("Wrong elements in the path\n");
-		data->structure->NO = ft_param_path(param[1]);
-	}
+		ft_process_texture(data, param, &data->structure->NO);
 	else if (ft_strncmp(param[0], "SO", 2) == 0)
-	{
-		//ft_param_path(param[1]);
-		if (param[2] != NULL && ft_empty_line(param[2]) == 0)
-			exit_error("Wrong elements in the path\n");
-		data->structure->SO = ft_param_path(param[1]);
-	}
+		ft_process_texture(data, param, &data->structure->SO);
 	else if (ft_strncmp(param[0], "WE", 2) == 0)
-	{
-		//ft_param_path(param[1]);
-		if (param[2] != NULL && ft_empty_line(param[2]) == 0)
-			exit_error("Wrong elements in the path\n");
-		data->structure->WE = ft_param_path(param[1]);
-	}
+		ft_process_texture(data, param, &data->structure->WE);
 	else if (ft_strncmp(param[0], "EA", 2) == 0)
-	{
-		//ft_param_path(param[1]);
-		if (param[2] != NULL && ft_empty_line(param[2]) == 0)
-			exit_error("Wrong elements in the path\n");
-		data->structure->EA = ft_param_path(param[1]);
-	}
+		ft_process_texture(data, param, &data->structure->EA);
 	else if (ft_strncmp(param[0], "F", 1) == 0)
-	{
-		data->structure->F = ft_check_color(param[1]);
-		if (param[2] != NULL && ft_empty_line(param[2]) == 0)
-			exit_error("Wrong elements in the color\n");
-	}
+		ft_process_color(data, param, &data->structure->F);
 	else if (ft_strncmp(param[0], "C", 1) == 0)
-	{
-		data->structure->C = ft_check_color(param[1]);
-		if (param[2] != NULL && ft_empty_line(param[2]) == 0)
-			exit_error("Wrong elements in the path\n");
-	}
+		ft_process_color(data, param, &data->structure->C);
 	else
 	{
 		ft_free_split(param);
@@ -86,35 +58,17 @@ void	ft_get_param(t_data *data, char **param)
 void	ft_param_exists(t_data *data, char *param)
 {
 	if (ft_strncmp(param, "NO", 2) == 0)
-	{
-		if (data->structure->NO != NULL)
-			exit_error("Element is repeated\n");
-	}
+		ft_check_texture_exists(data->structure->NO);
 	else if (ft_strncmp(param, "SO", 2) == 0)
-	{
-		if (data->structure->SO != NULL)
-			exit_error("Element is repeated\n");
-	}
+		ft_check_texture_exists(data->structure->SO);
 	else if (ft_strncmp(param, "WE", 2) == 0)
-	{
-		if (data->structure->WE != NULL)
-			exit_error("Element is repeated\n");
-	}
+		ft_check_texture_exists(data->structure->WE);
 	else if (ft_strncmp(param, "EA", 2) == 0)
-	{
-		if (data->structure->EA != NULL)
-			exit_error("Element is repeated\n");
-	}
+		ft_check_texture_exists(data->structure->EA);
 	else if (ft_strncmp(param, "F", 1) == 0)
-	{
-		if (data->structure->F != 0)
-			exit_error("Element is repeated\n");
-	}
+		ft_check_color_exists(data->structure->F);
 	else if (ft_strncmp(param, "C", 1) == 0)
-	{
-		if (data->structure->C != 0)
-			exit_error("Element is repeated\n");
-	}
+		ft_check_color_exists(data->structure->C);
 }
 
 void	ft_not_param(char *line, t_data *data)
