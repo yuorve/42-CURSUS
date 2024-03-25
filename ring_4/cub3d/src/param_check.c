@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   param_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 21:35:16 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/23 18:58:55 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:49:51 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ char	*ft_param_path(char *path)
 void	ft_get_param(t_data *data, char **param)
 {
 	if (ft_strncmp(param[0], "NO", 2) == 0)
-		ft_process_texture(data, param, &data->structure->NO);
+		ft_process_texture(data, param, &data->structure->no);
 	else if (ft_strncmp(param[0], "SO", 2) == 0)
-		ft_process_texture(data, param, &data->structure->SO);
+		ft_process_texture(data, param, &data->structure->so);
 	else if (ft_strncmp(param[0], "WE", 2) == 0)
-		ft_process_texture(data, param, &data->structure->WE);
+		ft_process_texture(data, param, &data->structure->we);
 	else if (ft_strncmp(param[0], "EA", 2) == 0)
-		ft_process_texture(data, param, &data->structure->EA);
+		ft_process_texture(data, param, &data->structure->ea);
 	else if (ft_strncmp(param[0], "F", 1) == 0)
-		ft_process_color(data, param, &data->structure->F);
+		ft_process_color(data, param, &data->structure->f);
 	else if (ft_strncmp(param[0], "C", 1) == 0)
-		ft_process_color(data, param, &data->structure->C);
+		ft_process_color(data, param, &data->structure->c);
 	else
 	{
 		ft_free_split(param);
@@ -58,17 +58,17 @@ void	ft_get_param(t_data *data, char **param)
 void	ft_param_exists(t_data *data, char *param)
 {
 	if (ft_strncmp(param, "NO", 2) == 0)
-		ft_check_texture_exists(data->structure->NO);
+		ft_check_texture_exists(data->structure->no);
 	else if (ft_strncmp(param, "SO", 2) == 0)
-		ft_check_texture_exists(data->structure->SO);
+		ft_check_texture_exists(data->structure->so);
 	else if (ft_strncmp(param, "WE", 2) == 0)
-		ft_check_texture_exists(data->structure->WE);
+		ft_check_texture_exists(data->structure->we);
 	else if (ft_strncmp(param, "EA", 2) == 0)
-		ft_check_texture_exists(data->structure->EA);
+		ft_check_texture_exists(data->structure->ea);
 	else if (ft_strncmp(param, "F", 1) == 0)
-		ft_check_color_exists(data->structure->F);
+		ft_check_color_exists(data->structure->f);
 	else if (ft_strncmp(param, "C", 1) == 0)
-		ft_check_color_exists(data->structure->C);
+		ft_check_color_exists(data->structure->c);
 }
 
 void	ft_not_param(char *line, t_data *data)

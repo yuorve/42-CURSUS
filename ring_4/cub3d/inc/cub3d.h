@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 19:19:43 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/23 19:26:07 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:59:23 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@
 # define S_H 600
 # define TILE_SIZE 30
 # define FOV 1.0472
-# define R_SPEED 0.1
-# define P_SPEED 20
+# define R_SPEED 0.05
+# define P_SPEED 3
 # define TEXTURE 64
 
-# define N 90;
-# define S 270;
-# define E 180;
-# define W 0;
+# define N 90
+# define S 270
+# define E 180
+# define W 0
 
 typedef struct s_pos
 {
@@ -68,12 +68,12 @@ typedef struct s_rgb
 
 typedef struct s_structure
 {
-	char	*NO;
-	char	*SO;
-	char	*WE;
-	char	*EA;
-	int		C;
-	int		F;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	int		c;
+	int		f;
 	int		count_params;
 	int		cntl_map;
 	char	**map;
@@ -135,6 +135,7 @@ typedef struct s_data
 	double			vert_y;
 	double			wall_h;
 	t_structure		*structure;
+	uint32_t		*pixels;
 }	t_data;
 
 // Parsing
@@ -154,11 +155,9 @@ void	ft_keys_release(mlx_key_data_t keydata, void *param);
 void	ft_minimap(void *param);
 
 // Drawing tools
-void	ft_draw_scene(t_data *data);
 void	ft_draw_line(t_point start, t_point end, mlx_image_t *img);
 void	ft_draw_line_red(t_point start, t_point end, mlx_image_t *img);
-void	ft_draw_square(t_point start, t_point end, mlx_image_t *img, uint32_t color);
-//void	ft_draw_square(t_point start, t_point end, mlx_image_t *img);
+void	ft_squar(t_point start, t_point end, mlx_image_t *img, uint32_t color);
 
 // Player
 void	ft_player(t_data *data);
@@ -202,7 +201,7 @@ void	ft_free_structure(t_structure *structure);
 //void	ft_free_map(t_map *map);
 
 //init.c
-void ft_init(t_data *data);
+void	ft_init(t_data *data);
 void	ft_map_init(t_map *map);
 void	ft_structure_init(t_structure *structure);
 

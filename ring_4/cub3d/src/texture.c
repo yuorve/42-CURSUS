@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 20:41:38 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/23 15:30:02 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:47:04 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ mlx_texture_t	*ft_load_bricks(int c)
 
 void	ft_load_texture(t_data *data)
 {
-	data->wall->north = mlx_load_png(data->structure->NO);
-	data->wall->south = mlx_load_png(data->structure->SO);
-	data->wall->east = mlx_load_png(data->structure->EA);
-	data->wall->west = mlx_load_png(data->structure->WE);
+	data->wall->north = mlx_load_png(data->structure->no);
+	data->wall->south = mlx_load_png(data->structure->so);
+	data->wall->east = mlx_load_png(data->structure->ea);
+	data->wall->west = mlx_load_png(data->structure->we);
 }
 
 int	ft_get_color(int pixel)
@@ -50,8 +50,8 @@ void	ft_floor_ceiling(t_data *data, int ray, int t_pix, int b_pix)
 
 	i = b_pix;
 	while (i < S_H)
-		ft_pixel_put(data, ray, i++, data->structure->C);
+		ft_pixel_put(data, ray, i++, data->structure->c);
 	i = 0;
 	while (i < t_pix)
-		ft_pixel_put(data, ray, i++, data->structure->F);
+		ft_pixel_put(data, ray, i++, data->structure->f);
 }
