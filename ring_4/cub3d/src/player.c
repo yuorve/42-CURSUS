@@ -3,77 +3,84 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 18:25:08 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/13 17:46:08 by yoropeza         ###   ########.fr       */
+/*   Created: 2024/03/04 21:15:16 by angalsty          #+#    #+#             */
+/*   Updated: 2024/03/23 19:13:29 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "cub3d.h"
 
-void	ft_player_init(t_data *data)
+void	ft_get_player(t_data *data, int y, int x)
 {
-	data->ply->pos->x = 3 * TILE_SIZE + TILE_SIZE / 2;
-	data->ply->pos->y = 3 * TILE_SIZE + TILE_SIZE / 2;
-	data->ply->forward = 0;
-	data->ply->turn = 0;
-	data->ply->angle = M_PI;
+	data->map->player.x = x;
+	data->map->player.y = y;
+	data->map->direction = data->structure->map[y][x];
+	ft_check_player_pos(data, y, x);
+	if (data->map->player.x == 0 || data->map->player.y == 0)
+		exit_error("Player is in wrong position\n");
 }
 
-void	ft_player(t_data *data)
+void	ft_check_map_params(t_data *data)
 {
-	mlx_t	*mlx;
-	t_point	start;
-	t_point	end;
+	int	i;
+	int	j;
 
-	mlx = data->mlx;
-	data->ply->img = mlx_new_image(mlx, S_W, S_H);
-	mlx_image_to_window(mlx, data->ply->img, 0, 0);
-	start.x = data->ply->pos->x - 3;
-	start.y = data->ply->pos->y - 3;
-	end.x = 6;
-	end.y = 6;
-	ft_draw_square(start, end, data->ply->img, 0xFFFFFFFF);
-	start.x = data->ply->pos->x;
-	start.y = data->ply->pos->y;
-	end.x = start.x + cos(data->ply->angle) * 20;
-	end.y = start.y + sin(data->ply->angle) * 20;
-	ft_draw_line(start, end, data->ply->img);
+	i = 0;
+	while (data->structure->map[i] != NULL)
+	{
+		j = 0;
+		while (data->structure->map[i][j] != '\0')
+		{
+			if (!ft_strchr("01NSWE \n", data->structure->map[i][j]))
+				exit_error("Wrong cherechter in the map\n");
+			if (ft_strchr("NSWE", data->structure->map[i][j]))
+			{
+				ft_get_player(data, i, j);
+				data->map->n_player++;
+				data->structure->map[i][j] = '0';
+			}
+			j++;
+		}
+		i++;
+	}
+	if (data->map->n_player != 1)
+		exit_error("Wrong number of players\n");
+	ft_get_player_dir(data);
 }
 
-void	ft_player_move(t_data *data, char *direction)
+void	ft_get_player_dir(t_data *data)
 {
-	if (ft_strncmp(direction, "UP", 2) == 0)
-		data->ply->forward = 1;
-	else if (ft_strncmp(direction, "DOWN", 4) == 0)
-		data->ply->forward = -1;
-	else if (ft_strncmp(direction, "LEFT", 4) == 0)
-		data->ply->sidle = 1;
-	else if (ft_strncmp(direction, "RIGHT", 5) == 0)
-		data->ply->sidle = -1;
-	else if (ft_strncmp(direction, "TURN LEFT", 9) == 0)
-		data->ply->turn = -1;
-	else if (ft_strncmp(direction, "TURN RIGHT", 10) == 0)
-		data->ply->turn = 1;
-	else if (ft_strncmp(direction, "STOP SIDLE", 10) == 0)
-		data->ply->sidle = 0;
-	else if (ft_strncmp(direction, "STOP TURN", 9) == 0)
-		data->ply->turn = 0;
-	else if (ft_strncmp(direction, "STOP FORWARD", 12) == 0)
-		data->ply->forward = 0;
+	if (data->map->direction == 'N')
+	{
+		data->player_dir = N;
+	}
+	else if (data->map->direction == 'S')
+	{
+		data->player_dir = S;
+	}
+	else if (data->map->direction == 'E')
+	{
+		data->player_dir = E;
+	}
+	else if (data->map->direction == 'W')
+	{
+		data->player_dir = W;
+	}
 }
 
-int	ft_player_collision(t_data *data, int x, int y)
+void	ft_check_player_pos(t_data *data, int y, int x)
 {
-	int	res;
-	int	box_x;
-	int	box_y;
-
-	res = 0;
-	box_x = round(x / TILE_SIZE);
-	box_y = round(y / TILE_SIZE);
-	if (ft_collision(data, box_x, box_y))
-		res = 1;
-	return (res);
+	if (data->structure->map[y + 1][x] == ' '
+	|| data->structure->map[y - 1][x] == ' '
+	|| data->structure->map[y][x + 1] == ' '
+	|| data->structure->map[y][x - 1] == ' '
+	|| data->structure->map[y + 1][x] == '\n'
+	|| data->structure->map[y - 1][x] == '\n'
+	|| data->structure->map[y][x + 1] == '\n'
+	|| data->structure->map[y][x - 1] == '\n')
+	{
+		exit_error("Player is in wrong position\n");
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 19:29:45 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/20 19:30:13 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:37:19 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_draw_player(t_data *data)
 	start.y = (data->ply->pos->y / TILE_SIZE) * (TILE_SIZE / 5) + 5;
 	end.x = 6;
 	end.y = 6;
-	ft_draw_square(start, end, data->img, 0xFF0000FF);
+	ft_squar(start, end, data->img, 0xFF0000FF);
 	start.x = (data->ply->pos->x / TILE_SIZE) * (TILE_SIZE / 5) + 8;
 	start.y = (data->ply->pos->y / TILE_SIZE) * (TILE_SIZE / 5) + 8;
 	end.x = start.x + cos(data->ply->angle) * 10;
@@ -48,7 +48,7 @@ void	ft_draw_walls(t_data *data)
 				start.y = i * (TILE_SIZE / 5) + 5;
 				end.x = TILE_SIZE / 5;
 				end.y = TILE_SIZE / 5;
-				ft_draw_square(start, end, data->img, 0x000000FF);
+				ft_squar(start, end, data->img, 0x000000FF);
 			}
 		}
 	}
@@ -63,7 +63,7 @@ void	ft_draw_ground(t_data *data)
 	start.y = 5;
 	end.x = data->map->width * (TILE_SIZE / 5);
 	end.y = data->map->height * (TILE_SIZE / 5);
-	ft_draw_square(start, end, data->img, 0xFFFFFFFF);
+	ft_squar(start, end, data->img, 0xFFFFFFFF);
 }
 
 void	ft_minimap(void *param)

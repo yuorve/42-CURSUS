@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 11:59:50 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/12 18:37:25 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:01:36 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ void	ft_wall(t_data *data, int ray, int t_pix, int b_pix)
 	double		t_y;
 	double		y_step;
 	uint32_t	*pixels;
-	mlx_image_t *tmp;
 
-	tmp = mlx_texture_to_image(data->mlx, data->tex);
-	pixels = (uint32_t *)tmp->pixels;
+	pixels = data->pixels;
 	y_step = (double)data->tex->height / data->wall_h;
 	t_x = ft_get_x(data->tex, data);
 	t_y = (t_pix - (S_H / 2) + (data->wall_h / 2)) * y_step;
@@ -83,9 +81,10 @@ void	ft_wall(t_data *data, int ray, int t_pix, int b_pix)
 
 void	ft_render(t_data *data, int ray)
 {
-	double	b_pix;
-	double	t_pix;
-	double	angle;
+	double		b_pix;
+	double		t_pix;
+	double		angle;
+	mlx_image_t	*tmp;
 
 	angle = data->ray->angle - data->ply->angle;
 	data->ray->distance *= cos(ft_normalized(angle));
@@ -98,6 +97,9 @@ void	ft_render(t_data *data, int ray)
 	if (t_pix < 0)
 		t_pix = 0;
 	data->tex = ft_texture(data, data->ray->flag);
+	tmp = mlx_texture_to_image(data->mlx, data->tex);
+	data->pixels = (uint32_t *)tmp->pixels;
 	ft_wall(data, ray, t_pix, b_pix);
 	ft_floor_ceiling(data, ray, t_pix, b_pix);
+	mlx_delete_image(data->mlx, tmp);
 }

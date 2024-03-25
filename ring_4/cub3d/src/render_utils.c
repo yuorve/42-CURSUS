@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 18:06:24 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/12 18:20:15 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:54:52 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_color(t_data *data, int flag)
 
 mlx_image_t	*ft_load_image(t_data *data, int x, int y)
 {
-	mlx_image_t 	*wall;
+	mlx_image_t		*wall;
 	mlx_texture_t	*texture;
 	uint32_t		*xy;
 	uint32_t		*wh;

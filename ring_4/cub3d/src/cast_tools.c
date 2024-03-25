@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:21 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/02/27 19:36:54 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/23 17:51:40 by angalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_inter_check(float angle, float *inter, float *step, int is_horizon)
 	}
 	else
 	{
-		if (!(angle > M_PI / 2 && angle < 3 * M_PI / 2)) 
+		if (!(angle > M_PI / 2 && angle < 3 * M_PI / 2))
 		{
 			*inter += TILE_SIZE;
 			return (-1);

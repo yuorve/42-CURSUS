@@ -1,0 +1,10 @@
+SO ./textures/bluestone.png
+
+WE ./textures/purplestone.png  
+
+EA ./textures/eagle.png
+
+NO ./textures/colorstone.png
+
+F 250,100,0
+C 100,50,200

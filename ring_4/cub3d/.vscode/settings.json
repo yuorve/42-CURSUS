@@ -16,6 +16,10 @@
         "string": "c",
         "string_view": "c",
         "unordered_map": "c",
+<<<<<<< HEAD
+=======
+        "locale": "c",
+>>>>>>> merge3_cub3d
         "algorithm": "c"
     }
 }
