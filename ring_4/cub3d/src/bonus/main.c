@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:14:43 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/26 17:39:10 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:42:24 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,12 @@ int32_t	main(int argc, char **argv)
 	data->mlx = mlx_init(S_W, S_H, "Cube 3D - Play it!", true);
 	ft_load_texture(data);
 	ft_player_init(data);
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
+	mlx_set_mouse_pos(data->mlx, S_W / 2, S_H / 2);
+	mlx_cursor_hook(data->mlx, &ft_mouse_hook, data);
 	mlx_key_hook(data->mlx, &ft_keys_hook, data);
 	mlx_loop_hook(data->mlx, &ft_game, data);
+	mlx_loop_hook(data->mlx, &ft_minimap, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 	ft_free(data);

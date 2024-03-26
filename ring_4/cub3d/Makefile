@@ -5,7 +5,7 @@ LIBFT	= lib/libft
 LIBMLX	= lib/MLX42
 
 INC		= -I $(MLX42_PATH)/include -I $(LIBFT_PATH)
-GLFW_FLAGS = -lglfw -L /Users/angalsty/.brew/opt/glfw/lib
+GLFW_FLAGS = -lglfw -L /Users/$(USER)/.brew/opt/glfw/lib
 
 HEADER	= -I ./inc -I $(LIBMLX)/include -I $(LIBFT)/inc
 LFLAGS	= -L$(LIBFT) -lft -L$(LIBMLX) -lmlx42 
@@ -71,4 +71,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re

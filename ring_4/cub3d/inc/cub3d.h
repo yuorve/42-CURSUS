@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 19:19:43 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/25 18:43:22 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:08:53 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_player
 	int			forward;
 	int			sidle;
 	int			turn;
+	int			mouse_turn;
 }	t_player;
 
 typedef struct s_ray
