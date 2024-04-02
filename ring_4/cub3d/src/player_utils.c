@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:25:08 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/23 17:53:44 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:37:08 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_player(t_data *data)
 	start.y = data->ply->pos->y - 3;
 	end.x = 6;
 	end.y = 6;
-	ft_draw_square(start, end, data->ply->img, 0xFFFFFFFF);
+	ft_squar(start, end, data->ply->img, 0xFFFFFFFF);
 	start.x = data->ply->pos->x;
 	start.y = data->ply->pos->y;
 	end.x = start.x + cos(data->ply->angle) * 20;

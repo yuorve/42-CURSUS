@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 19:56:24 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/23 16:29:18 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:45:18 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ void	ft_free_struct(t_data *data)
 
 void	ft_free_structure(t_structure *structure)
 {
-	if (structure->NO != NULL)
-		free(structure->NO);
-	if (structure->SO != NULL)
-		free(structure->SO);
-	if (structure->WE != NULL)
-		free(structure->WE);
-	if (structure->EA != NULL)
-		free(structure->EA);
+	if (structure->no != NULL)
+		free(structure->no);
+	if (structure->so != NULL)
+		free(structure->so);
+	if (structure->we != NULL)
+		free(structure->we);
+	if (structure->ea != NULL)
+		free(structure->ea);
 	if (structure->map != NULL)
 		ft_free_matrix(structure->map);
 	if (structure->copy_map != NULL)

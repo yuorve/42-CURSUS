@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 19:56:28 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/23 19:26:58 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:46:27 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	ft_map_init(t_map *map)
 
 void	ft_structure_init(t_structure *structure)
 {
-	structure->NO = NULL;
-	structure->SO = NULL;
-	structure->WE = NULL;
-	structure->EA = NULL;
-	structure->F = 0;
-	structure->C = 0;
+	structure->no = NULL;
+	structure->so = NULL;
+	structure->we = NULL;
+	structure->ea = NULL;
+	structure->f = 0;
+	structure->c = 0;
 	structure->count_params = 0;
 	structure->cntl_map = 0;
 	structure->map = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angalsty <angalsty@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:14:43 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/23 19:27:07 by angalsty         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:04:03 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,6 @@ int32_t	main(int argc, char **argv)
 	mlx_loop_hook(data->mlx, &ft_minimap, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
-	ft_free_structure(data->structure);
-	free(data->structure);
-	free(data->map);
-	free(data->map_path);
 	ft_free(data);
 	return (0);
 }
