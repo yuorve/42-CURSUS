@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 21:15:16 by angalsty          #+#    #+#             */
-/*   Updated: 2024/03/26 18:07:22 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:20:01 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_check_map_params(t_data *data)
 		j = 0;
 		while (data->structure->map[i][j] != '\0')
 		{
-			if (!ft_strchr("01NSWE \n", data->structure->map[i][j]))
+			if (!ft_strchr("01DNSWE \n", data->structure->map[i][j]))
 				exit_error("Wrong character in the map\n");
 			if (ft_strchr("NSWE", data->structure->map[i][j]))
 			{

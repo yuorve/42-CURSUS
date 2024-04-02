@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 18:24:36 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/03/26 17:31:40 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:10:50 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	ft_move(mlx_t *mlx, t_data *data)
 		new = ft_get_pos(data->ply->pos, angle, data->ply->forward);
 	else
 		new = ft_get_pos(data->ply->pos, side_angle, data->ply->sidle);
-	data->ply->angle += (data->ply->turn * R_SPEED);
+	if (data->ply->mouse_turn != 0)
+		data->ply->angle += (data->ply->mouse_turn * R_SPEED);
+	else
+		data->ply->angle += (data->ply->turn * R_SPEED);
 	data->ply->angle = ft_normalized(data->ply->angle);
 	if (!ft_player_collision(data, new.x, new.y))
 	{
@@ -52,15 +55,14 @@ void	ft_mouse_hook(double xdelta, double ydelta, void *param)
 
 	data = param;
 	(void)ydelta;
-	data->ply->turn = 0;
-	printf("1; %f\n", xdelta);
+	data->ply->mouse_turn = 0;
 	if (xdelta < (S_W / 2) + 10)
-		data->ply->turn = -1;
+		data->ply->mouse_turn = -1;
 	else if (xdelta > (S_W / 2) + 10)
-		data->ply->turn = 1;
+		data->ply->mouse_turn = 1;
 	else
-		data->ply->turn = 0;
-	printf("2; %f\n", xdelta);
+		data->ply->mouse_turn = 0;
+	mlx_set_mouse_pos(data->mlx, S_W / 2, S_H / 2);
 }
 
 void	ft_game(void *param)
@@ -73,5 +75,5 @@ void	ft_game(void *param)
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	ft_move(data->mlx, data);
 	ft_cast_rays(data);
-	mlx_set_mouse_pos(data->mlx, (S_W / 2), (S_H / 2));
+	data->ply->mouse_turn = 0;
 }
