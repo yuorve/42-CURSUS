@@ -5,13 +5,13 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/05/06 17:21:04 by yoropeza          #+#    #+#              #
-#    Updated: 2024/05/06 17:50:36 by yoropeza         ###   ########.fr        #
+#    Created: 2024/04/25 16:39:31 by yoropeza          #+#    #+#              #
+#    Updated: 2024/05/06 17:49:51 by yoropeza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	= Zombie
-SRC		= main.cpp Zombie.hpp Zombie.cpp zombieHorde.cpp
+SRC		= main.cpp Zombie.hpp Zombie.cpp newZombie.cpp randomChump.cpp
 OBJS	= $(SRC:.cpp=.o)
 
 CC 		= c++

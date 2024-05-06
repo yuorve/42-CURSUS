@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zombieHorde.cpp                                    :+:      :+:    :+:   */
+/*   newZombie.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/06 17:24:23 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/05/06 17:51:12 by yoropeza         ###   ########.fr       */
+/*   Created: 2024/04/25 17:08:39 by yoropeza          #+#    #+#             */
+/*   Updated: 2024/05/06 17:49:59 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
-Zombie* zombieHorde( int N, std::string name ){
-
-	if (N > 0) {
-		Zombie	*horde = new Zombie[N];
-
-		for (int i = 0; i < N; i++)
-			horde[i].set_name(name);
-		
-		return (horde);
-	} else
-		return NULL;
+Zombie* newZombie( std::string name ){
+	
+	return (new Zombie(name));
 }
