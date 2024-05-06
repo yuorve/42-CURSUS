@@ -5,13 +5,13 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/04/17 16:01:32 by yoropeza          #+#    #+#              #
-#    Updated: 2024/04/25 17:21:21 by yoropeza         ###   ########.fr        #
+#    Created: 2024/04/25 10:20:36 by yoropeza          #+#    #+#              #
+#    Updated: 2024/04/25 17:20:59 by yoropeza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	= megaphone
-SRC		= megaphone.cpp
+NAME 	= test
+SRC		= Account.cpp tests.cpp
 OBJS	= $(SRC:.cpp=.o)
 
 CC 		= c++
@@ -33,7 +33,7 @@ all: $(NAME)
 
 $(NAME) : $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) $(LIBS) $(HEADER) -o $(NAME) &&\
-	printf "$(GREEN)$(BOLD)megaphone!\n$(RESET)"
+	printf "$(GREEN)$(BOLD)rCompilation completed!\n$(RESET)"
 
 obj/%.o : src/%.cpp
 	@$(CC) $(CFLAGS) -o $@ -c $< && printf "$(WHITE)$(BOLD)\rCompiling: \
