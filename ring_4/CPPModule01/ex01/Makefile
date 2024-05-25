@@ -6,12 +6,12 @@
 #    By: yoropeza <yoropeza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 17:21:04 by yoropeza          #+#    #+#              #
-#    Updated: 2024/05/25 18:19:51 by yoropeza         ###   ########.fr        #
+#    Updated: 2024/05/25 19:27:01 by yoropeza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	= Zombie
-SRC		= main.cpp Zombie.hpp Zombie.cpp zombieHorde.cpp
+NAME 	= Horde
+SRC		= main.cpp Zombie.cpp zombieHorde.cpp
 OBJS	= $(SRC:.cpp=.o)
 
 CC 		= g++
