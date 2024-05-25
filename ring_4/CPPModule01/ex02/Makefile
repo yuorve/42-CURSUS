@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+         #
+#    By: yoropeza <yoropeza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 17:03:01 by yoropeza          #+#    #+#              #
-#    Updated: 2024/05/16 17:03:50 by yoropeza         ###   ########.fr        #
+#    Updated: 2024/05/25 18:17:55 by yoropeza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 	= Brain
 SRC		= main.cpp
 OBJS	= $(SRC:.cpp=.o)
 
-CC 		= c++
+CC 		= g++
 CFLAGS	= -Wall -Werror -Wextra -std=c++98
 RM 		= rm -rf
 
