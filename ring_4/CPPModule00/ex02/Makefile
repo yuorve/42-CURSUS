@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+         #
+#    By: yoropeza <yoropeza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/25 10:20:36 by yoropeza          #+#    #+#              #
-#    Updated: 2024/04/25 17:20:59 by yoropeza         ###   ########.fr        #
+#    Updated: 2024/05/25 17:56:07 by yoropeza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 	= test
 SRC		= Account.cpp tests.cpp
 OBJS	= $(SRC:.cpp=.o)
 
-CC 		= c++
+CC 		= g++
 CFLAGS	= -Wall -Werror -Wextra -std=c++98
 RM 		= rm -rf
 

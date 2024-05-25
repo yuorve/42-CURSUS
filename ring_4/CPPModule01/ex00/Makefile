@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+         #
+#    By: yoropeza <yoropeza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/25 16:39:31 by yoropeza          #+#    #+#              #
-#    Updated: 2024/05/06 17:49:51 by yoropeza         ###   ########.fr        #
+#    Updated: 2024/05/25 17:56:04 by yoropeza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 	= Zombie
 SRC		= main.cpp Zombie.hpp Zombie.cpp newZombie.cpp randomChump.cpp
 OBJS	= $(SRC:.cpp=.o)
 
-CC 		= c++
+CC 		= g++
 CFLAGS	= -Wall -Werror -Wextra -std=c++98
 RM 		= rm -rf
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+         #
+#    By: yoropeza <yoropeza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/17 16:01:32 by yoropeza          #+#    #+#              #
-#    Updated: 2024/04/25 17:21:21 by yoropeza         ###   ########.fr        #
+#    Updated: 2024/05/25 17:56:12 by yoropeza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 	= megaphone
 SRC		= megaphone.cpp
 OBJS	= $(SRC:.cpp=.o)
 
-CC 		= c++
+CC 		= g++
 CFLAGS	= -Wall -Werror -Wextra -std=c++98
 RM 		= rm -rf
 

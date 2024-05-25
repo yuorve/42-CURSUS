@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+         #
+#    By: yoropeza <yoropeza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/17 16:21:45 by yoropeza          #+#    #+#              #
-#    Updated: 2024/04/25 17:20:42 by yoropeza         ###   ########.fr        #
+#    Updated: 2024/05/25 17:56:09 by yoropeza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 	= phonebook
 SRC		= main.cpp PhoneBook.class.cpp Contact.class.cpp
 OBJS	= $(SRC:.cpp=.o)
 
-CC 		= c++
+CC 		= g++
 CFLAGS	= -Wall -Werror -Wextra -std=c++98
 RM 		= rm -rf
 
