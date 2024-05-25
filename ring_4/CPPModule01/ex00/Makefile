@@ -6,7 +6,7 @@
 #    By: yoropeza <yoropeza@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/25 16:39:31 by yoropeza          #+#    #+#              #
-#    Updated: 2024/05/25 17:56:04 by yoropeza         ###   ########.fr        #
+#    Updated: 2024/05/25 18:20:00 by yoropeza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ all: $(NAME)
 
 $(NAME) : $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) $(LIBS) $(HEADER) -o $(NAME) &&\
-	printf "$(GREEN)$(BOLD)rCompilation completed!\n$(RESET)"
+	printf "$(GREEN)$(BOLD)\rCompilation completed!\n$(RESET)"
 
 obj/%.o : src/%.cpp
 	@$(CC) $(CFLAGS) -o $@ -c $< && printf "$(WHITE)$(BOLD)\rCompiling: \
