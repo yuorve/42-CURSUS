@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 10:13:08 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/21 12:15:59 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/21 12:35:39 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(int argc, char **argv){
 	size_t			pos;	
 
 	if (ifs.is_open()) {
-		if (!std::getcontent(ifs, content, '\0')) {
+		if (!std::getline(ifs, content, '\0')) {
 			ifs.close();
 			std::cout << "Error reading file." << std::endl;
 			return (1);
