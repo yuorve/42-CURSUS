@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:17:17 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/27 16:18:29 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:47:27 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ ClapTrap::ClapTrap(std::string name) : _name(name), _hitPoints(10), _energyPoint
     std::cout << "ClapTrap " << _name << " is created!" << std::endl;
 }
 
-ClapTrap::ClapTrap(const ClapTrap& other) {
+ClapTrap::ClapTrap(const ClapTrap &other) {
     std::cout << "ClapTrap copy constructor called" << std::endl;
     *this = other;
 }
 
-ClapTrap& ClapTrap::operator=(const ClapTrap& other) {
+ClapTrap& ClapTrap::operator=(const ClapTrap &other) {
     std::cout << "ClapTrap assignment operator called" << std::endl;
     if (this != &other) {
         _name = other._name;
@@ -41,7 +41,7 @@ ClapTrap::~ClapTrap() {
     std::cout << "ClapTrap " << _name << " is destroyed!" << std::endl;
 }
 
-void ClapTrap::attack(const std::string& target) {
+void ClapTrap::attack(const std::string &target) {
     if (_energyPoints > 0 && _hitPoints > 0) {
         std::cout << "ClapTrap " << _name << " attacks " << target << ", causing " << _attackDamage << " points of damage!" << std::endl;
         _energyPoints--;
