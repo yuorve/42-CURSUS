@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 16:22:42 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/27 17:20:17 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:46:07 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int main(void) {
 
     std::cout << "\nTesting FragTrap:" << std::endl;
     frag.attack("Murder");
-    frag.takeDamage(15);
-    frag.beRepaired(10);
+    frag.takeDamage(25);
+    frag.beRepaired(20);
     frag.highFivesGuys();
     
     std::cout << "\nDestroying objects:" << std::endl;
