@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 10:18:17 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/28 11:15:27 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/28 14:56:29 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class WrongCat : public WrongAnimal
 		~WrongCat(void);
 
 		std::string	getType(void) const;
-		virtual	void makeSound(void) const;
+		void makeSound(void) const override;
 };
 
 #endif
