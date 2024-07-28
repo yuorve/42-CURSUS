@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 10:37:12 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/28 15:39:31 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:45:06 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 Cat::Cat(void) {
 	std::cout << "Cat default constructor called" << std::endl;
 	this->type = "Cat";
-}
-
-Cat::Cat(std::string type) {
-	std::cout << "Cat parametized constructor called" << std::endl;
-	this->type = type;
 }
 
 Cat::Cat(const Cat &other) {

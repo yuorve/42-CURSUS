@@ -17,11 +17,6 @@ WrongCat::WrongCat(void) {
 	this->type = "WrongCat";
 }
 
-WrongCat::WrongCat(std::string type) {
-	std::cout << "WrongCat parametized constructor called" << std::endl;
-	this->type = type;
-}
-
 WrongCat::WrongCat(const WrongCat &other) {
 	std::cout << "WrongCat copy constructor called" << std::endl;
 	this->type = other.type;

@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 10:18:17 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/28 15:10:02 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:44:56 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 class Cat : public Animal {
 	public:
 		Cat(void);
-		Cat(std::string type);
 		Cat(const Cat &other);
 		Cat	&operator=(const Cat &other);
 		~Cat(void);

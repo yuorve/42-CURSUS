@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 10:37:12 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/28 15:39:26 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:45:23 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 Dog::Dog(void) {
 	std::cout << "Dog default constructor called" << std::endl;
 	this->type = "Dog";
-}
-
-Dog::Dog(std::string type) {
-	std::cout << "Dog parametized constructor called" << std::endl;
-	this->type = type;
 }
 
 Dog::Dog(const Dog &other) {
