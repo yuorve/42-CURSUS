@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 10:37:12 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/28 15:45:06 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:49:23 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ Cat::Cat(void) {
 
 Cat::Cat(const Cat &other) {
 	std::cout << "Cat copy constructor called" << std::endl;
-	this->type = other.type;
+	*this = other;
 }
 
 Cat::~Cat(void) {
