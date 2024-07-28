@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 10:18:17 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/28 14:56:40 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:35:27 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 
 class Dog : public Animal
 {
-	protected:
-		std::string	type;
 	public:
 		Dog(void);
 		Dog(std::string type);

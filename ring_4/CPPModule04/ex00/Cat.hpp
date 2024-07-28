@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 10:18:17 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/28 14:56:45 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:10:02 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include "Animal.hpp"
 
 class Cat : public Animal {
-	protected:
-		std::string	type;
 	public:
 		Cat(void);
 		Cat(std::string type);

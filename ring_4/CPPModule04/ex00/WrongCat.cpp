@@ -36,7 +36,7 @@ WrongCat	&WrongCat::operator=(const WrongCat &other) {
 	return *this;
 }
 
-void WrongCat::makeSound(void) const override {
+void WrongCat::makeSound(void) const {
 	std::cout << "Fake Meow Sound" << std::endl;
 }
 

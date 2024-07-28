@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 10:37:12 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/28 14:51:47 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:39:31 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ Cat	&Cat::operator=(const Cat &other) {
 	return *this;
 }
 
-void Cat::makeSound(void) const override {
+void Cat::makeSound(void) const {
 	std::cout << "Meow" << std::endl;
 }
 

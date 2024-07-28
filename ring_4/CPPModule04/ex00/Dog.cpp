@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 10:37:12 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/28 14:54:39 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:39:26 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ Dog	&Dog::operator=(const Dog &other) {
 	return *this;
 }
 
-void Dog::makeSound(void) const override {
+void Dog::makeSound(void) const {
 	std::cout << "Woof" << std::endl;
 }
 
