@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 10:18:17 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/28 11:15:21 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:52:54 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 # define DOG_CLASS_HPP
 
 # include "Animal.hpp"
+# include "Brain.hpp"
 
 class Dog : public Animal
 {
-	protected:
-		std::string	type;
+	private:
+    	Brain *brain;
 	public:
 		Dog(void);
-		Dog(std::string type);
 		Dog(const Dog &other);
 		Dog	&operator=(const Dog &other);
 		~Dog(void);
 
 		std::string	getType(void) const;
-		virtual void makeSound(void) const;
+		void makeSound(void) const override;
 };
 
 #endif

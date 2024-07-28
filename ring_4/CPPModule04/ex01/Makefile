@@ -6,12 +6,12 @@
 #    By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/28 10:14:16 by yoropeza          #+#    #+#              #
-#    Updated: 2024/07/28 14:34:48 by yoropeza         ###   ########.fr        #
+#    Updated: 2024/07/28 15:56:17 by yoropeza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	= Animals
-SRC		= main.cpp Animal.cpp WrongAnimal.cpp Dog.cpp Cat.cpp WrongCat.cpp Brain.cpp
+SRC		= main.cpp Animal.cpp Dog.cpp Cat.cpp Brain.cpp
 OBJS	= $(SRC:.cpp=.o)
 
 CC 		= g++
