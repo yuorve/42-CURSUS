@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:13:38 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/30 17:05:19 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:39:04 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "AForm.hpp"
 
-class PresidentialPardonForm : public Form {
+class PresidentialPardonForm : public AForm {
 private:
 	std::string target;
 

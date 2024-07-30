@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:01:23 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/30 17:05:14 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:39:40 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <cstdlib>
 # include <ctime>
 
-class RobotomyRequestForm : public Form {
+class RobotomyRequestForm : public AForm {
 private:
 	std::string target;
 

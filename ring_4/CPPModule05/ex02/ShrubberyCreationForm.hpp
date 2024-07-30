@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:30:40 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/30 17:05:06 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:40:10 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "AForm.hpp"
 # include <fstream>
 
-class ShrubberyCreationForm : public Form {
+class ShrubberyCreationForm : public AForm {
 private:
 	std::string target;
 

@@ -6,21 +6,21 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:04:07 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/30 17:17:16 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:41:21 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm(void) : Form("RobotomyRequestForm", 72, 45), target("Default"){
+RobotomyRequestForm::RobotomyRequestForm(void) : AForm("RobotomyRequestForm", 72, 45), target("Default"){
 	//std::cout << "Default constructor called" << std::endl;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const std::string &target) : Form("RobotomyRequestForm", 72, 45), target(target){
+RobotomyRequestForm::RobotomyRequestForm(const std::string &target) : AForm("RobotomyRequestForm", 72, 45), target(target){
 	//std::cout << "Parameterized constructor called" << std::endl;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &other) : Form(other), target(other.target){
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &other) : AForm(other), target(other.target){
 	//std::cout << "Copy constructor called" << std::endl;
 }
 
@@ -30,9 +30,9 @@ RobotomyRequestForm::~RobotomyRequestForm(void) {
 
 void	RobotomyRequestForm::execute(Bureaucrat const &executor) const{
 	if(!this->getIsSigned())
-		throw Form::FormNotSignedException();
+		throw AForm::FormNotSignedException();
 	else if(executor.getGrade() > this->getGradeToExecute())
-		throw Form::GradeTooLowException();
+		throw AForm::GradeTooLowException();
 
 		std::cout << executor.getName() << " executing " << this->getName() << std::endl;
 		std::cout << "Rrrrrrrrrrrrr..." << std::endl;

@@ -6,21 +6,21 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:34:07 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/30 17:20:44 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:41:08 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm(void) : Form("ShrubberyCreationForm", 145, 137), target("Default"){
+ShrubberyCreationForm::ShrubberyCreationForm(void) : AForm("ShrubberyCreationForm", 145, 137), target("Default"){
 	//std::cout << "Default constructor called" << std::endl;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : Form("ShrubberyCreationForm", 145, 137), target(target){
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm("ShrubberyCreationForm", 145, 137), target(target){
 	//std::cout << "Parameterized constructor called" << std::endl;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other) : Form(other), target(other.target){
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other) : AForm(other), target(other.target){
 	//std::cout << "Copy constructor called" << std::endl;
 }
 
@@ -30,9 +30,9 @@ ShrubberyCreationForm::~ShrubberyCreationForm(void) {
 
 void	ShrubberyCreationForm::execute(Bureaucrat const &executor) const{
 	if(!this->getIsSigned())
-		throw Form::FormNotSignedException();
+		throw AForm::FormNotSignedException();
 	else if(executor.getGrade() > this->getGradeToExecute())
-		throw Form::GradeTooLowException();
+		throw AForm::GradeTooLowException();
 
 		std::cout << executor.getName() << " executing " << this->getName() << std::endl;
 		

@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:36:43 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/30 17:13:48 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:37:44 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat& other) : name(other.name), grade(other.
 	//std::cout << "Bureaucrat Copy constructor called" << std::endl;
 }
 
-Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other) {
+Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other) {
 	if (this != &other) {		
 		grade = other.grade;
 	}
@@ -60,7 +60,7 @@ void Bureaucrat::decrementGrade(void) {
 	++grade;
 }
 
-void Bureaucrat::signForm(Form &form) {
+void Bureaucrat::signForm(AForm &form) {
     try {
         form.beSigned(*this);
         std::cout << name << " signed " << form.getName() << std::endl;
@@ -69,7 +69,7 @@ void Bureaucrat::signForm(Form &form) {
     }
 }
 
-void Bureaucrat::executeForm(Form const & form) {
+void Bureaucrat::executeForm(AForm const &form) {
     try {
         form.execute(*this);
         std::cout << name << " executed " << form.getName() << std::endl;
@@ -78,7 +78,7 @@ void Bureaucrat::executeForm(Form const & form) {
     }
 }
 
-std::ostream& operator<<(std::ostream& os, const Bureaucrat& bureaucrat) {
+std::ostream &operator<<(std::ostream &os, const Bureaucrat &bureaucrat) {
 	os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade();
 	return os;
 }
