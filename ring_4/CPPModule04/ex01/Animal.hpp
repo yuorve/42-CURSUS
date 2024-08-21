@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 10:18:17 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/07/28 11:15:07 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:00:00 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ class Animal
 		Animal(std::string type);
 		Animal(const Animal &other);
 		Animal	&operator=(const Animal &other);
-		~Animal(void);
+		virtual ~Animal(void);
 
 		std::string	getType(void) const;
 		virtual	void makeSound(void) const;
