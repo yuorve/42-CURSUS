@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:41:00 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/08/25 10:29:05 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/08/25 10:38:52 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,18 @@ int Span::longestSpan()
                *std::min_element(_numbers.begin(), _numbers.end());
 }
 
+int RandomNumber () {
+	return (std::rand());
+}
+
 void Span::fillVector(unsigned int n)
 {
-    unsigned int i = 1;
+	unsigned int	size = this->_numbers.size();
+
+	if (size + n > this->_N)
+        throw std::runtime_error("Span is full");		
+
 	std::srand(unsigned(std::time(0)));
-    while (i < n)
-    {        
-        addNumber(std::rand());
-        i++;        
-    }
+	_numbers.resize(size + n);
+	std::generate(_numbers.begin() + size, _numbers.end(), RandomNumber);
 }
