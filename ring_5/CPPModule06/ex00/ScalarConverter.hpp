@@ -6,7 +6,7 @@
 /*   By: yoropeza <yoropeza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 09:14:40 by yoropeza          #+#    #+#             */
-/*   Updated: 2024/08/23 11:22:24 by yoropeza         ###   ########.fr       */
+/*   Updated: 2024/08/25 07:28:53 by yoropeza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,6 @@
 #include <limits>
 #include <cmath>
 #include <iomanip>
-
-enum    _type
-{
-	NONE,
-	CHAR,
-	INT,
-	FLOAT,
-	DOUBLE,
-	LITERALS
-};
 
 class ScalarConverter
 {
