@@ -1,0 +1,17 @@
+DOMAIN_NAME=yoropeza.42.fr
+CERTS=/etc/nginx/ssl/inception.crt
+
+# Wordpress setup
+WP_TITLE="MyInception"
+WP_ADMIN_USER=yoropeza
+WP_ADMIN_PWD=Contrasena.42
+WP_ADMIN_EMAIL=yoropeza@student.42malaga.com
+WP_USER=yuorve
+WP_EMAIL=yuryoropeza@hotmail.com
+WP_PWD=Contrasena
+
+# Mysql setup
+SQL_DB=mydb
+SQL_USER=yoropeza
+SQL_PWD=Contrasena
+SQL_ROOT_PWD=Contrasena.42
